@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
@@ -59,14 +60,17 @@ body{
 }
 
 @keyframes cardIn{
+
     from{
         opacity:0;
         transform:translateY(25px) scale(.97);
     }
+
     to{
         opacity:1;
         transform:translateY(0) scale(1);
     }
+
 }
 
 .logo{
@@ -229,8 +233,6 @@ input:focus{
     box-shadow:
     0 0 0 3px rgba(77,163,255,.08);
 }
-
-/* PASSWORD */
 
 .password-input{
     padding-right:60px;
@@ -499,26 +501,34 @@ input:focus{
     .phone-row{
         grid-template-columns:82px 1fr;
     }
+
 }
 
 </style>
+
 </head>
+
 
 <body>
 
+
 <div class="login-container">
+
 
     <div class="logo">
         FZ
     </div>
 
+
     <div class="brand">
         FHAMAR<span>.ZAMOST</span>
     </div>
 
+
     <div class="tagline">
         PREMIUM DIGITAL PORTAL
     </div>
+
 
     <div class="welcome">
 
@@ -533,9 +543,10 @@ input:focus{
     </div>
 
 
-    <!-- LOGIN OPTIONS -->
+    <!-- LOGIN TABS -->
 
     <div class="login-tabs">
+
 
         <button
             type="button"
@@ -546,6 +557,7 @@ input:focus{
 
         </button>
 
+
         <button
             type="button"
             class="tab"
@@ -554,6 +566,7 @@ input:focus{
             MOBILE OTP
 
         </button>
+
 
         <button
             type="button"
@@ -564,6 +577,7 @@ input:focus{
 
         </button>
 
+
     </div>
 
 
@@ -571,17 +585,20 @@ input:focus{
 
     <form id="emailForm">
 
+
         <div class="input-group">
 
             <label>
                 EMAIL ADDRESS
             </label>
 
+
             <div class="input-box">
 
                 <span class="input-icon">
                     ✉
                 </span>
+
 
                 <input
                     id="email"
@@ -601,11 +618,13 @@ input:focus{
                 PASSWORD
             </label>
 
+
             <div class="input-box">
 
                 <span class="input-icon">
                     ●
                 </span>
+
 
                 <input
                     id="password"
@@ -616,6 +635,7 @@ input:focus{
                     maxlength="6"
                     placeholder="Enter 6 character password"
                     required>
+
 
                 <button
                     type="button"
@@ -628,6 +648,7 @@ input:focus{
                 </button>
 
             </div>
+
 
             <div class="password-rule">
 
@@ -661,6 +682,7 @@ input:focus{
 
         </button>
 
+
     </form>
 
 
@@ -670,13 +692,16 @@ input:focus{
         id="phoneSection"
         class="phone-section">
 
+
         <div class="input-group">
 
             <label>
                 MOBILE NUMBER
             </label>
 
+
             <div class="phone-row">
+
 
                 <select
                     id="countryCode"
@@ -687,6 +712,7 @@ input:focus{
                     </option>
 
                 </select>
+
 
                 <input
                     id="phoneNumber"
@@ -715,11 +741,13 @@ input:focus{
             id="otpArea"
             class="otp-area">
 
+
             <div class="input-group">
 
                 <label>
                     ENTER OTP
                 </label>
+
 
                 <input
                     id="otpCode"
@@ -740,10 +768,12 @@ input:focus{
 
             </button>
 
+
         </div>
 
 
         <div id="recaptcha-container"></div>
+
 
     </div>
 
@@ -754,18 +784,23 @@ input:focus{
         id="googleSection"
         class="google-section">
 
+
         <button
             type="button"
             id="googleButton"
             class="google-button">
 
+
             <span class="google-icon">
                 G
             </span>
 
+
             Continue with Google
 
+
         </button>
+
 
     </div>
 
@@ -776,8 +811,11 @@ input:focus{
 
         Don't have an account?
 
+
         <a href="register.html">
+
             Create Account
+
         </a>
 
     </div>
@@ -803,24 +841,20 @@ input:focus{
 
     </div>
 
+
 </div>
 
 
+
 <!-- ==================================================
-     FIREBASE
+     FIREBASE CONFIG & LOGIC
 ================================================== -->
 
 <script type="module">
 
-import {
-    initializeApp
-}
-from
-"https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-
+import { auth } from "./firebase-config.js";
 
 import {
-    getAuth,
     signInWithEmailAndPassword,
     GoogleAuthProvider,
     signInWithRedirect,
@@ -828,198 +862,133 @@ import {
     signInWithPhoneNumber,
     sendPasswordResetEmail,
     getRedirectResult
-}
-from
-"https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+} from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
 
 
 /* ==================================================
-   YOUR FIREBASE CONFIG
+   GOOGLE PROVIDER
 ================================================== */
 
-const firebaseConfig = {
-
-    apiKey:
-    "AIzaSyDpyBWCS7hquXoKcEfGSYDFi7epMNHTTTg",
-
-    authDomain:
-    "zamost1.firebaseapp.com",
-
-    projectId:
-    "zamost1",
-
-    storageBucket:
-    "zamost1.firebasestorage.app",
-
-    messagingSenderId:
-    "660391979595",
-
-    appId:
-    "1:660391979595:web:62389051f81c388505fbce",
-
-    measurementId:
-    "G-PTVR032GDP"
-
-};
-
-
-/* ==================================================
-   INITIALIZE FIREBASE
-================================================== */
-
-const app =
-    initializeApp(firebaseConfig);
-
-const auth =
-    getAuth(app);
-
-const googleProvider =
-    new GoogleAuthProvider();
+const googleProvider = new GoogleAuthProvider();
 
 googleProvider.setCustomParameters({
-    prompt:"select_account"
+    prompt: "select_account"
 });
 
-
 let confirmationResult = null;
-
 let recaptchaVerifier = null;
 
 
 /* ==================================================
-   MESSAGE
+   MESSAGE DISPLAY
 ================================================== */
 
-function showMessage(text,type="error"){
-
-    const box =
-        document.getElementById("message");
-
+function showMessage(text, type = "error") {
+    const box = document.getElementById("message");
     box.textContent = text;
-
-    box.className =
-        "message show " + type;
-
+    box.className = "message show " + type;
 }
 
 
 /* ==================================================
-   FIREBASE ERROR
+   FIREBASE ERROR HANDLING
 ================================================== */
 
-function getFirebaseError(error){
-
-    const code =
-        error?.code || "";
+function getFirebaseError(error) {
+    const code = error?.code || "";
 
     const errors = {
-
-        "auth/invalid-credential":
-        "Email or password is incorrect.",
-
-        "auth/invalid-login-credentials":
-        "Email or password is incorrect.",
-
-        "auth/user-not-found":
-        "No account found with this email.",
-
-        "auth/wrong-password":
-        "Incorrect password.",
-
-        "auth/invalid-email":
-        "Please enter a valid email address.",
-
-        "auth/too-many-requests":
-        "Too many login attempts. Please try again later.",
-
-        "auth/network-request-failed":
-        "Network problem. Check your internet connection.",
-
-        "auth/operation-not-allowed":
-        "This authentication method is not enabled in Firebase.",
-
-        "auth/invalid-phone-number":
-        "Please enter a valid 10 digit mobile number.",
-
-        "auth/quota-exceeded":
-        "SMS limit reached. Please try again later.",
-
-        "auth/code-expired":
-        "OTP expired. Please request a new OTP.",
-
-        "auth/invalid-verification-code":
-        "Invalid OTP. Please check the OTP.",
-
-        "auth/unauthorized-domain":
-        "This website domain is not authorized in Firebase."
-
+        "auth/invalid-credential": "Email or password is incorrect.",
+        "auth/invalid-login-credentials": "Email or password is incorrect.",
+        "auth/user-not-found": "No account found with this email.",
+        "auth/wrong-password": "Incorrect password.",
+        "auth/invalid-email": "Please enter a valid email address.",
+        "auth/too-many-requests": "Too many login attempts. Please try again later.",
+        "auth/network-request-failed": "Network problem. Check your internet connection.",
+        "auth/operation-not-allowed": "This authentication method is not enabled in Firebase.",
+        "auth/invalid-phone-number": "Please enter a valid 10 digit mobile number.",
+        "auth/quota-exceeded": "SMS limit reached. Please try again later.",
+        "auth/code-expired": "OTP expired. Please request a new OTP.",
+        "auth/invalid-verification-code": "Invalid OTP. Please check the OTP.",
+        "auth/unauthorized-domain": "This website domain is not authorized in Firebase.",
+        "auth/popup-blocked": "Google login was blocked by the browser.",
+        "auth/popup-closed-by-user": "Google login was cancelled.",
+        "auth/account-exists-with-different-credential": "An account already exists with another sign-in method."
     };
 
-    return errors[code]
-        ||
-        "Login failed. Please try again.";
-
+    return errors[code] || "Login failed. Please try again.";
 }
 
 
 /* ==================================================
-   HOME PAGE CONNECTION
+   NAVIGATION
 ================================================== */
 
-function goHome(){
-
-    /*
-       LOGIN SUCCESS
-             ↓
-       HOME.HTML
-
-       index.html aur home.html
-       same folder mein rakhein.
-    */
-
+function goHome() {
     window.location.assign("home.html");
-
 }
+
+
+/* ==================================================
+   TAB SWITCHING (FIXED BUTTON SWITCHING)
+================================================== */
+
+function switchTab(mode) {
+    const emailForm = document.getElementById("emailForm");
+    const phoneSection = document.getElementById("phoneSection");
+    const googleSection = document.getElementById("googleSection");
+
+    const emailTab = document.getElementById("emailTab");
+    const phoneTab = document.getElementById("phoneTab");
+    const googleTab = document.getElementById("googleTab");
+
+    // Hide all sections
+    emailForm.style.display = "none";
+    phoneSection.style.display = "none";
+    googleSection.style.display = "none";
+
+    // Remove active state
+    emailTab.classList.remove("active");
+    phoneTab.classList.remove("active");
+    googleTab.classList.remove("active");
+
+    // Clear previous messages
+    const msgBox = document.getElementById("message");
+    msgBox.className = "message";
+    msgBox.textContent = "";
+
+    // Show active section
+    if (mode === "email") {
+        emailForm.style.display = "block";
+        emailTab.classList.add("active");
+    } else if (mode === "phone") {
+        phoneSection.style.display = "block";
+        phoneTab.classList.add("active");
+    } else if (mode === "google") {
+        googleSection.style.display = "block";
+        googleTab.classList.add("active");
+    }
+}
+
+document.getElementById("emailTab").addEventListener("click", () => switchTab("email"));
+document.getElementById("phoneTab").addEventListener("click", () => switchTab("phone"));
+document.getElementById("googleTab").addEventListener("click", () => switchTab("google"));
 
 
 /* ==================================================
    PASSWORD SHOW / HIDE
 ================================================== */
 
-document
-.getElementById("passwordEye")
-.addEventListener("click",function(){
+document.getElementById("passwordEye").addEventListener("click", function () {
+    const password = document.getElementById("password");
 
-    const password =
-        document.getElementById("password");
-
-    const button = this;
-
-
-    if(password.type === "password"){
-
+    if (password.type === "password") {
         password.type = "text";
-
-        button.textContent = "👁️";
-
-        button.setAttribute(
-            "aria-label",
-            "Hide password"
-        );
-
-    }else{
-
+        this.textContent = "👁️";
+    } else {
         password.type = "password";
-
-        button.textContent = "🙈";
-
-        button.setAttribute(
-            "aria-label",
-            "Show password"
-        );
-
+        this.textContent = "🙈";
     }
-
 });
 
 
@@ -1027,96 +996,32 @@ document
    EMAIL LOGIN
 ================================================== */
 
-document
-.getElementById("emailForm")
-.addEventListener("submit",async function(event){
-
+document.getElementById("emailForm").addEventListener("submit", async function (event) {
     event.preventDefault();
 
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
 
-    const email =
-        document.getElementById("email")
-        .value
-        .trim();
-
-
-    const password =
-        document.getElementById("password")
-        .value;
-
-
-    /*
-       EXACTLY 6 CHARACTERS
-    */
-
-    if(password.length !== 6){
-
-        showMessage(
-            "Password must be exactly 6 characters."
-        );
-
+    if (password.length !== 6) {
+        showMessage("Password must be exactly 6 characters.");
         return;
-
     }
 
-
-    const button =
-        document.getElementById(
-            "emailLoginButton"
-        );
-
-
+    const button = document.getElementById("emailLoginButton");
     button.disabled = true;
+    button.textContent = "SIGNING IN...";
 
-    button.textContent =
-        "SIGNING IN...";
-
-
-    try{
-
-        await signInWithEmailAndPassword(
-            auth,
-            email,
-            password
-        );
-
-
-        showMessage(
-            "Login successful. Opening Home...",
-            "success"
-        );
-
-
-        setTimeout(
-            goHome,
-            500
-        );
-
-    }
-
-    catch(error){
-
-        console.error(
-            "Firebase Email Login:",
-            error
-        );
-
-
-        showMessage(
-            getFirebaseError(error)
-        );
-
-    }
-
-    finally{
-
+    try {
+        await signInWithEmailAndPassword(auth, email, password);
+        showMessage("Login successful. Opening Home...", "success");
+        setTimeout(goHome, 500);
+    } catch (error) {
+        console.error("Firebase Email Login:", error);
+        showMessage(getFirebaseError(error));
+    } finally {
         button.disabled = false;
-
-        button.textContent =
-            "SIGN IN";
-
+        button.textContent = "SIGN IN";
     }
-
 });
 
 
@@ -1124,52 +1029,21 @@ document
    FORGOT PASSWORD
 ================================================== */
 
-document
-.getElementById("forgotPassword")
-.addEventListener("click",async function(){
+document.getElementById("forgotPassword").addEventListener("click", async function () {
+    const email = document.getElementById("email").value.trim();
 
-    const email =
-        document.getElementById("email")
-        .value
-        .trim();
-
-
-    if(!email){
-
-        showMessage(
-            "First enter your email address."
-        );
-
+    if (!email) {
+        showMessage("First enter your email address.");
         return;
-
     }
 
-
-    try{
-
-        await sendPasswordResetEmail(
-            auth,
-            email
-        );
-
-
-        showMessage(
-            "Password reset email sent. Check your email.",
-            "success"
-        );
-
+    try {
+        await sendPasswordResetEmail(auth, email);
+        showMessage("Password reset email sent. Check your email.", "success");
+    } catch (error) {
+        console.error("Password Reset:", error);
+        showMessage(getFirebaseError(error));
     }
-
-    catch(error){
-
-        console.error(error);
-
-        showMessage(
-            getFirebaseError(error)
-        );
-
-    }
-
 });
 
 
@@ -1177,47 +1051,22 @@ document
    GOOGLE LOGIN
 ================================================== */
 
-document
-.getElementById("googleButton")
-.addEventListener("click",async function(){
-
+document.getElementById("googleButton").addEventListener("click", async function () {
     const button = this;
-
     button.disabled = true;
+    button.innerHTML = "Opening Google...";
 
-    button.innerHTML =
-        "Opening Google...";
-
-
-    try{
-
-        await signInWithRedirect(
-            auth,
-            googleProvider
-        );
-
-    }
-
-    catch(error){
-
-        console.error(
-            "Google Login:",
-            error
-        );
-
+    try {
+        await signInWithRedirect(auth, googleProvider);
+    } catch (error) {
+        console.error("Google Login:", error);
         button.disabled = false;
-
         button.innerHTML = `
             <span class="google-icon">G</span>
             Continue with Google
         `;
-
-        showMessage(
-            getFirebaseError(error)
-        );
-
+        showMessage(getFirebaseError(error));
     }
-
 });
 
 
@@ -1226,48 +1075,18 @@ document
 ================================================== */
 
 getRedirectResult(auth)
-
-.then(function(result){
-
-    if(result && result.user){
-
-        showMessage(
-            "Google Login successful. Opening Home...",
-            "success"
-        );
-
-
-        setTimeout(
-            goHome,
-            500
-        );
-
-    }
-
-})
-
-.catch(function(error){
-
-    console.error(
-        "Google Redirect:",
-        error
-    );
-
-    showMessage(
-        getFirebaseError(error)
-    );
-
-});
+    .then(function (result) {
+        if (result && result.user) {
+            showMessage("Google Login successful. Opening Home...", "success");
+            setTimeout(goHome, 500);
+        }
+    })
+    .catch(function (error) {
+        console.error("Google Redirect:", error);
+        showMessage(getFirebaseError(error));
+    });
 
 
 /* ==================================================
-   LOGIN MODE SWITCH
-================================================== */
-
-function showMode(mode){
-
-    const emailForm =
-        document.getElementById("emailForm");
-
-    const phoneSection =
-        do
+   MOBILE OTP LOGIN (ADDED COMPLETE LOGIC)
+===========================================
