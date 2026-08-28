@@ -1,0 +1,1705 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Notifications | FHAMAR ZAMOST</title>
+
+
+<style>
+
+/* =========================================
+   BASIC
+========================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+    background:#050b12;
+    color:#fff;
+}
+
+button,
+input,
+select{
+    font-family:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+header{
+
+    height:75px;
+
+    padding:0 5%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    background:#07111d;
+
+    border-bottom:1px solid #30465d;
+
+    position:sticky;
+
+    top:0;
+
+    z-index:1000;
+}
+
+
+.brand-area{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+}
+
+
+.fz-logo{
+
+    width:45px;
+
+    height:45px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:12px;
+
+    border:1px solid #8298ad;
+
+    background:
+    linear-gradient(
+        145deg,
+        #173b5b,
+        #050b12
+    );
+
+    color:#4da3ff;
+
+    font-size:17px;
+
+    font-weight:900;
+}
+
+
+.brand{
+
+    font-size:18px;
+
+    font-weight:900;
+
+    letter-spacing:2px;
+}
+
+
+.blue{
+    color:#4da3ff;
+}
+
+
+.silver{
+    color:#aeb9c5;
+}
+
+
+.header-right{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+}
+
+
+.portal-btn{
+
+    padding:9px 13px;
+
+    border:1px solid #526b82;
+
+    border-radius:8px;
+
+    color:#dce5ed;
+
+    font-size:10px;
+}
+
+
+.role-badge{
+
+    padding:8px 11px;
+
+    border:1px solid #3c5870;
+
+    border-radius:20px;
+
+    color:#4da3ff;
+
+    font-size:9px;
+
+    font-weight:bold;
+}
+
+
+/* =========================================
+   MAIN
+========================================= */
+
+.page{
+
+    max-width:1000px;
+
+    margin:auto;
+
+    padding:45px 5% 80px;
+}
+
+
+.eyebrow{
+
+    color:#71869c;
+
+    font-size:9px;
+
+    letter-spacing:3px;
+
+    font-weight:bold;
+}
+
+
+.title{
+
+    margin-top:10px;
+
+    font-size:38px;
+}
+
+
+.title span{
+
+    color:#4da3ff;
+}
+
+
+.subtitle{
+
+    margin-top:9px;
+
+    color:#8295a8;
+
+    font-size:12px;
+
+    line-height:1.7;
+}
+
+
+/* =========================================
+   SUMMARY
+========================================= */
+
+.summary{
+
+    margin-top:25px;
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(3,1fr);
+
+    gap:12px;
+}
+
+
+.summary-card{
+
+    padding:18px;
+
+    border:1px solid #293f55;
+
+    border-radius:13px;
+
+    background:#081421;
+}
+
+
+.summary-card small{
+
+    color:#71869c;
+
+    font-size:8px;
+}
+
+
+.summary-card strong{
+
+    display:block;
+
+    margin-top:8px;
+
+    font-size:23px;
+}
+
+
+.summary-card strong.blue-number{
+
+    color:#4da3ff;
+}
+
+
+/* =========================================
+   TOOLBAR
+========================================= */
+
+.toolbar{
+
+    margin-top:25px;
+
+    padding:17px;
+
+    border:1px solid #293f55;
+
+    border-radius:13px;
+
+    background:#081421;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    flex-wrap:wrap;
+}
+
+
+.search{
+
+    flex:1;
+
+    min-width:200px;
+
+    height:43px;
+
+    padding:0 12px;
+
+    border-radius:8px;
+
+    border:1px solid #30465c;
+
+    background:#050c14;
+
+    color:white;
+
+    outline:none;
+
+    font-size:11px;
+}
+
+
+.search:focus{
+
+    border-color:#4da3ff;
+}
+
+
+.filter{
+
+    height:43px;
+
+    padding:0 12px;
+
+    border-radius:8px;
+
+    border:1px solid #30465c;
+
+    background:#050c14;
+
+    color:#dce5ed;
+
+    outline:none;
+
+    font-size:10px;
+}
+
+
+.toolbar-btn{
+
+    height:43px;
+
+    padding:0 13px;
+
+    border-radius:8px;
+
+    border:1px solid #40586f;
+
+    background:#0a1725;
+
+    color:#b9c7d4;
+
+    font-size:9px;
+
+    font-weight:bold;
+}
+
+
+.toolbar-btn:hover{
+
+    border-color:#4da3ff;
+
+    color:#4da3ff;
+}
+
+
+/* =========================================
+   NOTIFICATION LIST
+========================================= */
+
+.notification-list{
+
+    margin-top:18px;
+
+    display:grid;
+
+    gap:10px;
+}
+
+
+.notification{
+
+    position:relative;
+
+    padding:18px;
+
+    border:1px solid #293f55;
+
+    border-radius:13px;
+
+    background:#081421;
+
+    display:flex;
+
+    gap:15px;
+
+    align-items:flex-start;
+
+    transition:.2s;
+}
+
+
+.notification:hover{
+
+    border-color:#405b73;
+}
+
+
+.notification.unread{
+
+    border-left:3px solid #4da3ff;
+
+    background:#091826;
+}
+
+
+.notification-icon{
+
+    width:43px;
+
+    height:43px;
+
+    min-width:43px;
+
+    border-radius:11px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:#102b42;
+
+    border:1px solid #355774;
+
+    font-size:18px;
+}
+
+
+.notification-body{
+
+    flex:1;
+}
+
+
+.notification-top{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:10px;
+}
+
+
+.notification-title{
+
+    color:#dce5ed;
+
+    font-size:13px;
+
+    font-weight:bold;
+}
+
+
+.notification-time{
+
+    color:#62778b;
+
+    font-size:8px;
+
+    white-space:nowrap;
+}
+
+
+.notification-text{
+
+    margin-top:6px;
+
+    color:#8295a8;
+
+    font-size:10px;
+
+    line-height:1.7;
+}
+
+
+.notification-type{
+
+    display:inline-block;
+
+    margin-top:8px;
+
+    padding:5px 8px;
+
+    border-radius:12px;
+
+    background:#0b2032;
+
+    border:1px solid #304e68;
+
+    color:#4da3ff;
+
+    font-size:7px;
+
+    font-weight:bold;
+}
+
+
+.notification-actions{
+
+    display:flex;
+
+    gap:6px;
+
+    margin-top:10px;
+
+    flex-wrap:wrap;
+}
+
+
+.small-btn{
+
+    padding:7px 9px;
+
+    border-radius:6px;
+
+    border:1px solid #354d64;
+
+    background:#07111d;
+
+    color:#9aabba;
+
+    font-size:8px;
+}
+
+
+.small-btn:hover{
+
+    border-color:#4da3ff;
+
+    color:#4da3ff;
+}
+
+
+.small-btn.delete:hover{
+
+    border-color:#a85c5c;
+
+    color:#ff9999;
+}
+
+
+/* =========================================
+   EMPTY STATE
+========================================= */
+
+.empty{
+
+    display:none;
+
+    margin-top:18px;
+
+    padding:45px 20px;
+
+    text-align:center;
+
+    border:1px dashed #354d64;
+
+    border-radius:13px;
+
+    background:#081421;
+
+    color:#71869c;
+}
+
+
+.empty-icon{
+
+    font-size:35px;
+
+    margin-bottom:12px;
+}
+
+
+.empty h3{
+
+    color:#aebdca;
+
+    font-size:15px;
+}
+
+
+.empty p{
+
+    margin-top:7px;
+
+    font-size:10px;
+}
+
+
+/* =========================================
+   API NOTE
+========================================= */
+
+.api-note{
+
+    margin-top:25px;
+
+    padding:17px;
+
+    border:1px dashed #405a72;
+
+    border-radius:10px;
+
+    background:#06101a;
+
+    color:#74899d;
+
+    font-size:9px;
+
+    line-height:1.8;
+
+    text-align:center;
+}
+
+
+/* =========================================
+   FOOTER
+========================================= */
+
+footer{
+
+    padding:35px 7%;
+
+    background:#03080e;
+
+    border-top:1px solid #263b50;
+
+    color:#7d90a4;
+
+    font-size:11px;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media(max-width:700px){
+
+    header{
+
+        padding:0 4%;
+
+    }
+
+
+    .role-badge{
+
+        display:none;
+
+    }
+
+
+    .page{
+
+        padding:30px 5% 65px;
+
+    }
+
+
+    .title{
+
+        font-size:31px;
+
+    }
+
+
+    .summary{
+
+        grid-template-columns:
+        1fr 1fr;
+
+    }
+
+
+    .summary-card:last-child{
+
+        grid-column:
+        1 / -1;
+
+    }
+
+
+    .notification{
+
+        padding:14px;
+
+    }
+
+
+    .notification-top{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+    }
+
+
+    .notification-time{
+
+        margin-top:3px;
+
+    }
+
+}
+
+
+@media(max-width:450px){
+
+    .summary{
+
+        grid-template-columns:1fr;
+
+    }
+
+
+    .summary-card:last-child{
+
+        grid-column:auto;
+
+    }
+
+
+    .notification-icon{
+
+        width:38px;
+
+        height:38px;
+
+        min-width:38px;
+
+        font-size:16px;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================
+     HEADER
+========================================= -->
+
+<header>
+
+
+<div class="brand-area">
+
+
+    <div class="fz-logo">
+        FZ
+    </div>
+
+
+    <div class="brand">
+
+        <span class="blue">
+            FHAMAR
+        </span>
+
+        <span class="silver">
+            .ZAMOST
+        </span>
+
+    </div>
+
+
+</div>
+
+
+
+<div class="header-right">
+
+
+    <div class="role-badge">
+        NOTIFICATION CENTER
+    </div>
+
+
+    <a
+    href="profile.html"
+    class="portal-btn">
+
+        MY PORTAL
+
+    </a>
+
+
+</div>
+
+
+</header>
+
+
+
+<!-- =========================================
+     MAIN
+========================================= -->
+
+<main class="page">
+
+
+<div class="eyebrow">
+    FHAMAR.ZAMOST NOTIFICATION SYSTEM
+</div>
+
+
+<h1 class="title">
+
+    Notification
+
+    <span>
+        Center
+    </span>
+
+</h1>
+
+
+<p class="subtitle">
+
+    Stay updated with your orders,
+    payments, team registration,
+    voting and important system activity.
+
+</p>
+
+
+
+<!-- =========================================
+     SUMMARY
+========================================= -->
+
+<div class="summary">
+
+
+<div class="summary-card">
+
+    <small>
+        TOTAL NOTIFICATIONS
+    </small>
+
+    <strong
+    id="totalCount"
+    class="blue-number">
+
+        0
+
+    </strong>
+
+</div>
+
+
+<div class="summary-card">
+
+    <small>
+        UNREAD
+    </small>
+
+    <strong
+    id="unreadCount">
+
+        0
+
+    </strong>
+
+</div>
+
+
+<div class="summary-card">
+
+    <small>
+        TODAY
+    </small>
+
+    <strong
+    id="todayCount">
+
+        0
+
+    </strong>
+
+</div>
+
+
+</div>
+
+
+
+<!-- =========================================
+     TOOLBAR
+========================================= -->
+
+<div class="toolbar">
+
+
+<input
+id="searchInput"
+class="search"
+placeholder="Search notifications..."
+oninput="renderNotifications()">
+
+
+
+<select
+id="filterType"
+class="filter"
+onchange="renderNotifications()">
+
+<option value="all">
+    All Notifications
+</option>
+
+<option value="order">
+    Orders
+</option>
+
+<option value="payment">
+    Payments
+</option>
+
+<option value="team">
+    Team
+</option>
+
+<option value="voting">
+    Voting
+</option>
+
+<option value="stock">
+    Stock
+</option>
+
+<option value="system">
+    System
+</option>
+
+</select>
+
+
+
+<button
+class="toolbar-btn"
+onclick="markAllRead()">
+
+    MARK ALL READ
+
+</button>
+
+
+
+<button
+class="toolbar-btn"
+onclick="clearAll()">
+
+    CLEAR ALL
+
+</button>
+
+
+</div>
+
+
+
+<!-- =========================================
+     NOTIFICATION LIST
+========================================= -->
+
+<div
+id="notificationList"
+class="notification-list">
+</div>
+
+
+
+<!-- =========================================
+     EMPTY
+========================================= -->
+
+<div
+id="emptyState"
+class="empty">
+
+
+<div class="empty-icon">
+    🔔
+</div>
+
+
+<h3>
+    No Notifications
+</h3>
+
+
+<p>
+    You are all caught up.
+</p>
+
+
+</div>
+
+
+
+<!-- =========================================
+     API CONNECTION
+========================================= -->
+
+<div class="api-note">
+
+
+<b>
+    NOTIFICATION DATABASE / API CONNECTION
+</b>
+
+
+<br><br>
+
+
+YAHAN FIREBASE NOTIFICATION
+DATABASE CODE LAGEGA.
+
+
+<br>
+
+
+YAHAN REAL-TIME NOTIFICATION LISTENER
+CODE LAGEGA.
+
+
+<br>
+
+
+YAHAN PUSH NOTIFICATION SERVICE
+CODE LAGEGA.
+
+
+<br><br>
+
+
+Customer को केवल उसके account की
+notifications मिलेंगी।
+
+<br>
+
+Team Member को उसके assigned state
+से संबंधित notifications मिलेंगी।
+
+<br>
+
+Admin को सभी जरूरी system notifications
+मिलेंगी।
+
+
+</div>
+
+
+</main>
+
+
+
+<!-- =========================================
+     FOOTER
+========================================= -->
+
+<footer>
+
+
+<div class="brand">
+
+    <span class="blue">
+        FHAMAR
+    </span>
+
+    <span class="silver">
+        .ZAMOST
+    </span>
+
+</div>
+
+
+<p>
+    Notifications • Orders • Team • System
+</p>
+
+
+</footer>
+
+
+
+<script>
+
+
+/* =========================================
+   DEMO NOTIFICATIONS
+========================================= */
+
+
+let notifications = [
+
+{
+    id:1,
+
+    type:"order",
+
+    icon:"📦",
+
+    title:"New Order Update",
+
+    text:"Order FZ20001 has been confirmed and is ready for processing.",
+
+    time:"Just now",
+
+    unread:true
+
+},
+
+{
+    id:2,
+
+    type:"payment",
+
+    icon:"💳",
+
+    title:"Payment Status Updated",
+
+    text:"Payment information for order FZ20001 has been received.",
+
+    time:"10 min ago",
+
+    unread:true
+
+},
+
+{
+    id:3,
+
+    type:"order",
+
+    icon:"🚚",
+
+    title:"Order Shipped",
+
+    text:"Your order FZ20004 has been shipped.",
+
+    time:"1 hour ago",
+
+    unread:false
+
+},
+
+{
+    id:4,
+
+    type:"team",
+
+    icon:"👥",
+
+    title:"Team Registration",
+
+    text:"A new Team Member registration is waiting for Admin review.",
+
+    time:"2 hours ago",
+
+    unread:true
+
+},
+
+{
+    id:5,
+
+    type:"voting",
+
+    icon:"🗳️",
+
+    title:"Voting Update",
+
+    text:"A new member voting proposal is available in My Portal.",
+
+    time:"Today",
+
+    unread:false
+
+},
+
+{
+    id:6,
+
+    type:"stock",
+
+    icon:"⚠️",
+
+    title:"Low Stock Alert",
+
+    text:"Some products have stock below the configured minimum level.",
+
+    time:"Today",
+
+    unread:true
+
+},
+
+{
+    id:7,
+
+    type:"system",
+
+    icon:"⚙️",
+
+    title:"System Notice",
+
+    text:"Your FHAMAR.ZAMOST account information is ready to manage.",
+
+    time:"Yesterday",
+
+    unread:false
+
+}
+
+];
+
+
+
+/* =========================================
+   TYPE LABEL
+========================================= */
+
+function typeName(type){
+
+    const names = {
+
+        order:"ORDER",
+
+        payment:"PAYMENT",
+
+        team:"TEAM",
+
+        voting:"VOTING",
+
+        stock:"STOCK",
+
+        system:"SYSTEM"
+
+    };
+
+
+    return names[type] || "SYSTEM";
+
+}
+
+
+
+/* =========================================
+   RENDER
+========================================= */
+
+function renderNotifications(){
+
+
+    const list =
+
+        document.getElementById(
+            "notificationList"
+        );
+
+
+    const search =
+
+        document.getElementById(
+            "searchInput"
+        )
+        .value
+        .toLowerCase()
+        .trim();
+
+
+    const filter =
+
+        document.getElementById(
+            "filterType"
+        ).value;
+
+
+
+    const filtered =
+
+        notifications.filter(
+            function(item){
+
+
+                const text =
+
+                    (
+                        item.title +
+                        " " +
+                        item.text
+                    )
+                    .toLowerCase();
+
+
+                const searchMatch =
+
+                    text.includes(search);
+
+
+                const typeMatch =
+
+                    filter === "all" ||
+                    item.type === filter;
+
+
+                return (
+                    searchMatch &&
+                    typeMatch
+                );
+
+            }
+        );
+
+
+
+    list.innerHTML =
+
+
+
+        filtered.map(
+            function(item){
+
+
+                return `
+
+                <div
+                class="notification ${
+                    item.unread
+                    ? "unread"
+                    : ""
+                }">
+
+
+                    <div class="notification-icon">
+
+                        ${item.icon}
+
+                    </div>
+
+
+                    <div class="notification-body">
+
+
+                        <div class="notification-top">
+
+
+                            <div
+                            class="notification-title">
+
+                                ${item.title}
+
+                            </div>
+
+
+                            <div
+                            class="notification-time">
+
+                                ${item.time}
+
+                            </div>
+
+
+                        </div>
+
+
+                        <div
+                        class="notification-text">
+
+                            ${item.text}
+
+                        </div>
+
+
+                        <div
+                        class="notification-type">
+
+                            ${typeName(item.type)}
+
+                        </div>
+
+
+                        <div
+                        class="notification-actions">
+
+
+                            ${
+                                item.unread
+
+                                ?
+
+                                `<button
+                                class="small-btn"
+                                onclick="markRead(${item.id})">
+
+                                    MARK AS READ
+
+                                </button>`
+
+                                :
+
+                                `<button
+                                class="small-btn"
+                                onclick="markUnread(${item.id})">
+
+                                    MARK UNREAD
+
+                                </button>`
+                            }
+
+
+                            <button
+                            class="small-btn delete"
+                            onclick="deleteNotification(${item.id})">
+
+                                DELETE
+
+                            </button>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+                `;
+
+            }
+        ).join("");
+
+
+
+    updateCounts();
+
+
+
+    const empty =
+
+        document.getElementById(
+            "emptyState"
+        );
+
+
+    if(filtered.length === 0){
+
+        empty.style.display =
+            "block";
+
+    }
+
+    else{
+
+        empty.style.display =
+            "none";
+
+    }
+
+}
+
+
+
+/* =========================================
+   UPDATE COUNTS
+========================================= */
+
+function updateCounts(){
+
+
+    const total =
+        notifications.length;
+
+
+    const unread =
+
+        notifications.filter(
+            function(item){
+
+                return item.unread;
+
+            }
+        ).length;
+
+
+    /*
+    Demo count:
+    all current notifications
+    are treated as today's activity
+    for the sample page.
+    */
+
+    const today =
+        notifications.length;
+
+
+
+    document.getElementById(
+        "totalCount"
+    ).textContent =
+        total;
+
+
+    document.getElementById(
+        "unreadCount"
+    ).textContent =
+        unread;
+
+
+    document.getElementById(
+        "todayCount"
+    ).textContent =
+        today;
+
+}
+
+
+
+/* =========================================
+   MARK READ
+========================================= */
+
+function markRead(id){
+
+
+    const item =
+
+        notifications.find(
+            function(notification){
+
+                return notification.id === id;
+
+            }
+        );
+
+
+    if(!item){
+
+        return;
+
+    }
+
+
+    item.unread = false;
+
+
+    renderNotifications();
+
+
+    /*
+    =========================================
+    REAL DATABASE
+    =========================================
+
+    YAHAN FIREBASE NOTIFICATION
+    UPDATE CODE LAGEGA.
+
+    =========================================
+    */
+
+}
+
+
+
+/* =========================================
+   MARK UNREAD
+========================================= */
+
+function markUnread(id){
+
+
+    const item =
+
+        notifications.find(
+            function(notification){
+
+                return notification.id === id;
+
+            }
+        );
+
+
+    if(!item){
+
+        return;
+
+    }
+
+
+    item.unread = true;
+
+
+    renderNotifications();
+
+}
+
+
+
+/* =========================================
+   MARK ALL READ
+========================================= */
+
+function markAllRead(){
+
+
+    notifications.forEach(
+        function(item){
+
+            item.unread = false;
+
+        }
+    );
+
+
+    renderNotifications();
+
+
+    /*
+    =========================================
+    REAL DATABASE
+    =========================================
+
+    YAHAN FIREBASE BATCH UPDATE CODE LAGEGA.
+
+    =========================================
+    */
+
+}
+
+
+
+/* =========================================
+   DELETE
+========================================= */
+
+function deleteNotification(id){
+
+
+    notifications =
+
+        notifications.filter(
+            function(item){
+
+                return item.id !== id;
+
+            }
+        );
+
+
+    renderNotifications();
+
+
+    /*
+    =========================================
+    REAL DATABASE
+    =========================================
+
+    YAHAN FIREBASE DELETE CODE LAGEGA.
+
+    =============================
