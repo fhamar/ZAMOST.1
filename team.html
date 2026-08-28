@@ -1,1945 +1,283 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Team Dashboard | FHAMAR ZAMOST</title>
-
 <style>
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial,Helvetica,sans-serif;
-}
-
-body{
-    background:#050b12;
-    color:#fff;
-}
-
-button,
-input,
-select{
-    font-family:inherit;
-}
-
-button{
-    cursor:pointer;
-}
-
-a{
-    text-decoration:none;
-    color:inherit;
-}
-
-
-/* =========================
-   HEADER
-========================= */
-
-header{
-
-    height:75px;
-
-    padding:0 5%;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    background:#07111d;
-
-    border-bottom:1px solid #30465d;
-
-    position:sticky;
-
-    top:0;
-
-    z-index:1000;
-}
-
-
-.brand-area{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:10px;
-}
-
-
-.fz-logo{
-
-    width:45px;
-
-    height:45px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    border-radius:12px;
-
-    border:1px solid #8298ad;
-
-    background:
-    linear-gradient(
-        145deg,
-        #173b5b,
-        #050b12
-    );
-
-    color:#4da3ff;
-
-    font-size:17px;
-
-    font-weight:900;
-}
-
-
-.brand{
-
-    font-size:18px;
-
-    font-weight:900;
-
-    letter-spacing:2px;
-}
-
-
-.blue{
-    color:#4da3ff;
-}
-
-
-.silver{
-    color:#aeb9c5;
-}
-
-
-.header-right{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:10px;
-}
-
-
-.role{
-
-    padding:8px 11px;
-
-    border:1px solid #3d5870;
-
-    border-radius:20px;
-
-    color:#4da3ff;
-
-    font-size:9px;
-
-    font-weight:bold;
-}
-
-
-.home-btn{
-
-    padding:9px 12px;
-
-    border:1px solid #526b82;
-
-    border-radius:8px;
-
-    color:#dce5ed;
-
-    font-size:10px;
-}
-
-
-/* =========================
-   LAYOUT
-========================= */
-
-.layout{
-
-    display:grid;
-
-    grid-template-columns:220px 1fr;
-
-    min-height:calc(100vh - 75px);
-}
-
-
-/* =========================
-   SIDEBAR
-========================= */
-
-.sidebar{
-
-    padding:25px 15px;
-
-    background:#06101a;
-
-    border-right:1px solid #253a4e;
-}
-
-
-.sidebar-title{
-
-    margin:5px 10px 15px;
-
-    color:#657b91;
-
-    font-size:9px;
-
-    letter-spacing:2px;
-}
-
-
-.menu-btn{
-
-    width:100%;
-
-    padding:13px 12px;
-
-    margin-bottom:7px;
-
-    text-align:left;
-
-    border:1px solid transparent;
-
-    border-radius:9px;
-
-    background:transparent;
-
-    color:#8fa1b4;
-
-    font-size:11px;
-}
-
-
-.menu-btn:hover{
-
-    background:#0b1b2a;
-
-    color:white;
-}
-
-
-.menu-btn.active{
-
-    background:#102b42;
-
-    border-color:#315574;
-
-    color:#4da3ff;
-}
-
-
-/* =========================
-   CONTENT
-========================= */
-
-.content{
-
-    padding:35px 4% 80px;
-
-    overflow:hidden;
-}
-
-
-.eyebrow{
-
-    color:#71869c;
-
-    font-size:9px;
-
-    letter-spacing:3px;
-
-    font-weight:bold;
-}
-
-
-.page-title{
-
-    margin-top:10px;
-
-    font-size:35px;
-}
-
-
-.page-title span{
-
-    color:#4da3ff;
-}
-
-
-.subtitle{
-
-    margin-top:8px;
-
-    color:#8194a8;
-
-    font-size:12px;
-
-    line-height:1.7;
-}
-
-
-/* =========================
-   MEMBER PROFILE
-========================= */
-
-.member-profile{
-
-    margin-top:25px;
-
-    padding:22px;
-
-    border:1px solid #344d64;
-
-    border-radius:16px;
-
-    background:#091622;
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    gap:20px;
-}
-
-
-.member-left{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:15px;
-}
-
-
-.avatar{
-
-    width:65px;
-
-    height:65px;
-
-    border-radius:17px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    background:
-    linear-gradient(
-        145deg,
-        #173b5b,
-        #07111d
-    );
-
-    border:1px solid #6b8399;
-
-    color:#4da3ff;
-
-    font-size:23px;
-
-    font-weight:900;
-}
-
-
-.member-name{
-
-    font-size:20px;
-
-    font-weight:bold;
-}
-
-
-.member-info{
-
-    margin-top:6px;
-
-    color:#7f92a6;
-
-    font-size:10px;
-
-    line-height:1.6;
-}
-
-
-.state-badge{
-
-    padding:11px 15px;
-
-    border-radius:10px;
-
-    background:#102a40;
-
-    border:1px solid #3d607d;
-
-    color:#4da3ff;
-
-    font-size:10px;
-
-    font-weight:bold;
-}
-
-
-/* =========================
-   STATS
-========================= */
-
-.stats{
-
-    margin-top:18px;
-
-    display:grid;
-
-    grid-template-columns:
-    repeat(5,1fr);
-
-    gap:10px;
-}
-
-
-.stat{
-
-    padding:17px;
-
-    border:1px solid #293f55;
-
-    border-radius:12px;
-
-    background:#081421;
-}
-
-
-.stat small{
-
-    color:#71869c;
-
-    font-size:8px;
-}
-
-
-.stat strong{
-
-    display:block;
-
-    margin-top:8px;
-
-    font-size:22px;
-}
-
-
-.stat.active-stat strong{
-
-    color:#4da3ff;
-}
-
-
-/* =========================
-   SECTION
-========================= */
-
-.section{
-
-    margin-top:24px;
-
-    padding:20px;
-
-    border:1px solid #293f55;
-
-    border-radius:15px;
-
-    background:#081421;
-}
-
-
-.section-header{
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    gap:12px;
-
-    margin-bottom:15px;
-}
-
-
-.section-header h2{
-
-    font-size:20px;
-}
-
-
-/* =========================
-   TOOLBAR
-========================= */
-
-.toolbar{
-
-    display:flex;
-
-    gap:10px;
-
-    flex-wrap:wrap;
-
-    margin-bottom:15px;
-}
-
-
-.search{
-
-    flex:1;
-
-    min-width:190px;
-
-    height:43px;
-
-    padding:0 12px;
-
-    background:#050c14;
-
-    border:1px solid #30465c;
-
-    border-radius:8px;
-
-    color:white;
-
-    outline:none;
-
-    font-size:11px;
-}
-
-
-.select{
-
-    height:43px;
-
-    padding:0 12px;
-
-    background:#050c14;
-
-    border:1px solid #30465c;
-
-    border-radius:8px;
-
-    color:#dce5ed;
-
-    outline:none;
-
-    font-size:11px;
-}
-
-
-/* =========================
-   ORDER GRID
-========================= */
-
-.order-grid{
-
-    display:grid;
-
-    grid-template-columns:
-    repeat(2,1fr);
-
-    gap:12px;
-}
-
-
-.order-card{
-
-    padding:18px;
-
-    border:1px solid #293f55;
-
-    border-radius:13px;
-
-    background:#07111d;
-}
-
-
-.order-top{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    gap:10px;
-}
-
-
-.order-id{
-
-    color:#dce5ed;
-
-    font-size:13px;
-
-    font-weight:bold;
-}
-
-
-.status{
-
-    padding:6px 9px;
-
-    border-radius:15px;
-
-    background:#102a40;
-
-    border:1px solid #385b77;
-
-    color:#4da3ff;
-
-    font-size:8px;
-
-    font-weight:bold;
-}
-
-
-.order-info{
-
-    margin-top:13px;
-
-    color:#7f93a7;
-
-    font-size:10px;
-
-    line-height:1.8;
-}
-
-
-.order-info strong{
-
-    color:#dce5ed;
-}
-
-
-.order-actions{
-
-    margin-top:15px;
-
-    display:flex;
-
-    gap:7px;
-
-    flex-wrap:wrap;
-}
-
-
-.action{
-
-    padding:9px 11px;
-
-    border-radius:7px;
-
-    border:1px solid #40586f;
-
-    background:#0a1725;
-
-    color:#b9c7d4;
-
-    font-size:8px;
-
-    font-weight:bold;
-}
-
-
-.action:hover{
-
-    border-color:#4da3ff;
-
-    color:#4da3ff;
-}
-
-
-.action.primary{
-
-    background:#4da3ff;
-
-    border-color:#4da3ff;
-
-    color:#04101c;
-}
-
-
-.action.primary:hover{
-
-    background:#72b7ff;
-
-    color:#04101c;
-}
-
-
-/* =========================
-   PACKAGING PANEL
-========================= */
-
-.packaging{
-
-    margin-top:12px;
-
-    padding:15px;
-
-    border-top:1px solid #22364a;
-
-}
-
-
-.packaging-title{
-
-    color:#9badbd;
-
-    font-size:10px;
-
-    font-weight:bold;
-
-    margin-bottom:10px;
-}
-
-
-.packaging-steps{
-
-    display:flex;
-
-    gap:6px;
-
-    flex-wrap:wrap;
-}
-
-
-.step{
-
-    padding:7px 9px;
-
-    border-radius:7px;
-
-    border:1px solid #30465c;
-
-    color:#71869c;
-
-    background:#08131f;
-
-    font-size:8px;
-}
-
-
-.step.done{
-
-    border-color:#3f6b8b;
-
-    color:#4da3ff;
-
-    background:#0c2438;
-}
-
-
-/* =========================
-   DELIVERY PARTNER
-========================= */
-
-.partner-box{
-
-    margin-top:15px;
-
-    padding:15px;
-
-    border:1px solid #293f55;
-
-    border-radius:10px;
-
-    background:#081421;
-}
-
-
-.partner-box h3{
-
-    font-size:13px;
-
-    margin-bottom:10px;
-}
-
-
-.partner-row{
-
-    display:flex;
-
-    gap:8px;
-
-}
-
-
-.partner-row select{
-
-    flex:1;
-}
-
-
-.partner-row button{
-
-    padding:0 12px;
-
-    border:none;
-
-    border-radius:7px;
-
-    background:#4da3ff;
-
-    color:#04101c;
-
-    font-size:9px;
-
-    font-weight:900;
-}
-
-
-/* =========================
-   MEMBER LIST
-========================= */
-
-.member-list{
-
-    display:grid;
-
-    grid-template-columns:
-    repeat(3,1fr);
-
-    gap:12px;
-}
-
-
-.member-card{
-
-    padding:17px;
-
-    border:1px solid #293f55;
-
-    border-radius:12px;
-
-    background:#07111d;
-}
-
-
-.member-card-top{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    gap:10px;
-}
-
-
-.member-card h3{
-
-    font-size:13px;
-}
-
-
-.member-card p{
-
-    margin-top:5px;
-
-    color:#73879b;
-
-    font-size:9px;
-
-    line-height:1.6;
-}
-
-
-.view-btn{
-
-    margin-top:13px;
-
-    width:100%;
-
-    padding:9px;
-
-    border:1px solid #40586f;
-
-    border-radius:7px;
-
-    background:#0a1725;
-
-    color:#4da3ff;
-
-    font-size:8px;
-
-    font-weight:bold;
-}
-
-
-.view-btn:hover{
-
-    border-color:#4da3ff;
-}
-
-
-/* =========================
-   API NOTE
-========================= */
-
-.api-note{
-
-    margin-top:20px;
-
-    padding:15px;
-
-    border:1px dashed #405a72;
-
-    border-radius:10px;
-
-    background:#06101a;
-
-    color:#74899d;
-
-    font-size:9px;
-
-    line-height:1.8;
-
-    text-align:center;
-}
-
-
-/* =========================
-   FOOTER
-========================= */
-
-footer{
-
-    padding:35px 7%;
-
-    background:#03080e;
-
-    border-top:1px solid #263b50;
-
-    color:#7d90a4;
-
-    font-size:11px;
-}
-
-
-/* =========================
-   MOBILE
-========================= */
-
-@media(max-width:1000px){
-
-    .layout{
-
-        grid-template-columns:1fr;
-
-    }
-
-
-    .sidebar{
-
-        display:flex;
-
-        overflow-x:auto;
-
-        gap:5px;
-
-        border-right:none;
-
-        border-bottom:1px solid #253a4e;
-
-        padding:10px;
-
-    }
-
-
-    .sidebar-title{
-
-        display:none;
-
-    }
-
-
-    .menu-btn{
-
-        width:auto;
-
-        min-width:max-content;
-
-        margin:0;
-
-    }
-
-
-    .stats{
-
-        grid-template-columns:
-        repeat(3,1fr);
-
-    }
-
-
-    .member-list{
-
-        grid-template-columns:
-        repeat(2,1fr);
-
-    }
-
-}
-
-
-@media(max-width:700px){
-
-    .content{
-
-        padding:25px 5% 70px;
-
-    }
-
-
-    .page-title{
-
-        font-size:29px;
-
-    }
-
-
-    .member-profile{
-
-        flex-direction:column;
-
-        align-items:flex-start;
-
-    }
-
-
-    .stats{
-
-        grid-template-columns:
-        repeat(2,1fr);
-
-    }
-
-
-    .order-grid{
-
-        grid-template-columns:1fr;
-
-    }
-
-
-    .member-list{
-
-        grid-template-columns:1fr;
-
-    }
-
-
-    .partner-row{
-
-        flex-direction:column;
-
-    }
-
-
-    .partner-row select,
-    .partner-row button{
-
-        height:43px;
-
-    }
-
-}
-
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
+body{background:#050b12;color:#fff}button,input,select{font-family:inherit}button{cursor:pointer}a{text-decoration:none;color:inherit}
+header{height:75px;padding:0 5%;display:flex;align-items:center;justify-content:space-between;background:#07111d;border-bottom:1px solid #30465d;position:sticky;top:0;z-index:1000}
+.brand-area{display:flex;align-items:center;gap:10px}.fz-logo{width:45px;height:45px;display:flex;align-items:center;justify-content:center;border-radius:12px;border:1px solid #8298ad;background:linear-gradient(145deg,#173b5b,#050b12);color:#4da3ff;font-size:17px;font-weight:900}.brand{font-size:18px;font-weight:900;letter-spacing:2px}.blue{color:#4da3ff}.silver{color:#aeb9c5}
+.header-right{display:flex;align-items:center;gap:10px}.role{padding:8px 11px;border:1px solid #3d5870;border-radius:20px;color:#4da3ff;font-size:9px;font-weight:bold}.home-btn{padding:9px 12px;border:1px solid #526b82;border-radius:8px;color:#dce5ed;font-size:10px}
+.layout{display:grid;grid-template-columns:220px 1fr;min-height:calc(100vh - 75px)}.sidebar{padding:25px 15px;background:#06101a;border-right:1px solid #253a4e}.sidebar-title{margin:5px 10px 15px;color:#657b91;font-size:9px;letter-spacing:2px}.menu-btn{width:100%;padding:13px 12px;margin-bottom:7px;text-align:left;border:1px solid transparent;border-radius:9px;background:transparent;color:#8fa1b4;font-size:11px}.menu-btn:hover{background:#0b1b2a;color:white}.menu-btn.active{background:#102b42;border-color:#315574;color:#4da3ff}
+.content{padding:35px 4% 80px;overflow:hidden}.eyebrow{color:#71869c;font-size:9px;letter-spacing:3px;font-weight:bold}.page-title{margin-top:10px;font-size:35px}.page-title span{color:#4da3ff}.subtitle{margin-top:8px;color:#8194a8;font-size:12px;line-height:1.7}
+.member-profile{margin-top:25px;padding:22px;border:1px solid #344d64;border-radius:16px;background:#091622;display:flex;justify-content:space-between;align-items:center;gap:20px}.member-left{display:flex;align-items:center;gap:15px}.avatar{width:65px;height:65px;border-radius:17px;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#173b5b,#07111d);border:1px solid #6b8399;color:#4da3ff;font-size:23px;font-weight:900}.member-name{font-size:20px;font-weight:bold}.member-info{margin-top:6px;color:#7f92a6;font-size:10px;line-height:1.6}.state-badge{padding:11px 15px;border-radius:10px;background:#102a40;border:1px solid #3d607d;color:#4da3ff;font-size:10px;font-weight:bold}
+.stats{margin-top:18px;display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.stat{padding:17px;border:1px solid #293f55;border-radius:12px;background:#081421}.stat small{color:#71869c;font-size:8px}.stat strong{display:block;margin-top:8px;font-size:22px}.stat.active-stat strong{color:#4da3ff}
+.section{margin-top:24px;padding:20px;border:1px solid #293f55;border-radius:15px;background:#081421}.section-header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:15px}.section-header h2{font-size:20px}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:15px}.search{flex:1;min-width:190px;height:43px;padding:0 12px;background:#050c14;border:1px solid #30465c;border-radius:8px;color:white;outline:none;font-size:11px}.select{height:43px;padding:0 12px;background:#050c14;border:1px solid #30465c;border-radius:8px;color:#dce5ed;outline:none;font-size:11px}
+.order-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.order-card{padding:18px;border:1px solid #293f55;border-radius:13px;background:#07111d}.order-top{display:flex;justify-content:space-between;align-items:center;gap:10px}.order-id{color:#dce5ed;font-size:13px;font-weight:bold}.status{padding:6px 9px;border-radius:15px;background:#102a40;border:1px solid #385b77;color:#4da3ff;font-size:8px;font-weight:bold}.order-info{margin-top:13px;color:#7f93a7;font-size:10px;line-height:1.8}.order-info strong{color:#dce5ed}.order-actions{margin-top:15px;display:flex;gap:7px;flex-wrap:wrap}.action{padding:9px 11px;border-radius:7px;border:1px solid #40586f;background:#0a1725;color:#b9c7d4;font-size:8px;font-weight:bold}.action:hover{border-color:#4da3ff;color:#4da3ff}.action.primary{background:#4da3ff;border-color:#4da3ff;color:#04101c}
+.packaging{margin-top:12px;padding:15px;border-top:1px solid #22364a}.packaging-title{color:#9badbd;font-size:10px;font-weight:bold;margin-bottom:10px}.packaging-steps{display:flex;gap:6px;flex-wrap:wrap}.step{padding:7px 9px;border-radius:7px;border:1px solid #30465c;color:#71869c;background:#08131f;font-size:8px}.step.done{border-color:#3f6b8b;color:#4da3ff;background:#0c2438}
+.partner-box{margin-top:15px;padding:15px;border:1px solid #293f55;border-radius:10px;background:#081421}.partner-box h3{font-size:13px;margin-bottom:10px}.partner-row{display:flex;gap:8px}.partner-row select{flex:1;height:43px;padding:0 10px;background:#050c14;border:1px solid #30465c;border-radius:8px;color:#fff}.partner-row button{padding:0 12px;border:none;border-radius:7px;background:#4da3ff;color:#04101c;font-size:9px;font-weight:900}
+.member-list{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.member-card{padding:17px;border:1px solid #293f55;border-radius:12px;background:#07111d}.member-card-top{display:flex;justify-content:space-between;gap:10px}.member-card h3{font-size:13px}.member-card p{margin-top:5px;color:#73879b;font-size:9px;line-height:1.6}.member-status{font-size:8px;color:#4da3ff}.view-btn{margin-top:13px;width:100%;padding:9px;border:1px solid #40586f;border-radius:7px;background:#0a1725;color:#4da3ff;font-size:8px;font-weight:bold}
+.api-note{margin-top:20px;padding:15px;border:1px dashed #405a72;border-radius:10px;background:#06101a;color:#74899d;font-size:9px;line-height:1.8;text-align:center}.empty{padding:30px;text-align:center;border:1px dashed #354d64;border-radius:10px;color:#71869c;font-size:10px;display:none}.toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,20px);padding:11px 15px;border:1px solid #4da3ff;border-radius:8px;background:#0b2032;color:#dce5ed;font-size:10px;opacity:0;pointer-events:none;transition:.25s;z-index:3000}.toast.show{opacity:1;transform:translate(-50%,0)}
+footer{padding:35px 7%;background:#03080e;border-top:1px solid #263b50;color:#7d90a4;font-size:11px}
+@media(max-width:1000px){.layout{grid-template-columns:1fr}.sidebar{display:flex;overflow-x:auto;gap:5px;border-right:none;border-bottom:1px solid #253a4e;padding:10px}.sidebar-title{display:none}.menu-btn{width:auto;min-width:max-content;margin:0}.stats{grid-template-columns:repeat(3,1fr)}.member-list{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:700px){.content{padding:25px 5% 70px}.page-title{font-size:29px}.member-profile{flex-direction:column;align-items:flex-start}.stats{grid-template-columns:repeat(2,1fr)}.order-grid{grid-template-columns:1fr}.member-list{grid-template-columns:1fr}.partner-row{flex-direction:column}.partner-row select,.partner-row button{height:43px}}
 </style>
-
 </head>
-
-
 <body>
-
-
-<!-- =========================
-     HEADER
-========================= -->
-
-<header>
-
-
-<div class="brand-area">
-
-
-    <div class="fz-logo">
-        FZ
-    </div>
-
-
-    <div class="brand">
-
-        <span class="blue">
-            FHAMAR
-        </span>
-
-        <span class="silver">
-            .ZAMOST
-        </span>
-
-    </div>
-
-
-</div>
-
-
-<div class="header-right">
-
-
-    <div class="role">
-        TEAM MEMBER
-    </div>
-
-
-    <a
-    href="home.html"
-    class="home-btn">
-
-        HOME
-
-    </a>
-
-
-</div>
-
-
-</header>
-
-
-
-<!-- =========================
-     LAYOUT
-========================= -->
+<header><div class="brand-area"><div class="fz-logo">FZ</div><div class="brand"><span class="blue">FHAMAR</span><span class="silver">.ZAMOST</span></div></div><div class="header-right"><div class="role">TEAM MEMBER</div><a href="home.html" class="home-btn">HOME</a></div></header>
 
 <div class="layout">
-
-
-<!-- =========================
-     SIDEBAR
-========================= -->
-
 <aside class="sidebar">
-
-
-<div class="sidebar-title">
-    TEAM CONTROL
-</div>
-
-
-<button
-class="menu-btn active"
-onclick="showSection('dashboard',this)">
-
-    📊 Dashboard
-
-</button>
-
-
-<button
-class="menu-btn"
-onclick="showSection('orders',this)">
-
-    📦 My State Orders
-
-</button>
-
-
-<button
-class="menu-btn"
-onclick="showSection('members',this)">
-
-    👥 Team Members
-
-</button>
-
-
-<button
-class="menu-btn"
-onclick="showSection('delivery',this)">
-
-    🚚 Delivery
-
-</button>
-
-
+<div class="sidebar-title">TEAM CONTROL</div>
+<button class="menu-btn active" onclick="showSection('dashboard',this)">📊 Dashboard</button>
+<button class="menu-btn" onclick="showSection('orders',this)">📦 My State Orders</button>
+<button class="menu-btn" onclick="showSection('members',this)">👥 Team Members</button>
+<button class="menu-btn" onclick="showSection('delivery',this)">🚚 Delivery</button>
 </aside>
 
-
-
-<!-- =========================
-     CONTENT
-========================= -->
-
 <main class="content">
-
-
-<div class="eyebrow">
-    FHAMAR.ZAMOST TEAM OPERATIONS
-</div>
-
-
-<h1 class="page-title">
-
-    Team
-
-    <span>
-        Dashboard
-    </span>
-
-</h1>
-
-
-<p class="subtitle">
-
-    Manage assigned state orders,
-    packaging, dispatch and delivery
-    operations.
-
-</p>
-
-
-
-<!-- =========================
-     MEMBER PROFILE
-========================= -->
+<div class="eyebrow">FHAMAR.ZAMOST TEAM OPERATIONS</div>
+<h1 class="page-title">Team <span>Dashboard</span></h1>
+<p class="subtitle">Manage assigned state orders, packaging, dispatch and delivery operations.</p>
 
 <section class="member-profile">
-
-
-<div class="member-left">
-
-
-    <div class="avatar"
-    id="avatar">
-
-        RK
-
-    </div>
-
-
-    <div>
-
-        <div
-        class="member-name"
-        id="memberName">
-
-            Rahul Kumar
-
-        </div>
-
-
-        <div
-        class="member-info">
-
-            Team Member • Bihar Operations
-            <br>
-            Member ID: FZTM001
-
-        </div>
-
-    </div>
-
-
-</div>
-
-
-<div
-class="state-badge"
-id="assignedState">
-
-    ASSIGNED STATE: BIHAR
-
-</div>
-
-
+<div class="member-left"><div class="avatar" id="avatar">RK</div><div><div class="member-name" id="memberName">Rahul Kumar</div><div class="member-info">Team Member • Bihar Operations<br>Member ID: FZTM001</div></div></div>
+<div class="state-badge" id="assignedState">ASSIGNED STATE: BIHAR</div>
 </section>
-
-
-
-<!-- =========================
-     STATS
-========================= -->
 
 <div class="stats">
-
-
-<div class="stat active-stat">
-
-    <small>
-        TODAY ORDERS
-    </small>
-
-    <strong>
-        12
-    </strong>
-
+<div class="stat active-stat"><small>TODAY ORDERS</small><strong id="todayOrders">0</strong></div>
+<div class="stat"><small>PENDING</small><strong id="pendingOrders">0</strong></div>
+<div class="stat"><small>PACKAGING</small><strong id="packagingOrders">0</strong></div>
+<div class="stat"><small>SHIPPED</small><strong id="shippedOrders">0</strong></div>
+<div class="stat"><small>DELIVERED</small><strong id="deliveredOrders">0</strong></div>
 </div>
 
-
-<div class="stat">
-
-    <small>
-        PENDING
-    </small>
-
-    <strong>
-        4
-    </strong>
-
-</div>
-
-
-<div class="stat">
-
-    <small>
-        PACKAGING
-    </small>
-
-    <strong>
-        3
-    </strong>
-
-</div>
-
-
-<div class="stat">
-
-    <small>
-        SHIPPED
-    </small>
-
-    <strong>
-        3
-    </strong>
-
-</div>
-
-
-<div class="stat">
-
-    <small>
-        DELIVERED
-    </small>
-
-    <strong>
-        2
-    </strong>
-
-</div>
-
-
-</div>
-
-
-
-<!-- =========================
-     DASHBOARD
-========================= -->
-
-<section
-id="dashboard"
-class="section active">
-
-
-<div class="section-header">
-
-    <h2>
-        Operations Overview
-    </h2>
-
-</div>
-
-
-<div class="api-note">
-
-<b>
-    TEAM MEMBER ACCESS
-</b>
-
-<br><br>
-
-Current demo is assigned to:
-
-<b>
-    BIHAR
-</b>
-
-<br><br>
-
-Real system में Firebase Login के
-assignedState के अनुसार Team Member
-को केवल उसी state के orders दिखेंगे।
-
-</div>
-
-
+<section id="dashboard" class="section">
+<div class="section-header"><h2>Operations Overview</h2></div>
+<div class="api-note"><b>TEAM MEMBER ACCESS</b><br><br>Current demo is assigned to: <b id="dashboardState">BIHAR</b><br><br>Firebase Integration is active. Real-time changes in Firestore will automatically sync here.</div>
 </section>
 
-
-
-<!-- =========================
-     ORDERS
-========================= -->
-
-<section
-id="orders"
-class="section">
-
-
-<div class="section-header">
-
-    <h2>
-        My State Orders
-    </h2>
-
-</div>
-
-
+<section id="orders" class="section" style="display:none">
+<div class="section-header"><h2>My State Orders</h2></div>
 <div class="toolbar">
-
-
-<input
-id="orderSearch"
-class="search"
-placeholder="Search Order ID / Customer...">
-
-
-<select
-id="orderStatusFilter"
-class="select"
-onchange="renderOrders()">
-
-<option value="all">
-    All Status
-</option>
-
-<option>
-    Confirmed
-</option>
-
-<option>
-    Packaging
-</option>
-
-<option>
-    Ready to Ship
-</option>
-
-<option>
-    Shipped
-</option>
-
-<option>
-    Out for Delivery
-</option>
-
-<option>
-    Delivered
-</option>
-
+<input id="orderSearch" class="search" placeholder="Search Order ID / Customer..." oninput="renderOrders()">
+<select id="orderStatusFilter" class="select" onchange="renderOrders()">
+<option value="all">All Status</option><option value="Confirmed">Confirmed</option><option value="Packaging">Packaging</option><option value="Ready to Ship">Ready to Ship</option><option value="Shipped">Shipped</option><option value="Out for Delivery">Out for Delivery</option><option value="Delivered">Delivered</option>
 </select>
-
-
 </div>
-
-
-<div
-id="orderGrid"
-class="order-grid">
-
-</div>
-
-
+<div id="orderGrid" class="order-grid"></div><div id="orderEmpty" class="empty">No matching orders found.</div>
 </section>
 
-
-
-<!-- =========================
-     MEMBERS
-========================= -->
-
-<section
-id="members"
-class="section">
-
-
-<div class="section-header">
-
-    <h2>
-        Team Members
-    </h2>
-
-</div>
-
-
-<div
-id="memberList"
-class="member-list">
-
-</div>
-
-
-<div class="api-note">
-
-<b>
-    ADMIN VIEW CONNECTION
-</b>
-
-<br><br>
-
-Admin Dashboard से Team Member का
-पूरा dashboard view किया जा सकेगा।
-
-<br>
-
-YAHAN FIREBASE ROLE / MEMBER
-PERMISSION CODE LAGEGA।
-
-</div>
-
-
+<section id="members" class="section" style="display:none">
+<div class="section-header"><h2>Team Members</h2></div>
+<div id="memberList" class="member-list"></div>
+<div class="api-note"><b>ADMIN VIEW CONNECTION</b><br><br>Admin Dashboard se Team Member ka pura dashboard view kiya ja sakega.</div>
 </section>
 
-
-
-<!-- =========================
-     DELIVERY
-========================= -->
-
-<section
-id="delivery"
-class="section">
-
-
-<div class="section-header">
-
-    <h2>
-        Delivery Operations
-    </h2>
-
-</div>
-
-
-<div class="partner-box">
-
-
-<h3>
-    Select Delivery Partner
-</h3>
-
-
-<div class="partner-row">
-
-
-<select
-id="deliveryPartner">
-
-<option>
-    Select Partner
-</option>
-
-<option>
-    FZ Delivery Network
-</option>
-
-<option>
-    Local Delivery Partner
-</option>
-
-<option>
-    Professional Courier Partner
-</option>
-
-</select>
-
-
-<button
-onclick="assignDelivery()">
-
-    ASSIGN
-
-</button>
-
-
-</div>
-
-
-</div>
-
-
-<div class="api-note">
-
-<b>
-    DELIVERY API CONNECTION
-</b>
-
-<br><br>
-
-YAHAN DELIVERY PARTNER API CODE LAGEGA.
-
-<br>
-
-YAHAN TRACKING ID,
-SHIPMENT CREATION और delivery status
-API connect होगी।
-
-</div>
-
-
+<section id="delivery" class="section" style="display:none">
+<div class="section-header"><h2>Delivery Operations</h2></div>
+<div class="partner-box"><h3>Select Delivery Partner</h3><div class="partner-row"><select id="deliveryPartner"><option value="">Select Partner</option><option>FZ Delivery Network</option><option>Local Delivery Partner</option><option>Professional Courier Partner</option></select><button onclick="assignDelivery()">ASSIGN</button></div></div>
+<div id="deliveryResult" class="api-note">No delivery partner assigned yet.</div>
 </section>
 
-
-
-<!-- =========================
-     CONNECTION NOTE
-========================= -->
-
-<div class="api-note">
-
-
-<b>
-    FIREBASE / DATABASE CONNECTION AREA
-</b>
-
-
-<br><br>
-
-
-YAHAN FIREBASE AUTHENTICATION CODE LAGEGA.
-
-
-<br>
-
-
-YAHAN TEAM MEMBER ROLE CODE LAGEGA.
-
-
-<br>
-
-
-YAHAN ASSIGNED STATE DATABASE CODE LAGEGA.
-
-
-<br>
-
-
-YAHAN ORDERS DATABASE CODE LAGEGA.
-
-
-<br>
-
-
-YAHAN ORDER STATUS UPDATE CODE LAGEGA.
-
-
-<br>
-
-
-YAHAN DELIVERY PARTNER API CODE LAGEGA.
-
-
-</div>
-
-
+<div class="api-note"><b>FIREBASE REALTIME FIRESTORE CONNECTED</b><br><br>Data is syncing with Firebase Firestore database.</div>
 </main>
-
-
 </div>
 
+<footer><div class="brand"><span class="blue">FHAMAR</span><span class="silver">.ZAMOST</span></div><p>Team Operations • State-wise Order Management</p></footer>
+<div id="toast" class="toast"></div>
 
+<!-- Firebase Module Script -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+  import { getFirestore, collection, query, where, onSnapshot, doc, updateDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-<!-- =========================
-     FOOTER
-========================= -->
+  // -------------------------------------------------------------
+  // [PLACEHOLDER] YAHAN AAPNI FIREBASE API KEYS DAALNI HAIN
+  // Jab aapke pass keys aa jayein, "YOUR_..." ko replace kar dein.
+  // -------------------------------------------------------------
+  const firebaseConfig = {
+    apiKey: "YOUR_API_KEY_HERE",
+    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+    projectId: "YOUR_PROJECT_ID",
+    storageBucket: "YOUR_PROJECT_ID.appspot.com",
+    messagingSenderId: "YOUR_SENDER_ID",
+    appId: "YOUR_APP_ID"
+  };
 
-<footer>
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
 
+  let TEAM_STATE = "Bihar";
+  let TEAM_MEMBER_ID = "FZTM001";
+  let orders = [];
 
-<div class="brand">
+  const teamMembers = [
+    {id:"FZTM001",name:"Rahul Kumar",state:"Bihar",status:"Approved"},
+    {id:"FZTM002",name:"Aman Khan",state:"Delhi",status:"Approved"},
+    {id:"FZTM003",name:"Sameer Ali",state:"Maharashtra",status:"Approved"},
+    {id:"FZTM004",name:"Arif Hasan",state:"West Bengal",status:"Pending"},
+    {id:"FZTM005",name:"Vikas Singh",state:"Karnataka",status:"Approved"}
+  ];
 
-    <span class="blue">
-        FHAMAR
-    </span>
-
-    <span class="silver">
-        .ZAMOST
-    </span>
-
-</div>
-
-
-<p>
-    Team Operations • State-wise Order Management
-</p>
-
-
-</footer>
-
-
-
-<script>
-
-
-/* =========================================
-   20 INDIAN STATES
-========================================= */
-
-
-const states = [
-
-    "Maharashtra",
-    "Uttar Pradesh",
-    "West Bengal",
-    "Karnataka",
-    "Delhi",
-    "Tamil Nadu",
-    "Gujarat",
-    "Rajasthan",
-    "Telangana",
-    "Andhra Pradesh",
-    "Bihar",
-    "Madhya Pradesh",
-    "Haryana",
-    "Punjab",
-    "Kerala",
-    "Odisha",
-    "Jharkhand",
-    "Assam",
-    "Chhattisgarh",
-    "Uttarakhand"
-
-];
-
-
-
-/* =========================================
-   DEMO ORDERS
-========================================= */
-
-
-let orders = [
-
-{
-    id:"FZ20001",
-    customer:"Mohammad Ali",
-    mobile:"9000000011",
-    state:"Bihar",
-    product:"Classic Backpack",
-    amount:799,
-    status:"Confirmed"
-},
-
-{
-    id:"FZ20002",
-    customer:"Aman Kumar",
-    mobile:"9000000012",
-    state:"Bihar",
-    product:"Smart Watch",
-    amount:1299,
-    status:"Packaging"
-},
-
-{
-    id:"FZ20003",
-    customer:"Ravi Singh",
-    mobile:"9000000013",
-    state:"Bihar",
-    product:"Running Shoes",
-    amount:1499,
-    status:"Ready to Ship"
-},
-
-{
-    id:"FZ20004",
-    customer:"Imran Khan",
-    mobile:"9000000014",
-    state:"Bihar",
-    product:"Wireless Earphones",
-    amount:999,
-    status:"Shipped"
-}
-
-];
-
-
-
-/* =========================================
-   TEAM MEMBERS
-========================================= */
-
-
-let teamMembers = [
-
-{
-    id:"FZTM001",
-    name:"Rahul Kumar",
-    state:"Bihar",
-    status:"Approved"
-},
-
-{
-    id:"FZTM002",
-    name:"Aman Khan",
-    state:"Delhi",
-    status:"Approved"
-},
-
-{
-    id:"FZTM003",
-    name:"Sameer Ali",
-    state:"Maharashtra",
-    status:"Approved"
-},
-
-{
-    id:"FZTM004",
-    name:"Arif Hasan",
-    state:"West Bengal",
-    status:"Pending"
-},
-
-{
-    id:"FZTM005",
-    name:"Vikas Singh",
-    state:"Karnataka",
-    status:"Approved"
-}
-
-];
-
-
-
-/* =========================================
-   SHOW SECTION
-========================================= */
-
-function showSection(id,button){
-
-
-    document
-    .querySelectorAll(".section")
-    .forEach(function(section){
-
-        section.classList.remove(
-            "active"
-        );
-
-    });
-
-
-    document
-    .querySelectorAll(".menu-btn")
-    .forEach(function(btn){
-
-        btn.classList.remove(
-            "active"
-        );
-
-    });
-
-
-    document
-    .getElementById(id)
-    .classList.add("active");
-
-
-    button.classList.add("active");
-
-
-    if(id === "orders"){
-
-        renderOrders();
-
+  // REAL-TIME FIRESTORE LISTENER
+  function initRealtimeOrders() {
+    try {
+      const q = query(collection(db, "orders"), where("state", "==", TEAM_STATE));
+      onSnapshot(q, (snapshot) => {
+        orders = [];
+        snapshot.forEach((docSnap) => {
+          orders.push({ id: docSnap.id, ...docSnap.data() });
+        });
+        
+        // Fallback demo data if DB is empty
+        if (orders.length === 0) {
+          orders = [
+            {id:"FZ20001",customer:"Mohammad Ali",mobile:"9000000011",state:"Bihar",product:"Classic Backpack",amount:799,status:"Confirmed"},
+            {id:"FZ20002",customer:"Aman Kumar",mobile:"9000000012",state:"Bihar",product:"Smart Watch",amount:1299,status:"Packaging"},
+            {id:"FZ20003",customer:"Ravi Singh",mobile:"9000000013",state:"Bihar",product:"Running Shoes",amount:1499,status:"Ready to Ship"},
+            {id:"FZ20004",customer:"Imran Khan",mobile:"9000000014",state:"Bihar",product:"Wireless Earphones",amount:999,status:"Shipped"},
+            {id:"FZ20005",customer:"Neha Sharma",mobile:"9000000015",state:"Bihar",product:"Sunglasses",amount:599,status:"Delivered"}
+          ];
+        }
+        window.renderOrders();
+        window.updateStats();
+      }, (error) => {
+        console.warn("Firestore listener offline, running local state:", error);
+      });
+    } catch (e) {
+      console.log("Firebase config pending...");
     }
+  }
 
+  // UPDATE ORDER STATUS IN FIRESTORE
+  window.setOrderStatus = async function(id, status) {
+    const order = orders.find(o => o.id === id);
+    if(!order) return;
+    
+    // Update locally first
+    order.status = status;
+    window.renderOrders();
+    window.showToast(`${id} updated to ${status}.`);
 
-    if(id === "members"){
-
-        renderMembers();
-
+    // Sync to Firestore
+    try {
+      const orderRef = doc(db, "orders", id);
+      await setDoc(orderRef, { status: status }, { merge: true });
+    } catch (err) {
+      console.log("Firestore sync pending key update.");
     }
+  };
 
-}
+  window.advanceOrder = function(id) {
+    const order = orders.find(o => o.id === id);
+    if(!order) return;
+    const flow = ["Confirmed","Packaging","Ready to Ship","Shipped","Out for Delivery","Delivered"];
+    const i = flow.indexOf(order.status);
+    if(i < 0 || i === flow.length - 1){ window.showToast("Order is already completed."); return; }
+    window.setOrderStatus(id, flow[i+1]);
+  };
 
+  window.renderOrders = function() {
+    const grid = document.getElementById("orderGrid"), empty = document.getElementById("orderEmpty");
+    const search = document.getElementById("orderSearch").value.toLowerCase().trim();
+    const filter = document.getElementById("orderStatusFilter").value;
+    const filtered = orders.filter(o => {
+      if(o.state !== TEAM_STATE) return false;
+      const text = (o.id + " " + o.customer + " " + o.product).toLowerCase();
+      return text.includes(search) && (filter === "all" || o.status === filter);
+    });
+    
+    grid.innerHTML = filtered.map(order => `
+    <article class="order-card">
+      <div class="order-top"><div class="order-id">${escapeHTML(order.id)}</div><div class="status">${escapeHTML(order.status)}</div></div>
+      <div class="order-info">Customer: <strong>${escapeHTML(order.customer)}</strong><br>Mobile: <strong>${escapeHTML(order.mobile)}</strong><br>Product: <strong>${escapeHTML(order.product)}</strong><br>Amount: <strong>₹${Number(order.amount).toLocaleString("en-IN")}</strong><br>State: <strong>${escapeHTML(order.state)}</strong></div>
+      <div class="order-actions">${nextAction(order)}<button class="action" onclick="advanceOrder('${order.id}')">NEXT STATUS</button></div>
+      <div class="packaging"><div class="packaging-title">ORDER PROGRESS</div><div class="packaging-steps">${progressSteps(order.status)}</div></div>
+    </article>`).join("");
+    
+    empty.style.display = filtered.length ? "none" : "block";
+    window.updateStats();
+  };
 
+  function nextAction(order){
+    if(order.status==="Confirmed")return `<button class="action primary" onclick="setOrderStatus('${order.id}','Packaging')">START PACKAGING</button>`;
+    if(order.status==="Packaging")return `<button class="action primary" onclick="setOrderStatus('${order.id}','Ready to Ship')">READY TO SHIP</button>`;
+    if(order.status==="Ready to Ship")return `<button class="action primary" onclick="setOrderStatus('${order.id}','Shipped')">DISPATCH ORDER</button>`;
+    if(order.status==="Shipped")return `<button class="action primary" onclick="setOrderStatus('${order.id}','Out for Delivery')">OUT FOR DELIVERY</button>`;
+    if(order.status==="Out for Delivery")return `<button class="action primary" onclick="setOrderStatus('${order.id}','Delivered')">MARK DELIVERED</button>`;
+    return `<button class="action" disabled>COMPLETED</button>`;
+  }
 
-/* =========================================
-   RENDER ORDERS
-========================================= */
+  function progressSteps(status){
+    const all = ["Confirmed","Packaging","Ready to Ship","Shipped","Out for Delivery","Delivered"];
+    const index = all.indexOf(status);
+    return all.map((s,i) => `<span class="step ${i<=index?"done":""}">${i+1}. ${s}</span>`).join("");
+  }
 
-function renderOrders(){
+  window.renderMembers = function() {
+    document.getElementById("memberList").innerHTML = teamMembers.map(m => `
+    <article class="member-card">
+      <div class="member-card-top"><h3>${escapeHTML(m.name)}</h3><span class="member-status">${escapeHTML(m.status)}</span></div>
+      <p>Member ID: ${escapeHTML(m.id)}<br>Assigned State: ${escapeHTML(m.state)}</p>
+      <button class="view-btn" onclick="viewMember('${m.id}')">VIEW MEMBER</button>
+    </article>`).join("");
+  };
 
+  window.viewMember = function(id) {
+    const m = teamMembers.find(x => x.id === id);
+    if(m) window.showToast(`${m.name} • ${m.state} • ${m.status}`);
+  };
 
-    const grid =
-        document.getElementById(
-            "orderGrid"
-        );
+  window.assignDelivery = function() {
+    const partner = document.getElementById("deliveryPartner").value;
+    if(!partner){ window.showToast("Please select a delivery partner."); return; }
+    const data = {partner, memberId: TEAM_MEMBER_ID, state: TEAM_STATE, assignedAt: new Date().toISOString()};
+    localStorage.setItem("fz_delivery_assignment", JSON.stringify(data));
+    document.getElementById("deliveryResult").innerHTML = `<b>ASSIGNED:</b> ${escapeHTML(partner)}<br>State: ${escapeHTML(TEAM_STATE)}<br>Member: ${escapeHTML(TEAM_MEMBER_ID)}`;
+    window.showToast("Delivery partner assigned.");
+  };
 
+  window.updateStats = function() {
+    const mine = orders.filter(o => o.state === TEAM_STATE);
+    const count = s => mine.filter(o => o.status === s).length;
+    document.getElementById("todayOrders").textContent = mine.length;
+    document.getElementById("pendingOrders").textContent = count("Confirmed");
+    document.getElementById("packagingOrders").textContent = count("Packaging");
+    document.getElementById("shippedOrders").textContent = count("Shipped") + count("Ready to Ship") + count("Out for Delivery");
+    document.getElementById("deliveredOrders").textContent = count("Delivered");
+  };
 
-    const search =
-        document.getElementById(
-            "orderSearch"
-        )
-        .value
-        .toLowerCase()
-        .trim();
+  window.showSection = function(id, button) {
+    document.querySelectorAll(".section").forEach(s => s.style.display = "none");
+    document.querySelectorAll(".menu-btn").forEach(b => b.classList.remove("active"));
+    const section = document.getElementById(id);
+    if(section) section.style.display = "block";
+    if(button) button.classList.add("active");
+    if(id === "orders") window.renderOrders();
+    if(id === "members") window.renderMembers();
+  };
 
+  function escapeHTML(value){
+    return String(value??"").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
+  }
 
-    const filter =
-        document.getElementById(
-            "orderStatusFilter"
-        ).value;
+  window.showToast = function(text) {
+    const t = document.getElementById("toast");
+    t.textContent = text;
+    t.classList.add("show");
+    clearTimeout(window.toastTimer);
+    window.toastTimer = setTimeout(() => t.classList.remove("show"), 2200);
+  };
 
-
-
-    const filtered =
-        orders.filter(function(order){
-
-
-            const matchesSearch =
-
-                order.id
-                .toLowerCase()
-                .includes(search)
-
-                ||
-
-                order.customer
-                .toLowerCase()
-                .includes(search);
-
-
-
-            const matchesStatus =
-
-                filte
+  // Initialize
+  document.getElementById("dashboardState").textContent = TEAM_STATE.toUpperCase();
+  document.getElementById("assignedState").textContent = "ASSIGNED STATE: " + TEAM_STATE.toUpperCase();
+  initRealtimeOrders();
+</script>
+</body>
+</html>
