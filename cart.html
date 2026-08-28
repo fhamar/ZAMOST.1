@@ -73,7 +73,7 @@ footer{padding:35px 7%;background:#03080e;border-top:1px solid #263b50;color:#7d
 <b>NEXT PAGE:</b> Checkout Page<br><br>
 Checkout पर customer delivery address, mobile number, order information और payment option select करेगा।
 <br><br>
-<b>STATUS:</b> Cart Firebase database & LocalStorage dono ke sath sync ho chuki hai.
+<b>STATUS:</b> Cart firebase-config.js aur LocalStorage ke saath jud chuki hai.
 </div>
 </main>
 
@@ -82,12 +82,12 @@ Checkout पर customer delivery address, mobile number, order information औ�
 <p>Premium Digital Collection</p>
 </footer>
 
-<!-- 1. Aapki banayi hui Firebase File ko link kar diya gaya hai -->
-<script type="module" src="firebase.js"></script>
+<!-- 1. Aapki firebase-config.js file ko yahan connect kar diya gaya hai -->
+<script type="module" src="firebase-config.js"></script>
 
 <!-- 2. Main Cart Logic & Firebase Sync -->
 <script type="module">
-import { db, auth } from "./firebase.js"; // Aapki firebase.js file se imports
+import { db, auth } from "./firebase-config.js"; 
 import { doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
@@ -104,7 +104,6 @@ async function loadCart(){
   cart = [];
  }
 
- // Normalize items & remove 1500 limit bug
  cart = cart.map(item => ({
   id: item.id || item.productId || ("item-" + Math.random().toString(36).substr(2, 9)),
   name: item.name || "Product",
@@ -121,7 +120,6 @@ async function loadCart(){
 async function saveCart(){
  localStorage.setItem(CART_KEY, JSON.stringify(cart));
  
- // Agar user logged in hai, toh Firebase Cloud me cart update hoga
  if (currentUser && db) {
   try {
    const userCartRef = doc(db, "carts", currentUser.uid);
@@ -187,7 +185,7 @@ function escapeHtml(value){
  return div.innerHTML;
 }
 
-// Global Event Listener for Cart Actions
+// Global Event Listener
 document.addEventListener("click", function(e) {
  const target = e.target;
  const action = target.getAttribute("data-action");
@@ -223,12 +221,11 @@ function updateSummary(){
  document.getElementById("grandTotal").textContent = money(total);
 }
 
-// Firebase Auth State Tracking
+// Firebase Auth Tracker
 if (auth) {
  onAuthStateChanged(auth, async (user) => {
   currentUser = user;
   if (user && db) {
-   // User logged in hone par cloud cart sync karein
    try {
     const userCartRef = doc(db, "carts", user.uid);
     const docSnap = await getDoc(userCartRef);
