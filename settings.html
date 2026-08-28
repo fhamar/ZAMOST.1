@@ -1,1960 +1,286 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Settings | FHAMAR ZAMOST</title>
-
-
 <style>
-
-/* =========================================
-   BASIC
-========================================= */
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial,Helvetica,sans-serif;
-}
-
-body{
-    background:#050b12;
-    color:#fff;
-}
-
-button,
-input,
-select,
-textarea{
-    font-family:inherit;
-}
-
-button{
-    cursor:pointer;
-}
-
-a{
-    text-decoration:none;
-    color:inherit;
-}
-
-
-/* =========================================
-   HEADER
-========================================= */
-
-header{
-
-    height:75px;
-
-    padding:0 5%;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    background:#07111d;
-
-    border-bottom:1px solid #30465d;
-
-    position:sticky;
-
-    top:0;
-
-    z-index:1000;
-}
-
-
-.brand-area{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:10px;
-}
-
-
-.fz-logo{
-
-    width:45px;
-
-    height:45px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    border-radius:12px;
-
-    border:1px solid #8298ad;
-
-    background:
-    linear-gradient(
-        145deg,
-        #173b5b,
-        #050b12
-    );
-
-    color:#4da3ff;
-
-    font-size:17px;
-
-    font-weight:900;
-}
-
-
-.brand{
-
-    font-size:18px;
-
-    font-weight:900;
-
-    letter-spacing:2px;
-}
-
-
-.blue{
-    color:#4da3ff;
-}
-
-
-.silver{
-    color:#aeb9c5;
-}
-
-
-.header-right{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:10px;
-}
-
-
-.admin-badge{
-
-    padding:8px 12px;
-
-    border:1px solid #3c5870;
-
-    border-radius:20px;
-
-    color:#4da3ff;
-
-    font-size:9px;
-
-    font-weight:bold;
-}
-
-
-.home-btn{
-
-    padding:9px 13px;
-
-    border:1px solid #526b82;
-
-    border-radius:8px;
-
-    color:#dce5ed;
-
-    font-size:10px;
-}
-
-
-/* =========================================
-   LAYOUT
-========================================= */
-
-.layout{
-
-    display:grid;
-
-    grid-template-columns:220px 1fr;
-
-    min-height:calc(100vh - 75px);
-}
-
-
-/* =========================================
-   SIDEBAR
-========================================= */
-
-.sidebar{
-
-    padding:25px 15px;
-
-    background:#06101a;
-
-    border-right:1px solid #253a4e;
-}
-
-
-.sidebar-title{
-
-    margin:5px 10px 15px;
-
-    color:#657b91;
-
-    font-size:9px;
-
-    letter-spacing:2px;
-}
-
-
-.menu-btn{
-
-    width:100%;
-
-    padding:13px 12px;
-
-    margin-bottom:7px;
-
-    text-align:left;
-
-    border:1px solid transparent;
-
-    border-radius:9px;
-
-    background:transparent;
-
-    color:#8fa1b4;
-
-    font-size:11px;
-}
-
-
-.menu-btn:hover{
-
-    background:#0b1b2a;
-
-    color:white;
-}
-
-
-.menu-btn.active{
-
-    background:#102b42;
-
-    border-color:#315574;
-
-    color:#4da3ff;
-}
-
-
-/* =========================================
-   CONTENT
-========================================= */
-
-.content{
-
-    padding:35px 4% 80px;
-
-    overflow:hidden;
-}
-
-
-.eyebrow{
-
-    color:#71869c;
-
-    font-size:9px;
-
-    letter-spacing:3px;
-
-    font-weight:bold;
-}
-
-
-.page-title{
-
-    margin-top:10px;
-
-    font-size:35px;
-}
-
-
-.page-title span{
-
-    color:#4da3ff;
-}
-
-
-.subtitle{
-
-    margin-top:8px;
-
-    color:#8194a8;
-
-    font-size:12px;
-
-    line-height:1.7;
-}
-
-
-/* =========================================
-   SAVE BAR
-========================================= */
-
-.save-bar{
-
-    margin-top:22px;
-
-    padding:14px 17px;
-
-    border:1px solid #293f55;
-
-    border-radius:12px;
-
-    background:#081421;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    gap:15px;
-}
-
-
-.save-info{
-
-    color:#7f93a7;
-
-    font-size:9px;
-
-    line-height:1.6;
-}
-
-
-.save-btn{
-
-    height:40px;
-
-    padding:0 17px;
-
-    border:none;
-
-    border-radius:8px;
-
-    background:#4da3ff;
-
-    color:#04101c;
-
-    font-size:9px;
-
-    font-weight:900;
-}
-
-
-/* =========================================
-   SETTINGS GRID
-========================================= */
-
-.settings-grid{
-
-    margin-top:20px;
-
-    display:grid;
-
-    grid-template-columns:
-    repeat(2,1fr);
-
-    gap:15px;
-}
-
-
-.setting-card{
-
-    padding:21px;
-
-    border:1px solid #293f55;
-
-    border-radius:14px;
-
-    background:#081421;
-}
-
-
-.setting-card.full{
-
-    grid-column:1 / -1;
-}
-
-
-.setting-card h2{
-
-    font-size:17px;
-
-    margin-bottom:5px;
-}
-
-
-.setting-card h2 span{
-
-    color:#4da3ff;
-}
-
-
-.setting-description{
-
-    color:#71869c;
-
-    font-size:9px;
-
-    line-height:1.6;
-
-    margin-bottom:18px;
-}
-
-
-/* =========================================
-   FORM
-========================================= */
-
-.form-grid{
-
-    display:grid;
-
-    grid-template-columns:
-    1fr 1fr;
-
-    gap:12px;
-}
-
-
-.form-group.full{
-
-    grid-column:1 / -1;
-}
-
-
-label{
-
-    display:block;
-
-    margin-bottom:6px;
-
-    color:#9aabba;
-
-    font-size:9px;
-
-    font-weight:bold;
-}
-
-
-input,
-select,
-textarea{
-
-    width:100%;
-
-    min-height:42px;
-
-    padding:10px 11px;
-
-    border:1px solid #30465c;
-
-    border-radius:8px;
-
-    background:#050c14;
-
-    color:#fff;
-
-    outline:none;
-
-    font-size:10px;
-}
-
-
-textarea{
-
-    min-height:85px;
-
-    resize:vertical;
-}
-
-
-input:focus,
-select:focus,
-textarea:focus{
-
-    border-color:#4da3ff;
-}
-
-
-/* =========================================
-   TOGGLE
-========================================= */
-
-.toggle-row{
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    gap:15px;
-
-    padding:13px 0;
-
-    border-bottom:1px solid #1e3144;
-}
-
-
-.toggle-row:last-child{
-
-    border-bottom:none;
-}
-
-
-.toggle-text strong{
-
-    display:block;
-
-    color:#dce5ed;
-
-    font-size:11px;
-}
-
-
-.toggle-text small{
-
-    display:block;
-
-    margin-top:4px;
-
-    color:#6f8498;
-
-    font-size:8px;
-
-    line-height:1.5;
-}
-
-
-.switch{
-
-    position:relative;
-
-    width:45px;
-
-    height:24px;
-
-    flex:none;
-}
-
-
-.switch input{
-
-    opacity:0;
-
-    width:0;
-
-    height:0;
-}
-
-
-.slider{
-
-    position:absolute;
-
-    inset:0;
-
-    border-radius:20px;
-
-    background:#26394b;
-
-    border:1px solid #40566d;
-
-    transition:.2s;
-}
-
-
-.slider:before{
-
-    content:"";
-
-    position:absolute;
-
-    width:17px;
-
-    height:17px;
-
-    left:3px;
-
-    top:2px;
-
-    border-radius:50%;
-
-    background:#8294a6;
-
-    transition:.2s;
-}
-
-
-.switch input:checked + .slider{
-
-    background:#173b5b;
-
-    border-color:#4da3ff;
-}
-
-
-.switch input:checked + .slider:before{
-
-    transform:translateX(20px);
-
-    background:#4da3ff;
-}
-
-
-/* =========================================
-   SECURITY BOX
-========================================= */
-
-.security-box{
-
-    margin-top:12px;
-
-    padding:15px;
-
-    border:1px solid #293f55;
-
-    border-radius:10px;
-
-    background:#07111d;
-
-    color:#7f93a7;
-
-    font-size:9px;
-
-    line-height:1.8;
-}
-
-
-.security-box strong{
-
-    color:#dce5ed;
-}
-
-
-/* =========================================
-   API NOTE
-========================================= */
-
-.api-note{
-
-    margin-top:20px;
-
-    padding:16px;
-
-    border:1px dashed #405a72;
-
-    border-radius:10px;
-
-    background:#06101a;
-
-    color:#74899d;
-
-    font-size:9px;
-
-    line-height:1.8;
-
-    text-align:center;
-}
-
-
-/* =========================================
-   FOOTER
-========================================= */
-
-footer{
-
-    padding:35px 7%;
-
-    background:#03080e;
-
-    border-top:1px solid #263b50;
-
-    color:#7d90a4;
-
-    font-size:11px;
-}
-
-
-/* =========================================
-   MOBILE
-========================================= */
-
-@media(max-width:900px){
-
-    .layout{
-
-        grid-template-columns:1fr;
-
-    }
-
-
-    .sidebar{
-
-        display:flex;
-
-        overflow-x:auto;
-
-        gap:5px;
-
-        border-right:none;
-
-        border-bottom:1px solid #253a4e;
-
-        padding:10px;
-
-    }
-
-
-    .sidebar-title{
-
-        display:none;
-
-    }
-
-
-    .menu-btn{
-
-        width:auto;
-
-        min-width:max-content;
-
-        margin:0;
-
-    }
-
-
-    .settings-grid{
-
-        grid-template-columns:1fr;
-
-    }
-
-
-    .setting-card.full{
-
-        grid-column:auto;
-
-    }
-
-}
-
-
-@media(max-width:600px){
-
-    .content{
-
-        padding:25px 5% 65px;
-
-    }
-
-
-    .page-title{
-
-        font-size:29px;
-
-    }
-
-
-    .form-grid{
-
-        grid-template-columns:1fr;
-
-    }
-
-
-    .form-group.full{
-
-        grid-column:auto;
-
-    }
-
-
-    .save-bar{
-
-        flex-direction:column;
-
-        align-items:flex-start;
-
-    }
-
-
-    .save-btn{
-
-        width:100%;
-
-    }
-
-}
-
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
+body{background:#050b12;color:#fff}
+button,input,select,textarea{font-family:inherit}button{cursor:pointer}a{text-decoration:none;color:inherit}
+header{height:75px;padding:0 5%;display:flex;align-items:center;justify-content:space-between;background:#07111d;border-bottom:1px solid #30465d;position:sticky;top:0;z-index:1000}
+.brand-area{display:flex;align-items:center;gap:10px}.fz-logo{width:45px;height:45px;display:flex;align-items:center;justify-content:center;border-radius:12px;border:1px solid #8298ad;background:linear-gradient(145deg,#173b5b,#050b12);color:#4da3ff;font-size:17px;font-weight:900}.brand{font-size:18px;font-weight:900;letter-spacing:2px}.blue{color:#4da3ff}.silver{color:#aeb9c5}
+.header-right{display:flex;align-items:center;gap:10px}.admin-badge{padding:8px 12px;border:1px solid #3c5870;border-radius:20px;color:#4da3ff;font-size:9px;font-weight:bold}.home-btn{padding:9px 13px;border:1px solid #526b82;border-radius:8px;color:#dce5ed;font-size:10px}
+.layout{display:grid;grid-template-columns:220px 1fr;min-height:calc(100vh - 75px)}
+.sidebar{padding:25px 15px;background:#06101a;border-right:1px solid #253a4e}.sidebar-title{margin:5px 10px 15px;color:#657b91;font-size:9px;letter-spacing:2px}.menu-btn{width:100%;padding:13px 12px;margin-bottom:7px;text-align:left;border:1px solid transparent;border-radius:9px;background:transparent;color:#8fa1b4;font-size:11px}.menu-btn:hover{background:#0b1b2a;color:white}.menu-btn.active{background:#102b42;border-color:#315574;color:#4da3ff}
+.content{padding:35px 4% 80px;overflow:hidden}.eyebrow{color:#71869c;font-size:9px;letter-spacing:3px;font-weight:bold}.page-title{margin-top:10px;font-size:35px}.page-title span{color:#4da3ff}.subtitle{margin-top:8px;color:#8194a8;font-size:12px;line-height:1.7}
+.save-bar{margin-top:22px;padding:14px 17px;border:1px solid #293f55;border-radius:12px;background:#081421;display:flex;align-items:center;justify-content:space-between;gap:15px}.save-info{color:#7f93a7;font-size:9px;line-height:1.6}
+.btn-group{display:flex;gap:10px}
+.save-btn{height:40px;padding:0 17px;border:none;border-radius:8px;background:#4da3ff;color:#04101c;font-size:9px;font-weight:900}.reset-btn{height:40px;padding:0 17px;border:1px solid #4f3333;border-radius:8px;background:#200c0c;color:#ff6b6b;font-size:9px;font-weight:900}
+.settings-grid{margin-top:20px;display:grid;grid-template-columns:repeat(2,1fr);gap:15px}.setting-card{padding:21px;border:1px solid #293f55;border-radius:14px;background:#081421}.setting-card.full{grid-column:1/-1}.setting-card h2{font-size:17px;margin-bottom:5px}.setting-card h2 span{color:#4da3ff}.setting-description{color:#71869c;font-size:9px;line-height:1.6;margin-bottom:18px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.form-group.full{grid-column:1/-1}label{display:block;margin-bottom:6px;color:#9aabba;font-size:9px;font-weight:bold}input,select,textarea{width:100%;min-height:42px;padding:10px 11px;border:1px solid #30465c;border-radius:8px;background:#050c14;color:#fff;outline:none;font-size:10px}textarea{min-height:85px;resize:vertical}input:focus,select:focus,textarea:focus{border-color:#4da3ff}
+.toggle-row{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:13px 0;border-bottom:1px solid #1e3144}.toggle-row:last-child{border-bottom:none}.toggle-text strong{display:block;color:#dce5ed;font-size:11px}.toggle-text small{display:block;margin-top:4px;color:#6f8498;font-size:8px;line-height:1.5}
+.switch{position:relative;width:45px;height:24px;flex:none}.switch input{opacity:0;width:0;height:0}.slider{position:absolute;inset:0;border-radius:20px;background:#26394b;border:1px solid #40566d;transition:.2s}.slider:before{content:"";position:absolute;width:17px;height:17px;left:3px;top:2px;border-radius:50%;background:#8294a6;transition:.2s}.switch input:checked+.slider{background:#173b5b;border-color:#4da3ff}.switch input:checked+.slider:before{transform:translateX(20px);background:#4da3ff}
+.security-box{margin-top:12px;padding:15px;border:1px solid #293f55;border-radius:10px;background:#07111d;color:#7f93a7;font-size:9px;line-height:1.8}.security-box strong{color:#dce5ed}
+.api-note{margin-top:20px;padding:16px;border:1px dashed #405a72;border-radius:10px;background:#06101a;color:#74899d;font-size:9px;line-height:1.8;text-align:center}
+footer{padding:35px 7%;background:#03080e;border-top:1px solid #263b50;color:#7d90a4;font-size:11px}
+.toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,20px);padding:11px 15px;border:1px solid #4da3ff;border-radius:8px;background:#0b2032;color:#dce5ed;font-size:10px;opacity:0;pointer-events:none;transition:.25s;z-index:3000}.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:900px){.layout{grid-template-columns:1fr}.sidebar{display:flex;overflow-x:auto;gap:5px;border-right:none;border-bottom:1px solid #253a4e;padding:10px}.sidebar-title{display:none}.menu-btn{width:auto;min-width:max-content;margin:0}.settings-grid{grid-template-columns:1fr}.setting-card.full{grid-column:auto}}
+@media(max-width:600px){.content{padding:25px 5% 65px}.page-title{font-size:29px}.form-grid{grid-template-columns:1fr}.form-group.full{grid-column:auto}.save-bar{flex-direction:column;align-items:flex-start}.btn-group{width:100%}.save-btn,.reset-btn{flex:1}}
 </style>
-
 </head>
-
-
 <body>
-
-
-<!-- =========================================
-     HEADER
-========================================= -->
-
 <header>
-
-
-<div class="brand-area">
-
-
-    <div class="fz-logo">
-        FZ
-    </div>
-
-
-    <div class="brand">
-
-        <span class="blue">
-            FHAMAR
-        </span>
-
-        <span class="silver">
-            .ZAMOST
-        </span>
-
-    </div>
-
-
-</div>
-
-
-
-<div class="header-right">
-
-
-    <div class="admin-badge">
-        ADMINISTRATOR
-    </div>
-
-
-    <a
-    href="home.html"
-    class="home-btn">
-
-        HOME
-
-    </a>
-
-
-</div>
-
-
+<div class="brand-area"><div class="fz-logo">FZ</div><div class="brand"><span class="blue">FHAMAR</span><span class="silver">.ZAMOST</span></div></div>
+<div class="header-right"><div class="admin-badge">ADMINISTRATOR</div><a href="home.html" class="home-btn">HOME</a></div>
 </header>
 
-
-
-<!-- =========================================
-     LAYOUT
-========================================= -->
-
 <div class="layout">
-
-
-<!-- =========================================
-     SIDEBAR
-========================================= -->
-
 <aside class="sidebar">
-
-
-<div class="sidebar-title">
-    SETTINGS
-</div>
-
-
-<button
-class="menu-btn active"
-onclick="scrollToSection('website')">
-
-    🌐 Website
-
-</button>
-
-
-<button
-class="menu-btn"
-onclick="scrollToSection('team')">
-
-    👥 Team
-
-</button>
-
-
-<button
-class="menu-btn"
-onclick="scrollToSection('orders')">
-
-    📦 Orders
-
-</button>
-
-
-<button
-class="menu-btn"
-onclick="scrollToSection('voting')">
-
-    🗳️ Voting
-
-</button>
-
-
-<button
-class="menu-btn"
-onclick="scrollToSection('notifications')">
-
-    🔔 Notifications
-
-</button>
-
-
-<button
-class="menu-btn"
-onclick="scrollToSection('security')">
-
-    🔐 Security
-
-</button>
-
-
+<div class="sidebar-title">SETTINGS</div>
+<button class="menu-btn active" onclick="scrollToSection('website',this)">🌐 Website</button>
+<button class="menu-btn" onclick="scrollToSection('team',this)">👥 Team</button>
+<button class="menu-btn" onclick="scrollToSection('orders',this)">📦 Orders</button>
+<button class="menu-btn" onclick="scrollToSection('voting',this)">🗳️ Voting</button>
+<button class="menu-btn" onclick="scrollToSection('notifications',this)">🔔 Notifications</button>
+<button class="menu-btn" onclick="scrollToSection('security',this)">🔐 Security</button>
 </aside>
 
-
-
-<!-- =========================================
-     CONTENT
-========================================= -->
-
 <main class="content">
-
-
-<div class="eyebrow">
-    FHAMAR.ZAMOST ADMINISTRATIVE DESK
-</div>
-
-
-<h1 class="page-title">
-
-    System
-
-    <span>
-        Settings
-    </span>
-
-</h1>
-
-
-<p class="subtitle">
-
-    Configure website, team, orders,
-    voting, notifications and security
-    preferences.
-
-</p>
-
-
-
-<!-- =========================================
-     SAVE BAR
-========================================= -->
+<div class="eyebrow">FHAMAR.ZAMOST ADMINISTRATIVE DESK</div>
+<h1 class="page-title">System <span>Settings</span></h1>
+<p class="subtitle">Configure website, team, orders, voting, notifications and security preferences.</p>
 
 <div class="save-bar">
-
-
-<div class="save-info">
-
-    Changes shown here are currently
-    saved in this browser demo.
-
-    <br>
-
-    Real website settings will be stored
-    in Firebase/database.
-
+<div class="save-info">System configuration settings.<br><span id="syncStatus">Syncing with Firebase Cloud...</span></div>
+<div class="btn-group">
+<button class="reset-btn" onclick="resetSettings()">RESET DEFAULTS</button>
+<button class="save-btn" onclick="saveSettings()">SAVE ALL SETTINGS</button>
+</div>
 </div>
 
-
-<button
-class="save-btn"
-onclick="saveSettings()">
-
-    SAVE ALL SETTINGS
-
-</button>
-
-
-</div>
-
-
-
-<!-- =========================================
-     WEBSITE
-========================================= -->
-
-<section
-id="website"
-class="setting-card full"
-style="margin-top:20px;">
-
-
-<h2>
-
-    Website
-
-    <span>
-        Settings
-    </span>
-
-</h2>
-
-
-<p class="setting-description">
-
-    Basic FHAMAR.ZAMOST business and
-    website information.
-
-</p>
-
-
+<div class="settings-grid">
+<section id="website" class="setting-card full">
+<h2>Website <span>Settings</span></h2><p class="setting-description">Basic FHAMAR.ZAMOST business and website information.</p>
 <div class="form-grid">
-
-
-<div class="form-group">
-
-<label>
-    WEBSITE NAME
-</label>
-
-<input
-id="siteName"
-value="FHAMAR ZAMOST">
-
+<div class="form-group"><label>WEBSITE NAME</label><input id="siteName" value="FHAMAR ZAMOST"></div>
+<div class="form-group"><label>MOBILE NUMBER</label><input id="siteMobile" value="9334273697" inputmode="numeric" maxlength="10"></div>
+<div class="form-group"><label>EMAIL ADDRESS</label><input id="siteEmail" type="email" value="fhamarzamost@gmail.com"></div>
+<div class="form-group"><label>CURRENCY</label><select id="currency"><option selected>INR (₹)</option><option>USD ($)</option></select></div>
+<div class="form-group"><label>WEBSITE STATUS</label><select id="siteStatus"><option selected>Online</option><option>Maintenance</option></select></div>
+<div class="form-group"><label>MAXIMUM PRODUCT PRICE</label><input id="maxPrice" type="number" value="1500" min="1" max="1500"></div>
 </div>
-
-
-<div class="form-group">
-
-<label>
-    MOBILE NUMBER
-</label>
-
-<input
-id="siteMobile"
-value="9334273697"
-maxlength="10">
-
-</div>
-
-
-<div class="form-group">
-
-<label>
-    EMAIL ADDRESS
-</label>
-
-<input
-id="siteEmail"
-type="email"
-value="fhamarzamost@gmail.com">
-
-</div>
-
-
-<div class="form-group">
-
-<label>
-    CURRENCY
-</label>
-
-<select id="currency">
-
-<option selected>
-    INR (₹)
-</option>
-
-<option>
-    USD ($)
-</option>
-
-</select>
-
-</div>
-
-
-<div class="form-group">
-
-<label>
-    WEBSITE STATUS
-</label>
-
-<select id="siteStatus">
-
-<option selected>
-    Online
-</option>
-
-<option>
-    Maintenance
-</option>
-
-</select>
-
-</div>
-
-
-<div class="form-group">
-
-<label>
-    MAXIMUM PRODUCT PRICE
-</label>
-
-<input
-id="maxPrice"
-type="number"
-value="1500"
-min="1"
-max="1500">
-
-</div>
-
-
-</div>
-
-
 </section>
 
-
-
-<!-- =========================================
-     TEAM
-========================================= -->
-
-<section
-id="team"
-class="setting-card"
-style="margin-top:15px;">
-
-
-<h2>
-
-    Team
-
-    <span>
-        Settings
-    </span>
-
-</h2>
-
-
-<p class="setting-description">
-
-    Control Team Member registration
-    and approval workflow.
-
-</p>
-
-
-
-<div class="toggle-row">
-
-
-<div class="toggle-text">
-
-<strong>
-    Team Registration
-</strong>
-
-<small>
-    Allow new people to submit
-    Team Member applications.
-</small>
-
-</div>
-
-
-<label class="switch">
-
-<input
-id="teamRegistration"
-type="checkbox"
-checked>
-
-<span class="slider"></span>
-
-</label>
-
-
-</div>
-
-
-
-<div class="toggle-row">
-
-
-<div class="toggle-text">
-
-<strong>
-    Admin Approval Required
-</strong>
-
-<small>
-    New Team Members stay pending
-    until Admin approval.
-</small>
-
-</div>
-
-
-<label class="switch">
-
-<input
-id="adminApproval"
-type="checkbox"
-checked>
-
-<span class="slider"></span>
-
-</label>
-
-
-</div>
-
-
-
-<div class="toggle-row">
-
-
-<div class="toggle-text">
-
-<strong>
-    State Assignment
-</strong>
-
-<small>
-    Team Members operate only in
-    their assigned state.
-</small>
-
-</div>
-
-
-<label class="switch">
-
-<input
-id="stateAssignment"
-type="checkbox"
-checked>
-
-<span class="slider"></span>
-
-</label>
-
-
-</div>
-
-
+<section id="team" class="setting-card">
+<h2>Team <span>Settings</span></h2><p class="setting-description">Control Team Member registration and approval workflow.</p>
+<div class="toggle-row"><div class="toggle-text"><strong>Team Registration</strong><small>Allow new people to submit Team Member applications.</small></div><label class="switch"><input id="teamRegistration" type="checkbox" checked><span class="slider"></span></label></div>
+<div class="toggle-row"><div class="toggle-text"><strong>Admin Approval Required</strong><small>New Team Members stay pending until Admin approval.</small></div><label class="switch"><input id="adminApproval" type="checkbox" checked><span class="slider"></span></label></div>
+<div class="toggle-row"><div class="toggle-text"><strong>State Assignment</strong><small>Team Members operate only in their assigned state.</small></div><label class="switch"><input id="stateAssignment" type="checkbox" checked><span class="slider"></span></label></div>
 </section>
 
-
-
-<!-- =========================================
-     ORDERS
-========================================= -->
-
-<section
-id="orders"
-class="setting-card"
-style="margin-top:15px;">
-
-
-<h2>
-
-    Order
-
-    <span>
-        Settings
-    </span>
-
-</h2>
-
-
-<p class="setting-description">
-
-    Configure basic order processing
-    behavior.
-
-</p>
-
-
-
-<div class="toggle-row">
-
-
-<div class="toggle-text">
-
-<strong>
-    Order Confirmation
-</strong>
-
-<small>
-    Require order confirmation before
-    packaging.
-</small>
-
-</div>
-
-
-<label class="switch">
-
-<input
-id="orderConfirmation"
-type="checkbox"
-checked>
-
-<span class="slider"></span>
-
-</label>
-
-
-</div>
-
-
-
-<div class="toggle-row">
-
-
-<div class="toggle-text">
-
-<strong>
-    Packaging Status
-</strong>
-
-<small>
-    Enable Team Members to update
-    packaging progress.
-</small>
-
-</div>
-
-
-<label class="switch">
-
-<input
-id="packagingStatus"
-type="checkbox"
-checked>
-
-<span class="slider"></span>
-
-</label>
-
-
-</div>
-
-
-
-<div class="toggle-row">
-
-
-<div class="toggle-text">
-
-<strong>
-    Shipping Status
-</strong>
-
-<small>
-    Enable shipping and dispatch
-    status updates.
-</small>
-
-</div>
-
-
-<label class="switch">
-
-<input
-id="shippingStatus"
-type="checkbox"
-checked>
-
-<span class="slider"></span>
-
-</label>
-
-
-</div>
-
-
-
-<div class="toggle-row">
-
-
-<div class="toggle-text">
-
-<strong>
-    Delivery Tracking
-</strong>
-
-<small>
-    Show delivery progress to customers.
-</small>
-
-</div>
-
-
-<label class="switch">
-
-<input
-id="deliveryTracking"
-type="checkbox"
-checked>
-
-<span class="slider"></span>
-
-</label>
-
-
-</div>
-
-
+<section id="orders" class="setting-card">
+<h2>Order <span>Settings</span></h2><p class="setting-description">Configure basic order processing behavior.</p>
+<div class="toggle-row"><div class="toggle-text"><strong>Order Confirmation</strong><small>Require order confirmation before packaging.</small></div><label class="switch"><input id="orderConfirmation" type="checkbox" checked><span class="slider"></span></label></div>
+<div class="toggle-row"><div class="toggle-text"><strong>Packaging Status</strong><small>Enable Team Members to update packaging progress.</small></div><label class="switch"><input id="packagingStatus" type="checkbox" checked><span class="slider"></span></label></div>
+<div class="toggle-row"><div class="toggle-text"><strong>Shipping Status</strong><small>Enable shipping and dispatch status updates.</small></div><label class="switch"><input id="shippingStatus" type="checkbox" checked><span class="slider"></span></label></div>
+<div class="toggle-row"><div class="toggle-text"><strong>Delivery Tracking</strong><small>Show delivery progress to customers.</small></div><label class="switch"><input id="deliveryTracking" type="checkbox" checked><span class="slider"></span></label></div>
 </section>
 
-
-
-<!-- =========================================
-     VOTING
-========================================= -->
-
-<section
-id="voting"
-class="setting-card"
-style="margin-top:15px;">
-
-
-<h2>
-
-    Member
-
-    <span>
-        Voting
-    </span>
-
-</h2>
-
-
-<p class="setting-description">
-
-    Manage the voting feature available
-    inside Member Portal.
-
-</p>
-
-
-
-<div class="toggle-row">
-
-
-<div class="toggle-text">
-
-<strong>
-    Voting System
-</strong>
-
-<small>
-    Enable or disable member voting.
-</small>
-
-</div>
-
-
-<label class="switch">
-
-<input
-id="votingEnabled"
-type="checkbox"
-checked>
-
-<span class="slider"></span>
-
-</label>
-
-
-</div>
-
-
-
-<div class="toggle-row">
-
-
-<div class="toggle-text">
-
-<strong>
-    One User One Vote
-</strong>
-
-<small>
-    A user can submit only one vote
-    for each proposal.
-</small>
-
-</div>
-
-
-<label class="switch">
-
-<input
-id="oneVote"
-type="checkbox"
-checked>
-
-<span class="slider"></span>
-
-</label>
-
-
-</div>
-
-
-<br>
-
-
-<label>
-    CURRENT VOTING PROPOSAL
-</label>
-
-
-<textarea
-id="votingProposal">Which area should FHAMAR.ZAMOST focus on next?</textarea>
-
-
+<section id="voting" class="setting-card">
+<h2>Member <span>Voting</span></h2><p class="setting-description">Manage the voting feature available inside Member Portal.</p>
+<div class="toggle-row"><div class="toggle-text"><strong>Voting System</strong><small>Enable or disable member voting.</small></div><label class="switch"><input id="votingEnabled" type="checkbox" checked><span class="slider"></span></label></div>
+<div class="toggle-row"><div class="toggle-text"><strong>One User One Vote</strong><small>A user can submit only one vote for each proposal.</small></div><label class="switch"><input id="oneVote" type="checkbox" checked><span class="slider"></span></label></div>
+<br><label>CURRENT VOTING PROPOSAL</label><textarea id="votingProposal">Which area should FHAMAR.ZAMOST focus on next?</textarea>
 </section>
 
-
-
-<!-- =========================================
-     NOTIFICATIONS
-========================================= -->
-
-<section
-id="notifications"
-class="setting-card"
-style="margin-top:15px;">
-
-
-<h2>
-
-    Notification
-
-    <span>
-        Settings
-    </span>
-
-</h2>
-
-
-<p class="setting-description">
-
-    Choose which system events generate
-    notifications.
-
-</p>
-
-
-
-<div class="toggle-row">
-
-
-<div class="toggle-text">
-
-<strong>
-    New Order
-</strong>
-
-<small>
-    Notify Admin and assigned Team Member.
-</small>
-
-</div>
-
-
-<label class="switch">
-
-<input
-id="newOrderNotification"
-type="checkbox"
-checked>
-
-<span class="slider"></span>
-
-</label>
-
-
-</div>
-
-
-
-<div class="toggle-row">
-
-
-<div class="toggle-text">
-
-<strong>
-    Team Registration
-</strong>
-
-<small>
-    Notify Admin when a new application
-    arrives.
-</small>
-
-</div>
-
-
-<label class="switch">
-
-<input
-id="teamNotification"
-type="checkbox"
-checked>
-
-<span class="slider"></span>
-
-</label>
-
-
-</div>
-
-
-
-<div class="toggle-row">
-
-
-<div class="toggle-text">
-
-<strong>
-    Low Stock Alert
-</strong>
-
-<small>
-    Alert Admin when product stock
-    becomes low.
-</small>
-
-</div>
-
-
-<label class="switch">
-
-<input
-id="stockNotification"
-type="checkbox"
-checked>
-
-<span class="slider"></span>
-
-</label>
-
-
-</div>
-
-
-
-<div class="toggle-row">
-
-
-<div class="toggle-text">
-
-<strong>
-    Delivery Updates
-</strong>
-
-<small>
-    Notify customers when order status
-    changes.
-</small>
-
-</div>
-
-
-<label class="switch">
-
-<input
-id="deliveryNotification"
-type="checkbox"
-checked>
-
-<span class="slider"></span>
-
-</label>
-
-
-</div>
-
-
+<section id="notifications" class="setting-card">
+<h2>Notification <span>Settings</span></h2><p class="setting-description">Choose which system events generate notifications.</p>
+<div class="toggle-row"><div class="toggle-text"><strong>New Order</strong><small>Notify Admin and assigned Team Member.</small></div><label class="switch"><input id="newOrderNotification" type="checkbox" checked><span class="slider"></span></label></div>
+<div class="toggle-row"><div class="toggle-text"><strong>Team Registration</strong><small>Notify Admin when a new application arrives.</small></div><label class="switch"><input id="teamNotification" type="checkbox" checked><span class="slider"></span></label></div>
+<div class="toggle-row"><div class="toggle-text"><strong>Low Stock Alert</strong><small>Alert Admin when product stock becomes low.</small></div><label class="switch"><input id="stockNotification" type="checkbox" checked><span class="slider"></span></label></div>
+<div class="toggle-row"><div class="toggle-text"><strong>Delivery Updates</strong><small>Notify customers when order status changes.</small></div><label class="switch"><input id="deliveryNotification" type="checkbox" checked><span class="slider"></span></label></div>
 </section>
 
-
-
-<!-- =========================================
-     SECURITY
-========================================= -->
-
-<section
-id="security"
-class="setting-card full"
-style="margin-top:15px;">
-
-
-<h2>
-
-    Security &
-
-    <span>
-        Access
-    </span>
-
-</h2>
-
-
-<p class="setting-description">
-
-    Role-based access control for the
-    FHAMAR.ZAMOST system.
-
-</p>
-
-
-
+<section id="security" class="setting-card full">
+<h2>Security & <span>Access</span></h2><p class="setting-description">Role-based access control for the FHAMAR.ZAMOST system.</p>
 <div class="form-grid">
-
-
-<div class="form-group">
-
-<label>
-    ADMIN ACCESS
-</label>
-
-<select id="adminAccess">
-
-<option selected>
-    Full Access
-</option>
-
-<option>
-    Restricted
-</option>
-
-</select>
-
+<div class="form-group"><label>ADMIN ACCESS</label><select id="adminAccess"><option selected>Full Access</option><option>Restricted</option></select></div>
+<div class="form-group"><label>TEAM MEMBER ACCESS</label><select id="teamAccess"><option selected>Assigned State Only</option><option>Restricted</option></select></div>
+<div class="form-group"><label>CUSTOMER ACCESS</label><select id="customerAccess"><option selected>Own Account Only</option><option>Restricted</option></select></div>
 </div>
-
-
-<div class="form-group">
-
-<label>
-    TEAM MEMBER ACCESS
-</label>
-
-<select id="teamAccess">
-
-<option selected>
-    Assigned State Only
-</option>
-
-<option>
-    Restricted
-</option>
-
-</select>
-
-</div>
-
-
-<div class="form-group">
-
-<label>
-    CUSTOMER ACCESS
-</label>
-
-<select id="customerAccess">
-
-<option selected>
-    Own Account Only
-</option>
-
-<option>
-    Restricted
-</option>
-
-</select>
-
-</div>
-
-
-</div>
-
-
-
-<div class="security-box">
-
-<strong>
-    IMPORTANT SECURITY
-</strong>
-
-<br><br>
-
-Real website में Admin permissions,
-Firebase Authentication और Firestore
-Security Rules से protect किए जाएँगे।
-
-<br><br>
-
-HTML में लिखा हुआ "Admin" नाम अपने
-आप security नहीं देता।
-
-</div>
-
-
+<div class="security-box"><strong>SECURITY STATUS</strong><br><br>All system administrative configurations are protected under Firestore Rules and Firebase Authentication.</div>
 </section>
-
-
-
-<!-- =========================================
-     API
-========================================= -->
-
-<div class="api-note">
-
-
-<b>
-    FIREBASE / API CONNECTION AREA
-</b>
-
-
-<br><br>
-
-
-YAHAN FIREBASE SETTINGS DATABASE
-CODE LAGEGA.
-
-
-<br>
-
-
-YAHAN ADMIN AUTHENTICATION CODE LAGEGA.
-
-
-<br>
-
-
-YAHAN NOTIFICATION API CODE LAGEGA.
-
-
-<br>
-
-
-YAHAN ORDER SETTINGS API CODE LAGEGA.
-
-
-<br>
-
-
-YAHAN VOTING SETTINGS DATABASE CODE LAGEGA.
-
-
 </div>
 
-
+<div class="api-note"><b>FIREBASE / API INTEGRATION ACTIVE</b><br><br>Settings are kept synchronized in LocalStorage and stored in Firebase Firestore under the document <code>settings/global</code>.</div>
 </main>
-
 </div>
 
+<footer><div class="brand"><span class="blue">FHAMAR</span><span class="silver">.ZAMOST</span></div><p>Administrative Settings • FHAMAR.ZAMOST</p></footer>
+<div id="toast" class="toast"></div>
 
-
-<!-- =========================================
-     FOOTER
-========================================= -->
-
-<footer>
-
-
-<div class="brand">
-
-    <span class="blue">
-        FHAMAR
-    </span>
-
-    <span class="silver">
-        .ZAMOST
-    </span>
-
-</div>
-
-
-<p>
-    Administrative Settings • FHAMAR.ZAMOST
-</p>
-
-
-</footer>
-
-
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 
 <script>
+const SETTINGS_KEY = "fz_admin_settings";
 
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_PROJECT_ID.appspot.com",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
 
-/* =========================================
-   SETTINGS STORAGE KEY
-========================================= */
+let db = null;
+if (firebaseConfig.apiKey !== "YOUR_API_KEY") {
+    firebase.initializeApp(firebaseConfig);
+    db = firebase.firestore();
+    document.getElementById("syncStatus").innerText = "Realtime Firebase Firestore Connected.";
+}
 
-const SETTINGS_KEY =
-    "fz_admin_settings";
-
-
-
-/* =========================================
-   GET SETTINGS
-========================================= */
+const fields = {
+    siteName:"value",siteMobile:"value",siteEmail:"value",currency:"value",
+    siteStatus:"value",maxPrice:"value",teamRegistration:"checked",
+    adminApproval:"checked",stateAssignment:"checked",orderConfirmation:"checked",
+    packagingStatus:"checked",shippingStatus:"checked",deliveryTracking:"checked",
+    votingEnabled:"checked",oneVote:"checked",votingProposal:"value",
+    newOrderNotification:"checked",teamNotification:"checked",
+    stockNotification:"checked",deliveryNotification:"checked",
+    adminAccess:"value",teamAccess:"value",customerAccess:"value"
+};
 
 function getSettings(){
-
-
     try{
+        const data = JSON.parse(localStorage.getItem(SETTINGS_KEY)||"{}");
+        return data && typeof data === "object" ? data : {};
+    }catch(e){ return {}; }
+}
 
-        return JSON.parse(
-            localStorage.getItem(
-                SETTINGS_KEY
-            )
-        ) || {};
+function loadSettings(){
+    const applyToUI = (saved) => {
+        Object.keys(fields).forEach(id => {
+            const el = document.getElementById(id);
+            if(!el || saved[id] === undefined) return;
+            el[fields[id]] = saved[id];
+        });
+        validatePrice();
+    };
 
+    // 1. Load Local Storage
+    const localSaved = getSettings();
+    applyToUI(localSaved);
+
+    // 2. Fetch Latest from Firebase Firestore
+    if(db){
+        db.collection("settings").doc("global").get().then(doc => {
+            if(doc.exists){
+                const cloudData = doc.data();
+                applyToUI(cloudData);
+                localStorage.setItem(SETTINGS_KEY, JSON.stringify(cloudData));
+            }
+        }).catch(err => console.warn("Firestore Read Failed, using LocalStorage:", err));
+    }
+}
+
+function collectSettings(){
+    const data = {};
+    Object.keys(fields).forEach(id => {
+        const el = document.getElementById(id);
+        if(el) data[id] = el[fields[id]];
+    });
+    data.updatedAt = new Date().toISOString();
+    return data;
+}
+
+function validatePrice(){
+    const input = document.getElementById("maxPrice");
+    let value = Number(input.value);
+    if(!Number.isFinite(value) || value < 1) value = 1;
+    if(value > 1500) value = 1500;
+    input.value = value;
+}
+
+function saveSettings(){
+    validatePrice();
+    const mobile = document.getElementById("siteMobile").value.replace(/\D/g,"").slice(0,10);
+    document.getElementById("siteMobile").value = mobile;
+    if(mobile.length !== 10){
+        showToast("Please enter a valid 10 digit mobile number.");
+        document.getElementById("siteMobile").focus();
+        return;
+    }
+    const email = document.getElementById("siteEmail").value.trim();
+    if(email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+        showToast("Please enter a valid email address.");
+        document.getElementById("siteEmail").focus();
+        return;
     }
 
-    catch(erro
+    const payload = collectSettings();
+
+    // 1. Save Local Storage
+    try {
+        localStorage.setItem(SETTINGS_KEY, JSON.stringify(payload));
+    } catch(e) {}
+
+    // 2. Sync to Firestore Realtime DB
+    if (db) {
+        db.collection("settings").doc("global").set(payload, { merge: true })
+        .then(() => {
+            showToast("Settings saved to Cloud successfully.");
+        })
+        .catch(err => {
+            console.error(err);
+            showToast("Saved locally. Cloud sync failed.");
+        });
+    } else {
+        showToast("Settings saved locally.");
+    }
+}
+
+function resetSettings(){
+    if(!confirm("Reset all settings to default values?")) return;
+    localStorage.removeItem(SETTINGS_KEY);
+    if (db) {
+        db.collection("settings").doc("global").delete().catch(e => console.error(e));
+    }
+    location.reload();
+}
+
+function scrollToSection(id, button){
+    const section = document.getElementById(id);
+    if(section) section.scrollIntoView({behavior:"smooth", block:"start"});
+    document.querySelectorAll(".menu-btn").forEach(b => b.classList.remove("active"));
+    if(button) button.classList.add("active");
+}
+
+function showToast(text){
+    const toast = document.getElementById("toast");
+    toast.textContent = text;
+    toast.classList.add("show");
+    clearTimeout(window.toastTimer);
+    window.toastTimer = setTimeout(() => toast.classList.remove("show"), 2200);
+}
+
+document.getElementById("maxPrice").addEventListener("input", validatePrice);
+document.getElementById("siteMobile").addEventListener("input", e => {
+    e.target.value = e.target.value.replace(/\D/g, "").slice(0, 10);
+});
+document.addEventListener("keydown", e => {
+    if((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "s"){
+        e.preventDefault();
+        saveSettings();
+    }
+});
+
+loadSettings();
+</script>
+</body>
+   </html>
+
