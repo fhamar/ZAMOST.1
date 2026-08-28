@@ -1,0 +1,1530 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Product Management | FHAMAR ZAMOST</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+    background:#050b12;
+    color:#fff;
+}
+
+button,
+input,
+select,
+textarea{
+    font-family:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+header{
+    height:75px;
+    padding:0 5%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background:#07111d;
+    border-bottom:1px solid #30465d;
+}
+
+.brand-area{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.fz-logo{
+    width:45px;
+    height:45px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:12px;
+    border:1px solid #8298ad;
+    background:linear-gradient(145deg,#173b5b,#050b12);
+    color:#4da3ff;
+    font-size:17px;
+    font-weight:900;
+}
+
+.brand{
+    font-size:18px;
+    font-weight:900;
+    letter-spacing:2px;
+}
+
+.blue{
+    color:#4da3ff;
+}
+
+.silver{
+    color:#aeb9c5;
+}
+
+.header-right{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.admin-badge{
+    padding:8px 12px;
+    border:1px solid #3c5870;
+    border-radius:20px;
+    color:#4da3ff;
+    font-size:9px;
+    font-weight:bold;
+}
+
+.home-btn{
+    padding:9px 13px;
+    border:1px solid #526b82;
+    border-radius:8px;
+    color:#dce5ed;
+    font-size:10px;
+}
+
+
+/* =========================
+   LAYOUT
+========================= */
+
+.layout{
+    display:grid;
+    grid-template-columns:220px 1fr;
+    min-height:calc(100vh - 75px);
+}
+
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar{
+    padding:25px 15px;
+    background:#06101a;
+    border-right:1px solid #253a4e;
+}
+
+.sidebar-title{
+    margin:5px 10px 15px;
+    color:#657b91;
+    font-size:9px;
+    letter-spacing:2px;
+}
+
+.menu-btn{
+    width:100%;
+    padding:13px 12px;
+    margin-bottom:7px;
+    text-align:left;
+    border:1px solid transparent;
+    border-radius:9px;
+    background:transparent;
+    color:#8fa1b4;
+    font-size:11px;
+}
+
+.menu-btn:hover{
+    background:#0b1b2a;
+    color:white;
+}
+
+.menu-btn.active{
+    background:#102b42;
+    border-color:#315574;
+    color:#4da3ff;
+}
+
+
+/* =========================
+   CONTENT
+========================= */
+
+.content{
+    padding:35px 4% 80px;
+    overflow:hidden;
+}
+
+.eyebrow{
+    color:#71869c;
+    font-size:9px;
+    letter-spacing:3px;
+    font-weight:bold;
+}
+
+.page-title{
+    margin-top:10px;
+    font-size:35px;
+}
+
+.page-title span{
+    color:#4da3ff;
+}
+
+.subtitle{
+    margin-top:8px;
+    color:#8194a8;
+    font-size:12px;
+    line-height:1.7;
+}
+
+
+/* =========================
+   STATS
+========================= */
+
+.stats{
+    margin-top:25px;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+}
+
+.stat{
+    padding:18px;
+    border:1px solid #293f55;
+    border-radius:13px;
+    background:#081421;
+}
+
+.stat small{
+    color:#71869c;
+    font-size:9px;
+}
+
+.stat strong{
+    display:block;
+    margin-top:8px;
+    font-size:23px;
+}
+
+.stat.blue-stat strong{
+    color:#4da3ff;
+}
+
+
+/* =========================
+   TOOLBAR
+========================= */
+
+.toolbar{
+    margin-top:25px;
+    padding:18px;
+    border:1px solid #293f55;
+    border-radius:14px;
+    background:#081421;
+
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.search{
+    flex:1;
+    min-width:190px;
+    height:43px;
+    padding:0 12px;
+    background:#050c14;
+    border:1px solid #30465c;
+    border-radius:8px;
+    color:white;
+    outline:none;
+    font-size:11px;
+}
+
+.select{
+    height:43px;
+    padding:0 12px;
+    background:#050c14;
+    border:1px solid #30465c;
+    border-radius:8px;
+    color:#dce5ed;
+    outline:none;
+    font-size:11px;
+}
+
+.primary-btn{
+    height:43px;
+    padding:0 16px;
+    border:none;
+    border-radius:8px;
+    background:#4da3ff;
+    color:#04101c;
+    font-size:10px;
+    font-weight:900;
+}
+
+
+/* =========================
+   PRODUCT GRID
+========================= */
+
+.product-grid{
+    margin-top:18px;
+
+    display:grid;
+    grid-template-columns:
+    repeat(3,1fr);
+
+    gap:15px;
+}
+
+.product-card{
+    overflow:hidden;
+    border:1px solid #293f55;
+    border-radius:14px;
+    background:#081421;
+}
+
+.product-image{
+    height:190px;
+    background:#050c14;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+}
+
+.product-image img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.placeholder{
+    color:#536a80;
+    font-size:11px;
+}
+
+.product-body{
+    padding:17px;
+}
+
+.category{
+    color:#4da3ff;
+    font-size:8px;
+    letter-spacing:1px;
+    font-weight:bold;
+}
+
+.product-name{
+    margin-top:7px;
+    font-size:15px;
+    font-weight:bold;
+}
+
+.product-description{
+    margin-top:7px;
+    color:#71869c;
+    font-size:9px;
+    line-height:1.6;
+    min-height:29px;
+}
+
+.product-info{
+    margin-top:13px;
+
+    display:flex;
+    justify-content:space-between;
+    gap:8px;
+}
+
+.price{
+    color:#dce5ed;
+    font-size:16px;
+    font-weight:bold;
+}
+
+.stock{
+    color:#8194a8;
+    font-size:9px;
+}
+
+.active-status{
+    margin-top:10px;
+    color:#4da3ff;
+    font-size:8px;
+    font-weight:bold;
+}
+
+.inactive-status{
+    margin-top:10px;
+    color:#87909a;
+    font-size:8px;
+    font-weight:bold;
+}
+
+.product-actions{
+    margin-top:14px;
+
+    display:flex;
+    gap:7px;
+}
+
+.action{
+    flex:1;
+    padding:9px 5px;
+    border-radius:7px;
+    border:1px solid #40586f;
+    background:#0a1725;
+    color:#b9c7d4;
+    font-size:8px;
+    font-weight:bold;
+}
+
+.action:hover{
+    border-color:#4da3ff;
+    color:#4da3ff;
+}
+
+.action.delete:hover{
+    border-color:#a85c5c;
+    color:#ff9999;
+}
+
+
+/* =========================
+   MODAL
+========================= */
+
+.modal{
+    display:none;
+
+    position:fixed;
+    inset:0;
+
+    z-index:2000;
+
+    background:rgba(0,0,0,.75);
+
+    align-items:center;
+    justify-content:center;
+
+    padding:20px;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-box{
+    width:100%;
+    max-width:600px;
+
+    max-height:92vh;
+    overflow:auto;
+
+    padding:25px;
+
+    border:1px solid #3b566e;
+    border-radius:17px;
+
+    background:#081421;
+}
+
+.modal-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    margin-bottom:20px;
+}
+
+.modal-top h2{
+    font-size:21px;
+}
+
+.close{
+    background:transparent;
+    border:none;
+    color:#91a3b6;
+    font-size:24px;
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:13px;
+}
+
+.form-group.full{
+    grid-column:1 / -1;
+}
+
+label{
+    display:block;
+    margin-bottom:6px;
+    color:#9aabbb;
+    font-size:9px;
+    font-weight:bold;
+}
+
+input,
+select,
+textarea{
+    width:100%;
+    padding:11px;
+
+    border-radius:8px;
+    border:1px solid #30465c;
+
+    background:#050c14;
+    color:white;
+
+    outline:none;
+    font-size:11px;
+}
+
+input,
+select{
+    height:43px;
+}
+
+textarea{
+    min-height:90px;
+    resize:vertical;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+    border-color:#4da3ff;
+}
+
+.price-warning{
+    margin-top:7px;
+    color:#8093a7;
+    font-size:8px;
+}
+
+.price-warning b{
+    color:#4da3ff;
+}
+
+.image-preview{
+    margin-top:10px;
+    width:100%;
+    height:150px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    overflow:hidden;
+
+    border:1px dashed #40586f;
+    border-radius:10px;
+
+    background:#050c14;
+}
+
+.image-preview img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+}
+
+.save-btn{
+    width:100%;
+    margin-top:20px;
+
+    height:45px;
+
+    border:none;
+    border-radius:9px;
+
+    background:#4da3ff;
+    color:#04101c;
+
+    font-size:10px;
+    font-weight:900;
+}
+
+
+/* =========================
+   API NOTE
+========================= */
+
+.api-note{
+    margin-top:20px;
+    padding:16px;
+
+    border:1px dashed #405a72;
+    border-radius:10px;
+
+    background:#06101a;
+
+    color:#74899d;
+
+    font-size:9px;
+    line-height:1.8;
+
+    text-align:center;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+    padding:35px 7%;
+
+    background:#03080e;
+
+    border-top:1px solid #263b50;
+
+    color:#7d90a4;
+
+    font-size:11px;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:1000px){
+
+    .layout{
+        grid-template-columns:1fr;
+    }
+
+    .sidebar{
+        display:flex;
+        overflow-x:auto;
+        gap:5px;
+
+        border-right:none;
+        border-bottom:1px solid #253a4e;
+
+        padding:10px;
+    }
+
+    .sidebar-title{
+        display:none;
+    }
+
+    .menu-btn{
+        width:auto;
+        min-width:max-content;
+        margin:0;
+    }
+
+    .product-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+}
+
+@media(max-width:700px){
+
+    header{
+        padding:0 4%;
+    }
+
+    .header-right .home-btn{
+        display:none;
+    }
+
+    .content{
+        padding:25px 5% 70px;
+    }
+
+    .page-title{
+        font-size:29px;
+    }
+
+    .stats{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .product-grid{
+        grid-template-columns:1fr;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .form-group.full{
+        grid-column:auto;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header>
+
+<div class="brand-area">
+
+    <div class="fz-logo">
+        FZ
+    </div>
+
+    <div class="brand">
+
+        <span class="blue">
+            FHAMAR
+        </span>
+
+        <span class="silver">
+            .ZAMOST
+        </span>
+
+    </div>
+
+</div>
+
+
+<div class="header-right">
+
+    <div class="admin-badge">
+        ADMINISTRATOR
+    </div>
+
+    <a
+    href="home.html"
+    class="home-btn">
+
+        HOME
+
+    </a>
+
+</div>
+
+</header>
+
+
+
+<!-- =========================
+     LAYOUT
+========================= -->
+
+<div class="layout">
+
+
+<!-- =========================
+     SIDEBAR
+========================= -->
+
+<aside class="sidebar">
+
+<div class="sidebar-title">
+    PRODUCT CONTROL
+</div>
+
+
+<button
+class="menu-btn active"
+onclick="showProducts()">
+
+    🛍️ Products
+
+</button>
+
+
+<button
+class="menu-btn"
+onclick="openProductModal()">
+
+    ➕ Add Product
+
+</button>
+
+
+<a
+href="catalog.html"
+class="menu-btn">
+
+    👁️ View Catalog
+
+</a>
+
+
+<a
+href="admin.html"
+class="menu-btn">
+
+    ⚙️ Admin Dashboard
+
+</a>
+
+</aside>
+
+
+
+<!-- =========================
+     CONTENT
+========================= -->
+
+<main class="content">
+
+
+<div class="eyebrow">
+    FHAMAR.ZAMOST ADMINISTRATIVE DESK
+</div>
+
+
+<h1 class="page-title">
+
+    Product
+
+    <span>
+        Management
+    </span>
+
+</h1>
+
+
+<p class="subtitle">
+
+    Add, edit, remove and manage products
+    displayed in the FHAMAR.ZAMOST catalog.
+
+</p>
+
+
+
+<!-- =========================
+     STATS
+========================= -->
+
+<div class="stats">
+
+
+<div class="stat blue-stat">
+
+    <small>
+        TOTAL PRODUCTS
+    </small>
+
+    <strong id="totalProducts">
+        0
+    </strong>
+
+</div>
+
+
+<div class="stat">
+
+    <small>
+        ACTIVE
+    </small>
+
+    <strong id="activeProducts">
+        0
+    </strong>
+
+</div>
+
+
+<div class="stat">
+
+    <small>
+        LOW STOCK
+    </small>
+
+    <strong id="lowStock">
+        0
+    </strong>
+
+</div>
+
+
+<div class="stat">
+
+    <small>
+        MAX PRICE
+    </small>
+
+    <strong>
+        ₹1500
+    </strong>
+
+</div>
+
+
+</div>
+
+
+
+<!-- =========================
+     TOOLBAR
+========================= -->
+
+<div class="toolbar">
+
+
+<input
+id="search"
+class="search"
+placeholder="Search product..."
+oninput="renderProducts()">
+
+
+<select
+id="categoryFilter"
+class="select"
+onchange="renderProducts()">
+
+<option value="all">
+    All Categories
+</option>
+
+<option>
+    Shoes
+</option>
+
+<option>
+    Slippers
+</option>
+
+<option>
+    Sunglasses
+</option>
+
+<option>
+    Electronics
+</option>
+
+<option>
+    Perfume
+</option>
+
+<option>
+    T-Shirt
+</option>
+
+<option>
+    Hair
+</option>
+
+<option>
+    Earphone
+</option>
+
+<option>
+    Charger
+</option>
+
+<option>
+    Friends
+</option>
+
+</select>
+
+
+<button
+class="primary-btn"
+onclick="openProductModal()">
+
+    + ADD PRODUCT
+
+</button>
+
+
+</div>
+
+
+
+<!-- =========================
+     PRODUCT GRID
+========================= -->
+
+<div
+id="productGrid"
+class="product-grid">
+
+</div>
+
+
+
+<!-- =========================
+     API NOTE
+========================= -->
+
+<div class="api-note">
+
+<b>
+    PRODUCT DATABASE CONNECTION
+</b>
+
+<br><br>
+
+YAHAN FIREBASE / DATABASE CODE LAGEGA.
+
+<br>
+
+YAHAN IMAGE STORAGE CODE LAGEGA.
+
+<br>
+
+YAHAN CATALOG API CODE LAGEGA.
+
+<br>
+
+Product save hone ke baad wahi product
+catalog.html mein customer ko दिखाई देगा।
+
+<br><br>
+
+<b>
+    PRICE SECURITY:
+</b>
+
+Product price ₹1500 से ऊपर
+save नहीं किया जाएगा।
+
+</div>
+
+
+</main>
+
+</div>
+
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+
+<div class="brand">
+
+    <span class="blue">
+        FHAMAR
+    </span>
+
+    <span class="silver">
+        .ZAMOST
+    </span>
+
+</div>
+
+<p>
+    Product Management • FHAMAR.ZAMOST
+</p>
+
+</footer>
+
+
+
+<!-- =========================
+     PRODUCT MODAL
+========================= -->
+
+<div
+id="productModal"
+class="modal">
+
+
+<div class="modal-box">
+
+
+<div class="modal-top">
+
+    <h2 id="modalTitle">
+        Add Product
+    </h2>
+
+    <button
+    class="close"
+    onclick="closeProductModal()">
+
+        ×
+
+    </button>
+
+</div>
+
+
+
+<div class="form-grid">
+
+
+<!-- NAME -->
+
+<div class="form-group full">
+
+<label>
+    PRODUCT NAME *
+</label>
+
+<input
+id="productName"
+placeholder="Enter product name">
+
+</div>
+
+
+
+<!-- CATEGORY -->
+
+<div class="form-group">
+
+<label>
+    CATEGORY *
+</label>
+
+<select id="productCategory">
+
+<option>
+    Shoes
+</option>
+
+<option>
+    Slippers
+</option>
+
+<option>
+    Sunglasses
+</option>
+
+<option>
+    Electronics
+</option>
+
+<option>
+    Perfume
+</option>
+
+<option>
+    T-Shirt
+</option>
+
+<option>
+    Hair
+</option>
+
+<option>
+    Earphone
+</option>
+
+<option>
+    Charger
+</option>
+
+<option>
+    Friends
+</option>
+
+</select>
+
+</div>
+
+
+
+<!-- PRICE -->
+
+<div class="form-group">
+
+<label>
+    PRICE *
+</label>
+
+<input
+id="productPrice"
+type="number"
+min="1"
+max="1500"
+placeholder="Maximum ₹1500"
+oninput="checkPrice()">
+
+
+<div class="price-warning">
+
+    Maximum allowed:
+    <b>₹1500</b>
+
+</div>
+
+</div>
+
+
+
+<!-- STOCK -->
+
+<div class="form-group">
+
+<label>
+    STOCK *
+</label>
+
+<input
+id="productStock"
+type="number"
+min="0"
+placeholder="Available quantity">
+
+</div>
+
+
+
+<!-- STATUS -->
+
+<div class="form-group">
+
+<label>
+    STATUS
+</label>
+
+<select id="productStatus">
+
+<option value="Active">
+    Active
+</option>
+
+<option value="Inactive">
+    Inactive
+</option>
+
+</select>
+
+</div>
+
+
+
+<!-- IMAGE -->
+
+<div class="form-group full">
+
+<label>
+    PRODUCT IMAGE
+</label>
+
+<input
+id="productImage"
+type="file"
+accept="image/*"
+onchange="previewImage(event)">
+
+
+<div
+id="imagePreview"
+class="image-preview">
+
+    <span class="placeholder">
+        Product image preview
+    </span>
+
+</div>
+
+</div>
+
+
+
+<!-- DESCRIPTION -->
+
+<div class="form-group full">
+
+<label>
+    DESCRIPTION
+</label>
+
+<textarea
+id="productDescription"
+placeholder="Write a short product description..."></textarea>
+
+</div>
+
+
+</div>
+
+
+
+<button
+class="save-btn"
+onclick="saveProduct()">
+
+    SAVE PRODUCT
+
+</button>
+
+
+</div>
+
+</div>
+
+
+
+<script>
+
+
+/* =========================================
+   PRODUCT DATA
+========================================= */
+
+let products = [
+
+{
+    id:1,
+    name:"Classic Running Shoes",
+    category:"Shoes",
+    price:1499,
+    stock:25,
+    status:"Active",
+    image:"",
+    description:"Comfortable everyday running shoes."
+},
+
+{
+    id:2,
+    name:"Premium Sunglasses",
+    category:"Sunglasses",
+    price:799,
+    stock:18,
+    status:"Active",
+    image:"",
+    description:"Stylish sunglasses for everyday use."
+},
+
+{
+    id:3,
+    name:"Wireless Earphones",
+    category:"Earphone",
+    price:999,
+    stock:9,
+    status:"Active",
+    image:"",
+    description:"Compact wireless earphones."
+},
+
+{
+    id:4,
+    name:"Fast Charger",
+    category:"Charger",
+    price:499,
+    stock:7,
+    status:"Active",
+    image:"",
+    description:"Fast charging mobile adapter."
+}
+
+];
+
+
+let editingId = null;
+
+let selectedImage = "";
+
+
+
+/* =========================================
+   RENDER PRODUCTS
+========================================= */
+
+function renderProducts(){
+
+
+    const grid =
+        document.getElementById(
+            "productGrid"
+        );
+
+
+    const search =
+        document.getElementById(
+            "search"
+        )
+        .value
+        .toLowerCase()
+        .trim();
+
+
+    const category =
+        document.getElementById(
+            "categoryFilter"
+        ).value;
+
+
+
+    const filtered =
+        products.filter(
+            function(product){
+
+                const searchMatch =
+
+                    product.name
+                    .toLowerCase()
+                    .includes(search);
+
+
+                const categoryMatch =
+
+                    category === "all" ||
+                    product.category === category;
+
+
+                return (
+                    searchMatch &&
+                    categoryMatch
+                );
+
+            }
+        );
+
+
+
+    grid.innerHTML =
+
+        filtered.map(
+            function(product){
+
+                return `
+
+                <div class="product-card">
+
+
+                    <div class="product-image">
+
+                        ${
+                            product.image
+
+                            ?
+
+                            `<img
+                            src="${product.image}"
+                            alt="${product.name}">`
+
+                            :
+
+                            `<span class="placeholder">
+                                NO IMAGE
+                            </span>`
+                        }
+
+                    </div>
+
+
+                    <div class="product-body">
+
+
+                        <div class="category">
+
+                            ${product.category}
+
+                        </div>
+
+
+                        <div class="product-name">
+
+                            ${product.name}
+
+                        </div>
+
+
+                        <div class="product-description">
+
+                            ${product.description || ""}
+
+                        </div>
+
+
+                        <div class="product-info">
+
+
+                            <div class="price">
+
+                                ₹${product.price}
+
+                            </div>
+
+
+                            <div class="stock">
+
+                                Stock:
+                                ${product.stock}
+
+                            </div>
+
+
+                        </div>
+
+
+                        ${
+                            product.status === "Active"
+
+                            ?
+
+                            `<div class="active-status">
+                                ● ACTIVE
+                            </div>`
+
+                            :
+
+                            `<div class="inactive-status">
+                                ● INACTIVE
+                            </div>`
+                        }
+
+
+                        <div class="product-actions">
+
+
+                            <button
+                            class="action"
+                            onclick="editProduct(${product.id})">
+
+                                EDIT
+
+                            </button>
+
+
+                            <button
+                            class="action"
+                            onclick="toggleProduct(${product.id})">
+
+                                ${
+                                    product.status === "Active"
+                                    ? "DEACTIVATE"
+                                    : "ACTIVATE"
+                                }
+
+                            </button>
+
+
+                            <button
+                            class="action delete"
+   
