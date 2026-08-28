@@ -2,638 +2,832 @@
 <html lang="en">
 <head>
 
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
-    <title>FHAMAR ZAMOST | Login</title>
+<title>FHAMAR ZAMOST | Login</title>
 
 
-    <style>
+<style>
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, Helvetica, sans-serif;
-        }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
+}
 
+body{
 
-        body {
+    min-height:100vh;
 
-            min-height: 100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
 
-            display: flex;
-            justify-content: center;
-            align-items: center;
+    padding:20px;
 
-            padding: 20px;
+    color:white;
 
-            color: white;
+    background:
+    radial-gradient(
+        circle at 20% 10%,
+        #24415f 0%,
+        transparent 35%
+    ),
 
-            background:
-                radial-gradient(
-                    circle at 20% 10%,
-                    #24415f 0%,
-                    transparent 35%
-                ),
+    radial-gradient(
+        circle at 90% 90%,
+        #182d43 0%,
+        transparent 35%
+    ),
 
-                radial-gradient(
-                    circle at 90% 90%,
-                    #182d43 0%,
-                    transparent 35%
-                ),
+    linear-gradient(
+        135deg,
+        #02060b,
+        #07111d,
+        #0b1928
+    );
 
-                linear-gradient(
-                    135deg,
-                    #02060b,
-                    #07111d,
-                    #0b1928
-                );
+    overflow:auto;
+}
 
-            overflow: hidden;
-        }
 
+/* =====================================
+   LOGIN CARD
+===================================== */
 
-        /* BACKGROUND LIGHT */
+.login-container{
 
-        body::before {
+    width:100%;
+    max-width:430px;
 
-            content: "";
+    padding:42px 32px;
 
-            position: fixed;
+    background:
+    linear-gradient(
+        145deg,
+        rgba(16,32,49,.97),
+        rgba(5,12,20,.98)
+    );
 
-            width: 350px;
-            height: 350px;
+    border:1px solid #40566d;
 
-            border-radius: 50%;
+    border-radius:26px;
 
-            background: #8ea6bd;
+    box-shadow:
+    0 30px 90px rgba(0,0,0,.7),
+    inset 0 1px 0 rgba(255,255,255,.05);
 
-            opacity: 0.04;
+    backdrop-filter:blur(15px);
 
-            filter: blur(70px);
+    animation:cardIn .7s ease;
+}
 
-            top: -100px;
-            right: -100px;
 
-        }
+@keyframes cardIn{
 
+    from{
+        opacity:0;
+        transform:translateY(25px) scale(.97);
+    }
 
-        /* LOGIN CARD */
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
 
-        .login-container {
+}
 
-            width: 100%;
-            max-width: 430px;
 
-            position: relative;
+/* =====================================
+   LOGO
+===================================== */
 
-            padding: 42px 32px;
+.logo{
 
-            background:
-                linear-gradient(
-                    145deg,
-                    rgba(16, 32, 49, 0.97),
-                    rgba(5, 12, 20, 0.98)
-                );
+    width:78px;
+    height:78px;
 
-            border: 1px solid #40566d;
+    margin:auto;
 
-            border-radius: 26px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
 
-            box-shadow:
-                0 30px 90px rgba(0,0,0,0.7),
-                inset 0 1px 0 rgba(255,255,255,0.05);
+    border-radius:22px;
 
-            backdrop-filter: blur(15px);
+    border:1px solid #91a5b9;
 
-            animation: cardIn 0.7s ease;
-        }
+    background:
+    linear-gradient(
+        145deg,
+        #182d43,
+        #070e16
+    );
 
+    box-shadow:
+    0 0 35px rgba(154,174,195,.12),
+    inset 0 0 20px rgba(255,255,255,.03);
 
-        @keyframes cardIn {
+    font-size:27px;
 
-            from {
-                opacity: 0;
-                transform: translateY(25px) scale(0.97);
-            }
+    font-weight:900;
 
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
+    letter-spacing:2px;
 
+    color:#4da3ff;
+}
 
-        /* LOGO */
 
-        .logo {
+/* =====================================
+   BRAND
+===================================== */
 
-            width: 78px;
-            height: 78px;
+.brand{
 
-            margin: auto;
+    text-align:center;
 
-            display: flex;
-            justify-content: center;
-            align-items: center;
+    margin-top:20px;
 
-            border-radius: 22px;
+    font-size:24px;
 
-            border: 1px solid #91a5b9;
+    font-weight:900;
 
-            background:
-                linear-gradient(
-                    145deg,
-                    #182d43,
-                    #070e16
-                );
+    letter-spacing:3px;
 
-            box-shadow:
-                0 0 35px rgba(154,174,195,0.12),
-                inset 0 0 20px rgba(255,255,255,0.03);
+    color:#4da3ff;
+}
 
-            font-size: 27px;
 
-            font-weight: 900;
+.brand span{
+    color:#aeb9c5;
+}
 
-            letter-spacing: 2px;
 
-            color: #e4ebf2;
-        }
+.tagline{
 
+    text-align:center;
 
-        /* BRAND */
+    margin-top:8px;
 
-        .brand {
+    color:#708398;
 
-            text-align: center;
+    font-size:10px;
 
-            margin-top: 20px;
+    letter-spacing:3px;
+}
 
-            font-size: 24px;
 
-            font-weight: 900;
+/* =====================================
+   WELCOME
+===================================== */
 
-            letter-spacing: 3px;
+.welcome{
 
-            color: #f0f4f8;
-        }
+    margin-top:38px;
 
+    text-align:center;
+}
 
-        .brand span {
 
-            color: #9fb0c2;
-        }
+.welcome h1{
 
+    font-size:30px;
 
-        .tagline {
+    font-weight:800;
 
-            text-align: center;
+    color:#edf3f8;
+}
 
-            margin-top: 8px;
 
-            color: #708398;
+.welcome p{
 
-            font-size: 10px;
+    margin-top:9px;
 
-            letter-spacing: 3px;
-        }
+    color:#8294a8;
 
+    font-size:13px;
 
-        /* TITLE */
+    line-height:1.6;
+}
 
-        .welcome {
 
-            margin-top: 38px;
+/* =====================================
+   MODE TABS
+===================================== */
 
-            text-align: center;
-        }
+.login-tabs{
 
+    margin-top:25px;
 
-        .welcome h1 {
+    display:grid;
 
-            font-size: 30px;
+    grid-template-columns:1fr 1fr 1fr;
 
-            font-weight: 800;
+    gap:6px;
 
-            color: #edf3f8;
-        }
+    padding:5px;
 
+    border:1px solid #293f55;
 
-        .welcome p {
+    border-radius:11px;
 
-            margin-top: 9px;
+    background:#050c14;
+}
 
-            color: #8294a8;
 
-            font-size: 13px;
+.tab{
 
-            line-height: 1.6;
-        }
+    height:38px;
 
+    border:none;
 
-        /* FORM */
+    border-radius:7px;
 
-        form {
+    background:transparent;
 
-            margin-top: 28px;
-        }
+    color:#71869c;
 
+    font-size:9px;
 
-        .input-group {
+    font-weight:bold;
+}
 
-            margin-bottom: 18px;
-        }
 
+.tab.active{
 
-        label {
+    background:#173b5b;
 
-            display: block;
+    color:#4da3ff;
+}
 
-            margin-bottom: 8px;
 
-            color: #aebdcb;
+/* =====================================
+   FORM
+===================================== */
 
-            font-size: 12px;
+form{
+    margin-top:22px;
+}
 
-            font-weight: 600;
-        }
 
+.input-group{
+    margin-bottom:17px;
+}
 
-        .input-box {
 
-            position: relative;
-        }
+label{
 
+    display:block;
 
-        .input-icon {
+    margin-bottom:8px;
 
-            position: absolute;
+    color:#aebdcb;
 
-            left: 15px;
+    font-size:11px;
 
-            top: 50%;
+    font-weight:600;
+}
 
-            transform: translateY(-50%);
 
-            color: #8296aa;
+.input-box{
+    position:relative;
+}
 
-            font-size: 16px;
-        }
 
+.input-icon{
 
-        input {
+    position:absolute;
 
-            width: 100%;
+    left:15px;
 
-            height: 52px;
+    top:50%;
 
-            padding: 0 15px 0 45px;
+    transform:translateY(-50%);
 
-            border-radius: 12px;
+    color:#8296aa;
 
-            border: 1px solid #34495e;
+    font-size:15px;
+}
 
-            outline: none;
 
-            background: #07111c;
+input{
 
-            color: white;
+    width:100%;
 
-            font-size: 14px;
+    height:52px;
 
-            transition: 0.25s;
-        }
+    padding:0 15px 0 44px;
 
+    border-radius:12px;
 
-        input::placeholder {
+    border:1px solid #34495e;
 
-            color: #586b7e;
-        }
+    outline:none;
 
+    background:#07111c;
 
-        input:focus {
+    color:white;
 
-            border-color: #a9bacb;
+    font-size:13px;
 
-            box-shadow:
-                0 0 0 3px rgba(169,186,203,0.08);
-        }
+    transition:.25s;
+}
 
 
-        /* PASSWORD */
+input::placeholder{
+    color:#586b7e;
+}
 
-        .password-input {
 
-            padding-right: 50px;
-        }
+input:focus{
 
+    border-color:#4da3ff;
 
-        .show-password {
+    box-shadow:
+    0 0 0 3px rgba(77,163,255,.08);
+}
 
-            position: absolute;
 
-            right: 15px;
+/* PASSWORD */
 
-            top: 50%;
+.password-input{
+    padding-right:55px;
+}
 
-            transform: translateY(-50%);
 
-            border: none;
+.show-password{
 
-            background: none;
+    position:absolute;
 
-            color: #8093a7;
+    right:14px;
 
-            cursor: pointer;
+    top:50%;
 
-            font-size: 12px;
-        }
+    transform:translateY(-50%);
 
+    border:none;
 
-        /* FORGOT PASSWORD */
+    background:none;
 
-        .forgot-row {
+    color:#8093a7;
 
-            display: flex;
+    font-size:10px;
 
-            justify-content: flex-end;
+    font-weight:bold;
+}
 
-            margin-top: -7px;
 
-            margin-bottom: 20px;
-        }
+/* =====================================
+   PHONE AREA
+===================================== */
 
+.phone-row{
 
-        .forgot {
+    display:grid;
 
-            color: #aebdcb;
+    grid-template-columns:90px 1fr;
 
-            font-size: 11px;
+    gap:8px;
+}
 
-            text-decoration: none;
-        }
 
+.country-code{
 
-        .forgot:hover {
+    height:52px;
 
-            color: white;
-        }
+    border-radius:12px;
 
+    border:1px solid #34495e;
 
-        /* LOGIN BUTTON */
+    background:#07111c;
 
-        .login-button {
+    color:#cbd7e2;
 
-            width: 100%;
+    padding:0 8px;
 
-            height: 53px;
+    outline:none;
 
-            border: none;
+    font-size:12px;
+}
 
-            border-radius: 12px;
 
-            cursor: pointer;
+.phone-input{
+    padding-left:15px;
+}
 
-            background:
-                linear-gradient(
-                    135deg,
-                    #eef3f7,
-                    #aebdca
-                );
 
-            color: #07111c;
+/* =====================================
+   PASSWORD RULE
+===================================== */
 
-            font-size: 13px;
+.password-rule{
 
-            font-weight: 900;
+    margin-top:7px;
 
-            letter-spacing: 1.5px;
+    color:#62768b;
 
-            transition: 0.25s;
+    font-size:8px;
 
-            box-shadow:
-                0 8px 25px rgba(174,189,202,0.12);
-        }
+    line-height:1.5;
+}
 
 
-        .login-button:hover {
+.password-rule span{
+    color:#4da3ff;
+}
 
-            transform: translateY(-2px);
 
-            background: #ffffff;
+/* =====================================
+   FORGOT
+===================================== */
 
-            box-shadow:
-                0 12px 30px rgba(200,215,230,0.2);
-        }
+.forgot-row{
 
+    display:flex;
 
-        /* DIVIDER */
+    justify-content:flex-end;
 
-        .divider {
+    margin-top:-5px;
 
-            display: flex;
+    margin-bottom:18px;
+}
 
-            align-items: center;
 
-            gap: 12px;
+.forgot{
 
-            margin: 25px 0;
+    color:#aebdcb;
 
-            color: #63768a;
+    font-size:10px;
 
-            font-size: 10px;
+    cursor:pointer;
 
-            letter-spacing: 1px;
-        }
+    text-decoration:none;
+}
 
 
-        .divider::before,
-        .divider::after {
+.forgot:hover{
+    color:white;
+}
 
-            content: "";
 
-            height: 1px;
+/* =====================================
+   MAIN BUTTON
+===================================== */
 
-            flex: 1;
+.login-button{
 
-            background: #263a4e;
-        }
+    width:100%;
 
+    height:53px;
 
-        /* GOOGLE BUTTON */
+    border:none;
 
-        .google-button {
+    border-radius:12px;
 
-            width: 100%;
+    cursor:pointer;
 
-            height: 52px;
+    background:
+    linear-gradient(
+        135deg,
+        #4da3ff,
+        #aebdca
+    );
 
-            border-radius: 12px;
+    color:#07111c;
 
-            border: 1px solid #40566c;
+    font-size:12px;
 
-            background: #0b1724;
+    font-weight:900;
 
-            color: #dbe4ed;
+    letter-spacing:1.5px;
 
-            cursor: pointer;
+    transition:.25s;
+}
 
-            display: flex;
 
-            justify-content: center;
+.login-button:hover{
 
-            align-items: center;
+    transform:translateY(-2px);
 
-            gap: 12px;
+    background:#ffffff;
+}
 
-            font-size: 13px;
 
-            font-weight: 700;
+.login-button:disabled{
 
-            transition: 0.25s;
-        }
+    opacity:.55;
 
+    cursor:not-allowed;
 
-        .google-button:hover {
+    transform:none;
+}
 
-            background: #102235;
 
-            border-color: #71869b;
+/* =====================================
+   OTP BUTTON
+===================================== */
 
-            transform: translateY(-1px);
-        }
+.otp-button{
 
+    width:100%;
 
-        .google-icon {
+    height:48px;
 
-            width: 20px;
-            height: 20px;
+    margin-top:10px;
 
-            border-radius: 50%;
+    border-radius:10px;
 
-            background: white;
+    border:1px solid #40566c;
 
-            color: #4285F4;
+    background:#0b1724;
 
-            display: flex;
+    color:#dbe4ed;
 
-            align-items: center;
+    font-size:10px;
 
-            justify-content: center;
+    font-weight:bold;
+}
 
-            font-size: 13px;
 
-            font-weight: bold;
-        }
+.otp-button:hover{
 
+    border-color:#4da3ff;
 
-        /* REGISTER */
+    color:#4da3ff;
+}
 
-        .register {
 
-            text-align: center;
+/* =====================================
+   DIVIDER
+===================================== */
 
-            margin-top: 25px;
+.divider{
 
-            color: #72859a;
+    display:flex;
 
-            font-size: 12px;
-        }
+    align-items:center;
 
+    gap:12px;
 
-        .register a {
+    margin:24px 0;
 
-            color: #d8e2ec;
+    color:#63768a;
 
-            text-decoration: none;
+    font-size:9px;
 
-            font-weight: bold;
+    letter-spacing:1px;
+}
 
-            margin-left: 5px;
-        }
 
+.divider::before,
+.divider::after{
 
-        .register a:hover {
+    content:"";
 
-            text-decoration: underline;
-        }
+    height:1px;
 
+    flex:1;
 
-        /* SECURITY */
+    background:#263a4e;
+}
 
-        .security {
 
-            margin-top: 25px;
+/* =====================================
+   GOOGLE
+===================================== */
 
-            padding: 12px;
+.google-button{
 
-            border-radius: 10px;
+    width:100%;
 
-            background: rgba(120,145,170,0.05);
+    height:52px;
 
-            border: 1px solid #1f3448;
+    border-radius:12px;
 
-            text-align: center;
+    border:1px solid #40566c;
 
-            color: #62768b;
+    background:#0b1724;
 
-            font-size: 10px;
+    color:#dbe4ed;
 
-            line-height: 1.5;
-        }
+    cursor:pointer;
 
+    display:flex;
 
-        /* API PLACEHOLDER */
+    justify-content:center;
 
-        .api-placeholder {
+    align-items:center;
 
-            margin-top: 18px;
+    gap:12px;
 
-            padding: 12px;
+    font-size:12px;
 
-            border: 1px dashed #526a80;
+    font-weight:700;
 
-            border-radius: 10px;
+    transition:.25s;
+}
 
-            background: rgba(50,75,100,0.08);
 
-            color: #91a5b9;
+.google-button:hover{
 
-            text-align: center;
+    background:#102235;
 
-            font-size: 10px;
+    border-color:#71869b;
 
-            line-height: 1.6;
-        }
+    transform:translateY(-1px);
+}
 
 
-        /* MOBILE */
+.google-icon{
 
-        @media(max-width: 480px) {
+    width:20px;
 
-            body {
-                padding: 15px;
-            }
+    height:20px;
 
-            .login-container {
-                padding: 35px 23px;
-                border-radius: 22px;
-            }
+    border-radius:50%;
 
-            .brand {
-                font-size: 21px;
-            }
+    background:white;
 
-            .welcome h1 {
-                font-size: 27px;
-            }
-        }
+    color:#4285F4;
 
-    </style>
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:13px;
+
+    font-weight:bold;
+}
+
+
+/* =====================================
+   REGISTER
+===================================== */
+
+.register{
+
+    text-align:center;
+
+    margin-top:23px;
+
+    color:#72859a;
+
+    font-size:11px;
+}
+
+
+.register a{
+
+    color:#d8e2ec;
+
+    text-decoration:none;
+
+    font-weight:bold;
+
+    margin-left:5px;
+}
+
+
+.register a:hover{
+    text-decoration:underline;
+}
+
+
+/* =====================================
+   MESSAGE
+===================================== */
+
+.message{
+
+    display:none;
+
+    margin-top:15px;
+
+    padding:11px;
+
+    border-radius:9px;
+
+    font-size:9px;
+
+    line-height:1.5;
+
+    text-align:center;
+}
+
+
+.message.show{
+    display:block;
+}
+
+
+.message.error{
+
+    background:rgba(150,60,60,.10);
+
+    border:1px solid #744c4c;
+
+    color:#ffb1b1;
+}
+
+
+.message.success{
+
+    background:rgba(70,130,180,.10);
+
+    border:1px solid #466982;
+
+    color:#9ed0ff;
+}
+
+
+/* =====================================
+   SECURITY
+===================================== */
+
+.security{
+
+    margin-top:22px;
+
+    padding:12px;
+
+    border-radius:10px;
+
+    background:rgba(120,145,170,.05);
+
+    border:1px solid #1f3448;
+
+    text-align:center;
+
+    color:#62768b;
+
+    font-size:9px;
+
+    line-height:1.5;
+}
+
+
+/* =====================================
+   API NOTE
+===================================== */
+
+.api-placeholder{
+
+    margin-top:15px;
+
+    padding:11px;
+
+    border:1px dashed #526a80;
+
+    border-radius:10px;
+
+    background:rgba(50,75,100,.08);
+
+    color:#91a5b9;
+
+    text-align:center;
+
+    font-size:8px;
+
+    line-height:1.6;
+}
+
+
+/* =====================================
+   MOBILE
+===================================== */
+
+@media(max-width:480px){
+
+    body{
+        padding:12px;
+    }
+
+    .login-container{
+        padding:32px 21px;
+        border-radius:22px;
+    }
+
+    .brand{
+        font-size:21px;
+    }
+
+    .welcome h1{
+        font-size:27px;
+    }
+
+    .phone-row{
+        grid-template-columns:82px 1fr;
+    }
+
+}
+
+</style>
 
 </head>
 
@@ -654,8 +848,11 @@
     <!-- BRAND -->
 
     <div class="brand">
+
         FHAMAR<span>.ZAMOST</span>
+
     </div>
+
 
     <div class="tagline">
         PREMIUM DIGITAL PORTAL
@@ -671,44 +868,80 @@
         </h1>
 
         <p>
-            Sign in to continue to your FHAMAR ZAMOST portal.
+            Sign in securely to your FHAMAR ZAMOST portal.
         </p>
 
     </div>
 
 
-    <!-- LOGIN FORM -->
+    <!-- LOGIN TABS -->
 
-    <form id="loginForm">
+    <div class="login-tabs">
+
+        <button
+        class="tab active"
+        id="emailTab"
+        onclick="showMode('email')">
+
+            EMAIL
+
+        </button>
 
 
-        <!-- EMAIL / MOBILE -->
+        <button
+        class="tab"
+        id="phoneTab"
+        onclick="showMode('phone')">
+
+            MOBILE OTP
+
+        </button>
+
+
+        <button
+        class="tab"
+        id="googleTab"
+        onclick="showMode('google')">
+
+            GOOGLE
+
+        </button>
+
+    </div>
+
+
+    <!-- =================================
+         EMAIL LOGIN
+    ================================== -->
+
+    <form
+    id="emailForm"
+    onsubmit="emailLogin(event)">
+
 
         <div class="input-group">
 
             <label>
-                EMAIL OR MOBILE NUMBER
+                EMAIL ADDRESS
             </label>
 
             <div class="input-box">
 
                 <span class="input-icon">
-                    ✦
+                    ✉
                 </span>
 
                 <input
-                    id="userLogin"
-                    type="text"
-                    placeholder="Enter email or mobile number"
-                    required
-                >
+                id="email"
+                type="email"
+                autocomplete="email"
+                placeholder="Enter your email"
+                required>
 
             </div>
 
         </div>
 
-
-        <!-- PASSWORD -->
 
         <div class="input-group">
 
@@ -723,17 +956,19 @@
                 </span>
 
                 <input
-                    id="password"
-                    class="password-input"
-                    type="password"
-                    placeholder="Enter your password"
-                    required
-                >
+                id="password"
+                class="password-input"
+                type="password"
+                autocomplete="current-password"
+                placeholder="Minimum 6 characters"
+                minlength="6"
+                required>
+
 
                 <button
-                    type="button"
-                    class="show-password"
-                    onclick="showPassword()">
+                type="button"
+                class="show-password"
+                onclick="togglePassword()">
 
                     SHOW
 
@@ -741,15 +976,22 @@
 
             </div>
 
+
+            <div class="password-rule">
+
+                Password must contain at least
+                <span>6 characters</span>.
+
+            </div>
+
         </div>
 
 
-        <!-- FORGOT -->
-
         <div class="forgot-row">
 
-            <a href="#" class="forgot"
-               onclick="forgotPassword()">
+            <a
+            class="forgot"
+            onclick="forgotPassword()">
 
                 Forgot Password?
 
@@ -758,11 +1000,10 @@
         </div>
 
 
-        <!-- LOGIN -->
-
         <button
-            type="submit"
-            class="login-button">
+        id="emailLoginButton"
+        type="submit"
+        class="login-button">
 
             SIGN IN
 
@@ -772,19 +1013,118 @@
     </form>
 
 
-    <!-- DIVIDER -->
+    <!-- =================================
+         PHONE LOGIN
+    ================================== -->
 
-    <div class="divider">
-        OR CONTINUE WITH
+    <div
+    id="phoneSection"
+    style="display:none;">
+
+
+        <div class="input-group">
+
+            <label>
+                MOBILE NUMBER
+            </label>
+
+
+            <div class="phone-row">
+
+
+                <select
+                id="countryCode"
+                class="country-code">
+
+                    <option value="+91">
+                        +91 India
+                    </option>
+
+                </select>
+
+
+                <input
+                id="phoneNumber"
+                class="phone-input"
+                type="tel"
+                inputmode="numeric"
+                maxlength="10"
+                placeholder="10 digit mobile number">
+
+            </div>
+
+        </div>
+
+
+        <button
+        id="sendOtpButton"
+        class="otp-button"
+        onclick="sendOTP()">
+
+            SEND OTP
+
+        </button>
+
+
+        <div
+        id="otpArea"
+        style="display:none;margin-top:15px;">
+
+
+            <div class="input-group">
+
+                <label>
+                    ENTER OTP
+                </label>
+
+                <input
+                id="otpCode"
+                type="text"
+                inputmode="numeric"
+                maxlength="6"
+                placeholder="Enter 6 digit OTP">
+
+            </div>
+
+
+            <button
+            id="verifyOtpButton"
+            class="login-button"
+            onclick="verifyOTP()">
+
+                VERIFY OTP & CONTINUE
+
+            </button>
+
+
+        </div>
+
+
+        <!-- Firebase invisible reCAPTCHA -->
+
+        <div id="recaptcha-container"></div>
+
+
     </div>
 
 
-    <!-- GOOGLE LOGIN -->
+    <!-- =================================
+         DIVIDER
+    ================================== -->
+
+    <div class="divider">
+        OR
+    </div>
+
+
+    <!-- =================================
+         GOOGLE
+    ================================== -->
 
     <button
-        type="button"
-        class="google-button"
-        onclick="googleLogin()">
+    type="button"
+    class="google-button"
+    onclick="googleLogin()">
 
         <span class="google-icon">
             G
@@ -795,7 +1135,9 @@
     </button>
 
 
-    <!-- REGISTER -->
+    <!-- =================================
+         REGISTER
+    ================================== -->
 
     <div class="register">
 
@@ -808,31 +1150,50 @@
     </div>
 
 
+    <!-- MESSAGE -->
+
+    <div
+    id="message"
+    class="message">
+    </div>
+
+
     <!-- SECURITY -->
 
     <div class="security">
 
-        🔒 Your account information is protected.
+        🔒 Secure authentication powered by Firebase.
+
         <br>
-        Secure authentication will be connected through Firebase.
+
+        Your password is handled by Firebase Authentication.
 
     </div>
 
 
-    <!-- API / FIREBASE PLACEHOLDER -->
+    <!-- CONNECTION AREA -->
 
     <div class="api-placeholder">
 
-        <b>IMPORTANT — CODE CONNECTION AREA</b>
+        <b>
+            FIREBASE CONNECTION
+        </b>
+
         <br><br>
 
-        👉 YAHAN FIREBASE AUTHENTICATION CODE LAGEGA
+        Email / Password Authentication ✓
+
         <br>
 
-        👉 YAHAN GOOGLE LOGIN CODE LAGEGA
+        Phone OTP Authentication ✓
+
         <br>
 
-        👉 YAHAN LOGIN API CODE LAGEGA
+        Google Authentication ✓
+
+        <br>
+
+        Successful Login → home.html
 
     </div>
 
@@ -840,167 +1201,271 @@
 </div>
 
 
-<script>
+
+<!-- =========================================
+     FIREBASE
+========================================= -->
+
+<script type="module">
+
+/*
+================================================
+FHAMAR ZAMOST
+FIREBASE LOGIN SYSTEM
+================================================
+*/
 
 
-/* =========================================
-   NORMAL LOGIN
-   ========================================= */
+/* Firebase SDK */
 
-document
-.getElementById("loginForm")
-.addEventListener("submit", function(event) {
-
-    event.preventDefault();
+import {
+    initializeApp
+}
+from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 
 
-    const userLogin =
-        document
-        .getElementById("userLogin")
-        .value
-        .trim();
+import {
+    getAuth,
+    signInWithEmailAndPassword,
+    GoogleAuthProvider,
+    signInWithPopup,
+    RecaptchaVerifier,
+    signInWithPhoneNumber,
+    sendPasswordResetEmail
+}
+from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
 
-    const password =
-        document
-        .getElementById("password")
-        .value;
+/* =============================================
+   YOUR FIREBASE CONFIGURATION
+============================================= */
+
+const firebaseConfig = {
+
+    apiKey:
+    "AIzaSyDpyBWCS7hquXoKcEfGSYDFi7epMNHTTTg",
+
+    authDomain:
+    "zamost1.firebaseapp.com",
+
+    projectId:
+    "zamost1",
+
+    storageBucket:
+    "zamost1.firebasestorage.app",
+
+    messagingSenderId:
+    "660391979595",
+
+    appId:
+    "1:660391979595:web:62389051f81c388505fbce",
+
+    measurementId:
+    "G-PTVR032GDP"
+
+};
 
 
-    if (userLogin === "") {
+/* =============================================
+   INITIALIZE FIREBASE
+============================================= */
 
-        alert("Please enter your email or mobile number.");
-
-        return;
-    }
-
-
-    if (password === "") {
-
-        alert("Please enter your password.");
-
-        return;
-    }
+const app =
+    initializeApp(firebaseConfig);
 
 
-    /*
-    ==========================================
-    REAL LOGIN CONNECTION
-
-    YAHAN LOGIN API / FIREBASE CODE LAGEGA
-
-    Example:
-
-    Firebase Authentication
-    ↓
-    User verification
-    ↓
-    Successful login
-    ↓
-    Home Page
-
-    ==========================================
-    */
+const auth =
+    getAuth(app);
 
 
-    // DEMO LOGIN
-    // Login successful hone ke baad Home Page
 
-    window.location.href = "home.html";
+/* =============================================
+   GOOGLE PROVIDER
+============================================= */
+
+const googleProvider =
+    new GoogleAuthProvider();
+
+
+googleProvider.setCustomParameters({
+
+    prompt:"select_account"
 
 });
 
 
 
-/* =========================================
-   GOOGLE LOGIN
-   ========================================= */
+/* =============================================
+   PHONE VARIABLES
+============================================= */
 
-function googleLogin() {
+let confirmationResult =
+    null;
 
-
-    /*
-    ==========================================
-
-    ⭐ YAHAN GOOGLE FIREBASE LOGIN CODE LAGEGA ⭐
-
-    Firebase Google Authentication code
-    yahan paste/connect kiya jayega.
-
-    Login successful hone par:
-
-    window.location.href = "home.html";
-
-    ==========================================
-    */
+let recaptchaVerifier =
+    null;
 
 
-    alert(
-        "Google Login Code YAHAN LAGEGA.\n\n" +
-        "Firebase Google Authentication connect karne ke baad " +
-        "Google Login yahan se work karega."
-    );
+
+/* =============================================
+   MESSAGE SYSTEM
+============================================= */
+
+function showMessage(text,type="error"){
+
+    const message =
+        document.getElementById(
+            "message"
+        );
+
+
+    message.textContent =
+        text;
+
+
+    message.className =
+        "message show " + type;
 
 }
 
 
 
-/* =========================================
-   SHOW / HIDE PASSWORD
-   ========================================= */
+/* =============================================
+   FIREBASE ERROR MESSAGE
+============================================= */
 
-function showPassword() {
+function firebaseError(error){
+
+    const code =
+        error?.code || "";
+
+
+    const errors = {
+
+        "auth/invalid-credential":
+        "Email/password is incorrect.",
+
+        "auth/invalid-login-credentials":
+        "Email/password is incorrect.",
+
+        "auth/user-not-found":
+        "No account found with this email.",
+
+        "auth/wrong-password":
+        "Incorrect password.",
+
+        "auth/invalid-email":
+        "Please enter a valid email address.",
+
+        "auth/too-many-requests":
+        "Too many attempts. Please try again later.",
+
+        "auth/popup-closed-by-user":
+        "Google Login was cancelled.",
+
+        "auth/popup-blocked":
+        "Google popup was blocked by the browser.",
+
+        "auth/network-request-failed":
+        "Network problem. Please check your internet connection.",
+
+        "auth/email-already-in-use":
+        "This email is already registered.",
+
+        "auth/operation-not-allowed":
+        "This login method is not enabled in Firebase.",
+
+        "auth/invalid-phone-number":
+        "Please enter a valid mobile number.",
+
+        "auth/quota-exceeded":
+        "Firebase SMS limit has been reached. Please try again later."
+
+    };
+
+
+    return errors[code]
+        ||
+        "Login failed. Please try again.";
+
+}
+
+
+
+/* =============================================
+   GO HOME
+============================================= */
+
+function goHome(){
+
+    window.location.href =
+        "home.html";
+
+}
+
+
+
+/* =============================================
+   EMAIL LOGIN
+============================================= */
+
+window.emailLogin =
+async function(event){
+
+    event.preventDefault();
+
+
+    const email =
+        document.getElementById(
+            "email"
+        )
+        .value
+        .trim();
+
 
     const password =
-        document.getElementById("password");
+        document.getElementById(
+            "password"
+        )
+        .value;
 
-    const button =
-        document.querySelector(".show-password");
 
+    if(password.length < 6){
 
-    if (password.type === "password") {
+        showMessage(
+            "Password must contain at least 6 characters."
+        );
 
-        password.type = "text";
+        return;
 
-        button.innerText = "HIDE";
-
-    } else {
-
-        password.type = "password";
-
-        button.innerText = "SHOW";
     }
 
-}
+
+    const button =
+        document.getElementById(
+            "emailLoginButton"
+        );
 
 
-
-/* =========================================
-   FORGOT PASSWORD
-   ========================================= */
-
-function forgotPassword() {
-
-    /*
-    ==========================================
-
-    ⭐ YAHAN PASSWORD RESET API CODE LAGEGA ⭐
-
-    Firebase Password Reset
-    ya
-    Backend Password Reset API
-
-    ==========================================
-    */
-
-    alert(
-        "Password Reset Code YAHAN LAGEGA."
-    );
-
-}
-
-</script>
+    button.disabled =
+        true;
 
 
-</body>
-</html>
+    button.textContent =
+        "SIGNING IN...";
+
+
+    try{
+
+
+        await signInWithEmailAndPassword(
+            auth,
+            email,
+            password
+        );
+
+
+        showMessage(
+            "Login successful. Opening 
