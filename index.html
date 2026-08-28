@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
@@ -27,7 +28,7 @@ body{
     justify-content:center;
     align-items:center;
 
-    padding:20px;
+    padding:15px;
 
     color:white;
 
@@ -64,7 +65,7 @@ body{
     width:100%;
     max-width:430px;
 
-    padding:42px 32px;
+    padding:40px 32px;
 
     background:
     linear-gradient(
@@ -129,8 +130,7 @@ body{
     );
 
     box-shadow:
-    0 0 35px rgba(154,174,195,.12),
-    inset 0 0 20px rgba(255,255,255,.03);
+    0 0 35px rgba(154,174,195,.12);
 
     font-size:27px;
 
@@ -187,7 +187,7 @@ body{
 
 .welcome{
 
-    margin-top:38px;
+    margin-top:34px;
 
     text-align:center;
 }
@@ -216,18 +216,19 @@ body{
 
 
 /* =====================================
-   MODE TABS
+   LOGIN TABS
 ===================================== */
 
 .login-tabs{
 
-    margin-top:25px;
+    margin-top:24px;
 
     display:grid;
 
-    grid-template-columns:1fr 1fr 1fr;
+    grid-template-columns:
+    repeat(3,1fr);
 
-    gap:6px;
+    gap:5px;
 
     padding:5px;
 
@@ -254,6 +255,15 @@ body{
     font-size:9px;
 
     font-weight:bold;
+
+    transition:.2s;
+}
+
+
+.tab:hover{
+
+    color:#dce5ed;
+
 }
 
 
@@ -262,6 +272,7 @@ body{
     background:#173b5b;
 
     color:#4da3ff;
+
 }
 
 
@@ -270,11 +281,13 @@ body{
 ===================================== */
 
 form{
+
     margin-top:22px;
 }
 
 
 .input-group{
+
     margin-bottom:17px;
 }
 
@@ -294,6 +307,7 @@ label{
 
 
 .input-box{
+
     position:relative;
 }
 
@@ -339,6 +353,7 @@ input{
 
 
 input::placeholder{
+
     color:#586b7e;
 }
 
@@ -352,9 +367,12 @@ input:focus{
 }
 
 
-/* PASSWORD */
+/* =====================================
+   PASSWORD
+===================================== */
 
 .password-input{
+
     padding-right:55px;
 }
 
@@ -381,49 +399,6 @@ input:focus{
 }
 
 
-/* =====================================
-   PHONE AREA
-===================================== */
-
-.phone-row{
-
-    display:grid;
-
-    grid-template-columns:90px 1fr;
-
-    gap:8px;
-}
-
-
-.country-code{
-
-    height:52px;
-
-    border-radius:12px;
-
-    border:1px solid #34495e;
-
-    background:#07111c;
-
-    color:#cbd7e2;
-
-    padding:0 8px;
-
-    outline:none;
-
-    font-size:12px;
-}
-
-
-.phone-input{
-    padding-left:15px;
-}
-
-
-/* =====================================
-   PASSWORD RULE
-===================================== */
-
 .password-rule{
 
     margin-top:7px;
@@ -431,13 +406,13 @@ input:focus{
     color:#62768b;
 
     font-size:8px;
-
-    line-height:1.5;
 }
 
 
 .password-rule span{
+
     color:#4da3ff;
+
 }
 
 
@@ -464,13 +439,13 @@ input:focus{
     font-size:10px;
 
     cursor:pointer;
-
-    text-decoration:none;
 }
 
 
 .forgot:hover{
+
     color:white;
+
 }
 
 
@@ -487,8 +462,6 @@ input:focus{
     border:none;
 
     border-radius:12px;
-
-    cursor:pointer;
 
     background:
     linear-gradient(
@@ -528,8 +501,56 @@ input:focus{
 
 
 /* =====================================
-   OTP BUTTON
+   PHONE
 ===================================== */
+
+.phone-row{
+
+    display:grid;
+
+    grid-template-columns:90px 1fr;
+
+    gap:8px;
+}
+
+
+.country-code{
+
+    height:52px;
+
+    border-radius:12px;
+
+    border:1px solid #34495e;
+
+    background:#07111c;
+
+    color:#cbd7e2;
+
+    padding:0 8px;
+
+    outline:none;
+
+    font-size:12px;
+}
+
+
+.phone-input{
+
+    padding-left:15px;
+}
+
+
+/* =====================================
+   OTP
+===================================== */
+
+.otp-area{
+
+    display:none;
+
+    margin-top:15px;
+}
+
 
 .otp-button{
 
@@ -537,7 +558,7 @@ input:focus{
 
     height:48px;
 
-    margin-top:10px;
+    margin-top:5px;
 
     border-radius:10px;
 
@@ -562,49 +583,22 @@ input:focus{
 
 
 /* =====================================
-   DIVIDER
-===================================== */
-
-.divider{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:12px;
-
-    margin:24px 0;
-
-    color:#63768a;
-
-    font-size:9px;
-
-    letter-spacing:1px;
-}
-
-
-.divider::before,
-.divider::after{
-
-    content:"";
-
-    height:1px;
-
-    flex:1;
-
-    background:#263a4e;
-}
-
-
-/* =====================================
    GOOGLE
 ===================================== */
+
+.google-section{
+
+    display:none;
+
+    margin-top:22px;
+}
+
 
 .google-button{
 
     width:100%;
 
-    height:52px;
+    height:53px;
 
     border-radius:12px;
 
@@ -644,9 +638,9 @@ input:focus{
 
 .google-icon{
 
-    width:20px;
+    width:21px;
 
-    height:20px;
+    height:21px;
 
     border-radius:50%;
 
@@ -695,7 +689,9 @@ input:focus{
 
 
 .register a:hover{
+
     text-decoration:underline;
+
 }
 
 
@@ -722,7 +718,9 @@ input:focus{
 
 
 .message.show{
+
     display:block;
+
 }
 
 
@@ -764,37 +762,11 @@ input:focus{
 
     text-align:center;
 
-    color:#62768b;
+    color:#71869c;
 
     font-size:9px;
 
     line-height:1.5;
-}
-
-
-/* =====================================
-   API NOTE
-===================================== */
-
-.api-placeholder{
-
-    margin-top:15px;
-
-    padding:11px;
-
-    border:1px dashed #526a80;
-
-    border-radius:10px;
-
-    background:rgba(50,75,100,.08);
-
-    color:#91a5b9;
-
-    text-align:center;
-
-    font-size:8px;
-
-    line-height:1.6;
 }
 
 
@@ -805,24 +777,34 @@ input:focus{
 @media(max-width:480px){
 
     body{
-        padding:12px;
+        padding:10px;
     }
 
     .login-container{
-        padding:32px 21px;
+
+        padding:32px 20px;
+
         border-radius:22px;
+
     }
 
     .brand{
+
         font-size:21px;
+
     }
 
     .welcome h1{
+
         font-size:27px;
+
     }
 
     .phone-row{
-        grid-template-columns:82px 1fr;
+
+        grid-template-columns:
+        82px 1fr;
+
     }
 
 }
@@ -874,9 +856,12 @@ input:focus{
     </div>
 
 
-    <!-- LOGIN TABS -->
+    <!-- =================================
+         TABS
+    ================================== -->
 
     <div class="login-tabs">
+
 
         <button
         class="tab active"
@@ -907,6 +892,7 @@ input:focus{
 
         </button>
 
+
     </div>
 
 
@@ -925,11 +911,13 @@ input:focus{
                 EMAIL ADDRESS
             </label>
 
+
             <div class="input-box">
 
                 <span class="input-icon">
                     ✉
                 </span>
+
 
                 <input
                 id="email"
@@ -943,11 +931,13 @@ input:focus{
         </div>
 
 
+
         <div class="input-group">
 
             <label>
                 PASSWORD
             </label>
+
 
             <div class="input-box">
 
@@ -955,13 +945,14 @@ input:focus{
                     ●
                 </span>
 
+
                 <input
                 id="password"
                 class="password-input"
                 type="password"
                 autocomplete="current-password"
-                placeholder="Minimum 6 characters"
                 minlength="6"
+                placeholder="Minimum 6 characters"
                 required>
 
 
@@ -979,12 +970,13 @@ input:focus{
 
             <div class="password-rule">
 
-                Password must contain at least
-                <span>6 characters</span>.
+                Minimum
+                <span>6 characters</span>
 
             </div>
 
         </div>
+
 
 
         <div class="forgot-row">
@@ -998,6 +990,7 @@ input:focus{
             </a>
 
         </div>
+
 
 
         <button
@@ -1037,7 +1030,7 @@ input:focus{
                 class="country-code">
 
                     <option value="+91">
-                        +91 India
+                        +91
                     </option>
 
                 </select>
@@ -1049,7 +1042,7 @@ input:focus{
                 type="tel"
                 inputmode="numeric"
                 maxlength="10"
-                placeholder="10 digit mobile number">
+                placeholder="10 digit mobile">
 
             </div>
 
@@ -1068,7 +1061,7 @@ input:focus{
 
         <div
         id="otpArea"
-        style="display:none;margin-top:15px;">
+        class="otp-area">
 
 
             <div class="input-group">
@@ -1076,6 +1069,7 @@ input:focus{
                 <label>
                     ENTER OTP
                 </label>
+
 
                 <input
                 id="otpCode"
@@ -1100,7 +1094,7 @@ input:focus{
         </div>
 
 
-        <!-- Firebase invisible reCAPTCHA -->
+        <!-- Firebase reCAPTCHA -->
 
         <div id="recaptcha-container"></div>
 
@@ -1109,39 +1103,41 @@ input:focus{
 
 
     <!-- =================================
-         DIVIDER
+         GOOGLE LOGIN
     ================================== -->
 
-    <div class="divider">
-        OR
+    <div
+    id="googleSection"
+    class="google-section">
+
+
+        <button
+        type="button"
+        id="googleButton"
+        class="google-button"
+        onclick="googleLogin()">
+
+
+            <span class="google-icon">
+                G
+            </span>
+
+
+            Continue with Google
+
+
+        </button>
+
+
     </div>
 
 
-    <!-- =================================
-         GOOGLE
-    ================================== -->
-
-    <button
-    type="button"
-    class="google-button"
-    onclick="googleLogin()">
-
-        <span class="google-icon">
-            G
-        </span>
-
-        Continue with Google
-
-    </button>
-
-
-    <!-- =================================
-         REGISTER
-    ================================== -->
+    <!-- REGISTER -->
 
     <div class="register">
 
         Don't have an account?
+
 
         <a href="register.html">
             Create Account
@@ -1162,38 +1158,12 @@ input:focus{
 
     <div class="security">
 
-        🔒 Secure authentication powered by Firebase.
+        🔒 Secure Login
 
         <br>
 
-        Your password is handled by Firebase Authentication.
-
-    </div>
-
-
-    <!-- CONNECTION AREA -->
-
-    <div class="api-placeholder">
-
-        <b>
-            FIREBASE CONNECTION
-        </b>
-
-        <br><br>
-
-        Email / Password Authentication ✓
-
-        <br>
-
-        Phone OTP Authentication ✓
-
-        <br>
-
-        Google Authentication ✓
-
-        <br>
-
-        Successful Login → home.html
+        Your account is protected by
+        Firebase Authentication.
 
     </div>
 
@@ -1208,15 +1178,10 @@ input:focus{
 
 <script type="module">
 
-/*
-================================================
-FHAMAR ZAMOST
-FIREBASE LOGIN SYSTEM
-================================================
-*/
 
-
-/* Firebase SDK */
+/* =========================================
+   FIREBASE SDK
+========================================= */
 
 import {
     initializeApp
@@ -1230,17 +1195,20 @@ import {
     signInWithEmailAndPassword,
     GoogleAuthProvider,
     signInWithPopup,
+    signInWithRedirect,
     RecaptchaVerifier,
     signInWithPhoneNumber,
-    sendPasswordResetEmail
+    sendPasswordResetEmail,
+    getRedirectResult
 }
 from
 "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
 
-/* =============================================
-   YOUR FIREBASE CONFIGURATION
-============================================= */
+
+/* =========================================
+   FIREBASE CONFIG
+========================================= */
 
 const firebaseConfig = {
 
@@ -1268,9 +1236,10 @@ const firebaseConfig = {
 };
 
 
-/* =============================================
-   INITIALIZE FIREBASE
-============================================= */
+
+/* =========================================
+   INITIALIZE
+========================================= */
 
 const app =
     initializeApp(firebaseConfig);
@@ -1279,11 +1248,6 @@ const app =
 const auth =
     getAuth(app);
 
-
-
-/* =============================================
-   GOOGLE PROVIDER
-============================================= */
 
 const googleProvider =
     new GoogleAuthProvider();
@@ -1297,9 +1261,9 @@ googleProvider.setCustomParameters({
 
 
 
-/* =============================================
-   PHONE VARIABLES
-============================================= */
+/* =========================================
+   VARIABLES
+========================================= */
 
 let confirmationResult =
     null;
@@ -1309,11 +1273,14 @@ let recaptchaVerifier =
 
 
 
-/* =============================================
-   MESSAGE SYSTEM
-============================================= */
+/* =========================================
+   MESSAGE
+========================================= */
 
-function showMessage(text,type="error"){
+function showMessage(
+    text,
+    type="error"
+){
 
     const message =
         document.getElementById(
@@ -1332,9 +1299,9 @@ function showMessage(text,type="error"){
 
 
 
-/* =============================================
-   FIREBASE ERROR MESSAGE
-============================================= */
+/* =========================================
+   FIREBASE ERROR
+========================================= */
 
 function firebaseError(error){
 
@@ -1345,10 +1312,10 @@ function firebaseError(error){
     const errors = {
 
         "auth/invalid-credential":
-        "Email/password is incorrect.",
+        "Email or password is incorrect.",
 
         "auth/invalid-login-credentials":
-        "Email/password is incorrect.",
+        "Email or password is incorrect.",
 
         "auth/user-not-found":
         "No account found with this email.",
@@ -1366,13 +1333,10 @@ function firebaseError(error){
         "Google Login was cancelled.",
 
         "auth/popup-blocked":
-        "Google popup was blocked by the browser.",
+        "Google popup was blocked.",
 
         "auth/network-request-failed":
-        "Network problem. Please check your internet connection.",
-
-        "auth/email-already-in-use":
-        "This email is already registered.",
+        "Network problem. Check your internet connection.",
 
         "auth/operation-not-allowed":
         "This login method is not enabled in Firebase.",
@@ -1381,22 +1345,28 @@ function firebaseError(error){
         "Please enter a valid mobile number.",
 
         "auth/quota-exceeded":
-        "Firebase SMS limit has been reached. Please try again later."
+        "SMS limit has been reached. Please try again later.",
+
+        "auth/code-expired":
+        "OTP expired. Please request a new OTP.",
+
+        "auth/invalid-verification-code":
+        "Invalid OTP. Please check the code."
 
     };
 
 
     return errors[code]
         ||
-        "Login failed. Please try again.";
+        "Something went wrong. Please try again.";
 
 }
 
 
 
-/* =============================================
-   GO HOME
-============================================= */
+/* =========================================
+   HOME
+========================================= */
 
 function goHome(){
 
@@ -1407,9 +1377,9 @@ function goHome(){
 
 
 
-/* =============================================
+/* =========================================
    EMAIL LOGIN
-============================================= */
+========================================= */
 
 window.emailLogin =
 async function(event){
@@ -1459,7 +1429,6 @@ async function(event){
 
     try{
 
-
         await signInWithEmailAndPassword(
             auth,
             email,
@@ -1468,4 +1437,100 @@ async function(event){
 
 
         showMessage(
-            "Login successful. Opening 
+            "Login successful. Opening Home...",
+            "success"
+        );
+
+
+        setTimeout(
+            goHome,
+            600
+        );
+
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+        showMessage(
+            firebaseError(error)
+        );
+
+    }
+
+    finally{
+
+        button.disabled =
+            false;
+
+        button.textContent =
+            "SIGN IN";
+
+    }
+
+};
+
+
+
+/* =========================================
+   GOOGLE LOGIN
+========================================= */
+
+window.googleLogin =
+async function(){
+
+    const button =
+        document.getElementById(
+            "googleButton"
+        );
+
+
+    button.disabled =
+        true;
+
+
+    button.innerHTML =
+        "Opening Google...";
+
+
+    try{
+
+        /*
+        Mobile/browser friendly:
+        redirect flow
+        */
+
+        await signInWithRedirect(
+            auth,
+            googleProvider
+        );
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+        button.disabled =
+            false;
+
+        button.innerHTML =
+        `
+        <span class="google-icon">G</span>
+        Continue with Google
+        `;
+
+
+        showMessage(
+            firebaseError(error)
+        );
+
+    }
+
+};
+
+
+
+/* =========================
