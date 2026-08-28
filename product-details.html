@@ -1,0 +1,1344 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Product Details | FHAMAR ZAMOST</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+    background:#050b12;
+    color:white;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+header{
+    height:75px;
+    padding:0 6%;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    background:#07111d;
+    border-bottom:1px solid #30465d;
+
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+
+.brand-area{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.fz-logo{
+    width:45px;
+    height:45px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:12px;
+
+    border:1px solid #8298ad;
+
+    background:
+    linear-gradient(
+        145deg,
+        #173b5b,
+        #050b12
+    );
+
+    color:#4da3ff;
+
+    font-size:17px;
+    font-weight:900;
+}
+
+.brand{
+    font-size:18px;
+    font-weight:900;
+    letter-spacing:2px;
+}
+
+.blue{
+    color:#4da3ff;
+}
+
+.silver{
+    color:#aeb9c5;
+}
+
+nav{
+    display:flex;
+    gap:22px;
+}
+
+nav a{
+    color:#91a2b5;
+    font-size:12px;
+}
+
+nav a:hover{
+    color:white;
+}
+
+.profile-btn{
+    padding:9px 13px;
+
+    border:1px solid #60768c;
+    border-radius:8px;
+
+    color:#dce5ee;
+    font-size:11px;
+}
+
+
+/* =========================
+   MAIN
+========================= */
+
+.page{
+
+    max-width:1200px;
+
+    margin:auto;
+
+    padding:55px 6% 80px;
+}
+
+
+/* BACK */
+
+.back{
+    color:#91a3b5;
+    font-size:12px;
+}
+
+.back:hover{
+    color:#4da3ff;
+}
+
+
+/* =========================
+   PRODUCT AREA
+========================= */
+
+.product-area{
+
+    margin-top:30px;
+
+    display:grid;
+
+    grid-template-columns:
+    1fr 1fr;
+
+    gap:45px;
+
+    align-items:center;
+}
+
+
+/* =========================
+   PRODUCT IMAGE
+========================= */
+
+.product-image{
+
+    min-height:480px;
+
+    border-radius:25px;
+
+    border:1px solid #344d64;
+
+    background:
+
+    radial-gradient(
+        circle,
+        #1b3d5e,
+        #07111d 68%
+    );
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    position:relative;
+
+    overflow:hidden;
+
+    box-shadow:
+    0 30px 80px rgba(0,0,0,.45);
+}
+
+
+.product-icon{
+
+    width:250px;
+    height:250px;
+
+    border-radius:40px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    background:
+    linear-gradient(
+        145deg,
+        #294d6e,
+        #0a1420
+    );
+
+    border:1px solid #8196aa;
+
+    font-size:100px;
+
+    box-shadow:
+    0 0 70px
+    rgba(77,163,255,.12);
+}
+
+
+/*
+=========================================
+
+⭐ PRODUCT IMAGE CONNECTION AREA ⭐
+
+YAHAN REAL PRODUCT IMAGE LAGEGA.
+
+Aap baad mein:
+
+<img src="PRODUCT IMAGE URL">
+
+ya apni image file ka path laga sakte hain.
+
+=========================================
+*/
+
+
+/* =========================
+   PRODUCT INFORMATION
+========================= */
+
+.product-category{
+
+    display:inline-block;
+
+    padding:6px 10px;
+
+    border:1px solid #3c536a;
+
+    border-radius:20px;
+
+    color:#7f96ab;
+
+    font-size:9px;
+
+    letter-spacing:1px;
+}
+
+
+.product-info h1{
+
+    margin-top:15px;
+
+    font-size:42px;
+
+    line-height:1.1;
+}
+
+
+.description{
+
+    margin-top:18px;
+
+    color:#8fa1b4;
+
+    line-height:1.8;
+
+    font-size:14px;
+}
+
+
+/* PRICE */
+
+.price{
+
+    margin-top:25px;
+
+    font-size:32px;
+
+    font-weight:900;
+
+    color:#dce5ee;
+}
+
+
+.price-note{
+
+    margin-top:5px;
+
+    color:#667b90;
+
+    font-size:10px;
+}
+
+
+/* =========================
+   QUANTITY
+========================= */
+
+.quantity-title{
+
+    margin-top:28px;
+
+    margin-bottom:9px;
+
+    color:#aebdca;
+
+    font-size:11px;
+
+    font-weight:bold;
+}
+
+
+.quantity{
+
+    display:flex;
+
+    align-items:center;
+
+    width:135px;
+
+    height:45px;
+
+    border:1px solid #354c63;
+
+    border-radius:9px;
+
+    overflow:hidden;
+
+    background:#08131f;
+}
+
+
+.quantity button{
+
+    width:42px;
+
+    height:100%;
+
+    border:0;
+
+    background:#0d1c2b;
+
+    color:white;
+
+    cursor:pointer;
+
+    font-size:18px;
+}
+
+
+.quantity button:hover{
+
+    background:#18344e;
+}
+
+
+.quantity span{
+
+    flex:1;
+
+    text-align:center;
+
+    font-weight:bold;
+}
+
+
+/* =========================
+   ACTION BUTTONS
+========================= */
+
+.actions{
+
+    display:flex;
+
+    gap:12px;
+
+    margin-top:28px;
+}
+
+
+.btn{
+
+    padding:14px 20px;
+
+    border-radius:10px;
+
+    font-size:11px;
+
+    font-weight:900;
+
+    letter-spacing:1px;
+
+    cursor:pointer;
+}
+
+
+.add-cart{
+
+    background:transparent;
+
+    color:#dce5ee;
+
+    border:1px solid #667c91;
+}
+
+
+.add-cart:hover{
+
+    border-color:#4da3ff;
+
+    color:#4da3ff;
+}
+
+
+.buy-now{
+
+    background:#4da3ff;
+
+    color:#04101c;
+
+    border:1px solid #4da3ff;
+}
+
+
+.buy-now:hover{
+
+    background:#72b7ff;
+}
+
+
+/* =========================
+   MESSAGE
+========================= */
+
+.message{
+
+    margin-top:18px;
+
+    padding:13px;
+
+    border:1px solid #30475d;
+
+    border-radius:9px;
+
+    background:#091622;
+
+    color:#91a5b9;
+
+    font-size:11px;
+
+    display:none;
+}
+
+
+/* =========================
+   PRODUCT FEATURES
+========================= */
+
+.features{
+
+    margin-top:65px;
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(3,1fr);
+
+    gap:15px;
+}
+
+
+.feature{
+
+    padding:22px;
+
+    background:#091622;
+
+    border:1px solid #293f55;
+
+    border-radius:14px;
+}
+
+
+.feature-icon{
+
+    font-size:22px;
+}
+
+
+.feature h3{
+
+    margin-top:15px;
+
+    font-size:14px;
+}
+
+
+.feature p{
+
+    margin-top:8px;
+
+    color:#7f92a6;
+
+    font-size:11px;
+
+    line-height:1.6;
+}
+
+
+/* =========================
+   API PLACEHOLDER
+========================= */
+
+.api-note{
+
+    margin-top:35px;
+
+    padding:15px;
+
+    border:1px dashed #405a72;
+
+    border-radius:10px;
+
+    color:#7f95a9;
+
+    background:#07111c;
+
+    text-align:center;
+
+    font-size:10px;
+
+    line-height:1.7;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+
+    padding:35px 7%;
+
+    background:#03080e;
+
+    border-top:1px solid #263b50;
+
+    color:#7d90a4;
+
+    font-size:11px;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:800px){
+
+    header nav{
+        display:none;
+    }
+
+    .product-area{
+        grid-template-columns:1fr;
+    }
+
+    .product-image{
+        min-height:350px;
+    }
+
+    .product-icon{
+        width:190px;
+        height:190px;
+        font-size:75px;
+    }
+
+    .features{
+        grid-template-columns:1fr;
+    }
+
+    .product-info h1{
+        font-size:34px;
+    }
+
+}
+
+@media(max-width:480px){
+
+    .page{
+        padding-left:5%;
+        padding-right:5%;
+    }
+
+    .actions{
+        flex-direction:column;
+    }
+
+    .btn{
+        width:100%;
+        text-align:center;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header>
+
+
+<div class="brand-area">
+
+    <div class="fz-logo">
+        FZ
+    </div>
+
+    <div class="brand">
+
+        <span class="blue">
+            FHAMAR
+        </span>
+
+        <span class="silver">
+            .ZAMOST
+        </span>
+
+    </div>
+
+</div>
+
+
+<nav>
+
+    <a href="home.html">
+        Home
+    </a>
+
+    <a href="catalog.html">
+        Catalog
+    </a>
+
+    <a href="profile.html">
+        My Portal
+    </a>
+
+    <a href="admin.html">
+        Administrative Desk
+    </a>
+
+</nav>
+
+
+<a
+href="cart.html"
+class="profile-btn">
+
+    🛒 CART
+
+</a>
+
+
+</header>
+
+
+
+<!-- =========================
+     PAGE
+========================= -->
+
+<main class="page">
+
+
+<a
+href="catalog.html"
+class="back">
+
+    ← Back to Catalog
+
+</a>
+
+
+
+<section class="product-area">
+
+
+<!-- =========================
+     PRODUCT IMAGE
+========================= -->
+
+<div class="product-image">
+
+    <div
+    class="product-icon"
+    id="productIcon">
+
+        🎒
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================
+     PRODUCT INFO
+========================= -->
+
+<div class="product-info">
+
+
+<span
+class="product-category"
+id="productCategory">
+
+    FASHION
+
+</span>
+
+
+<h1 id="productName">
+
+    Classic Backpack
+
+</h1>
+
+
+<p
+class="description"
+id="productDescription">
+
+    Stylish and practical everyday
+    backpack designed for comfortable
+    daily use.
+
+</p>
+
+
+<div
+class="price"
+id="productPrice">
+
+    ₹799
+
+</div>
+
+
+<div class="price-note">
+
+    Maximum product price: ₹1,500
+
+</div>
+
+
+
+<!-- QUANTITY -->
+
+<div class="quantity-title">
+
+    QUANTITY
+
+</div>
+
+
+<div class="quantity">
+
+    <button
+    onclick="changeQuantity(-1)">
+
+        −
+
+    </button>
+
+
+    <span id="quantity">
+        1
+    </span>
+
+
+    <button
+    onclick="changeQuantity(1)">
+
+        +
+
+    </button>
+
+</div>
+
+
+
+<!-- ACTIONS -->
+
+<div class="actions">
+
+
+<button
+class="btn add-cart"
+onclick="addToCart()">
+
+    ADD TO CART
+
+</button>
+
+
+<button
+class="btn buy-now"
+onclick="buyNow()">
+
+    BUY NOW
+
+</button>
+
+
+</div>
+
+
+
+<div
+class="message"
+id="message">
+
+</div>
+
+
+</div>
+
+</section>
+
+
+
+<!-- =========================
+     FEATURES
+========================= -->
+
+<section class="features">
+
+
+<div class="feature">
+
+    <div class="feature-icon">
+        🚚
+    </div>
+
+    <h3>
+        Delivery
+    </h3>
+
+    <p>
+        Delivery and order tracking
+        will be connected to the
+        order system.
+    </p>
+
+</div>
+
+
+<div class="feature">
+
+    <div class="feature-icon">
+        🔒
+    </div>
+
+    <h3>
+        Secure Order
+    </h3>
+
+    <p>
+        Customer order information
+        will be protected through
+        the connected backend.
+    </p>
+
+</div>
+
+
+<div class="feature">
+
+    <div class="feature-icon">
+        💳
+    </div>
+
+    <h3>
+        Easy Payment
+    </h3>
+
+    <p>
+        Payment options will be
+        available on the Checkout
+        Page.
+    </p>
+
+</div>
+
+
+</section>
+
+
+
+<!-- =========================
+     CONNECTION NOTE
+========================= -->
+
+<div class="api-note">
+
+    <b>
+        PRODUCT DATABASE CONNECTION
+    </b>
+
+    <br>
+
+    YAHAN PRODUCT API / FIREBASE
+    DATABASE CODE LAGEGA.
+
+    <br>
+
+    Product name, image, price,
+    description and stock API se
+    load kiya ja sakta hai.
+
+</div>
+
+
+</main>
+
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+
+    <div class="brand">
+
+        <span class="blue">
+            FHAMAR
+        </span>
+
+        <span class="silver">
+            .ZAMOST
+        </span>
+
+    </div>
+
+    <p>
+        Premium Digital Collection
+    </p>
+
+</footer>
+
+
+
+<script>
+
+
+/* =========================================
+   PRODUCT DATA
+========================================= */
+
+
+const products = {
+
+    backpack: {
+
+        name: "Classic Backpack",
+
+        category: "FASHION",
+
+        price: 799,
+
+        icon: "🎒",
+
+        description:
+        "Stylish and practical everyday backpack designed for comfortable daily use."
+
+    },
+
+
+    watch: {
+
+        name: "Smart Watch",
+
+        category: "ELECTRONICS",
+
+        price: 1299,
+
+        icon: "⌚",
+
+        description:
+        "Modern smart watch design for everyday use."
+
+    },
+
+
+    sunglasses: {
+
+        name: "Premium Sunglasses",
+
+        category: "ACCESSORIES",
+
+        price: 699,
+
+        icon: "🕶️",
+
+        description:
+        "Clean and stylish sunglasses for everyday wear."
+
+    },
+
+
+    shoes: {
+
+        name: "Running Shoes",
+
+        category: "FASHION",
+
+        price: 1499,
+
+        icon: "👟",
+
+        description:
+        "Comfortable everyday shoes with a modern design."
+
+    },
+
+
+    earphones: {
+
+        name: "Wireless Earphones",
+
+        category: "ELECTRONICS",
+
+        price: 999,
+
+        icon: "🎧",
+
+        description:
+        "Compact wireless audio experience for everyday listening."
+
+    },
+
+
+    charger: {
+
+        name: "Fast Charger",
+
+        category: "ELECTRONICS",
+
+        price: 499,
+
+        icon: "🔌",
+
+        description:
+        "Compact charging accessory for everyday use."
+
+    },
+
+
+    perfume: {
+
+        name: "Signature Perfume",
+
+        category: "PERSONAL CARE",
+
+        price: 899,
+
+        icon: "🧴",
+
+        description:
+        "Premium fragrance collection with a clean modern presentation."
+
+    },
+
+
+    tshirt: {
+
+        name: "Classic T-Shirt",
+
+        category: "FASHION",
+
+        price: 599,
+
+        icon: "👕",
+
+        description:
+        "Simple everyday T-shirt with a clean stylish look."
+
+    }
+
+};
+
+
+
+/* =========================================
+   GET PRODUCT FROM URL
+========================================= */
+
+
+const params =
+new URLSearchParams(
+    window.location.search
+);
+
+
+const productId =
+params.get("id") || "backpack";
+
+
+const product =
+products[productId] || products.backpack;
+
+
+
+/* =========================================
+   DISPLAY PRODUCT
+========================================= */
+
+
+document.getElementById(
+    "productName"
+).textContent =
+product.name;
+
+
+document.getElementById(
+    "productCategory"
+).textContent =
+product.category;
+
+
+document.getElementById(
+    "productPrice"
+).textContent =
+"₹" + product.price;
+
+
+document.getElementById(
+    "productIcon"
+).textContent =
+product.icon;
+
+
+document.getElementById(
+    "productDescription"
+).textContent =
+product.description;
+
+
+
+/* =========================================
+   QUANTITY
+========================================= */
+
+
+let quantity = 1;
+
+
+function changeQuantity(value){
+
+    quantity += value;
+
+
+    if(quantity < 1){
+
+        quantity = 1;
+
+    }
+
+
+    if(quantity > 10){
+
+        quantity = 10;
+
+    }
+
+
+    document.getElementById(
+        "quantity"
+    ).textContent = quantity;
+
+}
+
+
+
+/* =========================================
+   ADD TO CART
+========================================= */
+
+
+function addToCart(){
+
+
+    let cart =
+    JSON.parse(
+        localStorage.getItem(
+            "fz_cart"
+        ) || "[]"
+    );
+
+
+    const item = {
+
+        id: productId,
+
+        name: product.name,
+
+        price: product.price,
+
+        icon: product.icon,
+
+        quantity: quantity
+
+    };
+
+
+    cart.push(item);
+
+
+    localStorage.setItem(
+        "fz_cart",
+        JSON.stringify(cart)
+    );
+
+
+    const message =
+    document.getElementById(
+        "message"
+    );
+
+
+    message.style.display =
+        "block";
+
+
+    message.innerHTML =
+
+        "✓ " +
+        product.name +
+        " added to your cart." +
+
+        "<br><br>" +
+
+        '<a href="cart.html" ' +
+        'style="color:#4da3ff;">' +
+        "Go to Cart →" +
+        "</a>";
+
+}
+
+
+
+/* =========================================
+   BUY NOW
+========================================= */
+
+
+function buyNow(){
+
+
+    let cart =
+    JSON.parse(
+        localStorage.getItem(
+            "fz_cart"
+        ) || "[]"
+    );
+
+
+    cart.push({
+
+        id: productId,
+
+        name: product.name,
+
+        price: product.price,
+
+        icon: product.icon,
+
+        quantity: quantity
+
+    });
+
+
+    localStorage.setItem(
+        "fz_cart",
+        JSON.stringify(cart)
+    );
+
+
+    /*
+    =========================================
+
+    NEXT PAGE CONNECTION
+
+    Product Details
+          ↓
+       Checkout
+
+    =========================================
+    */
+
+
+    window.location.href =
+        "checkout.html";
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>
