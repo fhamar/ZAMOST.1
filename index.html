@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
 <meta charset="UTF-8">
@@ -256,6 +255,8 @@ body{
 
     font-weight:bold;
 
+    cursor:pointer;
+
     transition:.2s;
 }
 
@@ -325,6 +326,8 @@ label{
     color:#8296aa;
 
     font-size:15px;
+
+    pointer-events:none;
 }
 
 
@@ -334,7 +337,7 @@ input{
 
     height:52px;
 
-    padding:0 15px 0 44px;
+    padding:0 50px 0 44px;
 
     border-radius:12px;
 
@@ -368,36 +371,62 @@ input:focus{
 
 
 /* =====================================
-   PASSWORD
+   PASSWORD EYE BUTTONS
 ===================================== */
 
 .password-input{
 
-    padding-right:55px;
+    padding-right:75px;
 }
 
 
-.show-password{
+.password-eye{
 
     position:absolute;
 
-    right:14px;
+    right:10px;
 
     top:50%;
 
     transform:translateY(-50%);
 
-    border:none;
+    width:52px;
 
-    background:none;
+    height:38px;
 
-    color:#8093a7;
+    display:flex;
 
-    font-size:10px;
+    align-items:center;
 
-    font-weight:bold;
+    justify-content:center;
+
+    gap:4px;
+
+    border:0;
+
+    border-radius:8px;
+
+    background:transparent;
+
+    color:#9aabba;
+
+    cursor:pointer;
+
+    font-size:17px;
 }
 
+
+.password-eye:hover{
+
+    background:#102235;
+
+    color:white;
+}
+
+
+/* =====================================
+   PASSWORD RULE
+===================================== */
 
 .password-rule{
 
@@ -478,6 +507,8 @@ input:focus{
 
     letter-spacing:1.5px;
 
+    cursor:pointer;
+
     transition:.25s;
 }
 
@@ -503,6 +534,14 @@ input:focus{
 /* =====================================
    PHONE
 ===================================== */
+
+.phone-section{
+
+    display:none;
+
+    margin-top:22px;
+}
+
 
 .phone-row{
 
@@ -536,13 +575,9 @@ input:focus{
 
 .phone-input{
 
-    padding-left:15px;
+    padding:0 15px;
 }
 
-
-/* =====================================
-   OTP
-===================================== */
 
 .otp-area{
 
@@ -558,8 +593,6 @@ input:focus{
 
     height:48px;
 
-    margin-top:5px;
-
     border-radius:10px;
 
     border:1px solid #40566c;
@@ -571,6 +604,8 @@ input:focus{
     font-size:10px;
 
     font-weight:bold;
+
+    cursor:pointer;
 }
 
 
@@ -579,6 +614,13 @@ input:focus{
     border-color:#4da3ff;
 
     color:#4da3ff;
+}
+
+
+#recaptcha-container{
+
+    margin-top:12px;
+
 }
 
 
@@ -633,6 +675,15 @@ input:focus{
     border-color:#71869b;
 
     transform:translateY(-1px);
+}
+
+
+.google-button:disabled{
+
+    opacity:.55;
+
+    cursor:not-allowed;
+
 }
 
 
@@ -777,7 +828,9 @@ input:focus{
 @media(max-width:480px){
 
     body{
+
         padding:10px;
+
     }
 
     .login-container{
@@ -857,13 +910,14 @@ input:focus{
 
 
     <!-- =================================
-         TABS
+         LOGIN TABS
     ================================== -->
 
     <div class="login-tabs">
 
 
         <button
+        type="button"
         class="tab active"
         id="emailTab"
         onclick="showMode('email')">
@@ -874,6 +928,7 @@ input:focus{
 
 
         <button
+        type="button"
         class="tab"
         id="phoneTab"
         onclick="showMode('phone')">
@@ -884,6 +939,7 @@ input:focus{
 
 
         <button
+        type="button"
         class="tab"
         id="googleTab"
         onclick="showMode('google')">
@@ -914,6 +970,7 @@ input:focus{
 
             <div class="input-box">
 
+
                 <span class="input-icon">
                     ✉
                 </span>
@@ -926,6 +983,7 @@ input:focus{
                 placeholder="Enter your email"
                 required>
 
+
             </div>
 
         </div>
@@ -934,12 +992,14 @@ input:focus{
 
         <div class="input-group">
 
+
             <label>
                 PASSWORD
             </label>
 
 
             <div class="input-box">
+
 
                 <span class="input-icon">
                     ●
@@ -952,28 +1012,35 @@ input:focus{
                 type="password"
                 autocomplete="current-password"
                 minlength="6"
-                placeholder="Minimum 6 characters"
+                maxlength="6"
+                placeholder="Enter 6 character password"
                 required>
 
 
+                <!-- 🙈 / 👁️ -->
+
                 <button
                 type="button"
-                class="show-password"
-                onclick="togglePassword()">
+                id="passwordEye"
+                class="password-eye"
+                onclick="togglePassword()"
+                aria-label="Show password">
 
-                    SHOW
+                    🙈
 
                 </button>
+
 
             </div>
 
 
             <div class="password-rule">
 
-                Minimum
-                <span>6 characters</span>
+                Password must be exactly
+                <span>6 characters</span>.
 
             </div>
+
 
         </div>
 
@@ -1007,15 +1074,16 @@ input:focus{
 
 
     <!-- =================================
-         PHONE LOGIN
+         MOBILE OTP
     ================================== -->
 
     <div
     id="phoneSection"
-    style="display:none;">
+    class="phone-section">
 
 
         <div class="input-group">
+
 
             <label>
                 MOBILE NUMBER
@@ -1044,6 +1112,7 @@ input:focus{
                 maxlength="10"
                 placeholder="10 digit mobile">
 
+
             </div>
 
         </div>
@@ -1051,6 +1120,7 @@ input:focus{
 
         <button
         id="sendOtpButton"
+        type="button"
         class="otp-button"
         onclick="sendOTP()">
 
@@ -1066,6 +1136,7 @@ input:focus{
 
             <div class="input-group">
 
+
                 <label>
                     ENTER OTP
                 </label>
@@ -1078,11 +1149,13 @@ input:focus{
                 maxlength="6"
                 placeholder="Enter 6 digit OTP">
 
+
             </div>
 
 
             <button
             id="verifyOtpButton"
+            type="button"
             class="login-button"
             onclick="verifyOTP()">
 
@@ -1093,8 +1166,6 @@ input:focus{
 
         </div>
 
-
-        <!-- Firebase reCAPTCHA -->
 
         <div id="recaptcha-container"></div>
 
@@ -1132,7 +1203,9 @@ input:focus{
     </div>
 
 
-    <!-- REGISTER -->
+    <!-- =================================
+         REGISTER
+    ================================== -->
 
     <div class="register">
 
@@ -1194,7 +1267,6 @@ import {
     getAuth,
     signInWithEmailAndPassword,
     GoogleAuthProvider,
-    signInWithPopup,
     signInWithRedirect,
     RecaptchaVerifier,
     signInWithPhoneNumber,
@@ -1238,7 +1310,7 @@ const firebaseConfig = {
 
 
 /* =========================================
-   INITIALIZE
+   FIREBASE START
 ========================================= */
 
 const app =
@@ -1260,13 +1332,9 @@ googleProvider.setCustomParameters({
 });
 
 
-
-/* =========================================
-   VARIABLES
-========================================= */
-
 let confirmationResult =
     null;
+
 
 let recaptchaVerifier =
     null;
@@ -1329,14 +1397,14 @@ function firebaseError(error){
         "auth/too-many-requests":
         "Too many attempts. Please try again later.",
 
+        "auth/popup-blocked":
+        "Google Login was blocked by the browser.",
+
         "auth/popup-closed-by-user":
         "Google Login was cancelled.",
 
-        "auth/popup-blocked":
-        "Google popup was blocked.",
-
         "auth/network-request-failed":
-        "Network problem. Check your internet connection.",
+        "Network problem. Please check your internet connection.",
 
         "auth/operation-not-allowed":
         "This login method is not enabled in Firebase.",
@@ -1365,10 +1433,25 @@ function firebaseError(error){
 
 
 /* =========================================
-   HOME
+   HOME CONNECTION
 ========================================= */
 
 function goHome(){
+
+    /*
+    =========================================
+    HOME PAGE CONNECTION
+    =========================================
+
+    Login successful
+          ↓
+    home.html
+
+    Make sure home.html is in the
+    SAME FOLDER as index.html.
+
+    =========================================
+    */
 
     window.location.href =
         "home.html";
@@ -1402,10 +1485,12 @@ async function(event){
         .value;
 
 
-    if(password.length < 6){
+    /* EXACTLY 6 CHARACTERS */
+
+    if(password.length !== 6){
 
         showMessage(
-            "Password must contain at least 6 characters."
+            "Password must be exactly 6 characters."
         );
 
         return;
@@ -1429,6 +1514,7 @@ async function(event){
 
     try{
 
+
         await signInWithEmailAndPassword(
             auth,
             email,
@@ -1442,95 +1528,7 @@ async function(event){
         );
 
 
-        setTimeout(
-            goHome,
-            600
-        );
-
-
-    }
-
-    catch(error){
-
-        console.error(error);
-
-        showMessage(
-            firebaseError(error)
-        );
-
-    }
-
-    finally{
-
-        button.disabled =
-            false;
-
-        button.textContent =
-            "SIGN IN";
-
-    }
-
-};
-
-
-
-/* =========================================
-   GOOGLE LOGIN
-========================================= */
-
-window.googleLogin =
-async function(){
-
-    const button =
-        document.getElementById(
-            "googleButton"
-        );
-
-
-    button.disabled =
-        true;
-
-
-    button.innerHTML =
-        "Opening Google...";
-
-
-    try{
-
         /*
-        Mobile/browser friendly:
-        redirect flow
-        */
-
-        await signInWithRedirect(
-            auth,
-            googleProvider
-        );
-
-    }
-
-    catch(error){
-
-        console.error(error);
-
-        button.disabled =
-            false;
-
-        button.innerHTML =
-        `
-        <span class="google-icon">G</span>
-        Continue with Google
-        `;
-
-
-        showMessage(
-            firebaseError(error)
-        );
-
-    }
-
-};
-
-
-
-/* =========================
+        =====================================
+        REDIRECT TO HOME
+        =====================
