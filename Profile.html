@@ -1,0 +1,1717 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>My Portal | FHAMAR ZAMOST</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+    background:#050b12;
+    color:#ffffff;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+header{
+
+    height:75px;
+
+    padding:0 6%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    background:#07111d;
+
+    border-bottom:1px solid #30465d;
+
+    position:sticky;
+
+    top:0;
+
+    z-index:1000;
+}
+
+
+.brand-area{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+}
+
+
+.fz-logo{
+
+    width:45px;
+
+    height:45px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:12px;
+
+    border:1px solid #8298ad;
+
+    background:
+    linear-gradient(
+        145deg,
+        #173b5b,
+        #050b12
+    );
+
+    color:#4da3ff;
+
+    font-size:17px;
+
+    font-weight:900;
+}
+
+
+.brand{
+
+    font-size:18px;
+
+    font-weight:900;
+
+    letter-spacing:2px;
+}
+
+
+.blue{
+    color:#4da3ff;
+}
+
+
+.silver{
+    color:#aeb9c5;
+}
+
+
+nav{
+
+    display:flex;
+
+    gap:22px;
+}
+
+
+nav a{
+
+    color:#91a2b5;
+
+    font-size:12px;
+}
+
+
+nav a:hover{
+
+    color:white;
+}
+
+
+nav .active{
+
+    color:#4da3ff;
+}
+
+
+.logout-btn{
+
+    padding:9px 13px;
+
+    border:1px solid #60768c;
+
+    border-radius:8px;
+
+    color:#dce5ee;
+
+    background:transparent;
+
+    cursor:pointer;
+
+    font-size:10px;
+}
+
+
+/* =========================
+   MAIN
+========================= */
+
+.page{
+
+    max-width:1150px;
+
+    margin:auto;
+
+    padding:55px 6% 90px;
+}
+
+
+.eyebrow{
+
+    color:#71869c;
+
+    font-size:10px;
+
+    letter-spacing:3px;
+
+    font-weight:bold;
+}
+
+
+.title{
+
+    margin-top:10px;
+
+    font-size:43px;
+}
+
+
+.title span{
+
+    color:#4da3ff;
+}
+
+
+.subtitle{
+
+    margin-top:10px;
+
+    color:#8396a9;
+
+    font-size:13px;
+
+    line-height:1.7;
+}
+
+
+/* =========================
+   PROFILE HEADER
+========================= */
+
+.profile-card{
+
+    margin-top:30px;
+
+    padding:28px;
+
+    border:1px solid #344d64;
+
+    border-radius:18px;
+
+    background:#091622;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:20px;
+}
+
+
+.profile-left{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+}
+
+
+.avatar{
+
+    width:75px;
+
+    height:75px;
+
+    border-radius:20px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:
+    linear-gradient(
+        145deg,
+        #173b5b,
+        #07111d
+    );
+
+    border:1px solid #6d8499;
+
+    color:#4da3ff;
+
+    font-size:27px;
+
+    font-weight:900;
+}
+
+
+.profile-name{
+
+    font-size:22px;
+
+    font-weight:bold;
+}
+
+
+.profile-email{
+
+    margin-top:6px;
+
+    color:#7f92a6;
+
+    font-size:11px;
+}
+
+
+.account-status{
+
+    padding:9px 13px;
+
+    border-radius:20px;
+
+    background:#10283d;
+
+    border:1px solid #3e607e;
+
+    color:#4da3ff;
+
+    font-size:10px;
+
+    font-weight:bold;
+}
+
+
+/* =========================
+   GRID
+========================= */
+
+.dashboard-grid{
+
+    margin-top:22px;
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(3,1fr);
+
+    gap:16px;
+}
+
+
+.dashboard-card{
+
+    padding:23px;
+
+    border-radius:15px;
+
+    border:1px solid #293f55;
+
+    background:#081421;
+}
+
+
+.card-icon{
+
+    font-size:24px;
+}
+
+
+.dashboard-card h3{
+
+    margin-top:15px;
+
+    font-size:15px;
+}
+
+
+.dashboard-card p{
+
+    margin-top:7px;
+
+    color:#7e92a6;
+
+    font-size:11px;
+
+    line-height:1.6;
+}
+
+
+.card-link{
+
+    display:inline-block;
+
+    margin-top:17px;
+
+    color:#4da3ff;
+
+    font-size:10px;
+
+    font-weight:bold;
+}
+
+
+/* =========================
+   VOTING
+========================= */
+
+.voting-section{
+
+    margin-top:30px;
+
+    padding:28px;
+
+    border-radius:18px;
+
+    border:1px solid #344d64;
+
+    background:
+    linear-gradient(
+        145deg,
+        #0a1826,
+        #07111d
+    );
+}
+
+
+.voting-header{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:15px;
+}
+
+
+.voting-header h2{
+
+    font-size:24px;
+}
+
+
+.voting-header h2 span{
+
+    color:#4da3ff;
+}
+
+
+.vote-status{
+
+    padding:8px 12px;
+
+    border:1px solid #3b566e;
+
+    border-radius:20px;
+
+    color:#91a5b8;
+
+    font-size:9px;
+}
+
+
+.vote-card{
+
+    margin-top:22px;
+
+    padding:22px;
+
+    background:#050d15;
+
+    border:1px solid #293f55;
+
+    border-radius:14px;
+}
+
+
+.vote-question{
+
+    font-size:17px;
+
+    font-weight:bold;
+
+    line-height:1.5;
+}
+
+
+.vote-description{
+
+    margin-top:9px;
+
+    color:#8194a8;
+
+    font-size:11px;
+
+    line-height:1.6;
+}
+
+
+.vote-options{
+
+    margin-top:20px;
+
+    display:grid;
+
+    gap:10px;
+}
+
+
+.vote-option{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    padding:13px;
+
+    border:1px solid #30465c;
+
+    border-radius:9px;
+
+    background:#08131f;
+
+    cursor:pointer;
+}
+
+
+.vote-option:hover{
+
+    border-color:#4da3ff;
+}
+
+
+.vote-option input{
+
+    accent-color:#4da3ff;
+}
+
+
+.vote-submit{
+
+    margin-top:18px;
+
+    padding:13px 18px;
+
+    border:none;
+
+    border-radius:9px;
+
+    background:#4da3ff;
+
+    color:#04101c;
+
+    font-size:10px;
+
+    font-weight:900;
+
+    letter-spacing:1px;
+
+    cursor:pointer;
+}
+
+
+.vote-submit:hover{
+
+    background:#72b7ff;
+}
+
+
+.vote-message{
+
+    display:none;
+
+    margin-top:14px;
+
+    padding:12px;
+
+    border-radius:9px;
+
+    border:1px solid #35506a;
+
+    background:#091a29;
+
+    color:#91a5b8;
+
+    font-size:10px;
+
+    line-height:1.6;
+}
+
+
+/* =========================
+   REGISTRATION STATUS
+========================= */
+
+.registration{
+
+    margin-top:22px;
+
+    padding:23px;
+
+    border:1px solid #293f55;
+
+    border-radius:15px;
+
+    background:#081421;
+}
+
+
+.registration h2{
+
+    font-size:20px;
+}
+
+
+.registration h2 span{
+
+    color:#4da3ff;
+}
+
+
+.registration-row{
+
+    margin-top:18px;
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(3,1fr);
+
+    gap:12px;
+}
+
+
+.registration-item{
+
+    padding:15px;
+
+    border-radius:10px;
+
+    background:#07111d;
+
+    border:1px solid #263c51;
+}
+
+
+.registration-item small{
+
+    display:block;
+
+    color:#71869c;
+
+    font-size:9px;
+}
+
+
+.registration-item strong{
+
+    display:block;
+
+    margin-top:7px;
+
+    color:#dce5ed;
+
+    font-size:12px;
+}
+
+
+.pending{
+
+    color:#e1c56d !important;
+}
+
+
+/* =========================
+   QUICK LINKS
+========================= */
+
+.quick-links{
+
+    margin-top:22px;
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(4,1fr);
+
+    gap:12px;
+}
+
+
+.quick-link{
+
+    padding:17px;
+
+    text-align:center;
+
+    border:1px solid #293f55;
+
+    border-radius:11px;
+
+    background:#081421;
+
+    color:#aebdca;
+
+    font-size:10px;
+
+    font-weight:bold;
+}
+
+
+.quick-link:hover{
+
+    border-color:#4da3ff;
+
+    color:#4da3ff;
+}
+
+
+/* =========================
+   API NOTE
+========================= */
+
+.api-note{
+
+    margin-top:25px;
+
+    padding:16px;
+
+    border:1px dashed #405a72;
+
+    border-radius:10px;
+
+    background:#06101a;
+
+    color:#75899d;
+
+    font-size:10px;
+
+    line-height:1.7;
+
+    text-align:center;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+
+    padding:35px 7%;
+
+    background:#03080e;
+
+    border-top:1px solid #263b50;
+
+    color:#7d90a4;
+
+    font-size:11px;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:850px){
+
+    header nav{
+        display:none;
+    }
+
+
+    .dashboard-grid{
+        grid-template-columns:
+        repeat(2,1fr);
+    }
+
+
+    .quick-links{
+        grid-template-columns:
+        repeat(2,1fr);
+    }
+
+}
+
+
+@media(max-width:600px){
+
+    .page{
+        padding-left:5%;
+        padding-right:5%;
+    }
+
+
+    .title{
+        font-size:35px;
+    }
+
+
+    .profile-card{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+
+    .profile-left{
+        align-items:flex-start;
+    }
+
+
+    .dashboard-grid{
+        grid-template-columns:1fr;
+    }
+
+
+    .registration-row{
+        grid-template-columns:1fr;
+    }
+
+
+    .voting-header{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+
+    .quick-links{
+        grid-template-columns:1fr;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header>
+
+
+<div class="brand-area">
+
+
+    <div class="fz-logo">
+        FZ
+    </div>
+
+
+    <div class="brand">
+
+        <span class="blue">
+            FHAMAR
+        </span>
+
+        <span class="silver">
+            .ZAMOST
+        </span>
+
+    </div>
+
+
+</div>
+
+
+
+<nav>
+
+    <a href="home.html">
+        Home
+    </a>
+
+    <a href="catalog.html">
+        Catalog
+    </a>
+
+    <a href="profile.html"
+       class="active">
+
+        My Portal
+
+    </a>
+
+    <a href="admin.html">
+        Administrative Desk
+    </a>
+
+</nav>
+
+
+
+<button
+onclick="logout()"
+class="logout-btn">
+
+    LOGOUT
+
+</button>
+
+
+</header>
+
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<main class="page">
+
+
+<div class="eyebrow">
+    FHAMAR.ZAMOST MEMBER PORTAL
+</div>
+
+
+<h1 class="title">
+
+    My
+
+    <span>
+        Profile
+    </span>
+
+</h1>
+
+
+<p class="subtitle">
+
+    Manage your account, orders,
+    registration status and eligible
+    community voting from one place.
+
+</p>
+
+
+
+<!-- =========================
+     PROFILE
+========================= -->
+
+<section class="profile-card">
+
+
+<div class="profile-left">
+
+
+    <div
+    class="avatar"
+    id="avatar">
+
+        FZ
+
+    </div>
+
+
+    <div>
+
+        <div
+        class="profile-name"
+        id="profileName">
+
+            FHAMAR User
+
+        </div>
+
+
+        <div
+        class="profile-email"
+        id="profileEmail">
+
+            Login account
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+
+<div class="account-status">
+
+    ACCOUNT ACTIVE
+
+</div>
+
+
+</section>
+
+
+
+<!-- =========================
+     DASHBOARD CARDS
+========================= -->
+
+<section class="dashboard-grid">
+
+
+<div class="dashboard-card">
+
+    <div class="card-icon">
+        📦
+    </div>
+
+    <h3>
+        My Orders
+    </h3>
+
+    <p>
+        View your recent order and
+        check its delivery progress.
+    </p>
+
+    <a
+    href="track-order.html"
+    class="card-link">
+
+        TRACK ORDER →
+
+    </a>
+
+</div>
+
+
+
+<div class="dashboard-card">
+
+    <div class="card-icon">
+        🛒
+    </div>
+
+    <h3>
+        My Cart
+    </h3>
+
+    <p>
+        Open your selected products
+        and continue shopping.
+    </p>
+
+    <a
+    href="cart.html"
+    class="card-link">
+
+        OPEN CART →
+
+    </a>
+
+</div>
+
+
+
+<div class="dashboard-card">
+
+    <div class="card-icon">
+        🛍️
+    </div>
+
+    <h3>
+        Catalog
+    </h3>
+
+    <p>
+        Explore the latest FHAMAR.ZAMOST
+        product collection.
+    </p>
+
+    <a
+    href="catalog.html"
+    class="card-link">
+
+        VIEW CATALOG →
+
+    </a>
+
+</div>
+
+
+</section>
+
+
+
+<!-- =========================
+     VOTING
+========================= -->
+
+<section class="voting-section">
+
+
+<div class="voting-header">
+
+
+    <h2>
+
+        Member
+
+        <span>
+            Voting
+        </span>
+
+    </h2>
+
+
+    <div
+    id="voteStatus"
+    class="vote-status">
+
+        VOTE AVAILABLE
+
+    </div>
+
+
+</div>
+
+
+
+<div class="vote-card">
+
+
+<div class="vote-question">
+
+    Which area should FHAMAR.ZAMOST
+    focus on next?
+
+</div>
+
+
+<p class="vote-description">
+
+    Select one option and submit your
+    vote. In the final system, voting
+    eligibility and results will be
+    controlled by the connected database.
+
+</p>
+
+
+
+<div class="vote-options">
+
+
+<label class="vote-option">
+
+    <input
+    type="radio"
+    name="vote"
+    value="products">
+
+    <span>
+        New Product Collection
+    </span>
+
+</label>
+
+
+<label class="vote-option">
+
+    <input
+    type="radio"
+    name="vote"
+    value="team">
+
+    <span>
+        More State Team Members
+    </span>
+
+</label>
+
+
+<label class="vote-option">
+
+    <input
+    type="radio"
+    name="vote"
+    value="support">
+
+    <span>
+        Customer Support
+    </span>
+
+</label>
+
+
+<label class="vote-option">
+
+    <input
+    type="radio"
+    name="vote"
+    value="features">
+
+    <span>
+        New Website Features
+    </span>
+
+</label>
+
+
+</div>
+
+
+
+<button
+onclick="submitVote()"
+id="voteButton"
+class="vote-submit">
+
+    SUBMIT MY VOTE
+
+</button>
+
+
+
+<div
+id="voteMessage"
+class="vote-message">
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+
+<!-- =========================
+     REGISTRATION
+========================= -->
+
+<section class="registration">
+
+
+<h2>
+
+    Team Registration
+
+    <span>
+        Status
+    </span>
+
+</h2>
+
+
+<div class="registration-row">
+
+
+<div class="registration-item">
+
+    <small>
+        MEMBER STATUS
+    </small>
+
+    <strong
+    class="pending"
+    id="memberStatus">
+
+        Pending Review
+
+    </strong>
+
+</div>
+
+
+<div class="registration-item">
+
+    <small>
+        STATE
+    </small>
+
+    <strong
+    id="memberState">
+
+        Not Registered
+
+    </strong>
+
+</div>
+
+
+<div class="registration-item">
+
+    <small>
+        APPLICATION
+    </small>
+
+    <strong>
+        Admin Review
+    </strong>
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+
+<!-- =========================
+     QUICK LINKS
+========================= -->
+
+<section class="quick-links">
+
+
+<a
+href="home.html"
+class="quick-link">
+
+    HOME
+
+</a>
+
+
+<a
+href="catalog.html"
+class="quick-link">
+
+    CATALOG
+
+</a>
+
+
+<a
+href="track-order.html"
+class="quick-link">
+
+    TRACK ORDER
+
+</a>
+
+
+<a
+href="admin.html"
+class="quick-link">
+
+    ADMIN DESK
+
+</a>
+
+
+</section>
+
+
+
+<!-- =========================
+     CONNECTION NOTE
+========================= -->
+
+<div class="api-note">
+
+
+<b>
+    PROFILE / VOTING DATABASE CONNECTION
+</b>
+
+
+<br><br>
+
+
+YAHAN FIREBASE AUTHENTICATION CODE
+LAGEGA.
+
+
+<br>
+
+
+YAHAN USER PROFILE DATABASE CODE LAGEGA.
+
+
+<br>
+
+
+YAHAN VOTING API / FIREBASE CODE LAGEGA.
+
+
+<br>
+
+
+Final system mein:
+
+User ID →
+Eligibility Check →
+One Vote →
+Vote Database →
+Results
+
+ke through voting manage hoga.
+
+
+</div>
+
+
+</main>
+
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+
+
+<div class="brand">
+
+    <span class="blue">
+        FHAMAR
+    </span>
+
+    <span class="silver">
+        .ZAMOST
+    </span>
+
+</div>
+
+
+<p>
+    Member Portal • Profile • Voting
+</p>
+
+
+</footer>
+
+
+
+<script>
+
+
+/* =========================================
+   LOAD USER INFORMATION
+========================================= */
+
+
+/*
+=============================================
+
+YAHAN FIREBASE AUTHENTICATION CODE LAGEGA.
+
+Abhi demo ke liye localStorage use ho raha hai.
+
+=============================================
+*/
+
+
+const userName =
+    localStorage.getItem(
+        "fz_user_name"
+    );
+
+
+const userEmail =
+    localStorage.getItem(
+        "fz_user_email"
+    );
+
+
+const userState =
+    localStorage.getItem(
+        "fz_member_state"
+    );
+
+
+
+if(userName){
+
+    document.getElementById(
+        "profileName"
+    ).textContent =
+        userName;
+
+
+    const firstLetter =
+        userName
+        .charAt(0)
+        .toUpperCase();
+
+
+    document.getElementById(
+        "avatar"
+    ).textContent =
+        firstLetter;
+
+}
+
+
+if(userEmail){
+
+    document.getElementById(
+        "profileEmail"
+    ).textContent =
+        userEmail;
+
+}
+
+
+if(userState){
+
+    document.getElementById(
+        "memberState"
+    ).textContent =
+        userState;
+
+}
+
+
+
+/* =========================================
+   VOTING SYSTEM
+========================================= */
+
+
+function submitVote(){
+
+
+    const selected =
+
+        document.querySelector(
+            'input[name="vote"]:checked'
+        );
+
+
+    const message =
+
+        document.getElementById(
+            "voteMessage"
+        );
+
+
+    const button =
+
+        document.getElementById(
+            "voteButton"
+        );
+
+
+    const status =
+
+        document.getElementById(
+            "voteStatus"
+        );
+
+
+
+    if(!selected){
+
+        message.style.display =
+            "block";
+
+
+        message.innerHTML =
+            "Please select one option before submitting your vote.";
+
+
+        return;
+
+    }
+
+
+
+    /*
+    =========================================
+
+    ONE USER = ONE DEMO VOTE
+
+    =========================================
+    */
+
+
+    const alreadyVoted =
+
+        localStorage.getItem(
+            "fz_has_voted"
+        );
+
+
+    if(alreadyVoted === "true"){
+
+        message.style.display =
+            "block";
+
+
+        message.innerHTML =
+            "Your vote has already been recorded for this demo.";
+
+
+        return;
+
+    }
+
+
+
+    /*
+    =========================================
+
+    ⭐ REAL VOTING API AREA ⭐
+
+    YAHAN FIREBASE / DATABASE API CODE LAGEGA.
+
+    User ID ke saath selected option
+    database mein save hoga.
+
+    =========================================
+    */
+
+
+    localStorage.setItem(
+        "fz_has_voted",
+        "true"
+    );
+
+
+    localStorage.setItem(
+        "fz_vote",
+        selected.value
+    );
+
+
+
+    button.disabled = true;
+
+    button.style.opacity =
+        "0.5";
+
+
+    status.textContent =
+        "VOTE SUBMITTED";
+
+
+    message.style.display =
+        "block";
+
+
+    message.innerHTML =
+        "✓ Your vote has been recorded successfully in this demo.";
+
+}
+
+
+
+/* =========================================
+   CHECK PREVIOUS DEMO VOTE
+========================================= */
+
+
+if(
+
+    localStorage.getItem(
+        "fz_has_voted"
+    ) === "true"
+
+){
+
+    document.getElementById(
+        "voteButton"
+    ).disabled = true;
+
+
+    document.getElementById(
+        "voteButton"
+    ).style.opacity =
+        "0.5";
+
+
+    document.getElementById(
+        "voteStatus"
+    ).textContent =
+        "VOTE SUBMITTED";
+
+}
+
+
+
+/* =========================================
+   LOGOUT
+========================================= */
+
+
+function logout(){
+
+
+    /*
+    =========================================
+
+    REAL SYSTEM:
+
+    YAHAN FIREBASE SIGN OUT CODE LAGEGA.
+
+    =========================================
+    */
+
+
+    localStorage.removeItem(
+        "fz_user_name"
+    );
+
+
+    localStorage.removeItem(
+        "fz_user_email"
+    );
+
+
+    window.location.href =
+        "index.html";
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>
