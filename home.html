@@ -1,920 +1,947 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
-    <title>FHAMAR ZAMOST | Home</title>
+<title>FHAMAR ZAMOST | Home</title>
 
+<style>
 
-    <style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
+}
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, Helvetica, sans-serif;
-        }
+body{
+    background:#050b12;
+    color:#ffffff;
+}
 
+a{
+    text-decoration:none;
+    color:inherit;
+}
 
-        body {
-            background: #050b12;
-            color: #ffffff;
-        }
+button,
+input,
+select{
+    font-family:inherit;
+}
 
+button{
+    cursor:pointer;
+}
 
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
 
+/* =========================
+   HEADER
+========================= */
 
-        /* =========================
-           HEADER
-        ========================= */
+header{
 
-        header {
+    height:75px;
 
-            height: 75px;
+    padding:0 6%;
 
-            padding: 0 6%;
+    display:flex;
 
-            display: flex;
+    align-items:center;
 
-            align-items: center;
+    justify-content:space-between;
 
-            justify-content: space-between;
+    background:#07111d;
 
-            background: #07111d;
+    border-bottom:1px solid #30465d;
 
-            border-bottom: 1px solid #30465d;
+    position:sticky;
 
-            position: sticky;
+    top:0;
 
-            top: 0;
+    z-index:1000;
+}
 
-            z-index: 1000;
-        }
 
+.brand-area{
 
-        /* =========================
-           FZ LOGO + BRAND
-        ========================= */
+    display:flex;
 
-        .brand-area {
+    align-items:center;
 
-            display: flex;
+    gap:12px;
+}
 
-            align-items: center;
 
-            gap: 12px;
-        }
+.fz-logo{
 
+    width:48px;
 
-        .fz-logo {
+    height:48px;
 
-            width: 48px;
+    display:flex;
 
-            height: 48px;
+    align-items:center;
 
-            display: flex;
+    justify-content:center;
 
-            align-items: center;
+    border-radius:13px;
 
-            justify-content: center;
+    background:
+        linear-gradient(
+            145deg,
+            #173957,
+            #07111d
+        );
 
-            border-radius: 13px;
+    border:1px solid #91a7bb;
 
-            background:
-                linear-gradient(
-                    145deg,
-                    #173957,
-                    #07111d
-                );
+    box-shadow:
+        0 0 25px rgba(80,130,180,0.15);
 
-            border: 1px solid #91a7bb;
+    font-size:18px;
 
-            box-shadow:
-                0 0 25px rgba(80,130,180,0.15);
+    font-weight:900;
 
-            font-size: 18px;
+    letter-spacing:1px;
 
-            font-weight: 900;
+    color:#4da3ff;
+}
 
-            letter-spacing: 1px;
 
-            color: #4da3ff;
-        }
+.brand{
 
+    font-size:19px;
 
-        .brand {
+    font-weight:900;
 
-            font-size: 19px;
+    letter-spacing:2px;
+}
 
-            font-weight: 900;
 
-            letter-spacing: 2px;
-        }
+.brand .fhamar{
+    color:#4da3ff;
+}
 
 
-        /* FHAMAR = BLUE */
+.brand .zamost{
+    color:#aeb9c5;
+}
 
-        .brand .fhamar {
 
-            color: #4da3ff;
-        }
+nav{
 
+    display:flex;
 
-        /* ZAMOST = SILVER DARK */
+    gap:24px;
+}
 
-        .brand .zamost {
 
-            color: #aeb9c5;
-        }
+nav a{
 
+    color:#9baabd;
 
-        nav {
+    font-size:12px;
 
-            display: flex;
+    transition:.2s;
+}
 
-            gap: 24px;
-        }
 
+nav a:hover{
+    color:#ffffff;
+}
 
-        nav a {
 
-            color: #9baabd;
+.profile-btn{
 
-            font-size: 12px;
+    padding:10px 15px;
 
-            transition: 0.2s;
-        }
+    border:1px solid #65798e;
 
+    border-radius:9px;
 
-        nav a:hover {
+    color:#dbe4ed;
 
-            color: #ffffff;
-        }
+    font-size:11px;
 
+    font-weight:bold;
+}
 
-        .profile-btn {
 
-            padding: 10px 15px;
+/* =========================
+   HERO
+========================= */
 
-            border: 1px solid #65798e;
+.hero{
 
-            border-radius: 9px;
+    min-height:650px;
 
-            color: #dbe4ed;
+    padding:80px 7%;
 
-            font-size: 11px;
+    display:grid;
 
-            font-weight: bold;
-        }
+    grid-template-columns:1.1fr .9fr;
 
+    gap:50px;
 
-        /* =========================
-           HERO
-        ========================= */
+    align-items:center;
 
-        .hero {
+    background:
 
-            min-height: 650px;
+        radial-gradient(
+            circle at 85% 25%,
+            #173b60 0%,
+            transparent 35%
+        ),
 
-            padding: 80px 7%;
+        linear-gradient(
+            135deg,
+            #050b12,
+            #091725,
+            #07111d
+        );
+}
 
-            display: grid;
 
-            grid-template-columns:
-                1.1fr
-                0.9fr;
+.eyebrow{
 
-            gap: 50px;
+    color:#7790a8;
 
-            align-items: center;
+    font-size:10px;
 
-            background:
+    font-weight:bold;
 
-                radial-gradient(
-                    circle at 85% 25%,
-                    #173b60 0%,
-                    transparent 35%
-                ),
+    letter-spacing:3px;
+}
 
-                linear-gradient(
-                    135deg,
-                    #050b12,
-                    #091725,
-                    #07111d
-                );
-        }
 
+.hero h1{
 
-        .eyebrow {
+    margin-top:20px;
 
-            color: #7790a8;
+    font-size:
+        clamp(
+            45px,
+            7vw,
+            82px
+        );
 
-            font-size: 10px;
+    line-height:.95;
+}
 
-            font-weight: bold;
 
-            letter-spacing: 3px;
-        }
+.hero h1 .blue{
+    color:#4da3ff;
+}
 
 
-        .hero h1 {
+.hero h1 .silver{
+    color:#aeb9c5;
+}
 
-            margin-top: 20px;
 
-            font-size:
-                clamp(
-                    45px,
-                    7vw,
-                    82px
-                );
+.hero p{
 
-            line-height: 0.95;
-        }
+    max-width:570px;
 
+    margin-top:25px;
 
-        .hero h1 .blue {
+    color:#8fa1b4;
 
-            color: #4da3ff;
-        }
+    line-height:1.8;
 
+    font-size:14px;
+}
 
-        .hero h1 .silver {
 
-            color: #aeb9c5;
-        }
+.buttons{
 
+    display:flex;
 
-        .hero p {
+    gap:12px;
 
-            max-width: 570px;
+    margin-top:30px;
 
-            margin-top: 25px;
+    flex-wrap:wrap;
+}
 
-            color: #8fa1b4;
 
-            line-height: 1.8;
+.btn{
 
-            font-size: 14px;
-        }
+    display:inline-flex;
 
+    align-items:center;
 
-        .buttons {
+    justify-content:center;
 
-            display: flex;
+    padding:13px 20px;
 
-            gap: 12px;
+    border-radius:10px;
 
-            margin-top: 30px;
-        }
+    font-size:11px;
 
+    font-weight:900;
 
-        .btn {
+    letter-spacing:1px;
+}
 
-            display: inline-flex;
 
-            align-items: center;
+.btn-blue{
 
-            justify-content: center;
+    background:#4da3ff;
 
-            padding: 13px 20px;
+    color:#04101c;
 
-            border-radius: 10px;
+    border:1px solid #4da3ff;
+}
 
-            font-size: 11px;
 
-            font-weight: 900;
+.btn-silver{
 
-            letter-spacing: 1px;
-        }
+    background:transparent;
 
+    color:#dce5ee;
 
-        .btn-blue {
+    border:1px solid #657b90;
+}
 
-            background: #4da3ff;
 
-            color: #04101c;
+/* =========================
+   HERO CARD
+========================= */
 
-            border: 1px solid #4da3ff;
-        }
+.hero-card{
 
+    min-height:400px;
 
-        .btn-silver {
+    border-radius:28px;
 
-            background: transparent;
+    border:1px solid #344d65;
 
-            color: #dce5ee;
+    background:
 
-            border: 1px solid #657b90;
-        }
+        radial-gradient(
+            circle,
+            #173451,
+            #07111d 65%
+        );
 
+    display:flex;
 
-        /* =========================
-           HERO LOGO CARD
-        ========================= */
+    flex-direction:column;
 
-        .hero-card {
+    align-items:center;
 
-            min-height: 400px;
+    justify-content:center;
 
-            border-radius: 28px;
+    box-shadow:
+        0 30px 80px rgba(0,0,0,.55);
+}
 
-            border: 1px solid #344d65;
 
-            background:
+.big-logo{
 
-                radial-gradient(
-                    circle,
-                    #173451,
-                    #07111d 65%
-                );
+    width:190px;
 
-            display: flex;
+    height:190px;
 
-            flex-direction: column;
+    border-radius:48px;
 
-            align-items: center;
+    display:flex;
 
-            justify-content: center;
+    align-items:center;
 
-            box-shadow:
-                0 30px 80px rgba(0,0,0,0.55);
-        }
+    justify-content:center;
 
+    border:1px solid #8096aa;
 
-        .big-logo {
+    background:
 
-            width: 190px;
+        linear-gradient(
+            145deg,
+            #173b5c,
+            #060c13
+        );
 
-            height: 190px;
+    box-shadow:
+        0 0 70px rgba(70,150,230,.15);
 
-            border-radius: 48px;
+    font-size:52px;
 
-            display: flex;
+    font-weight:900;
+}
 
-            align-items: center;
 
-            justify-content: center;
+.big-logo .fz-blue{
+    color:#4da3ff;
+}
 
-            border: 1px solid #8096aa;
 
-            background:
+.hero-card .logo-text{
 
-                linear-gradient(
-                    145deg,
-                    #173b5c,
-                    #060c13
-                );
+    margin-top:25px;
 
-            box-shadow:
-                0 0 70px rgba(70,150,230,0.15);
+    letter-spacing:3px;
 
-            font-size: 52px;
+    font-size:11px;
 
-            font-weight: 900;
-        }
+    color:#aeb9c5;
+}
 
 
-        .big-logo .fz-blue {
+/* =========================
+   QUICK ACCESS
+========================= */
 
-            color: #4da3ff;
-        }
+.section{
 
+    padding:75px 7%;
+}
 
-        .hero-card .logo-text {
 
-            margin-top: 25px;
+.section-title{
 
-            letter-spacing: 3px;
+    color:#71869c;
 
-            font-size: 11px;
+    font-size:10px;
 
-            color: #aeb9c5;
-        }
+    letter-spacing:3px;
 
+    font-weight:bold;
+}
 
-        /* =========================
-           QUICK ACCESS
-        ========================= */
 
-        .section {
+.section h2{
 
-            padding: 75px 7%;
-        }
+    margin-top:10px;
 
+    font-size:38px;
+}
 
-        .section-title {
 
-            color: #71869c;
+.cards{
 
-            font-size: 10px;
+    display:grid;
 
-            letter-spacing: 3px;
+    grid-template-columns:
+        repeat(3,1fr);
 
-            font-weight: bold;
-        }
+    gap:18px;
 
+    margin-top:30px;
+}
 
-        .section h2 {
 
-            margin-top: 10px;
+.card{
 
-            font-size: 38px;
-        }
+    padding:25px;
 
+    border-radius:16px;
 
-        .cards {
+    border:1px solid #293f55;
 
-            display: grid;
+    background:#0a1725;
 
-            grid-template-columns:
-                repeat(3, 1fr);
+    transition:.25s;
+}
 
-            gap: 18px;
 
-            margin-top: 30px;
-        }
+.card:hover{
 
+    transform:translateY(-4px);
 
-        .card {
+    border-color:#52728f;
+}
 
-            padding: 25px;
 
-            border-radius: 16px;
+.card-number{
 
-            border: 1px solid #293f55;
+    color:#4d9fe8;
 
-            background: #0a1725;
+    font-size:11px;
+}
 
-            transition: 0.25s;
-        }
 
+.card h3{
+    margin-top:28px;
+}
 
-        .card:hover {
 
-            transform: translateY(-4px);
+.card p{
 
-            border-color: #52728f;
-        }
+    margin-top:10px;
 
+    color:#879aad;
 
-        .card-number {
+    font-size:13px;
 
-            color: #4d9fe8;
+    line-height:1.7;
+}
 
-            font-size: 11px;
-        }
 
+/* =========================
+   TEAM REGISTRATION
+========================= */
 
-        .card h3 {
+.registration-section{
 
-            margin-top: 28px;
-        }
+    padding:80px 7%;
 
+    background:
 
-        .card p {
+        linear-gradient(
+            135deg,
+            #081522,
+            #0b1b2b
+        );
 
-            margin-top: 10px;
+    border-top:1px solid #263d54;
 
-            color: #879aad;
+    border-bottom:1px solid #263d54;
+}
 
-            font-size: 13px;
 
-            line-height: 1.7;
-        }
+.registration-container{
 
+    max-width:1100px;
 
-        /* =========================
-           TEAM REGISTRATION
-        ========================= */
+    margin:auto;
 
-        .registration-section {
+    display:grid;
 
-            padding: 80px 7%;
+    grid-template-columns:.9fr 1.1fr;
 
-            background:
+    gap:45px;
 
-                linear-gradient(
-                    135deg,
-                    #081522,
-                    #0b1b2b
-                );
+    align-items:center;
+}
 
-            border-top: 1px solid #263d54;
 
-            border-bottom: 1px solid #263d54;
-        }
+.registration-info h2{
 
+    margin-top:12px;
 
-        .registration-container {
+    font-size:38px;
 
-            max-width: 1100px;
+    line-height:1.15;
+}
 
-            margin: auto;
 
-            display: grid;
+.registration-info h2 span{
+    color:#4da3ff;
+}
 
-            grid-template-columns:
-                0.9fr
-                1.1fr;
 
-            gap: 45px;
+.registration-info p{
 
-            align-items: center;
-        }
+    margin-top:18px;
 
+    color:#91a2b5;
 
-        .registration-info h2 {
+    line-height:1.8;
 
-            margin-top: 12px;
+    font-size:14px;
+}
 
-            font-size: 38px;
 
-            line-height: 1.15;
-        }
+.registration-info ul{
 
+    margin-top:25px;
 
-        .registration-info h2 span {
+    padding-left:20px;
 
-            color: #4da3ff;
-        }
+    color:#aebdca;
 
+    line-height:2;
+}
 
-        .registration-info p {
 
-            margin-top: 18px;
+.registration-info li::marker{
+    color:#4da3ff;
+}
 
-            color: #91a2b5;
 
-            line-height: 1.8;
+/* =========================
+   REGISTRATION FORM
+========================= */
 
-            font-size: 14px;
-        }
+.registration-form{
 
+    padding:30px;
 
-        .registration-info ul {
+    border-radius:20px;
 
-            margin-top: 25px;
+    background:#07111d;
 
-            padding-left: 20px;
+    border:1px solid #344d64;
 
-            color: #aebdca;
+    box-shadow:
+        0 25px 60px rgba(0,0,0,.35);
+}
 
-            line-height: 2;
-        }
 
+.registration-form h3{
 
-        .registration-info li::marker {
+    font-size:23px;
 
-            color: #4da3ff;
-        }
+    margin-bottom:8px;
+}
 
 
-        /* FORM */
+.form-subtitle{
 
-        .registration-form {
+    color:#71869b;
 
-            padding: 30px;
+    font-size:12px;
 
-            border-radius: 20px;
+    margin-bottom:25px;
+}
 
-            background: #07111d;
 
-            border: 1px solid #344d64;
+.form-group{
 
-            box-shadow:
-                0 25px 60px rgba(0,0,0,0.35);
-        }
+    margin-bottom:16px;
+}
 
 
-        .registration-form h3 {
+.form-group label{
 
-            font-size: 23px;
+    display:block;
 
-            margin-bottom: 8px;
-        }
+    margin-bottom:7px;
 
+    color:#aebdca;
 
-        .form-subtitle {
+    font-size:11px;
 
-            color: #71869b;
+    font-weight:bold;
 
-            font-size: 12px;
+    letter-spacing:.5px;
+}
 
-            margin-bottom: 25px;
-        }
 
+.form-group input,
+.form-group select{
 
-        .form-group {
+    width:100%;
 
-            margin-bottom: 16px;
-        }
+    height:48px;
 
+    padding:0 13px;
 
-        .form-group label {
+    border-radius:9px;
 
-            display: block;
+    border:1px solid #30465c;
 
-            margin-bottom: 7px;
+    background:#050c14;
 
-            color: #aebdca;
+    color:white;
 
-            font-size: 11px;
+    outline:none;
 
-            font-weight: bold;
+    font-size:13px;
+}
 
-            letter-spacing: 0.5px;
-        }
 
+.form-group input:focus,
+.form-group select:focus{
 
-        .form-group input,
-        .form-group select {
+    border-color:#4da3ff;
 
-            width: 100%;
+    box-shadow:
+        0 0 0 3px rgba(77,163,255,.08);
+}
 
-            height: 48px;
 
-            padding: 0 13px;
+.submit-btn{
 
-            border-radius: 9px;
+    width:100%;
 
-            border: 1px solid #30465c;
+    height:50px;
 
-            background: #050c14;
+    border:none;
 
-            color: white;
+    border-radius:10px;
 
-            outline: none;
+    background:#4da3ff;
 
-            font-size: 13px;
-        }
+    color:#04101c;
 
+    font-size:12px;
 
-        .form-group input:focus,
-        .form-group select:focus {
+    font-weight:900;
 
-            border-color: #4da3ff;
+    letter-spacing:1px;
 
-            box-shadow:
-                0 0 0 3px rgba(77,163,255,0.08);
-        }
+    cursor:pointer;
 
+    margin-top:5px;
+}
 
-        .submit-btn {
 
-            width: 100%;
+.submit-btn:hover{
+    background:#72b7ff;
+}
 
-            height: 50px;
 
-            border: none;
+.submit-btn:disabled{
+    opacity:.55;
+    cursor:not-allowed;
+}
 
-            border-radius: 10px;
 
-            background: #4da3ff;
+.form-status{
 
-            color: #04101c;
+    margin-top:15px;
 
-            font-size: 12px;
+    padding:12px;
 
-            font-weight: 900;
+    border-radius:8px;
 
-            letter-spacing: 1px;
+    background:#0c1c2b;
 
-            cursor: pointer;
+    border:1px solid #30465c;
 
-            margin-top: 5px;
-        }
+    color:#91a7bb;
 
+    font-size:11px;
 
-        .submit-btn:hover {
+    display:none;
 
-            background: #72b7ff;
-        }
+    line-height:1.6;
 
+    text-align:center;
+}
 
-        .form-status {
 
-            margin-top: 15px;
+.form-status.show{
+    display:block;
+}
 
-            padding: 12px;
 
-            border-radius: 8px;
+.form-status.success{
 
-            background: #0c1c2b;
+    color:#9ed0ff;
 
-            border: 1px solid #30465c;
+    border-color:#466982;
 
-            color: #91a7bb;
+    background:rgba(70,130,180,.12);
+}
 
-            font-size: 11px;
 
-            display: none;
+.form-status.error{
 
-            line-height: 1.6;
-        }
+    color:#ffb1b1;
 
+    border-color:#744c4c;
 
-        /* =========================
-           API PLACEHOLDER
-        ========================= */
+    background:rgba(150,60,60,.12);
+}
 
-        .connection-note {
 
-            margin-top: 18px;
+/* =========================
+   CONNECTION NOTE
+========================= */
 
-            padding: 12px;
+.connection-note{
 
-            border: 1px dashed #3c5870;
+    margin-top:18px;
 
-            border-radius: 9px;
+    padding:12px;
 
-            color: #70869c;
+    border:1px dashed #3c5870;
 
-            font-size: 10px;
+    border-radius:9px;
 
-            line-height: 1.6;
+    color:#70869c;
 
-            text-align: center;
-        }
+    font-size:10px;
 
+    line-height:1.6;
 
-        /* =========================
-           NETWORK
-        ========================= */
+    text-align:center;
+}
 
-        .network {
 
-            margin: 70px 7%;
+/* =========================
+   NETWORK
+========================= */
 
-            padding: 45px;
+.network{
 
-            border-radius: 20px;
+    margin:70px 7%;
 
-            background: #091522;
+    padding:45px;
 
-            border: 1px solid #293e53;
-        }
+    border-radius:20px;
 
+    background:#091522;
 
-        .network h2 {
+    border:1px solid #293e53;
+}
 
-            margin-top: 12px;
 
-            font-size: 32px;
-        }
+.network h2{
 
+    margin-top:12px;
 
-        .network p {
+    font-size:32px;
+}
 
-            margin-top: 12px;
 
-            color: #8799ad;
+.network p{
 
-            line-height: 1.7;
-        }
+    margin-top:12px;
 
+    color:#8799ad;
 
-        .states {
+    line-height:1.7;
+}
 
-            display: flex;
 
-            gap: 10px;
+.states{
 
-            flex-wrap: wrap;
+    display:flex;
 
-            margin-top: 25px;
-        }
+    gap:10px;
 
+    flex-wrap:wrap;
 
-        .state {
+    margin-top:25px;
+}
 
-            padding: 10px 15px;
 
-            border-radius: 25px;
+.state{
 
-            border: 1px solid #354c63;
+    padding:10px 15px;
 
-            color: #b8c6d5;
+    border-radius:25px;
 
-            font-size: 11px;
-        }
+    border:1px solid #354c63;
 
+    color:#b8c6d5;
 
-        /* =========================
-           FOOTER
-        ========================= */
+    font-size:11px;
 
-        footer {
+    transition:.2s;
+}
 
-            padding: 35px 7%;
 
-            background: #03080e;
+.state:hover{
 
-            border-top: 1px solid #263b50;
+    border-color:#4da3ff;
 
-            display: flex;
+    color:#4da3ff;
+}
 
-            justify-content: space-between;
 
-            gap: 20px;
+/* =========================
+   FOOTER
+========================= */
 
-            color: #7f91a4;
+footer{
 
-            font-size: 11px;
+    padding:35px 7%;
 
-            line-height: 1.7;
-        }
+    background:#03080e;
 
+    border-top:1px solid #263b50;
 
-        /* =========================
-           MOBILE
-        ========================= */
+    display:flex;
 
-        @media(max-width: 850px) {
+    justify-content:space-between;
 
-            header nav {
+    gap:20px;
 
-                display: none;
-            }
+    color:#7f91a4;
 
+    font-size:11px;
 
-            .hero {
+    line-height:1.7;
+}
 
-                grid-template-columns: 1fr;
 
-                padding: 60px 6%;
-            }
+/* =========================
+   MOBILE
+========================= */
 
+@media(max-width:850px){
 
-            .cards {
+    header nav{
+        display:none;
+    }
 
-                grid-template-columns: 1fr;
-            }
 
+    .hero{
 
-            .registration-container {
+        grid-template-columns:1fr;
 
-                grid-template-columns: 1fr;
-            }
+        padding:60px 6%;
+    }
 
 
-            .hero-card {
+    .cards{
 
-                min-height: 320px;
-            }
+        grid-template-columns:1fr;
+    }
 
-        }
 
+    .registration-container{
 
-        @media(max-width: 500px) {
+        grid-template-columns:1fr;
+    }
 
-            .hero h1 {
 
-                font-size: 48px;
-            }
+    .hero-card{
 
+        min-height:320px;
+    }
 
-            .section h2 {
+}
 
-                font-size: 30px;
-            }
 
+@media(max-width:500px){
 
-            .registration-info h2 {
+    .hero h1{
+        font-size:48px;
+    }
 
-                font-size: 30px;
-            }
 
+    .section h2{
+        font-size:30px;
+    }
 
-            .registration-form {
 
-                padding: 22px;
-            }
+    .registration-info h2{
+        font-size:30px;
+    }
 
 
-            .network {
+    .registration-form{
+        padding:22px;
+    }
 
-                margin: 50px 5%;
 
-                padding: 28px;
-            }
+    .network{
 
+        margin:50px 5%;
 
-            footer {
+        padding:28px;
+    }
 
-                flex-direction: column;
-            }
 
-        }
+    footer{
+        flex-direction:column;
+    }
 
-    </style>
+}
+
+</style>
 
 </head>
 
@@ -928,11 +955,14 @@
 
 <header>
 
+
     <div class="brand-area">
+
 
         <div class="fz-logo">
             FZ
         </div>
+
 
         <div class="brand">
 
@@ -945,6 +975,7 @@
             </span>
 
         </div>
+
 
     </div>
 
@@ -977,6 +1008,7 @@
 
     </a>
 
+
 </header>
 
 
@@ -989,6 +1021,7 @@
 
 
     <div>
+
 
         <div class="eyebrow">
             PREMIUM • BLUE • SILVER • DARK
@@ -1024,6 +1057,7 @@
 
         <div class="buttons">
 
+
             <a href="catalog.html"
                class="btn btn-blue">
 
@@ -1039,13 +1073,16 @@
 
             </a>
 
+
         </div>
+
 
     </div>
 
 
 
     <div class="hero-card">
+
 
         <div class="big-logo">
 
@@ -1057,10 +1094,9 @@
 
 
         <div class="logo-text">
-
             FHAMAR.ZAMOST
-
         </div>
+
 
     </div>
 
@@ -1074,6 +1110,7 @@
 ========================= -->
 
 <section class="section">
+
 
     <div class="section-title">
         QUICK ACCESS
@@ -1149,6 +1186,7 @@
 
     </div>
 
+
 </section>
 
 
@@ -1168,6 +1206,7 @@
         <!-- INFORMATION -->
 
         <div class="registration-info">
+
 
             <div class="eyebrow">
                 JOIN THE NETWORK
@@ -1225,6 +1264,7 @@
 
             </ul>
 
+
         </div>
 
 
@@ -1247,8 +1287,7 @@
             </p>
 
 
-            <form
-                id="teamForm">
+            <form id="teamForm">
 
 
                 <!-- NAME -->
@@ -1263,8 +1302,8 @@
                         type="text"
                         id="memberName"
                         placeholder="Enter your full name"
-                        required
-                    >
+                        maxlength="80"
+                        required>
 
                 </div>
 
@@ -1281,10 +1320,10 @@
                     <input
                         type="tel"
                         id="memberMobile"
-                        placeholder="Enter mobile number"
+                        placeholder="Enter 10-digit mobile number"
+                        inputmode="numeric"
                         maxlength="10"
-                        required
-                    >
+                        required>
 
                 </div>
 
@@ -1302,8 +1341,8 @@
                         type="email"
                         id="memberEmail"
                         placeholder="Enter your email"
-                        required
-                    >
+                        maxlength="120"
+                        required>
 
                 </div>
 
@@ -1314,4 +1353,144 @@
                 <div class="form-group">
 
                     <label>
-          
+                        SELECT STATE
+                    </label>
+
+                    <select
+                        id="memberState"
+                        required>
+
+                        <option value="">
+                            Select your state
+                        </option>
+
+                        <option value="Maharashtra">Maharashtra</option>
+                        <option value="Uttar Pradesh">Uttar Pradesh</option>
+                        <option value="West Bengal">West Bengal</option>
+                        <option value="Karnataka">Karnataka</option>
+                        <option value="Delhi">Delhi</option>
+                        <option value="Tamil Nadu">Tamil Nadu</option>
+                        <option value="Gujarat">Gujarat</option>
+                        <option value="Rajasthan">Rajasthan</option>
+                        <option value="Telangana">Telangana</option>
+                        <option value="Andhra Pradesh">Andhra Pradesh</option>
+                        <option value="Bihar">Bihar</option>
+                        <option value="Madhya Pradesh">Madhya Pradesh</option>
+                        <option value="Haryana">Haryana</option>
+                        <option value="Punjab">Punjab</option>
+                        <option value="Kerala">Kerala</option>
+                        <option value="Odisha">Odisha</option>
+                        <option value="Jharkhand">Jharkhand</option>
+                        <option value="Assam">Assam</option>
+                        <option value="Chhattisgarh">Chhattisgarh</option>
+                        <option value="Uttarakhand">Uttarakhand</option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- SUBMIT -->
+
+                <button
+                    type="submit"
+                    id="submitTeamButton"
+                    class="submit-btn">
+
+                    SUBMIT TEAM APPLICATION
+
+                </button>
+
+
+            </form>
+
+
+
+            <!-- STATUS -->
+
+            <div
+                id="formStatus"
+                class="form-status">
+            </div>
+
+
+
+            <!-- CONNECTION -->
+
+            <div class="connection-note">
+
+                <b>
+                    APPLICATION WORKFLOW
+                </b>
+
+                <br><br>
+
+                Application →
+                Firebase →
+                Admin Review →
+                Approval / Rejection →
+                Team Member Dashboard
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =========================
+     STATE NETWORK
+========================= -->
+
+<section class="network">
+
+
+    <div class="eyebrow">
+        INDIA TEAM NETWORK
+    </div>
+
+
+    <h2>
+        State-wise Operations
+    </h2>
+
+
+    <p>
+
+        FHAMAR.ZAMOST can assign approved
+        Team Members to their selected
+        operating state.
+
+    </p>
+
+
+    <div class="states">
+
+
+        <div class="state">Maharashtra</div>
+        <div class="state">Uttar Pradesh</div>
+        <div class="state">West Bengal</div>
+        <div class="state">Karnataka</div>
+        <div class="state">Delhi</div>
+        <div class="state">Tamil Nadu</div>
+        <div class="state">Gujarat</div>
+        <div class="state">Rajasthan</div>
+        <div class="state">Telangana</div>
+        <div class="state">Andhra Pradesh</div>
+        <div class="state">Bihar</div>
+        <div class="state">Madhya Pradesh</div>
+        <div class="state">Haryana</div>
+        <div class="state">Punjab</div>
+        <div class="state">Kerala</div>
+        <div class="state">Odisha</div>
+        <div class="state">Jharkhand</div>
+        <div class="state">Assam</div>
+        <div class="state">Chhattisgarh</div>
+        <div class="state"
