@@ -1,0 +1,1431 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Checkout | FHAMAR ZAMOST</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+    background:#050b12;
+    color:white;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+header{
+    height:75px;
+    padding:0 6%;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    background:#07111d;
+    border-bottom:1px solid #30465d;
+
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+
+.brand-area{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.fz-logo{
+    width:45px;
+    height:45px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:12px;
+
+    border:1px solid #8298ad;
+
+    background:
+    linear-gradient(
+        145deg,
+        #173b5b,
+        #050b12
+    );
+
+    color:#4da3ff;
+
+    font-size:17px;
+    font-weight:900;
+}
+
+.brand{
+    font-size:18px;
+    font-weight:900;
+    letter-spacing:2px;
+}
+
+.blue{
+    color:#4da3ff;
+}
+
+.silver{
+    color:#aeb9c5;
+}
+
+nav{
+    display:flex;
+    gap:22px;
+}
+
+nav a{
+    color:#91a2b5;
+    font-size:12px;
+}
+
+nav a:hover{
+    color:white;
+}
+
+.profile-btn{
+    padding:9px 13px;
+    border:1px solid #60768c;
+    border-radius:8px;
+    color:#dce5ee;
+    font-size:11px;
+}
+
+
+/* =========================
+   PAGE
+========================= */
+
+.page{
+    max-width:1150px;
+    margin:auto;
+    padding:55px 6% 90px;
+}
+
+.back{
+    color:#91a3b5;
+    font-size:12px;
+}
+
+.back:hover{
+    color:#4da3ff;
+}
+
+.page-title{
+    margin-top:28px;
+}
+
+.eyebrow{
+    color:#71869c;
+    font-size:10px;
+    letter-spacing:3px;
+    font-weight:bold;
+}
+
+.page-title h1{
+    margin-top:10px;
+    font-size:44px;
+}
+
+.page-title h1 span{
+    color:#4da3ff;
+}
+
+.page-title p{
+    margin-top:10px;
+    color:#8396a9;
+    font-size:13px;
+}
+
+
+/* =========================
+   CHECKOUT GRID
+========================= */
+
+.checkout-grid{
+
+    margin-top:35px;
+
+    display:grid;
+
+    grid-template-columns:
+    1fr 360px;
+
+    gap:22px;
+}
+
+
+/* =========================
+   CARD
+========================= */
+
+.card{
+
+    background:#091622;
+
+    border:1px solid #293f55;
+
+    border-radius:17px;
+
+    padding:25px;
+}
+
+.card h2{
+    font-size:21px;
+    margin-bottom:20px;
+}
+
+
+/* =========================
+   FORM
+========================= */
+
+.form-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    1fr 1fr;
+
+    gap:15px;
+}
+
+.form-group{
+    margin-bottom:2px;
+}
+
+.form-group.full{
+    grid-column:1 / -1;
+}
+
+label{
+
+    display:block;
+
+    margin-bottom:7px;
+
+    color:#aebdca;
+
+    font-size:10px;
+
+    font-weight:bold;
+
+    letter-spacing:.5px;
+}
+
+input,
+select,
+textarea{
+
+    width:100%;
+
+    border:1px solid #30465c;
+
+    background:#050c14;
+
+    color:white;
+
+    border-radius:9px;
+
+    outline:none;
+
+    padding:13px;
+
+    font-size:12px;
+}
+
+input,
+select{
+    height:47px;
+}
+
+textarea{
+
+    min-height:90px;
+
+    resize:vertical;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+
+    border-color:#4da3ff;
+
+    box-shadow:
+    0 0 0 3px
+    rgba(77,163,255,.08);
+}
+
+
+/* =========================
+   PAYMENT
+========================= */
+
+.payment-section{
+    margin-top:25px;
+}
+
+.payment-option{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    padding:16px;
+
+    border:1px solid #344b62;
+
+    border-radius:10px;
+
+    background:#07111d;
+
+    margin-top:12px;
+
+    cursor:pointer;
+}
+
+.payment-option:hover{
+    border-color:#4da3ff;
+}
+
+.payment-option input{
+    width:auto;
+    height:auto;
+}
+
+.payment-name{
+    font-size:13px;
+    font-weight:bold;
+}
+
+.payment-description{
+    margin-top:4px;
+    color:#71869d;
+    font-size:10px;
+}
+
+
+/* =========================
+   UPI CONNECTION AREA
+========================= */
+
+.upi-box{
+
+    margin-top:15px;
+
+    padding:18px;
+
+    border:1px dashed #4b6580;
+
+    border-radius:11px;
+
+    background:#07111d;
+
+    text-align:center;
+
+    color:#8ca0b4;
+
+    font-size:10px;
+
+    line-height:1.7;
+}
+
+.upi-title{
+
+    color:#4da3ff;
+
+    font-size:14px;
+
+    font-weight:900;
+
+    margin-bottom:8px;
+}
+
+
+/* =========================
+   ORDER SUMMARY
+========================= */
+
+.summary{
+
+    height:max-content;
+
+    position:sticky;
+
+    top:95px;
+}
+
+.summary h2{
+    margin-bottom:18px;
+}
+
+.order-items{
+
+    max-height:280px;
+
+    overflow:auto;
+
+    border-bottom:1px solid #22364a;
+    padding-bottom:10px;
+}
+
+.order-item{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    gap:12px;
+
+    padding:11px 0;
+
+    color:#aebdca;
+
+    font-size:11px;
+}
+
+.order-item strong{
+    color:#e3eaf1;
+}
+
+.summary-row{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    padding:13px 0;
+
+    border-bottom:1px solid #203449;
+
+    color:#8da0b3;
+
+    font-size:11px;
+}
+
+.summary-row strong{
+    color:#dce5ed;
+}
+
+.total{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding-top:20px;
+}
+
+.total span{
+    color:#9eafc1;
+}
+
+.total strong{
+    font-size:26px;
+}
+
+
+/* =========================
+   PLACE ORDER
+========================= */
+
+.place-order{
+
+    width:100%;
+
+    margin-top:22px;
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#4da3ff;
+
+    color:#04101c;
+
+    font-size:11px;
+
+    font-weight:900;
+
+    letter-spacing:1px;
+
+    cursor:pointer;
+}
+
+.place-order:hover{
+    background:#72b7ff;
+}
+
+
+/* =========================
+   STATUS
+========================= */
+
+.status{
+
+    display:none;
+
+    margin-top:15px;
+
+    padding:14px;
+
+    border-radius:9px;
+
+    border:1px solid #355069;
+
+    background:#07111d;
+
+    color:#91a5b8;
+
+    font-size:10px;
+
+    line-height:1.7;
+}
+
+
+/* =========================
+   API NOTE
+========================= */
+
+.api-note{
+
+    margin-top:20px;
+
+    padding:14px;
+
+    border:1px dashed #405a72;
+
+    border-radius:10px;
+
+    color:#74899d;
+
+    background:#06101a;
+
+    text-align:center;
+
+    font-size:10px;
+
+    line-height:1.7;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+
+    padding:35px 7%;
+
+    background:#03080e;
+
+    border-top:1px solid #263b50;
+
+    color:#7d90a4;
+
+    font-size:11px;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:850px){
+
+    header nav{
+        display:none;
+    }
+
+    .checkout-grid{
+        grid-template-columns:1fr;
+    }
+
+    .summary{
+        position:static;
+    }
+
+}
+
+@media(max-width:550px){
+
+    .page{
+        padding-left:5%;
+        padding-right:5%;
+    }
+
+    .page-title h1{
+        font-size:36px;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .form-group.full{
+        grid-column:auto;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header>
+
+<div class="brand-area">
+
+    <div class="fz-logo">
+        FZ
+    </div>
+
+    <div class="brand">
+
+        <span class="blue">
+            FHAMAR
+        </span>
+
+        <span class="silver">
+            .ZAMOST
+        </span>
+
+    </div>
+
+</div>
+
+
+<nav>
+
+    <a href="home.html">
+        Home
+    </a>
+
+    <a href="catalog.html">
+        Catalog
+    </a>
+
+    <a href="profile.html">
+        My Portal
+    </a>
+
+    <a href="admin.html">
+        Administrative Desk
+    </a>
+
+</nav>
+
+
+<a href="profile.html"
+class="profile-btn">
+
+    MY PROFILE
+
+</a>
+
+</header>
+
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<main class="page">
+
+
+<a href="cart.html"
+class="back">
+
+    ← Back to Cart
+
+</a>
+
+
+<div class="page-title">
+
+    <div class="eyebrow">
+        FHAMAR.ZAMOST
+    </div>
+
+    <h1>
+
+        Secure
+
+        <span>
+            Checkout
+        </span>
+
+    </h1>
+
+    <p>
+        Enter your delivery details and
+        select your preferred payment method.
+    </p>
+
+</div>
+
+
+
+<div class="checkout-grid">
+
+
+<!-- =========================
+     CUSTOMER DETAILS
+========================= -->
+
+<section class="card">
+
+
+<h2>
+    Delivery Information
+</h2>
+
+
+<form id="checkoutForm">
+
+
+<div class="form-grid">
+
+
+<!-- NAME -->
+
+<div class="form-group">
+
+<label>
+    FULL NAME
+</label>
+
+<input
+type="text"
+id="customerName"
+placeholder="Enter your full name"
+required>
+
+</div>
+
+
+
+<!-- MOBILE -->
+
+<div class="form-group">
+
+<label>
+    MOBILE NUMBER
+</label>
+
+<input
+type="tel"
+id="customerMobile"
+placeholder="Enter mobile number"
+maxlength="10"
+required>
+
+</div>
+
+
+
+<!-- EMAIL -->
+
+<div class="form-group full">
+
+<label>
+    EMAIL ADDRESS
+</label>
+
+<input
+type="email"
+id="customerEmail"
+placeholder="Enter email address"
+required>
+
+</div>
+
+
+
+<!-- ADDRESS -->
+
+<div class="form-group full">
+
+<label>
+    COMPLETE DELIVERY ADDRESS
+</label>
+
+<textarea
+id="customerAddress"
+placeholder="House / Street / Area / Landmark"
+required></textarea>
+
+</div>
+
+
+
+<!-- CITY -->
+
+<div class="form-group">
+
+<label>
+    CITY
+</label>
+
+<input
+type="text"
+id="customerCity"
+placeholder="Enter city"
+required>
+
+</div>
+
+
+
+<!-- STATE -->
+
+<div class="form-group">
+
+<label>
+    STATE
+</label>
+
+<select
+id="customerState"
+required>
+
+<option value="">
+    Select State
+</option>
+
+<option>Andhra Pradesh</option>
+<option>Bihar</option>
+<option>Delhi</option>
+<option>Gujarat</option>
+<option>Haryana</option>
+<option>Jharkhand</option>
+<option>Karnataka</option>
+<option>Kerala</option>
+<option>Madhya Pradesh</option>
+<option>Maharashtra</option>
+<option>Odisha</option>
+<option>Punjab</option>
+<option>Rajasthan</option>
+<option>Tamil Nadu</option>
+<option>Telangana</option>
+<option>Uttar Pradesh</option>
+<option>Uttarakhand</option>
+<option>West Bengal</option>
+<option>Other</option>
+
+</select>
+
+</div>
+
+
+
+<!-- PIN -->
+
+<div class="form-group">
+
+<label>
+    PIN CODE
+</label>
+
+<input
+type="text"
+id="customerPin"
+placeholder="6 digit PIN code"
+maxlength="6"
+required>
+
+</div>
+
+
+
+</div>
+
+
+
+<!-- =========================
+     PAYMENT
+========================= -->
+
+<div class="payment-section">
+
+
+<h2>
+    Payment Method
+</h2>
+
+
+<label class="payment-option">
+
+<input
+type="radio"
+name="payment"
+value="upi"
+checked>
+
+<div>
+
+<div class="payment-name">
+    UPI Payment
+</div>
+
+<div class="payment-description">
+    Pay securely using your UPI application.
+</div>
+
+</div>
+
+</label>
+
+
+<div class="upi-box">
+
+<div class="upi-title">
+    UPI PAYMENT
+</div>
+
+
+<b>
+    YAHAN UPI PAYMENT CODE LAGEGA
+</b>
+
+
+<br><br>
+
+
+YAHAN UPI PAYMENT GATEWAY /
+API / QR CODE CONNECTION HOGA.
+
+
+<br>
+
+
+UPI ID, payment request,
+payment verification aur
+success response yahan connect hoga.
+
+</div>
+
+
+
+<label class="payment-option">
+
+<input
+type="radio"
+name="payment"
+value="cod">
+
+<div>
+
+<div class="payment-name">
+    Cash on Delivery
+</div>
+
+<div class="payment-description">
+    COD option can be enabled from Admin.
+</div>
+
+</div>
+
+</label>
+
+
+</div>
+
+
+
+<button
+type="submit"
+class="place-order">
+
+    PLACE ORDER
+
+</button>
+
+
+<div
+id="status"
+class="status">
+
+</div>
+
+
+</form>
+
+
+<!-- =========================
+     API CONNECTION
+========================= -->
+
+<div class="api-note">
+
+<b>
+    ORDER API CONNECTION AREA
+</b>
+
+<br><br>
+
+YAHAN ORDER SUBMIT API CODE LAGEGA.
+
+<br>
+
+YAHAN CUSTOMER DETAILS +
+CART ITEMS +
+PAYMENT STATUS DATABASE
+MEIN SAVE HONGE.
+
+</div>
+
+
+</section>
+
+
+
+<!-- =========================
+     ORDER SUMMARY
+========================= -->
+
+<section class="card summary">
+
+
+<h2>
+    Order Summary
+</h2>
+
+
+<div
+id="orderItems"
+class="order-items">
+
+</div>
+
+
+<div class="summary-row">
+
+<span>
+    Subtotal
+</span>
+
+<strong id="subtotal">
+    ₹0
+</strong>
+
+</div>
+
+
+<div class="summary-row">
+
+<span>
+    Delivery
+</span>
+
+<strong>
+    As calculated
+</strong>
+
+</div>
+
+
+<div class="total">
+
+<span>
+    TOTAL
+</span>
+
+<strong id="total">
+    ₹0
+</strong>
+
+</div>
+
+
+</section>
+
+
+</div>
+
+
+</main>
+
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+
+<div class="brand">
+
+<span class="blue">
+    FHAMAR
+</span>
+
+<span class="silver">
+    .ZAMOST
+</span>
+
+</div>
+
+<p>
+    Secure Checkout
+</p>
+
+</footer>
+
+
+
+<script>
+
+
+/* =========================================
+   LOAD CART
+========================================= */
+
+const cart =
+JSON.parse(
+    localStorage.getItem(
+        "fz_cart"
+    ) || "[]"
+);
+
+
+
+/* =========================================
+   DISPLAY ORDER
+========================================= */
+
+function displayOrder(){
+
+
+    const box =
+        document.getElementById(
+            "orderItems"
+        );
+
+
+    let subtotal = 0;
+
+
+    if(cart.length === 0){
+
+        box.innerHTML =
+            "<p style='color:#8193a6;font-size:11px'>" +
+            "Your cart is empty." +
+            "</p>";
+
+        return;
+
+    }
+
+
+    box.innerHTML =
+        cart.map(
+            function(item){
+
+                const quantity =
+                    item.quantity || 1;
+
+
+                const itemTotal =
+                    Number(item.price)
+                    * quantity;
+
+
+                subtotal +=
+                    itemTotal;
+
+
+                return `
+
+                <div class="order-item">
+
+                    <span>
+                        ${item.name}
+                        × ${quantity}
+                    </span>
+
+                    <strong>
+                        ₹${itemTotal}
+                    </strong>
+
+                </div>
+
+                `;
+
+            }
+        ).join("");
+
+
+    document.getElementById(
+        "subtotal"
+    ).textContent =
+        "₹" + subtotal;
+
+
+    document.getElementById(
+        "total"
+    ).textContent =
+        "₹" + subtotal;
+
+}
+
+
+displayOrder();
+
+
+
+/* =========================================
+   CHECKOUT SUBMIT
+========================================= */
+
+document
+.getElementById("checkoutForm")
+.addEventListener(
+    "submit",
+    function(event){
+
+        event.preventDefault();
+
+
+        const name =
+            document.getElementById(
+                "customerName"
+            ).value.trim();
+
+
+        const mobile =
+            document.getElementById(
+                "customerMobile"
+            ).value.trim();
+
+
+        const email =
+            document.getElementById(
+                "customerEmail"
+            ).value.trim();
+
+
+        const address =
+            document.getElementById(
+                "customerAddress"
+            ).value.trim();
+
+
+        const city =
+            document.getElementById(
+                "customerCity"
+            ).value.trim();
+
+
+        const state =
+            document.getElementById(
+                "customerState"
+            ).value;
+
+
+        const pin =
+            document.getElementById(
+                "customerPin"
+            ).value.trim();
+
+
+        const payment =
+            document.querySelector(
+                'input[name="payment"]:checked'
+            ).value;
+
+
+        if(mobile.length !== 10){
+
+            alert(
+                "Please enter a valid 10 digit mobile number."
+            );
+
+            return;
+
+        }
+
+
+        if(pin.length !== 6){
+
+            alert(
+                "Please enter a valid 6 digit PIN code."
+            );
+
+            return;
+
+        }
+
+
+        if(cart.length === 0){
+
+            alert(
+                "Your cart is empty."
+            );
+
+            window.location.href =
+                "catalog.html";
+
+            return;
+
+        }
+
+
+
+        /* =================================
+
+           ⭐ IMPORTANT API AREA ⭐
+
+           YAHAN ORDER API CODE LAGEGA.
+
+           Customer details:
+
+           Name
+           Mobile
+           Email
+           Address
+           City
+           State
+           PIN
+
+           Cart items:
+
+           Product
+           Quantity
+           Price
+           Total
+
+           Payment:
+
+           UPI / COD
+
+           ================================= */
+
+
+        const orderNumber =
+            "FZ" +
+            Date.now();
+
+
+        const order = {
+
+            orderNumber: orderNumber,
+
+            customer: {
+
+                name: name,
+
+                mobile: mobile,
+
+                email: email,
+
+                address: address,
+
+                city: city,
+
+                state: state,
+
+                pin: pin
+
+            },
+
+            items: cart,
+
+            paymentMethod: payment,
+
+            status: "Order Placed",
+
+            paymentStatus:
+                payment === "upi"
+                ? "Payment Pending"
+                : "COD"
+
+        };
+
+
+        /*
+        ======================================
+
+        DEMO STORAGE
+
+        Real website mein yahan Firebase /
+        Backend API use hoga.
+
+        ======================================
+        */
+
+
+        localStorage.setItem(
+            "fz_last_order",
+            JSON.stringify(order)
+        );
+
+
+        /*
+        ======================================
+
+        NEXT PAGE CONNECTION
+
+        Checkout
+             ↓
+        order-success.html
+
+        ======================================
+        */
+
+
+        window.location.href =
+            "order-success.html";
+
+    }
+);
+
+
+</script>
+
+
+</body>
+
+</html>
