@@ -1,0 +1,1317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>FHAMAR ZAMOST | Home</title>
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+
+        body {
+            background: #050b12;
+            color: #ffffff;
+        }
+
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        header {
+
+            height: 75px;
+
+            padding: 0 6%;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            background: #07111d;
+
+            border-bottom: 1px solid #30465d;
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 1000;
+        }
+
+
+        /* =========================
+           FZ LOGO + BRAND
+        ========================= */
+
+        .brand-area {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+        }
+
+
+        .fz-logo {
+
+            width: 48px;
+
+            height: 48px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 13px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #173957,
+                    #07111d
+                );
+
+            border: 1px solid #91a7bb;
+
+            box-shadow:
+                0 0 25px rgba(80,130,180,0.15);
+
+            font-size: 18px;
+
+            font-weight: 900;
+
+            letter-spacing: 1px;
+
+            color: #4da3ff;
+        }
+
+
+        .brand {
+
+            font-size: 19px;
+
+            font-weight: 900;
+
+            letter-spacing: 2px;
+        }
+
+
+        /* FHAMAR = BLUE */
+
+        .brand .fhamar {
+
+            color: #4da3ff;
+        }
+
+
+        /* ZAMOST = SILVER DARK */
+
+        .brand .zamost {
+
+            color: #aeb9c5;
+        }
+
+
+        nav {
+
+            display: flex;
+
+            gap: 24px;
+        }
+
+
+        nav a {
+
+            color: #9baabd;
+
+            font-size: 12px;
+
+            transition: 0.2s;
+        }
+
+
+        nav a:hover {
+
+            color: #ffffff;
+        }
+
+
+        .profile-btn {
+
+            padding: 10px 15px;
+
+            border: 1px solid #65798e;
+
+            border-radius: 9px;
+
+            color: #dbe4ed;
+
+            font-size: 11px;
+
+            font-weight: bold;
+        }
+
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+
+            min-height: 650px;
+
+            padding: 80px 7%;
+
+            display: grid;
+
+            grid-template-columns:
+                1.1fr
+                0.9fr;
+
+            gap: 50px;
+
+            align-items: center;
+
+            background:
+
+                radial-gradient(
+                    circle at 85% 25%,
+                    #173b60 0%,
+                    transparent 35%
+                ),
+
+                linear-gradient(
+                    135deg,
+                    #050b12,
+                    #091725,
+                    #07111d
+                );
+        }
+
+
+        .eyebrow {
+
+            color: #7790a8;
+
+            font-size: 10px;
+
+            font-weight: bold;
+
+            letter-spacing: 3px;
+        }
+
+
+        .hero h1 {
+
+            margin-top: 20px;
+
+            font-size:
+                clamp(
+                    45px,
+                    7vw,
+                    82px
+                );
+
+            line-height: 0.95;
+        }
+
+
+        .hero h1 .blue {
+
+            color: #4da3ff;
+        }
+
+
+        .hero h1 .silver {
+
+            color: #aeb9c5;
+        }
+
+
+        .hero p {
+
+            max-width: 570px;
+
+            margin-top: 25px;
+
+            color: #8fa1b4;
+
+            line-height: 1.8;
+
+            font-size: 14px;
+        }
+
+
+        .buttons {
+
+            display: flex;
+
+            gap: 12px;
+
+            margin-top: 30px;
+        }
+
+
+        .btn {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 13px 20px;
+
+            border-radius: 10px;
+
+            font-size: 11px;
+
+            font-weight: 900;
+
+            letter-spacing: 1px;
+        }
+
+
+        .btn-blue {
+
+            background: #4da3ff;
+
+            color: #04101c;
+
+            border: 1px solid #4da3ff;
+        }
+
+
+        .btn-silver {
+
+            background: transparent;
+
+            color: #dce5ee;
+
+            border: 1px solid #657b90;
+        }
+
+
+        /* =========================
+           HERO LOGO CARD
+        ========================= */
+
+        .hero-card {
+
+            min-height: 400px;
+
+            border-radius: 28px;
+
+            border: 1px solid #344d65;
+
+            background:
+
+                radial-gradient(
+                    circle,
+                    #173451,
+                    #07111d 65%
+                );
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            justify-content: center;
+
+            box-shadow:
+                0 30px 80px rgba(0,0,0,0.55);
+        }
+
+
+        .big-logo {
+
+            width: 190px;
+
+            height: 190px;
+
+            border-radius: 48px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border: 1px solid #8096aa;
+
+            background:
+
+                linear-gradient(
+                    145deg,
+                    #173b5c,
+                    #060c13
+                );
+
+            box-shadow:
+                0 0 70px rgba(70,150,230,0.15);
+
+            font-size: 52px;
+
+            font-weight: 900;
+        }
+
+
+        .big-logo .fz-blue {
+
+            color: #4da3ff;
+        }
+
+
+        .hero-card .logo-text {
+
+            margin-top: 25px;
+
+            letter-spacing: 3px;
+
+            font-size: 11px;
+
+            color: #aeb9c5;
+        }
+
+
+        /* =========================
+           QUICK ACCESS
+        ========================= */
+
+        .section {
+
+            padding: 75px 7%;
+        }
+
+
+        .section-title {
+
+            color: #71869c;
+
+            font-size: 10px;
+
+            letter-spacing: 3px;
+
+            font-weight: bold;
+        }
+
+
+        .section h2 {
+
+            margin-top: 10px;
+
+            font-size: 38px;
+        }
+
+
+        .cards {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 18px;
+
+            margin-top: 30px;
+        }
+
+
+        .card {
+
+            padding: 25px;
+
+            border-radius: 16px;
+
+            border: 1px solid #293f55;
+
+            background: #0a1725;
+
+            transition: 0.25s;
+        }
+
+
+        .card:hover {
+
+            transform: translateY(-4px);
+
+            border-color: #52728f;
+        }
+
+
+        .card-number {
+
+            color: #4d9fe8;
+
+            font-size: 11px;
+        }
+
+
+        .card h3 {
+
+            margin-top: 28px;
+        }
+
+
+        .card p {
+
+            margin-top: 10px;
+
+            color: #879aad;
+
+            font-size: 13px;
+
+            line-height: 1.7;
+        }
+
+
+        /* =========================
+           TEAM REGISTRATION
+        ========================= */
+
+        .registration-section {
+
+            padding: 80px 7%;
+
+            background:
+
+                linear-gradient(
+                    135deg,
+                    #081522,
+                    #0b1b2b
+                );
+
+            border-top: 1px solid #263d54;
+
+            border-bottom: 1px solid #263d54;
+        }
+
+
+        .registration-container {
+
+            max-width: 1100px;
+
+            margin: auto;
+
+            display: grid;
+
+            grid-template-columns:
+                0.9fr
+                1.1fr;
+
+            gap: 45px;
+
+            align-items: center;
+        }
+
+
+        .registration-info h2 {
+
+            margin-top: 12px;
+
+            font-size: 38px;
+
+            line-height: 1.15;
+        }
+
+
+        .registration-info h2 span {
+
+            color: #4da3ff;
+        }
+
+
+        .registration-info p {
+
+            margin-top: 18px;
+
+            color: #91a2b5;
+
+            line-height: 1.8;
+
+            font-size: 14px;
+        }
+
+
+        .registration-info ul {
+
+            margin-top: 25px;
+
+            padding-left: 20px;
+
+            color: #aebdca;
+
+            line-height: 2;
+        }
+
+
+        .registration-info li::marker {
+
+            color: #4da3ff;
+        }
+
+
+        /* FORM */
+
+        .registration-form {
+
+            padding: 30px;
+
+            border-radius: 20px;
+
+            background: #07111d;
+
+            border: 1px solid #344d64;
+
+            box-shadow:
+                0 25px 60px rgba(0,0,0,0.35);
+        }
+
+
+        .registration-form h3 {
+
+            font-size: 23px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .form-subtitle {
+
+            color: #71869b;
+
+            font-size: 12px;
+
+            margin-bottom: 25px;
+        }
+
+
+        .form-group {
+
+            margin-bottom: 16px;
+        }
+
+
+        .form-group label {
+
+            display: block;
+
+            margin-bottom: 7px;
+
+            color: #aebdca;
+
+            font-size: 11px;
+
+            font-weight: bold;
+
+            letter-spacing: 0.5px;
+        }
+
+
+        .form-group input,
+        .form-group select {
+
+            width: 100%;
+
+            height: 48px;
+
+            padding: 0 13px;
+
+            border-radius: 9px;
+
+            border: 1px solid #30465c;
+
+            background: #050c14;
+
+            color: white;
+
+            outline: none;
+
+            font-size: 13px;
+        }
+
+
+        .form-group input:focus,
+        .form-group select:focus {
+
+            border-color: #4da3ff;
+
+            box-shadow:
+                0 0 0 3px rgba(77,163,255,0.08);
+        }
+
+
+        .submit-btn {
+
+            width: 100%;
+
+            height: 50px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            background: #4da3ff;
+
+            color: #04101c;
+
+            font-size: 12px;
+
+            font-weight: 900;
+
+            letter-spacing: 1px;
+
+            cursor: pointer;
+
+            margin-top: 5px;
+        }
+
+
+        .submit-btn:hover {
+
+            background: #72b7ff;
+        }
+
+
+        .form-status {
+
+            margin-top: 15px;
+
+            padding: 12px;
+
+            border-radius: 8px;
+
+            background: #0c1c2b;
+
+            border: 1px solid #30465c;
+
+            color: #91a7bb;
+
+            font-size: 11px;
+
+            display: none;
+
+            line-height: 1.6;
+        }
+
+
+        /* =========================
+           API PLACEHOLDER
+        ========================= */
+
+        .connection-note {
+
+            margin-top: 18px;
+
+            padding: 12px;
+
+            border: 1px dashed #3c5870;
+
+            border-radius: 9px;
+
+            color: #70869c;
+
+            font-size: 10px;
+
+            line-height: 1.6;
+
+            text-align: center;
+        }
+
+
+        /* =========================
+           NETWORK
+        ========================= */
+
+        .network {
+
+            margin: 70px 7%;
+
+            padding: 45px;
+
+            border-radius: 20px;
+
+            background: #091522;
+
+            border: 1px solid #293e53;
+        }
+
+
+        .network h2 {
+
+            margin-top: 12px;
+
+            font-size: 32px;
+        }
+
+
+        .network p {
+
+            margin-top: 12px;
+
+            color: #8799ad;
+
+            line-height: 1.7;
+        }
+
+
+        .states {
+
+            display: flex;
+
+            gap: 10px;
+
+            flex-wrap: wrap;
+
+            margin-top: 25px;
+        }
+
+
+        .state {
+
+            padding: 10px 15px;
+
+            border-radius: 25px;
+
+            border: 1px solid #354c63;
+
+            color: #b8c6d5;
+
+            font-size: 11px;
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+
+            padding: 35px 7%;
+
+            background: #03080e;
+
+            border-top: 1px solid #263b50;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            color: #7f91a4;
+
+            font-size: 11px;
+
+            line-height: 1.7;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media(max-width: 850px) {
+
+            header nav {
+
+                display: none;
+            }
+
+
+            .hero {
+
+                grid-template-columns: 1fr;
+
+                padding: 60px 6%;
+            }
+
+
+            .cards {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .registration-container {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .hero-card {
+
+                min-height: 320px;
+            }
+
+        }
+
+
+        @media(max-width: 500px) {
+
+            .hero h1 {
+
+                font-size: 48px;
+            }
+
+
+            .section h2 {
+
+                font-size: 30px;
+            }
+
+
+            .registration-info h2 {
+
+                font-size: 30px;
+            }
+
+
+            .registration-form {
+
+                padding: 22px;
+            }
+
+
+            .network {
+
+                margin: 50px 5%;
+
+                padding: 28px;
+            }
+
+
+            footer {
+
+                flex-direction: column;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header>
+
+    <div class="brand-area">
+
+        <div class="fz-logo">
+            FZ
+        </div>
+
+        <div class="brand">
+
+            <span class="fhamar">
+                FHAMAR
+            </span>
+
+            <span class="zamost">
+                .ZAMOST
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <nav>
+
+        <a href="home.html">
+            Home
+        </a>
+
+        <a href="catalog.html">
+            Catalog
+        </a>
+
+        <a href="profile.html">
+            My Portal
+        </a>
+
+        <a href="admin.html">
+            Administrative Desk
+        </a>
+
+    </nav>
+
+
+    <a href="profile.html"
+       class="profile-btn">
+
+        MY PROFILE
+
+    </a>
+
+</header>
+
+
+
+<!-- =========================
+     HERO
+========================= -->
+
+<section class="hero">
+
+
+    <div>
+
+        <div class="eyebrow">
+            PREMIUM • BLUE • SILVER • DARK
+        </div>
+
+
+        <h1>
+
+            WELCOME TO
+
+            <br>
+
+            <span class="blue">
+                FHAMAR
+            </span>
+
+            <span class="silver">
+                .ZAMOST
+            </span>
+
+        </h1>
+
+
+        <p>
+
+            A modern digital platform connecting
+            products, members, state teams,
+            profiles and smart administration
+            in one place.
+
+        </p>
+
+
+        <div class="buttons">
+
+            <a href="catalog.html"
+               class="btn btn-blue">
+
+                EXPLORE COLLECTION
+
+            </a>
+
+
+            <a href="#team-registration"
+               class="btn btn-silver">
+
+                JOIN OUR TEAM
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="hero-card">
+
+        <div class="big-logo">
+
+            <span class="fz-blue">
+                FZ
+            </span>
+
+        </div>
+
+
+        <div class="logo-text">
+
+            FHAMAR.ZAMOST
+
+        </div>
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =========================
+     QUICK ACCESS
+========================= -->
+
+<section class="section">
+
+    <div class="section-title">
+        QUICK ACCESS
+    </div>
+
+
+    <h2>
+        Everything in one portal
+    </h2>
+
+
+    <div class="cards">
+
+
+        <a href="catalog.html"
+           class="card">
+
+            <div class="card-number">
+                01
+            </div>
+
+            <h3>
+                Product Catalog
+            </h3>
+
+            <p>
+                Browse products, categories
+                and available collections.
+            </p>
+
+        </a>
+
+
+
+        <a href="profile.html"
+           class="card">
+
+            <div class="card-number">
+                02
+            </div>
+
+            <h3>
+                My Profile + Voting
+            </h3>
+
+            <p>
+                Manage your profile,
+                membership and eligible voting.
+            </p>
+
+        </a>
+
+
+
+        <a href="admin.html"
+           class="card">
+
+            <div class="card-number">
+                03
+            </div>
+
+            <h3>
+                Administrative Desk
+            </h3>
+
+            <p>
+                Manage members, products,
+                voting and website operations.
+            </p>
+
+        </a>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     TEAM REGISTRATION
+========================= -->
+
+<section
+    class="registration-section"
+    id="team-registration">
+
+
+    <div class="registration-container">
+
+
+        <!-- INFORMATION -->
+
+        <div class="registration-info">
+
+            <div class="eyebrow">
+                JOIN THE NETWORK
+            </div>
+
+
+            <h2>
+
+                Become a
+
+                <span>
+                    FHAMAR.ZAMOST
+                </span>
+
+                Team Member
+
+            </h2>
+
+
+            <p>
+
+                We are building a connected team
+                with members representing different
+                states across India.
+
+                If you are interested in joining
+                the FHAMAR.ZAMOST team, submit
+                your basic information through
+                this registration form.
+
+            </p>
+
+
+            <ul>
+
+                <li>
+                    State-wise Team Member
+                </li>
+
+                <li>
+                    Basic Registration
+                </li>
+
+                <li>
+                    Application Review
+                </li>
+
+                <li>
+                    Admin Approval
+                </li>
+
+                <li>
+                    Team Member Status Update
+                </li>
+
+            </ul>
+
+        </div>
+
+
+
+        <!-- REGISTRATION FORM -->
+
+        <div class="registration-form">
+
+
+            <h3>
+                Team Registration
+            </h3>
+
+
+            <p class="form-subtitle">
+
+                Enter your correct information
+                to submit your application.
+
+            </p>
+
+
+            <form
+                id="teamForm">
+
+
+                <!-- NAME -->
+
+                <div class="form-group">
+
+                    <label>
+                        FULL NAME
+                    </label>
+
+                    <input
+                        type="text"
+                        id="memberName"
+                        placeholder="Enter your full name"
+                        required
+                    >
+
+                </div>
+
+
+
+                <!-- MOBILE -->
+
+                <div class="form-group">
+
+                    <label>
+                        MOBILE NUMBER
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="memberMobile"
+                        placeholder="Enter mobile number"
+                        maxlength="10"
+                        required
+                    >
+
+                </div>
+
+
+
+                <!-- EMAIL -->
+
+                <div class="form-group">
+
+                    <label>
+                        EMAIL ADDRESS
+                    </label>
+
+                    <input
+                        type="email"
+                        id="memberEmail"
+                        placeholder="Enter your email"
+                        required
+                    >
+
+                </div>
+
+
+
+                <!-- STATE -->
+
+                <div class="form-group">
+
+                    <label>
+          
