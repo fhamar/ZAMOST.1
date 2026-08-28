@@ -9,7 +9,6 @@
 
 <title>FHAMAR ZAMOST | Login</title>
 
-
 <style>
 
 *{
@@ -20,50 +19,24 @@
 }
 
 body{
-
     min-height:100vh;
-
     display:flex;
     justify-content:center;
     align-items:center;
-
     padding:15px;
-
     color:white;
 
     background:
-    radial-gradient(
-        circle at 20% 10%,
-        #24415f 0%,
-        transparent 35%
-    ),
-
-    radial-gradient(
-        circle at 90% 90%,
-        #182d43 0%,
-        transparent 35%
-    ),
-
-    linear-gradient(
-        135deg,
-        #02060b,
-        #07111d,
-        #0b1928
-    );
+    radial-gradient(circle at 20% 10%,#24415f 0%,transparent 35%),
+    radial-gradient(circle at 90% 90%,#182d43 0%,transparent 35%),
+    linear-gradient(135deg,#02060b,#07111d,#0b1928);
 
     overflow:auto;
 }
 
-
-/* =====================================
-   LOGIN CARD
-===================================== */
-
 .login-container{
-
     width:100%;
     max-width:430px;
-
     padding:40px 32px;
 
     background:
@@ -74,7 +47,6 @@ body{
     );
 
     border:1px solid #40566d;
-
     border-radius:26px;
 
     box-shadow:
@@ -86,31 +58,20 @@ body{
     animation:cardIn .7s ease;
 }
 
-
 @keyframes cardIn{
-
     from{
         opacity:0;
         transform:translateY(25px) scale(.97);
     }
-
     to{
         opacity:1;
         transform:translateY(0) scale(1);
     }
-
 }
 
-
-/* =====================================
-   LOGO
-===================================== */
-
 .logo{
-
     width:78px;
     height:78px;
-
     margin:auto;
 
     display:flex;
@@ -118,783 +79,446 @@ body{
     align-items:center;
 
     border-radius:22px;
-
     border:1px solid #91a5b9;
 
     background:
-    linear-gradient(
-        145deg,
-        #182d43,
-        #070e16
-    );
+    linear-gradient(145deg,#182d43,#070e16);
 
-    box-shadow:
-    0 0 35px rgba(154,174,195,.12);
+    box-shadow:0 0 35px rgba(154,174,195,.12);
 
     font-size:27px;
-
     font-weight:900;
-
     letter-spacing:2px;
-
     color:#4da3ff;
 }
 
-
-/* =====================================
-   BRAND
-===================================== */
-
 .brand{
-
     text-align:center;
-
     margin-top:20px;
 
     font-size:24px;
-
     font-weight:900;
-
     letter-spacing:3px;
 
     color:#4da3ff;
 }
-
 
 .brand span{
     color:#aeb9c5;
 }
 
-
 .tagline{
-
     text-align:center;
-
     margin-top:8px;
 
     color:#708398;
-
     font-size:10px;
-
     letter-spacing:3px;
 }
 
-
-/* =====================================
-   WELCOME
-===================================== */
-
 .welcome{
-
     margin-top:34px;
-
     text-align:center;
 }
 
-
 .welcome h1{
-
     font-size:30px;
-
     font-weight:800;
-
     color:#edf3f8;
 }
 
-
 .welcome p{
-
     margin-top:9px;
-
     color:#8294a8;
-
     font-size:13px;
-
     line-height:1.6;
 }
 
-
-/* =====================================
-   LOGIN TABS
-===================================== */
-
 .login-tabs{
-
     margin-top:24px;
 
     display:grid;
-
-    grid-template-columns:
-    repeat(3,1fr);
-
+    grid-template-columns:repeat(3,1fr);
     gap:5px;
 
     padding:5px;
 
     border:1px solid #293f55;
-
     border-radius:11px;
 
     background:#050c14;
 }
 
-
 .tab{
-
     height:38px;
 
     border:none;
-
     border-radius:7px;
 
     background:transparent;
 
     color:#71869c;
-
     font-size:9px;
-
     font-weight:bold;
 
     cursor:pointer;
-
-    transition:.2s;
 }
-
-
-.tab:hover{
-
-    color:#dce5ed;
-
-}
-
 
 .tab.active{
-
     background:#173b5b;
-
     color:#4da3ff;
-
 }
 
-
-/* =====================================
-   FORM
-===================================== */
-
 form{
-
     margin-top:22px;
 }
 
-
 .input-group{
-
     margin-bottom:17px;
 }
 
-
 label{
-
     display:block;
-
     margin-bottom:8px;
 
     color:#aebdcb;
-
     font-size:11px;
-
     font-weight:600;
 }
 
-
 .input-box{
-
     position:relative;
 }
 
-
 .input-icon{
-
     position:absolute;
-
     left:15px;
-
     top:50%;
-
     transform:translateY(-50%);
 
     color:#8296aa;
-
     font-size:15px;
 
     pointer-events:none;
 }
 
-
 input{
-
     width:100%;
-
     height:52px;
 
     padding:0 50px 0 44px;
 
     border-radius:12px;
-
     border:1px solid #34495e;
 
     outline:none;
 
     background:#07111c;
-
     color:white;
 
     font-size:13px;
-
-    transition:.25s;
 }
 
-
 input::placeholder{
-
     color:#586b7e;
 }
 
-
 input:focus{
-
     border-color:#4da3ff;
 
     box-shadow:
     0 0 0 3px rgba(77,163,255,.08);
 }
 
-
-/* =====================================
-   PASSWORD EYE BUTTONS
-===================================== */
+/* PASSWORD */
 
 .password-input{
-
-    padding-right:75px;
+    padding-right:60px;
 }
 
-
 .password-eye{
-
     position:absolute;
 
-    right:10px;
-
+    right:8px;
     top:50%;
-
     transform:translateY(-50%);
 
-    width:52px;
-
+    width:45px;
     height:38px;
 
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    gap:4px;
-
     border:0;
-
     border-radius:8px;
 
     background:transparent;
 
-    color:#9aabba;
-
     cursor:pointer;
 
-    font-size:17px;
-}
+    font-size:18px;
 
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
 
 .password-eye:hover{
-
     background:#102235;
-
-    color:white;
 }
 
-
-/* =====================================
-   PASSWORD RULE
-===================================== */
-
 .password-rule{
-
     margin-top:7px;
 
     color:#62768b;
-
-    font-size:8px;
+    font-size:9px;
 }
-
 
 .password-rule span{
-
     color:#4da3ff;
-
 }
 
-
-/* =====================================
-   FORGOT
-===================================== */
-
 .forgot-row{
-
     display:flex;
-
     justify-content:flex-end;
 
     margin-top:-5px;
-
     margin-bottom:18px;
 }
 
-
 .forgot{
-
     color:#aebdcb;
-
     font-size:10px;
-
     cursor:pointer;
 }
 
-
-.forgot:hover{
-
-    color:white;
-
-}
-
-
-/* =====================================
-   MAIN BUTTON
-===================================== */
-
 .login-button{
-
     width:100%;
-
     height:53px;
 
     border:none;
-
     border-radius:12px;
 
     background:
-    linear-gradient(
-        135deg,
-        #4da3ff,
-        #aebdca
-    );
+    linear-gradient(135deg,#4da3ff,#aebdca);
 
     color:#07111c;
 
     font-size:12px;
-
     font-weight:900;
-
     letter-spacing:1.5px;
 
     cursor:pointer;
-
-    transition:.25s;
 }
-
-
-.login-button:hover{
-
-    transform:translateY(-2px);
-
-    background:#ffffff;
-}
-
 
 .login-button:disabled{
-
     opacity:.55;
-
     cursor:not-allowed;
-
-    transform:none;
 }
 
-
-/* =====================================
-   PHONE
-===================================== */
-
 .phone-section{
-
     display:none;
-
     margin-top:22px;
 }
 
-
 .phone-row{
-
     display:grid;
-
     grid-template-columns:90px 1fr;
-
     gap:8px;
 }
 
-
 .country-code{
-
     height:52px;
 
     border-radius:12px;
-
     border:1px solid #34495e;
 
     background:#07111c;
-
     color:#cbd7e2;
 
     padding:0 8px;
-
     outline:none;
-
-    font-size:12px;
 }
 
-
 .phone-input{
-
     padding:0 15px;
 }
 
-
 .otp-area{
-
     display:none;
-
     margin-top:15px;
 }
 
-
 .otp-button{
-
     width:100%;
-
     height:48px;
 
     border-radius:10px;
-
     border:1px solid #40566c;
 
     background:#0b1724;
-
     color:#dbe4ed;
 
     font-size:10px;
-
     font-weight:bold;
 
     cursor:pointer;
 }
 
-
-.otp-button:hover{
-
-    border-color:#4da3ff;
-
-    color:#4da3ff;
+.otp-button:disabled{
+    opacity:.55;
 }
-
 
 #recaptcha-container{
-
     margin-top:12px;
-
 }
 
-
-/* =====================================
-   GOOGLE
-===================================== */
-
 .google-section{
-
     display:none;
-
     margin-top:22px;
 }
 
-
 .google-button{
-
     width:100%;
-
     height:53px;
 
     border-radius:12px;
-
     border:1px solid #40566c;
 
     background:#0b1724;
-
     color:#dbe4ed;
 
     cursor:pointer;
 
     display:flex;
-
     justify-content:center;
-
     align-items:center;
-
     gap:12px;
 
     font-size:12px;
-
     font-weight:700;
-
-    transition:.25s;
 }
-
-
-.google-button:hover{
-
-    background:#102235;
-
-    border-color:#71869b;
-
-    transform:translateY(-1px);
-}
-
 
 .google-button:disabled{
-
     opacity:.55;
-
-    cursor:not-allowed;
-
 }
 
-
 .google-icon{
-
     width:21px;
-
     height:21px;
 
     border-radius:50%;
-
     background:white;
-
     color:#4285F4;
 
     display:flex;
-
     align-items:center;
-
     justify-content:center;
 
     font-size:13px;
-
     font-weight:bold;
 }
 
-
-/* =====================================
-   REGISTER
-===================================== */
-
 .register{
-
     text-align:center;
 
     margin-top:23px;
 
     color:#72859a;
-
     font-size:11px;
 }
 
-
 .register a{
-
     color:#d8e2ec;
-
     text-decoration:none;
-
     font-weight:bold;
-
     margin-left:5px;
 }
 
-
-.register a:hover{
-
-    text-decoration:underline;
-
-}
-
-
-/* =====================================
-   MESSAGE
-===================================== */
-
 .message{
-
     display:none;
 
     margin-top:15px;
-
     padding:11px;
 
     border-radius:9px;
 
-    font-size:9px;
-
+    font-size:10px;
     line-height:1.5;
 
     text-align:center;
 }
 
-
 .message.show{
-
     display:block;
-
 }
 
-
 .message.error{
-
     background:rgba(150,60,60,.10);
-
     border:1px solid #744c4c;
-
     color:#ffb1b1;
 }
 
-
 .message.success{
-
     background:rgba(70,130,180,.10);
-
     border:1px solid #466982;
-
     color:#9ed0ff;
 }
 
-
-/* =====================================
-   SECURITY
-===================================== */
-
 .security{
-
     margin-top:22px;
-
     padding:12px;
 
     border-radius:10px;
-
     background:rgba(120,145,170,.05);
-
     border:1px solid #1f3448;
 
     text-align:center;
 
     color:#71869c;
-
     font-size:9px;
-
     line-height:1.5;
 }
-
-
-/* =====================================
-   MOBILE
-===================================== */
 
 @media(max-width:480px){
 
     body{
-
         padding:10px;
-
     }
 
     .login-container{
-
         padding:32px 20px;
-
         border-radius:22px;
-
     }
 
     .brand{
-
         font-size:21px;
-
     }
 
     .welcome h1{
-
         font-size:27px;
-
     }
 
     .phone-row{
-
-        grid-template-columns:
-        82px 1fr;
-
+        grid-template-columns:82px 1fr;
     }
-
 }
 
 </style>
-
 </head>
-
 
 <body>
 
-
 <div class="login-container">
-
-
-    <!-- LOGO -->
 
     <div class="logo">
         FZ
     </div>
 
-
-    <!-- BRAND -->
-
     <div class="brand">
-
         FHAMAR<span>.ZAMOST</span>
-
     </div>
-
 
     <div class="tagline">
         PREMIUM DIGITAL PORTAL
     </div>
-
-
-    <!-- WELCOME -->
 
     <div class="welcome">
 
@@ -909,57 +533,43 @@ input:focus{
     </div>
 
 
-    <!-- =================================
-         LOGIN TABS
-    ================================== -->
+    <!-- LOGIN OPTIONS -->
 
     <div class="login-tabs">
 
-
         <button
-        type="button"
-        class="tab active"
-        id="emailTab"
-        onclick="showMode('email')">
+            type="button"
+            class="tab active"
+            id="emailTab">
 
             EMAIL
 
         </button>
 
-
         <button
-        type="button"
-        class="tab"
-        id="phoneTab"
-        onclick="showMode('phone')">
+            type="button"
+            class="tab"
+            id="phoneTab">
 
             MOBILE OTP
 
         </button>
 
-
         <button
-        type="button"
-        class="tab"
-        id="googleTab"
-        onclick="showMode('google')">
+            type="button"
+            class="tab"
+            id="googleTab">
 
             GOOGLE
 
         </button>
 
-
     </div>
 
 
-    <!-- =================================
-         EMAIL LOGIN
-    ================================== -->
+    <!-- EMAIL LOGIN -->
 
-    <form
-    id="emailForm"
-    onsubmit="emailLogin(event)">
-
+    <form id="emailForm">
 
         <div class="input-group">
 
@@ -967,72 +577,57 @@ input:focus{
                 EMAIL ADDRESS
             </label>
 
-
             <div class="input-box">
-
 
                 <span class="input-icon">
                     ✉
                 </span>
 
-
                 <input
-                id="email"
-                type="email"
-                autocomplete="email"
-                placeholder="Enter your email"
-                required>
-
+                    id="email"
+                    type="email"
+                    autocomplete="email"
+                    placeholder="Enter your email"
+                    required>
 
             </div>
 
         </div>
 
 
-
         <div class="input-group">
-
 
             <label>
                 PASSWORD
             </label>
 
-
             <div class="input-box">
-
 
                 <span class="input-icon">
                     ●
                 </span>
 
-
                 <input
-                id="password"
-                class="password-input"
-                type="password"
-                autocomplete="current-password"
-                minlength="6"
-                maxlength="6"
-                placeholder="Enter 6 character password"
-                required>
-
-
-                <!-- 🙈 / 👁️ -->
+                    id="password"
+                    class="password-input"
+                    type="password"
+                    autocomplete="current-password"
+                    minlength="6"
+                    maxlength="6"
+                    placeholder="Enter 6 character password"
+                    required>
 
                 <button
-                type="button"
-                id="passwordEye"
-                class="password-eye"
-                onclick="togglePassword()"
-                aria-label="Show password">
+                    type="button"
+                    id="passwordEye"
+                    class="password-eye"
+                    aria-label="Show password">
 
                     🙈
 
                 </button>
 
-
             </div>
-
 
             <div class="password-rule">
 
@@ -1041,16 +636,14 @@ input:focus{
 
             </div>
 
-
         </div>
-
 
 
         <div class="forgot-row">
 
             <a
-            class="forgot"
-            onclick="forgotPassword()">
+                class="forgot"
+                id="forgotPassword">
 
                 Forgot Password?
 
@@ -1059,43 +652,35 @@ input:focus{
         </div>
 
 
-
         <button
-        id="emailLoginButton"
-        type="submit"
-        class="login-button">
+            id="emailLoginButton"
+            type="submit"
+            class="login-button">
 
             SIGN IN
 
         </button>
 
-
     </form>
 
 
-    <!-- =================================
-         MOBILE OTP
-    ================================== -->
+    <!-- MOBILE OTP -->
 
     <div
-    id="phoneSection"
-    class="phone-section">
-
+        id="phoneSection"
+        class="phone-section">
 
         <div class="input-group">
-
 
             <label>
                 MOBILE NUMBER
             </label>
 
-
             <div class="phone-row">
 
-
                 <select
-                id="countryCode"
-                class="country-code">
+                    id="countryCode"
+                    class="country-code">
 
                     <option value="+91">
                         +91
@@ -1103,15 +688,13 @@ input:focus{
 
                 </select>
 
-
                 <input
-                id="phoneNumber"
-                class="phone-input"
-                type="tel"
-                inputmode="numeric"
-                maxlength="10"
-                placeholder="10 digit mobile">
-
+                    id="phoneNumber"
+                    class="phone-input"
+                    type="tel"
+                    inputmode="numeric"
+                    maxlength="10"
+                    placeholder="10 digit mobile">
 
             </div>
 
@@ -1119,10 +702,9 @@ input:focus{
 
 
         <button
-        id="sendOtpButton"
-        type="button"
-        class="otp-button"
-        onclick="sendOTP()">
+            id="sendOtpButton"
+            type="button"
+            class="otp-button">
 
             SEND OTP
 
@@ -1130,87 +712,69 @@ input:focus{
 
 
         <div
-        id="otpArea"
-        class="otp-area">
-
+            id="otpArea"
+            class="otp-area">
 
             <div class="input-group">
-
 
                 <label>
                     ENTER OTP
                 </label>
 
-
                 <input
-                id="otpCode"
-                type="text"
-                inputmode="numeric"
-                maxlength="6"
-                placeholder="Enter 6 digit OTP">
-
+                    id="otpCode"
+                    type="text"
+                    inputmode="numeric"
+                    maxlength="6"
+                    placeholder="Enter 6 digit OTP">
 
             </div>
 
 
             <button
-            id="verifyOtpButton"
-            type="button"
-            class="login-button"
-            onclick="verifyOTP()">
+                id="verifyOtpButton"
+                type="button"
+                class="login-button">
 
                 VERIFY OTP & CONTINUE
 
             </button>
-
 
         </div>
 
 
         <div id="recaptcha-container"></div>
 
-
     </div>
 
 
-    <!-- =================================
-         GOOGLE LOGIN
-    ================================== -->
+    <!-- GOOGLE LOGIN -->
 
     <div
-    id="googleSection"
-    class="google-section">
-
+        id="googleSection"
+        class="google-section">
 
         <button
-        type="button"
-        id="googleButton"
-        class="google-button"
-        onclick="googleLogin()">
-
+            type="button"
+            id="googleButton"
+            class="google-button">
 
             <span class="google-icon">
                 G
             </span>
 
-
             Continue with Google
 
-
         </button>
-
 
     </div>
 
 
-    <!-- =================================
-         REGISTER
-    ================================== -->
+    <!-- REGISTER -->
 
     <div class="register">
 
         Don't have an account?
-
 
         <a href="register.html">
             Create Account
@@ -1222,8 +786,8 @@ input:focus{
     <!-- MESSAGE -->
 
     <div
-    id="message"
-    class="message">
+        id="message"
+        class="message">
     </div>
 
 
@@ -1235,26 +799,18 @@ input:focus{
 
         <br>
 
-        Your account is protected by
-        Firebase Authentication.
+        Your account is protected by Firebase Authentication.
 
     </div>
-
 
 </div>
 
 
-
-<!-- =========================================
+<!-- ==================================================
      FIREBASE
-========================================= -->
+================================================== -->
 
 <script type="module">
-
-
-/* =========================================
-   FIREBASE SDK
-========================================= */
 
 import {
     initializeApp
@@ -1277,10 +833,9 @@ from
 "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
 
-
-/* =========================================
-   FIREBASE CONFIG
-========================================= */
+/* ==================================================
+   YOUR FIREBASE CONFIG
+================================================== */
 
 const firebaseConfig = {
 
@@ -1308,74 +863,54 @@ const firebaseConfig = {
 };
 
 
-
-/* =========================================
-   FIREBASE START
-========================================= */
+/* ==================================================
+   INITIALIZE FIREBASE
+================================================== */
 
 const app =
     initializeApp(firebaseConfig);
 
-
 const auth =
     getAuth(app);
-
 
 const googleProvider =
     new GoogleAuthProvider();
 
-
 googleProvider.setCustomParameters({
-
     prompt:"select_account"
-
 });
 
 
-let confirmationResult =
-    null;
+let confirmationResult = null;
+
+let recaptchaVerifier = null;
 
 
-let recaptchaVerifier =
-    null;
-
-
-
-/* =========================================
+/* ==================================================
    MESSAGE
-========================================= */
+================================================== */
 
-function showMessage(
-    text,
-    type="error"
-){
+function showMessage(text,type="error"){
 
-    const message =
-        document.getElementById(
-            "message"
-        );
+    const box =
+        document.getElementById("message");
 
+    box.textContent = text;
 
-    message.textContent =
-        text;
-
-
-    message.className =
+    box.className =
         "message show " + type;
 
 }
 
 
-
-/* =========================================
+/* ==================================================
    FIREBASE ERROR
-========================================= */
+================================================== */
 
-function firebaseError(error){
+function getFirebaseError(error){
 
     const code =
         error?.code || "";
-
 
     const errors = {
 
@@ -1395,97 +930,124 @@ function firebaseError(error){
         "Please enter a valid email address.",
 
         "auth/too-many-requests":
-        "Too many attempts. Please try again later.",
-
-        "auth/popup-blocked":
-        "Google Login was blocked by the browser.",
-
-        "auth/popup-closed-by-user":
-        "Google Login was cancelled.",
+        "Too many login attempts. Please try again later.",
 
         "auth/network-request-failed":
-        "Network problem. Please check your internet connection.",
+        "Network problem. Check your internet connection.",
 
         "auth/operation-not-allowed":
-        "This login method is not enabled in Firebase.",
+        "This authentication method is not enabled in Firebase.",
 
         "auth/invalid-phone-number":
-        "Please enter a valid mobile number.",
+        "Please enter a valid 10 digit mobile number.",
 
         "auth/quota-exceeded":
-        "SMS limit has been reached. Please try again later.",
+        "SMS limit reached. Please try again later.",
 
         "auth/code-expired":
         "OTP expired. Please request a new OTP.",
 
         "auth/invalid-verification-code":
-        "Invalid OTP. Please check the code."
+        "Invalid OTP. Please check the OTP.",
+
+        "auth/unauthorized-domain":
+        "This website domain is not authorized in Firebase."
 
     };
 
-
     return errors[code]
         ||
-        "Something went wrong. Please try again.";
+        "Login failed. Please try again.";
 
 }
 
 
-
-/* =========================================
-   HOME CONNECTION
-========================================= */
+/* ==================================================
+   HOME PAGE CONNECTION
+================================================== */
 
 function goHome(){
 
     /*
-    =========================================
-    HOME PAGE CONNECTION
-    =========================================
+       LOGIN SUCCESS
+             ↓
+       HOME.HTML
 
-    Login successful
-          ↓
-    home.html
-
-    Make sure home.html is in the
-    SAME FOLDER as index.html.
-
-    =========================================
+       index.html aur home.html
+       same folder mein rakhein.
     */
 
-    window.location.href =
-        "home.html";
+    window.location.assign("home.html");
 
 }
 
 
+/* ==================================================
+   PASSWORD SHOW / HIDE
+================================================== */
 
-/* =========================================
+document
+.getElementById("passwordEye")
+.addEventListener("click",function(){
+
+    const password =
+        document.getElementById("password");
+
+    const button = this;
+
+
+    if(password.type === "password"){
+
+        password.type = "text";
+
+        button.textContent = "👁️";
+
+        button.setAttribute(
+            "aria-label",
+            "Hide password"
+        );
+
+    }else{
+
+        password.type = "password";
+
+        button.textContent = "🙈";
+
+        button.setAttribute(
+            "aria-label",
+            "Show password"
+        );
+
+    }
+
+});
+
+
+/* ==================================================
    EMAIL LOGIN
-========================================= */
+================================================== */
 
-window.emailLogin =
-async function(event){
+document
+.getElementById("emailForm")
+.addEventListener("submit",async function(event){
 
     event.preventDefault();
 
 
     const email =
-        document.getElementById(
-            "email"
-        )
+        document.getElementById("email")
         .value
         .trim();
 
 
     const password =
-        document.getElementById(
-            "password"
-        )
+        document.getElementById("password")
         .value;
 
 
-    /* EXACTLY 6 CHARACTERS */
+    /*
+       EXACTLY 6 CHARACTERS
+    */
 
     if(password.length !== 6){
 
@@ -1504,16 +1066,13 @@ async function(event){
         );
 
 
-    button.disabled =
-        true;
-
+    button.disabled = true;
 
     button.textContent =
         "SIGNING IN...";
 
 
     try{
-
 
         await signInWithEmailAndPassword(
             auth,
@@ -1528,7 +1087,187 @@ async function(event){
         );
 
 
-        /*
-        =====================================
-        REDIRECT TO HOME
-        =====================
+        setTimeout(
+            goHome,
+            500
+        );
+
+    }
+
+    catch(error){
+
+        console.error(
+            "Firebase Email Login:",
+            error
+        );
+
+
+        showMessage(
+            getFirebaseError(error)
+        );
+
+    }
+
+    finally{
+
+        button.disabled = false;
+
+        button.textContent =
+            "SIGN IN";
+
+    }
+
+});
+
+
+/* ==================================================
+   FORGOT PASSWORD
+================================================== */
+
+document
+.getElementById("forgotPassword")
+.addEventListener("click",async function(){
+
+    const email =
+        document.getElementById("email")
+        .value
+        .trim();
+
+
+    if(!email){
+
+        showMessage(
+            "First enter your email address."
+        );
+
+        return;
+
+    }
+
+
+    try{
+
+        await sendPasswordResetEmail(
+            auth,
+            email
+        );
+
+
+        showMessage(
+            "Password reset email sent. Check your email.",
+            "success"
+        );
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+        showMessage(
+            getFirebaseError(error)
+        );
+
+    }
+
+});
+
+
+/* ==================================================
+   GOOGLE LOGIN
+================================================== */
+
+document
+.getElementById("googleButton")
+.addEventListener("click",async function(){
+
+    const button = this;
+
+    button.disabled = true;
+
+    button.innerHTML =
+        "Opening Google...";
+
+
+    try{
+
+        await signInWithRedirect(
+            auth,
+            googleProvider
+        );
+
+    }
+
+    catch(error){
+
+        console.error(
+            "Google Login:",
+            error
+        );
+
+        button.disabled = false;
+
+        button.innerHTML = `
+            <span class="google-icon">G</span>
+            Continue with Google
+        `;
+
+        showMessage(
+            getFirebaseError(error)
+        );
+
+    }
+
+});
+
+
+/* ==================================================
+   GOOGLE REDIRECT RESULT
+================================================== */
+
+getRedirectResult(auth)
+
+.then(function(result){
+
+    if(result && result.user){
+
+        showMessage(
+            "Google Login successful. Opening Home...",
+            "success"
+        );
+
+
+        setTimeout(
+            goHome,
+            500
+        );
+
+    }
+
+})
+
+.catch(function(error){
+
+    console.error(
+        "Google Redirect:",
+        error
+    );
+
+    showMessage(
+        getFirebaseError(error)
+    );
+
+});
+
+
+/* ==================================================
+   LOGIN MODE SWITCH
+================================================== */
+
+function showMode(mode){
+
+    const emailForm =
+        document.getElementById("emailForm");
+
+    const phoneSection =
+        do
