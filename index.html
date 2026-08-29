@@ -970,10 +970,12 @@ function switchTab(mode) {
     }
 }
 
-document.getElementById("emailTab").addEventListener("click", () => switchTab("email"));
-document.getElementById("phoneTab").addEventListener("click", () => switchTab("phone"));
-document.getElementById("googleTab").addEventListener("click", () => switchTab("google"));
-
+document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("emailTab").addEventListener("click", () => switchTab("email"));
+    document.getElementById("phoneTab").addEventListener("click", () => switchTab("phone"));
+    document.getElementById("googleTab").addEventListener("click", () => switchTab("google"));
+});
+      
 
 /* ==================================================
    PASSWORD SHOW / HIDE
