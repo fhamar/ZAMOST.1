@@ -1,1496 +1,348 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
-
-<title>FHAMAR ZAMOST | Home</title>
-
-<style>
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial,Helvetica,sans-serif;
-}
-
-body{
-    background:#050b12;
-    color:#ffffff;
-}
-
-a{
-    text-decoration:none;
-    color:inherit;
-}
-
-button,
-input,
-select{
-    font-family:inherit;
-}
-
-button{
-    cursor:pointer;
-}
-
-
-/* =========================
-   HEADER
-========================= */
-
-header{
-
-    height:75px;
-
-    padding:0 6%;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    background:#07111d;
-
-    border-bottom:1px solid #30465d;
-
-    position:sticky;
-
-    top:0;
-
-    z-index:1000;
-}
-
-
-.brand-area{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:12px;
-}
-
-
-.fz-logo{
-
-    width:48px;
-
-    height:48px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    border-radius:13px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #173957,
-            #07111d
-        );
-
-    border:1px solid #91a7bb;
-
-    box-shadow:
-        0 0 25px rgba(80,130,180,0.15);
-
-    font-size:18px;
-
-    font-weight:900;
-
-    letter-spacing:1px;
-
-    color:#4da3ff;
-}
-
-
-.brand{
-
-    font-size:19px;
-
-    font-weight:900;
-
-    letter-spacing:2px;
-}
-
-
-.brand .fhamar{
-    color:#4da3ff;
-}
-
-
-.brand .zamost{
-    color:#aeb9c5;
-}
-
-
-nav{
-
-    display:flex;
-
-    gap:24px;
-}
-
-
-nav a{
-
-    color:#9baabd;
-
-    font-size:12px;
-
-    transition:.2s;
-}
-
-
-nav a:hover{
-    color:#ffffff;
-}
-
-
-.profile-btn{
-
-    padding:10px 15px;
-
-    border:1px solid #65798e;
-
-    border-radius:9px;
-
-    color:#dbe4ed;
-
-    font-size:11px;
-
-    font-weight:bold;
-}
-
-
-/* =========================
-   HERO
-========================= */
-
-.hero{
-
-    min-height:650px;
-
-    padding:80px 7%;
-
-    display:grid;
-
-    grid-template-columns:1.1fr .9fr;
-
-    gap:50px;
-
-    align-items:center;
-
-    background:
-
-        radial-gradient(
-            circle at 85% 25%,
-            #173b60 0%,
-            transparent 35%
-        ),
-
-        linear-gradient(
-            135deg,
-            #050b12,
-            #091725,
-            #07111d
-        );
-}
-
-
-.eyebrow{
-
-    color:#7790a8;
-
-    font-size:10px;
-
-    font-weight:bold;
-
-    letter-spacing:3px;
-}
-
-
-.hero h1{
-
-    margin-top:20px;
-
-    font-size:
-        clamp(
-            45px,
-            7vw,
-            82px
-        );
-
-    line-height:.95;
-}
-
-
-.hero h1 .blue{
-    color:#4da3ff;
-}
-
-
-.hero h1 .silver{
-    color:#aeb9c5;
-}
-
-
-.hero p{
-
-    max-width:570px;
-
-    margin-top:25px;
-
-    color:#8fa1b4;
-
-    line-height:1.8;
-
-    font-size:14px;
-}
-
-
-.buttons{
-
-    display:flex;
-
-    gap:12px;
-
-    margin-top:30px;
-
-    flex-wrap:wrap;
-}
-
-
-.btn{
-
-    display:inline-flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    padding:13px 20px;
-
-    border-radius:10px;
-
-    font-size:11px;
-
-    font-weight:900;
-
-    letter-spacing:1px;
-}
-
-
-.btn-blue{
-
-    background:#4da3ff;
-
-    color:#04101c;
-
-    border:1px solid #4da3ff;
-}
-
-
-.btn-silver{
-
-    background:transparent;
-
-    color:#dce5ee;
-
-    border:1px solid #657b90;
-}
-
-
-/* =========================
-   HERO CARD
-========================= */
-
-.hero-card{
-
-    min-height:400px;
-
-    border-radius:28px;
-
-    border:1px solid #344d65;
-
-    background:
-
-        radial-gradient(
-            circle,
-            #173451,
-            #07111d 65%
-        );
-
-    display:flex;
-
-    flex-direction:column;
-
-    align-items:center;
-
-    justify-content:center;
-
-    box-shadow:
-        0 30px 80px rgba(0,0,0,.55);
-}
-
-
-.big-logo{
-
-    width:190px;
-
-    height:190px;
-
-    border-radius:48px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    border:1px solid #8096aa;
-
-    background:
-
-        linear-gradient(
-            145deg,
-            #173b5c,
-            #060c13
-        );
-
-    box-shadow:
-        0 0 70px rgba(70,150,230,.15);
-
-    font-size:52px;
-
-    font-weight:900;
-}
-
-
-.big-logo .fz-blue{
-    color:#4da3ff;
-}
-
-
-.hero-card .logo-text{
-
-    margin-top:25px;
-
-    letter-spacing:3px;
-
-    font-size:11px;
-
-    color:#aeb9c5;
-}
-
-
-/* =========================
-   QUICK ACCESS
-========================= */
-
-.section{
-
-    padding:75px 7%;
-}
-
-
-.section-title{
-
-    color:#71869c;
-
-    font-size:10px;
-
-    letter-spacing:3px;
-
-    font-weight:bold;
-}
-
-
-.section h2{
-
-    margin-top:10px;
-
-    font-size:38px;
-}
-
-
-.cards{
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(3,1fr);
-
-    gap:18px;
-
-    margin-top:30px;
-}
-
-
-.card{
-
-    padding:25px;
-
-    border-radius:16px;
-
-    border:1px solid #293f55;
-
-    background:#0a1725;
-
-    transition:.25s;
-}
-
-
-.card:hover{
-
-    transform:translateY(-4px);
-
-    border-color:#52728f;
-}
-
-
-.card-number{
-
-    color:#4d9fe8;
-
-    font-size:11px;
-}
-
-
-.card h3{
-    margin-top:28px;
-}
-
-
-.card p{
-
-    margin-top:10px;
-
-    color:#879aad;
-
-    font-size:13px;
-
-    line-height:1.7;
-}
-
-
-/* =========================
-   TEAM REGISTRATION
-========================= */
-
-.registration-section{
-
-    padding:80px 7%;
-
-    background:
-
-        linear-gradient(
-            135deg,
-            #081522,
-            #0b1b2b
-        );
-
-    border-top:1px solid #263d54;
-
-    border-bottom:1px solid #263d54;
-}
-
-
-.registration-container{
-
-    max-width:1100px;
-
-    margin:auto;
-
-    display:grid;
-
-    grid-template-columns:.9fr 1.1fr;
-
-    gap:45px;
-
-    align-items:center;
-}
-
-
-.registration-info h2{
-
-    margin-top:12px;
-
-    font-size:38px;
-
-    line-height:1.15;
-}
-
-
-.registration-info h2 span{
-    color:#4da3ff;
-}
-
-
-.registration-info p{
-
-    margin-top:18px;
-
-    color:#91a2b5;
-
-    line-height:1.8;
-
-    font-size:14px;
-}
-
-
-.registration-info ul{
-
-    margin-top:25px;
-
-    padding-left:20px;
-
-    color:#aebdca;
-
-    line-height:2;
-}
-
-
-.registration-info li::marker{
-    color:#4da3ff;
-}
-
-
-/* =========================
-   REGISTRATION FORM
-========================= */
-
-.registration-form{
-
-    padding:30px;
-
-    border-radius:20px;
-
-    background:#07111d;
-
-    border:1px solid #344d64;
-
-    box-shadow:
-        0 25px 60px rgba(0,0,0,.35);
-}
-
-
-.registration-form h3{
-
-    font-size:23px;
-
-    margin-bottom:8px;
-}
-
-
-.form-subtitle{
-
-    color:#71869b;
-
-    font-size:12px;
-
-    margin-bottom:25px;
-}
-
-
-.form-group{
-
-    margin-bottom:16px;
-}
-
-
-.form-group label{
-
-    display:block;
-
-    margin-bottom:7px;
-
-    color:#aebdca;
-
-    font-size:11px;
-
-    font-weight:bold;
-
-    letter-spacing:.5px;
-}
-
-
-.form-group input,
-.form-group select{
-
-    width:100%;
-
-    height:48px;
-
-    padding:0 13px;
-
-    border-radius:9px;
-
-    border:1px solid #30465c;
-
-    background:#050c14;
-
-    color:white;
-
-    outline:none;
-
-    font-size:13px;
-}
-
-
-.form-group input:focus,
-.form-group select:focus{
-
-    border-color:#4da3ff;
-
-    box-shadow:
-        0 0 0 3px rgba(77,163,255,.08);
-}
-
-
-.submit-btn{
-
-    width:100%;
-
-    height:50px;
-
-    border:none;
-
-    border-radius:10px;
-
-    background:#4da3ff;
-
-    color:#04101c;
-
-    font-size:12px;
-
-    font-weight:900;
-
-    letter-spacing:1px;
-
-    cursor:pointer;
-
-    margin-top:5px;
-}
-
-
-.submit-btn:hover{
-    background:#72b7ff;
-}
-
-
-.submit-btn:disabled{
-    opacity:.55;
-    cursor:not-allowed;
-}
-
-
-.form-status{
-
-    margin-top:15px;
-
-    padding:12px;
-
-    border-radius:8px;
-
-    background:#0c1c2b;
-
-    border:1px solid #30465c;
-
-    color:#91a7bb;
-
-    font-size:11px;
-
-    display:none;
-
-    line-height:1.6;
-
-    text-align:center;
-}
-
-
-.form-status.show{
-    display:block;
-}
-
-
-.form-status.success{
-
-    color:#9ed0ff;
-
-    border-color:#466982;
-
-    background:rgba(70,130,180,.12);
-}
-
-
-.form-status.error{
-
-    color:#ffb1b1;
-
-    border-color:#744c4c;
-
-    background:rgba(150,60,60,.12);
-}
-
-
-/* =========================
-   CONNECTION NOTE
-========================= */
-
-.connection-note{
-
-    margin-top:18px;
-
-    padding:12px;
-
-    border:1px dashed #3c5870;
-
-    border-radius:9px;
-
-    color:#70869c;
-
-    font-size:10px;
-
-    line-height:1.6;
-
-    text-align:center;
-}
-
-
-/* =========================
-   NETWORK
-========================= */
-
-.network{
-
-    margin:70px 7%;
-
-    padding:45px;
-
-    border-radius:20px;
-
-    background:#091522;
-
-    border:1px solid #293e53;
-}
-
-
-.network h2{
-
-    margin-top:12px;
-
-    font-size:32px;
-}
-
-
-.network p{
-
-    margin-top:12px;
-
-    color:#8799ad;
-
-    line-height:1.7;
-}
-
-
-.states{
-
-    display:flex;
-
-    gap:10px;
-
-    flex-wrap:wrap;
-
-    margin-top:25px;
-}
-
-
-.state{
-
-    padding:10px 15px;
-
-    border-radius:25px;
-
-    border:1px solid #354c63;
-
-    color:#b8c6d5;
-
-    font-size:11px;
-
-    transition:.2s;
-}
-
-
-.state:hover{
-
-    border-color:#4da3ff;
-
-    color:#4da3ff;
-}
-
-
-/* =========================
-   FOOTER
-========================= */
-
-footer{
-
-    padding:35px 7%;
-
-    background:#03080e;
-
-    border-top:1px solid #263b50;
-
-    display:flex;
-
-    justify-content:space-between;
-
-    gap:20px;
-
-    color:#7f91a4;
-
-    font-size:11px;
-
-    line-height:1.7;
-}
-
-
-/* =========================
-   MOBILE
-========================= */
-
-@media(max-width:850px){
-
-    header nav{
-        display:none;
-    }
-
-
-    .hero{
-
-        grid-template-columns:1fr;
-
-        padding:60px 6%;
-    }
-
-
-    .cards{
-
-        grid-template-columns:1fr;
-    }
-
-
-    .registration-container{
-
-        grid-template-columns:1fr;
-    }
-
-
-    .hero-card{
-
-        min-height:320px;
-    }
-
-}
-
-
-@media(max-width:500px){
-
-    .hero h1{
-        font-size:48px;
-    }
-
-
-    .section h2{
-        font-size:30px;
-    }
-
-
-    .registration-info h2{
-        font-size:30px;
-    }
-
-
-    .registration-form{
-        padding:22px;
-    }
-
-
-    .network{
-
-        margin:50px 5%;
-
-        padding:28px;
-    }
-
-
-    footer{
-        flex-direction:column;
-    }
-
-}
-
-</style>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FHAMAR.ZAMOST - Premium Platform</title>
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: #111827;
+            --border-color: #1f293d;
+            --accent-blue: #2563eb;
+            --text-main: #f3f4f6;
+            --text-sub: #9ca3af;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        /* Top Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background-color: rgba(11, 15, 25, 0.9);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-badge {
+            background: #1e293b;
+            border: 1px solid var(--border-color);
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .brand-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .btn-team {
+            background-color: var(--accent-blue);
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        /* 1. Single Line Quick Nav Bar (As per sketch) */
+        .top-quick-nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 1rem;
+            background-color: #0f172a;
+            border-bottom: 1px solid var(--border-color);
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        .nav-item-btn {
+            background: #1e293b;
+            color: var(--text-main);
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .nav-item-btn:hover {
+            background: var(--accent-blue);
+            border-color: var(--accent-blue);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 3rem 1rem;
+            background: radial-gradient(circle at center, #1e293b 0%, #0b0f19 70%);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 2rem;
+        }
+
+        .hero-tag {
+            color: var(--text-sub);
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .hero p {
+            color: var(--text-sub);
+            max-width: 600px;
+            margin: 0 auto 20px;
+            font-size: 0.95rem;
+        }
+
+        .hero-btns {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .btn-primary, .btn-secondary {
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .btn-primary { background: var(--accent-blue); color: white; }
+        .btn-secondary { background: transparent; border: 1px solid var(--border-color); color: white; }
+
+        /* 2. Promo / Ad Banner Section */
+        .ad-banner-section {
+            background: #161e2e;
+            border: 1px dashed var(--accent-blue);
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .ad-placeholder {
+            width: 100%;
+            max-height: 180px;
+            background: #0f172a;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-sub);
+            font-size: 0.9rem;
+            padding: 20px;
+        }
+
+        /* 3. Featured Products Showcase */
+        .section-title {
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title span {
+            color: var(--accent-blue);
+            font-size: 0.8rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .section-title h2 {
+            font-size: 1.5rem;
+            margin-top: 5px;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .product-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .product-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+
+        .product-card p {
+            color: var(--text-sub);
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+        }
+
+        .btn-view {
+            display: inline-block;
+            text-align: center;
+            padding: 8px;
+            background: #1e293b;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            border: 1px solid var(--border-color);
+        }
+
+        /* Team Section */
+        .team-box {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-sub);
+            font-size: 0.85rem;
+        }
+    </style>
 </head>
-
-
 <body>
 
-
-<!-- =========================
-     HEADER
-========================= -->
-
-<header>
-
-
-    <div class="brand-area">
-
-
-        <div class="fz-logo">
-            FZ
+    <!-- Main Header -->
+    <header>
+        <div class="logo-container">
+            <div class="logo-badge">FZ</div>
+            <div class="brand-name">FHAMAR.ZAMOST</div>
         </div>
+        <a href="team.html" class="btn-team">TEAM MEMBERS</a>
+    </header>
 
-
-        <div class="brand">
-
-            <span class="fhamar">
-                FHAMAR
-            </span>
-
-            <span class="zamost">
-                .ZAMOST
-            </span>
-
-        </div>
-
-
-    </div>
-
-
-    <nav>
-
-        <a href="home.html">
-            Home
-        </a>
-
-        <a href="catalog.html">
-            Catalog
-        </a>
-
-        <a href="profile.html">
-            My Portal
-        </a>
-
-        <a href="admin.html">
-            Administrative Desk
-        </a>
-
+    <!-- Top Quick Navigation Bar (1 Line Order: Home, Catalog, Cart, Track, Help, Profile) -->
+    <nav class="top-quick-nav">
+        <a href="home.html" class="nav-item-btn">Home</a>
+        <a href="#catalog" class="nav-item-btn">Catalog</a>
+        <a href="#cart" class="nav-item-btn">Cart</a>
+        <a href="#track" class="nav-item-btn">Track</a>
+        <a href="#help" class="nav-item-btn">Help</a>
+        <a href="#profile" class="nav-item-btn">Profile</a>
     </nav>
 
-
-    <a href="profile.html"
-       class="profile-btn">
-
-        MY PROFILE
-
-    </a>
-
-
-</header>
-
-
-
-<!-- =========================
-     HERO
-========================= -->
-
-<section class="hero">
-
-
-    <div>
-
-
-        <div class="eyebrow">
-            PREMIUM • BLUE • SILVER • DARK
-        </div>
-
-
-        <h1>
-
-            WELCOME TO
-
-            <br>
-
-            <span class="blue">
-                FHAMAR
-            </span>
-
-            <span class="silver">
-                .ZAMOST
-            </span>
-
-        </h1>
-
-
-        <p>
-
-            A modern digital platform connecting
-            products, members, state teams,
-            profiles and smart administration
-            in one place.
-
-        </p>
-
-
-        <div class="buttons">
-
-
-            <a href="catalog.html"
-               class="btn btn-blue">
-
-                EXPLORE COLLECTION
-
-            </a>
-
-
-            <a href="#team-registration"
-               class="btn btn-silver">
-
-                JOIN OUR TEAM
-
-            </a>
-
-
-        </div>
-
-
-    </div>
-
-
-
-    <div class="hero-card">
-
-
-        <div class="big-logo">
-
-            <span class="fz-blue">
-                FZ
-            </span>
-
-        </div>
-
-
-        <div class="logo-text">
-            FHAMAR.ZAMOST
-        </div>
-
-
-    </div>
-
-
-</section>
-
-
-
-<!-- =========================
-     QUICK ACCESS
-========================= -->
-
-<section class="section">
-
-
-    <div class="section-title">
-        QUICK ACCESS
-    </div>
-
-
-    <h2>
-        Everything in one portal
-    </h2>
-
-
-    <div class="cards">
-
-
-        <a href="catalog.html"
-           class="card">
-
-            <div class="card-number">
-                01
+    <div class="container">
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-tag">PREMIUM • BLUE • SILVER • DARK</div>
+            <h1>WELCOME TO FHAMAR.ZAMOST</h1>
+            <p>A modern digital platform connecting products, members, state teams, and profile management in one place.</p>
+            <div class="hero-btns">
+                <a href="#catalog" class="btn-primary">EXPLORE COLLECTION</a>
+                <a href="#team" class="btn-secondary">JOIN OUR TEAM</a>
+            </div>
+        </section>
+
+        <!-- Ad / Video Banner Section (Under Hero) -->
+        <section class="ad-banner-section">
+            <div class="ad-placeholder">
+                📢 [PROMO / ADVERTISEMENT BANNER]
+                <br>
+                Aap yahan apna Video Player (`<video>`) ya Photo Offer Banner (`<img>`) laga sakte hain.
+            </div>
+        </section>
+
+        <!-- Featured Products Showcase -->
+        <section class="products-section" id="catalog">
+            <div class="section-title">
+                <span>EXCLUSIVE LINE</span>
+                <h2>Featured Fragrances & Products</h2>
             </div>
 
-            <h3>
-                Product Catalog
-            </h3>
-
-            <p>
-                Browse products, categories
-                and available collections.
-            </p>
-
-        </a>
-
-
-
-        <a href="profile.html"
-           class="card">
-
-            <div class="card-number">
-                02
-            </div>
-
-            <h3>
-                My Profile + Voting
-            </h3>
-
-            <p>
-                Manage your profile,
-                membership and eligible voting.
-            </p>
-
-        </a>
-
-
-
-        <a href="admin.html"
-           class="card">
-
-            <div class="card-number">
-                03
-            </div>
-
-            <h3>
-                Administrative Desk
-            </h3>
-
-            <p>
-                Manage members, products,
-                voting and website operations.
-            </p>
-
-        </a>
-
-
-    </div>
-
-
-</section>
-
-
-
-<!-- =========================
-     TEAM REGISTRATION
-========================= -->
-
-<section
-    class="registration-section"
-    id="team-registration">
-
-
-    <div class="registration-container">
-
-
-        <!-- INFORMATION -->
-
-        <div class="registration-info">
-
-
-            <div class="eyebrow">
-                JOIN THE NETWORK
-            </div>
-
-
-            <h2>
-
-                Become a
-
-                <span>
-                    FHAMAR.ZAMOST
-                </span>
-
-                Team Member
-
-            </h2>
-
-
-            <p>
-
-                We are building a connected team
-                with members representing different
-                states across India.
-
-                If you are interested in joining
-                the FHAMAR.ZAMOST team, submit
-                your basic information through
-                this registration form.
-
-            </p>
-
-
-            <ul>
-
-                <li>
-                    State-wise Team Member
-                </li>
-
-                <li>
-                    Basic Registration
-                </li>
-
-                <li>
-                    Application Review
-                </li>
-
-                <li>
-                    Admin Approval
-                </li>
-
-                <li>
-                    Team Member Status Update
-                </li>
-
-            </ul>
-
-
-        </div>
-
-
-
-        <!-- REGISTRATION FORM -->
-
-        <div class="registration-form">
-
-
-            <h3>
-                Team Registration
-            </h3>
-
-
-            <p class="form-subtitle">
-
-                Enter your correct information
-                to submit your application.
-
-            </p>
-
-
-            <form id="teamForm">
-
-
-                <!-- NAME -->
-
-                <div class="form-group">
-
-                    <label>
-                        FULL NAME
-                    </label>
-
-                    <input
-                        type="text"
-                        id="memberName"
-                        placeholder="Enter your full name"
-                        maxlength="80"
-                        required>
-
+            <div class="product-grid">
+                <div class="product-card">
+                    <div>
+                        <h3>Luxury Perfumes</h3>
+                        <p>Premium long-lasting attar & fragrances curated for elegance.</p>
+                    </div>
+                    <a href="#" class="btn-view">VIEW LINE</a>
                 </div>
 
-
-
-                <!-- MOBILE -->
-
-                <div class="form-group">
-
-                    <label>
-                        MOBILE NUMBER
-                    </label>
-
-                    <input
-                        type="tel"
-                        id="memberMobile"
-                        placeholder="Enter 10-digit mobile number"
-                        inputmode="numeric"
-                        maxlength="10"
-                        required>
-
+                <div class="product-card">
+                    <div>
+                        <h3>Organic Essential Oils</h3>
+                        <p>Pure, high-grade natural extracts and scents for all uses.</p>
+                    </div>
+                    <a href="#" class="btn-view">VIEW LINE</a>
                 </div>
 
-
-
-                <!-- EMAIL -->
-
-                <div class="form-group">
-
-                    <label>
-                        EMAIL ADDRESS
-                    </label>
-
-                    <input
-                        type="email"
-                        id="memberEmail"
-                        placeholder="Enter your email"
-                        maxlength="120"
-                        required>
-
+                <div class="product-card">
+                    <div>
+                        <h3>Special Editions</h3>
+                        <p>Exclusive handcrafted perfume blends for unique identity.</p>
+                    </div>
+                    <a href="#" class="btn-view">VIEW LINE</a>
                 </div>
-
-
-
-                <!-- STATE -->
-
-                <div class="form-group">
-
-                    <label>
-                        SELECT STATE
-                    </label>
-
-                    <select
-                        id="memberState"
-                        required>
-
-                        <option value="">
-                            Select your state
-                        </option>
-
-                        <option value="Maharashtra">Maharashtra</option>
-                        <option value="Uttar Pradesh">Uttar Pradesh</option>
-                        <option value="West Bengal">West Bengal</option>
-                        <option value="Karnataka">Karnataka</option>
-                        <option value="Delhi">Delhi</option>
-                        <option value="Tamil Nadu">Tamil Nadu</option>
-                        <option value="Gujarat">Gujarat</option>
-                        <option value="Rajasthan">Rajasthan</option>
-                        <option value="Telangana">Telangana</option>
-                        <option value="Andhra Pradesh">Andhra Pradesh</option>
-                        <option value="Bihar">Bihar</option>
-                        <option value="Madhya Pradesh">Madhya Pradesh</option>
-                        <option value="Haryana">Haryana</option>
-                        <option value="Punjab">Punjab</option>
-                        <option value="Kerala">Kerala</option>
-                        <option value="Odisha">Odisha</option>
-                        <option value="Jharkhand">Jharkhand</option>
-                        <option value="Assam">Assam</option>
-                        <option value="Chhattisgarh">Chhattisgarh</option>
-                        <option value="Uttarakhand">Uttarakhand</option>
-
-                    </select>
-
-                </div>
-
-
-
-                <!-- SUBMIT -->
-
-                <button
-                    type="submit"
-                    id="submitTeamButton"
-                    class="submit-btn">
-
-                    SUBMIT TEAM APPLICATION
-
-                </button>
-
-
-            </form>
-
-
-
-            <!-- STATUS -->
-
-            <div
-                id="formStatus"
-                class="form-status">
             </div>
+        </section>
 
-
-
-            <!-- CONNECTION -->
-
-            <div class="connection-note">
-
-                <b>
-                    APPLICATION WORKFLOW
-                </b>
-
-                <br><br>
-
-                Application →
-                Firebase →
-                Admin Review →
-                Approval / Rejection →
-                Team Member Dashboard
-
-            </div>
-
-
-        </div>
-
+        <!-- Team Network Section -->
+        <section class="team-box" id="team">
+            <h2>Become a FHAMAR.ZAMOST Team Member</h2>
+            <p style="color: var(--text-sub); margin-top: 5px; font-size: 0.9rem;">
+                State-wise operations available across India. Register your interest via the team portal.
+            </p>
+        </section>
 
     </div>
 
+    <footer>
+        FHAMAR.ZAMOST © 2026. All rights reserved.
+    </footer>
 
-</section>
+</body>
+</html>
 
-
-
-<!-- =========================
-     STATE NETWORK
-========================= -->
-
-<section class="network">
-
-
-    <div class="eyebrow">
-        INDIA TEAM NETWORK
-    </div>
-
-
-    <h2>
-        State-wise Operations
-    </h2>
-
-
-    <p>
-
-        FHAMAR.ZAMOST can assign approved
-        Team Members to their selected
-        operating state.
-
-    </p>
-
-
-    <div class="states">
-
-
-        <div class="state">Maharashtra</div>
-        <div class="state">Uttar Pradesh</div>
-        <div class="state">West Bengal</div>
-        <div class="state">Karnataka</div>
-        <div class="state">Delhi</div>
-        <div class="state">Tamil Nadu</div>
-        <div class="state">Gujarat</div>
-        <div class="state">Rajasthan</div>
-        <div class="state">Telangana</div>
-        <div class="state">Andhra Pradesh</div>
-        <div class="state">Bihar</div>
-        <div class="state">Madhya Pradesh</div>
-        <div class="state">Haryana</div>
-        <div class="state">Punjab</div>
-        <div class="state">Kerala</div>
-        <div class="state">Odisha</div>
-        <div class="state">Jharkhand</div>
-        <div class="state">Assam</div>
-        <div class="state">Chhattisgarh</div>
-        <div class="state"
