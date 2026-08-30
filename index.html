@@ -2,1093 +2,729 @@
 <html lang="en">
 
 <head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
-
-<title>FHAMAR ZAMOST | Login</title>
-
-<style>
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial,Helvetica,sans-serif;
-}
-
-body{
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    padding:15px;
-    color:white;
-
-    background:
-    radial-gradient(circle at 20% 10%,#24415f 0%,transparent 35%),
-    radial-gradient(circle at 90% 90%,#182d43 0%,transparent 35%),
-    linear-gradient(135deg,#02060b,#07111d,#0b1928);
-
-    overflow:auto;
-}
-
-.login-container{
-    width:100%;
-    max-width:430px;
-    padding:40px 32px;
-
-    background:
-    linear-gradient(
-        145deg,
-        rgba(16,32,49,.97),
-        rgba(5,12,20,.98)
-    );
-
-    border:1px solid #40566d;
-    border-radius:26px;
-
-    box-shadow:
-    0 30px 90px rgba(0,0,0,.7),
-    inset 0 1px 0 rgba(255,255,255,.05);
-
-    backdrop-filter:blur(15px);
-
-    animation:cardIn .7s ease;
-}
-
-@keyframes cardIn{
-
-    from{
-        opacity:0;
-        transform:translateY(25px) scale(.97);
-    }
-
-    to{
-        opacity:1;
-        transform:translateY(0) scale(1);
-    }
-
-}
-
-.logo{
-    width:78px;
-    height:78px;
-    margin:auto;
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    border-radius:22px;
-    border:1px solid #91a5b9;
-
-    background:
-    linear-gradient(145deg,#182d43,#070e16);
-
-    box-shadow:0 0 35px rgba(154,174,195,.12);
-
-    font-size:27px;
-    font-weight:900;
-    letter-spacing:2px;
-    color:#4da3ff;
-}
-
-.brand{
-    text-align:center;
-    margin-top:20px;
-
-    font-size:24px;
-    font-weight:900;
-    letter-spacing:3px;
-
-    color:#4da3ff;
-}
-
-.brand span{
-    color:#aeb9c5;
-}
-
-.tagline{
-    text-align:center;
-    margin-top:8px;
-
-    color:#708398;
-    font-size:10px;
-    letter-spacing:3px;
-}
-
-.welcome{
-    margin-top:34px;
-    text-align:center;
-}
-
-.welcome h1{
-    font-size:30px;
-    font-weight:800;
-    color:#edf3f8;
-}
-
-.welcome p{
-    margin-top:9px;
-    color:#8294a8;
-    font-size:13px;
-    line-height:1.6;
-}
-
-.login-tabs{
-    margin-top:24px;
-
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:5px;
-
-    padding:5px;
-
-    border:1px solid #293f55;
-    border-radius:11px;
-
-    background:#050c14;
-}
-
-.tab{
-    height:38px;
-
-    border:none;
-    border-radius:7px;
-
-    background:transparent;
-
-    color:#71869c;
-    font-size:9px;
-    font-weight:bold;
-
-    cursor:pointer;
-}
-
-.tab.active{
-    background:#173b5b;
-    color:#4da3ff;
-}
-
-form{
-    margin-top:22px;
-}
-
-.input-group{
-    margin-bottom:17px;
-}
-
-label{
-    display:block;
-    margin-bottom:8px;
-
-    color:#aebdcb;
-    font-size:11px;
-    font-weight:600;
-}
-
-.input-box{
-    position:relative;
-}
-
-.input-icon{
-    position:absolute;
-    left:15px;
-    top:50%;
-    transform:translateY(-50%);
-
-    color:#8296aa;
-    font-size:15px;
-
-    pointer-events:none;
-}
-
-input{
-    width:100%;
-    height:52px;
-
-    padding:0 50px 0 44px;
-
-    border-radius:12px;
-    border:1px solid #34495e;
-
-    outline:none;
-
-    background:#07111c;
-    color:white;
-
-    font-size:13px;
-}
-
-input::placeholder{
-    color:#586b7e;
-}
-
-input:focus{
-    border-color:#4da3ff;
-
-    box-shadow:
-    0 0 0 3px rgba(77,163,255,.08);
-}
-
-.password-input{
-    padding-right:60px;
-}
-
-.password-eye{
-    position:absolute;
-
-    right:8px;
-    top:50%;
-    transform:translateY(-50%);
-
-    width:45px;
-    height:38px;
-
-    border:0;
-    border-radius:8px;
-
-    background:transparent;
-
-    cursor:pointer;
-
-    font-size:18px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-
-.password-eye:hover{
-    background:#102235;
-}
-
-.password-rule{
-    margin-top:7px;
-
-    color:#62768b;
-    font-size:9px;
-}
-
-.password-rule span{
-    color:#4da3ff;
-}
-
-.forgot-row{
-    display:flex;
-    justify-content:flex-end;
-
-    margin-top:-5px;
-    margin-bottom:18px;
-}
-
-.forgot{
-    color:#aebdcb;
-    font-size:10px;
-    cursor:pointer;
-}
-
-.login-button{
-    width:100%;
-    height:53px;
-
-    border:none;
-    border-radius:12px;
-
-    background:
-    linear-gradient(135deg,#4da3ff,#aebdca);
-
-    color:#07111c;
-
-    font-size:12px;
-    font-weight:900;
-    letter-spacing:1.5px;
-
-    cursor:pointer;
-}
-
-.login-button:disabled{
-    opacity:.55;
-    cursor:not-allowed;
-}
-
-.phone-section{
-    display:none;
-    margin-top:22px;
-}
-
-.phone-row{
-    display:grid;
-    grid-template-columns:90px 1fr;
-    gap:8px;
-}
-
-.country-code{
-    height:52px;
-
-    border-radius:12px;
-    border:1px solid #34495e;
-
-    background:#07111c;
-    color:#cbd7e2;
-
-    padding:0 8px;
-    outline:none;
-}
-
-.phone-input{
-    padding:0 15px;
-}
-
-.otp-area{
-    display:none;
-    margin-top:15px;
-}
-
-.otp-button{
-    width:100%;
-    height:48px;
-
-    border-radius:10px;
-    border:1px solid #40566c;
-
-    background:#0b1724;
-    color:#dbe4ed;
-
-    font-size:10px;
-    font-weight:bold;
-
-    cursor:pointer;
-}
-
-.otp-button:disabled{
-    opacity:.55;
-}
-
-#recaptcha-container{
-    margin-top:12px;
-}
-
-.google-section{
-    display:none;
-    margin-top:22px;
-}
-
-.google-button{
-    width:100%;
-    height:53px;
-
-    border-radius:12px;
-    border:1px solid #40566c;
-
-    background:#0b1724;
-    color:#dbe4ed;
-
-    cursor:pointer;
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    gap:12px;
-
-    font-size:12px;
-    font-weight:700;
-}
-
-.google-button:disabled{
-    opacity:.55;
-}
-
-.google-icon{
-    width:21px;
-    height:21px;
-
-    border-radius:50%;
-    background:white;
-    color:#4285F4;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    font-size:13px;
-    font-weight:bold;
-}
-
-.register{
-    text-align:center;
-
-    margin-top:23px;
-
-    color:#72859a;
-    font-size:11px;
-}
-
-.register a{
-    color:#d8e2ec;
-    text-decoration:none;
-    font-weight:bold;
-    margin-left:5px;
-}
-
-.message{
-    display:none;
-
-    margin-top:15px;
-    padding:11px;
-
-    border-radius:9px;
-
-    font-size:10px;
-    line-height:1.5;
-
-    text-align:center;
-}
-
-.message.show{
-    display:block;
-}
-
-.message.error{
-    background:rgba(150,60,60,.10);
-    border:1px solid #744c4c;
-    color:#ffb1b1;
-}
-
-.message.success{
-    background:rgba(70,130,180,.10);
-    border:1px solid #466982;
-    color:#9ed0ff;
-}
-
-.security{
-    margin-top:22px;
-    padding:12px;
-
-    border-radius:10px;
-    background:rgba(120,145,170,.05);
-    border:1px solid #1f3448;
-
-    text-align:center;
-
-    color:#71869c;
-    font-size:9px;
-    line-height:1.5;
-}
-
-@media(max-width:480px){
-
-    body{
-        padding:10px;
-    }
-
-    .login-container{
-        padding:32px 20px;
-        border-radius:22px;
-    }
-
-    .brand{
-        font-size:21px;
-    }
-
-    .welcome h1{
-        font-size:27px;
-    }
-
-    .phone-row{
-        grid-template-columns:82px 1fr;
-    }
-
-}
-
-</style>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FHAMAR ZAMOST | Login</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+            color: white;
+            background:
+                radial-gradient(circle at 20% 10%, #24415f 0%, transparent 35%),
+                radial-gradient(circle at 90% 90%, #182d43 0%, transparent 35%),
+                linear-gradient(135deg, #02060b, #07111d, #0b1928);
+            overflow: auto;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 430px;
+            padding: 40px 32px;
+            background: linear-gradient(145deg, rgba(16, 32, 49, .97), rgba(5, 12, 20, .98));
+            border: 1px solid #40566d;
+            border-radius: 26px;
+            box-shadow: 0 30px 90px rgba(0, 0, 0, .7), inset 0 1px 0 rgba(255, 255, 255, .05);
+            backdrop-filter: blur(15px);
+            animation: cardIn .7s ease;
+        }
+
+        @keyframes cardIn {
+            from {
+                opacity: 0;
+                transform: translateY(25px) scale(.97);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .logo {
+            width: 78px;
+            height: 78px;
+            margin: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 22px;
+            border: 1px solid #91a5b9;
+            background: linear-gradient(145deg, #182d43, #070e16);
+            box-shadow: 0 0 35px rgba(154, 174, 195, .12);
+            font-size: 27px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            color: #4da3ff;
+        }
+
+        .brand {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 24px;
+            font-weight: 900;
+            letter-spacing: 3px;
+            color: #4da3ff;
+        }
+
+        .brand span {
+            color: #aeb9c5;
+        }
+
+        .tagline {
+            text-align: center;
+            margin-top: 8px;
+            color: #708398;
+            font-size: 10px;
+            letter-spacing: 3px;
+        }
+
+        .welcome {
+            margin-top: 34px;
+            text-align: center;
+        }
+
+        .welcome h1 {
+            font-size: 30px;
+            font-weight: 800;
+            color: #edf3f8;
+        }
+
+        .welcome p {
+            margin-top: 9px;
+            color: #8294a8;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .login-tabs {
+            margin-top: 24px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 5px;
+            padding: 5px;
+            border: 1px solid #293f55;
+            border-radius: 11px;
+            background: #050c14;
+        }
+
+        .tab {
+            height: 38px;
+            border: none;
+            border-radius: 7px;
+            background: transparent;
+            color: #71869c;
+            font-size: 9px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .tab.active {
+            background: #173b5b;
+            color: #4da3ff;
+        }
+
+        form {
+            margin-top: 22px;
+        }
+
+        .input-group {
+            margin-bottom: 17px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #aebdcb;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .input-box {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #8296aa;
+            font-size: 15px;
+            pointer-events: none;
+        }
+
+        input {
+            width: 100%;
+            height: 52px;
+            padding: 0 50px 0 44px;
+            border-radius: 12px;
+            border: 1px solid #34495e;
+            outline: none;
+            background: #07111c;
+            color: white;
+            font-size: 13px;
+        }
+
+        input::placeholder {
+            color: #586b7e;
+        }
+
+        input:focus {
+            border-color: #4da3ff;
+            box-shadow: 0 0 0 3px rgba(77, 163, 255, .08);
+        }
+
+        .password-input {
+            padding-right: 60px;
+        }
+
+        .password-eye {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 45px;
+            height: 38px;
+            border: 0;
+            border-radius: 8px;
+            background: transparent;
+            cursor: pointer;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .password-eye:hover {
+            background: #102235;
+        }
+
+        .password-rule {
+            margin-top: 7px;
+            color: #62768b;
+            font-size: 9px;
+        }
+
+        .password-rule span {
+            color: #4da3ff;
+        }
+
+        .forgot-row {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: -5px;
+            margin-bottom: 18px;
+        }
+
+        .forgot {
+            color: #aebdcb;
+            font-size: 10px;
+            cursor: pointer;
+        }
+
+        .login-button {
+            width: 100%;
+            height: 53px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #4da3ff, #aebdca);
+            color: #07111c;
+            font-size: 12px;
+            font-weight: 900;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+        }
+
+        .login-button:disabled {
+            opacity: .55;
+            cursor: not-allowed;
+        }
+
+        .phone-section {
+            display: none;
+            margin-top: 22px;
+        }
+
+        .phone-row {
+            display: grid;
+            grid-template-columns: 90px 1fr;
+            gap: 8px;
+        }
+
+        .country-code {
+            height: 52px;
+            border-radius: 12px;
+            border: 1px solid #34495e;
+            background: #07111c;
+            color: #cbd7e2;
+            padding: 0 8px;
+            outline: none;
+        }
+
+        .phone-input {
+            padding: 0 15px;
+        }
+
+        .otp-area {
+            display: none;
+            margin-top: 15px;
+        }
+
+        .otp-button {
+            width: 100%;
+            height: 48px;
+            border-radius: 10px;
+            border: 1px solid #40566c;
+            background: #0b1724;
+            color: #dbe4ed;
+            font-size: 10px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .otp-button:disabled {
+            opacity: .55;
+        }
+
+        #recaptcha-container {
+            margin-top: 12px;
+        }
+
+        .google-section {
+            display: none;
+            margin-top: 22px;
+        }
+
+        .google-button {
+            width: 100%;
+            height: 53px;
+            border-radius: 12px;
+            border: 1px solid #40566c;
+            background: #0b1724;
+            color: #dbe4ed;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .google-button:disabled {
+            opacity: .55;
+        }
+
+        .google-icon {
+            width: 21px;
+            height: 21px;
+            border-radius: 50%;
+            background: white;
+            color: #4285F4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .register {
+            text-align: center;
+            margin-top: 23px;
+            color: #72859a;
+            font-size: 11px;
+        }
+
+        .register a {
+            color: #d8e2ec;
+            text-decoration: none;
+            font-weight: bold;
+            margin-left: 5px;
+        }
+
+        .message {
+            display: none;
+            margin-top: 15px;
+            padding: 11px;
+            border-radius: 9px;
+            font-size: 10px;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        .message.show {
+            display: block;
+        }
+
+        .message.error {
+            background: rgba(150, 60, 60, .10);
+            border: 1px solid #744c4c;
+            color: #ffb1b1;
+        }
+
+        .message.success {
+            background: rgba(70, 130, 180, .10);
+            border: 1px solid #466982;
+            color: #9ed0ff;
+        }
+
+        .security {
+            margin-top: 22px;
+            padding: 12px;
+            border-radius: 10px;
+            background: rgba(120, 145, 170, .05);
+            border: 1px solid #1f3448;
+            text-align: center;
+            color: #71869c;
+            font-size: 9px;
+            line-height: 1.5;
+        }
+
+        @media(max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            .login-container {
+                padding: 32px 20px;
+                border-radius: 22px;
+            }
+            .brand {
+                font-size: 21px;
+            }
+            .welcome h1 {
+                font-size: 27px;
+            }
+            .phone-row {
+                grid-template-columns: 82px 1fr;
+            }
+        }
+    </style>
 </head>
-
 
 <body>
 
+    <div class="login-container">
+        <div class="logo">FZ</div>
+        <div class="brand">FHAMAR<span>.ZAMOST</span></div>
+        <div class="tagline">PREMIUM DIGITAL PORTAL</div>
 
-<div class="login-container">
-
-
-    <div class="logo">
-        FZ
-    </div>
-
-
-    <div class="brand">
-        FHAMAR<span>.ZAMOST</span>
-    </div>
-
-
-    <div class="tagline">
-        PREMIUM DIGITAL PORTAL
-    </div>
-
-
-    <div class="welcome">
-
-        <h1>
-            Welcome Back
-        </h1>
-
-        <p>
-            Sign in securely to your FHAMAR ZAMOST portal.
-        </p>
-
-    </div>
-
-
-    <!-- LOGIN TABS -->
-
-    <div class="login-tabs">
-
-
-        <button
-            type="button"
-            class="tab active"
-            id="emailTab">
-
-            EMAIL
-
-        </button>
-
-
-        <button
-            type="button"
-            class="tab"
-            id="phoneTab">
-
-            MOBILE OTP
-
-        </button>
-
-
-        <button
-            type="button"
-            class="tab"
-            id="googleTab">
-
-            GOOGLE
-
-        </button>
-
-
-    </div>
-
-
-    <!-- EMAIL LOGIN -->
-
-    <form id="emailForm">
-
-
-        <div class="input-group">
-
-            <label>
-                EMAIL ADDRESS
-            </label>
-
-
-            <div class="input-box">
-
-                <span class="input-icon">
-                    ✉
-                </span>
-
-
-                <input
-                    id="email"
-                    type="email"
-                    autocomplete="email"
-                    placeholder="Enter your email"
-                    required>
-
-            </div>
-
+        <div class="welcome">
+            <h1>Welcome Back</h1>
+            <p>Sign in securely to your FHAMAR ZAMOST portal.</p>
         </div>
 
-
-        <div class="input-group">
-
-            <label>
-                PASSWORD
-            </label>
-
-
-            <div class="input-box">
-
-                <span class="input-icon">
-                    ●
-                </span>
-
-
-                <input
-                    id="password"
-                    class="password-input"
-                    type="password"
-                    autocomplete="current-password"
-                    minlength="6"
-                    maxlength="6"
-                    placeholder="Enter 6 character password"
-                    required>
-
-
-                <button
-                    type="button"
-                    id="passwordEye"
-                    class="password-eye"
-                    aria-label="Show password">
-
-                    🙈
-
-                </button>
-
-            </div>
-
-
-            <div class="password-rule">
-
-                Password must be exactly
-                <span>6 characters</span>.
-
-            </div>
-
+        <!-- LOGIN TABS -->
+        <div class="login-tabs">
+            <button type="button" class="tab active" id="emailTab">EMAIL</button>
+            <button type="button" class="tab" id="phoneTab">MOBILE OTP</button>
+            <button type="button" class="tab" id="googleTab">GOOGLE</button>
         </div>
 
-
-        <div class="forgot-row">
-
-            <a
-                class="forgot"
-                id="forgotPassword">
-
-                Forgot Password?
-
-            </a>
-
-        </div>
-
-
-        <button
-            id="emailLoginButton"
-            type="submit"
-            class="login-button">
-
-            SIGN IN
-
-        </button>
-
-
-    </form>
-
-
-    <!-- MOBILE OTP -->
-
-    <div
-        id="phoneSection"
-        class="phone-section">
-
-
-        <div class="input-group">
-
-            <label>
-                MOBILE NUMBER
-            </label>
-
-
-            <div class="phone-row">
-
-
-                <select
-                    id="countryCode"
-                    class="country-code">
-
-                    <option value="+91">
-                        +91
-                    </option>
-
-                </select>
-
-
-                <input
-                    id="phoneNumber"
-                    class="phone-input"
-                    type="tel"
-                    inputmode="numeric"
-                    maxlength="10"
-                    placeholder="10 digit mobile">
-
+        <!-- EMAIL LOGIN -->
+        <form id="emailForm">
+            <div class="input-group">
+                <label>EMAIL ADDRESS</label>
+                <div class="input-box">
+                    <span class="input-icon">✉</span>
+                    <input id="email" type="email" autocomplete="email" placeholder="Enter your email" required>
+                </div>
             </div>
-
-        </div>
-
-
-        <button
-            id="sendOtpButton"
-            type="button"
-            class="otp-button">
-
-            SEND OTP
-
-        </button>
-
-
-        <div
-            id="otpArea"
-            class="otp-area">
-
 
             <div class="input-group">
-
-                <label>
-                    ENTER OTP
-                </label>
-
-
-                <input
-                    id="otpCode"
-                    type="text"
-                    inputmode="numeric"
-                    maxlength="6"
-                    placeholder="Enter 6 digit OTP">
-
+                <label>PASSWORD</label>
+                <div class="input-box">
+                    <span class="input-icon">●</span>
+                    <input id="password" class="password-input" type="password" autocomplete="current-password" minlength="6" maxlength="6" placeholder="Enter 6 character password" required>
+                    <button type="button" id="passwordEye" class="password-eye" aria-label="Show password">🙈</button>
+                </div>
+                <div class="password-rule">
+                    Password must be exactly <span>6 characters</span>.
+                </div>
             </div>
 
+            <div class="forgot-row">
+                <a class="forgot" id="forgotPassword">Forgot Password?</a>
+            </div>
 
-            <button
-                id="verifyOtpButton"
-                type="button"
-                class="login-button">
+            <button id="emailLoginButton" type="submit" class="login-button">SIGN IN</button>
+        </form>
 
-                VERIFY OTP & CONTINUE
+        <!-- MOBILE OTP -->
+        <div id="phoneSection" class="phone-section">
+            <div class="input-group">
+                <label>MOBILE NUMBER</label>
+                <div class="phone-row">
+                    <select id="countryCode" class="country-code">
+                        <option value="+91">+91</option>
+                    </select>
+                    <input id="phoneNumber" class="phone-input" type="tel" inputmode="numeric" maxlength="10" placeholder="10 digit mobile">
+                </div>
+            </div>
 
-            </button>
+            <button id="sendOtpButton" type="button" class="otp-button">SEND OTP</button>
 
+            <div id="otpArea" class="otp-area">
+                <div class="input-group">
+                    <label>ENTER OTP</label>
+                    <input id="otpCode" type="text" inputmode="numeric" maxlength="6" placeholder="Enter 6 digit OTP">
+                </div>
+                <button id="verifyOtpButton" type="button" class="login-button">VERIFY OTP & CONTINUE</button>
+            </div>
 
+            <div id="recaptcha-container"></div>
         </div>
 
+        <!-- GOOGLE LOGIN -->
+        <div id="googleSection" class="google-section">
+            <button type="button" id="googleButton" class="google-button">
+                <span class="google-icon">G</span> Continue with Google
+            </button>
+        </div>
 
-        <div id="recaptcha-container"></div>
+        <!-- REGISTER LINK -->
+        <div class="register">
+            Don't have an account?
+            <a href="register.html">Create Account</a>
+        </div>
 
+        <!-- MESSAGE BOX -->
+        <div id="message" class="message"></div>
 
+        <!-- SECURITY -->
+        <div class="security">
+            🔒 Secure Login<br>Your account is protected by Firebase Authentication.
+        </div>
     </div>
 
-
-    <!-- GOOGLE LOGIN -->
-
-    <div
-        id="googleSection"
-        class="google-section">
-
-
-        <button
-            type="button"
-            id="googleButton"
-            class="google-button">
-
-
-            <span class="google-icon">
-                G
-            </span>
-
-
-            Continue with Google
-
-
-        </button>
-
-
-    </div>
-
-
-    <!-- REGISTER -->
-
-    <div class="register">
-
-        Don't have an account?
-
-
-        <a href="register.html">
-
-            Create Account
-
-        </a>
-
-    </div>
-
-
-    <!-- MESSAGE -->
-
-    <div
-        id="message"
-        class="message">
-    </div>
-
-
-    <!-- SECURITY -->
-
-    <div class="security">
-
-        🔒 Secure Login
-
-        <br>
-
-        Your account is protected by Firebase Authentication.
-
-    </div>
-
-
-</div>
-
-
-
-<!-- ==================================================
-     FIREBASE CONFIG & LOGIC
-================================================== -->
-
-<script type="module">
-
-import { auth } from "./firebase-config.js";
-
-import {
-    signInWithEmailAndPassword,
-    GoogleAuthProvider,
-    signInWithRedirect,
-    RecaptchaVerifier,
-    signInWithPhoneNumber,
-    sendPasswordResetEmail,
-    getRedirectResult
-} from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
-
-
-/* ==================================================
-   GOOGLE PROVIDER
-================================================== */
-
-const googleProvider = new GoogleAuthProvider();
-
-googleProvider.setCustomParameters({
-    prompt: "select_account"
-});
-
-let confirmationResult = null;
-let recaptchaVerifier = null;
-
-
-/* ==================================================
-   MESSAGE DISPLAY
-================================================== */
-
-function showMessage(text, type = "error") {
-    const box = document.getElementById("message");
-    box.textContent = text;
-    box.className = "message show " + type;
-}
-
-
-/* ==================================================
-   FIREBASE ERROR HANDLING
-================================================== */
-
-function getFirebaseError(error) {
-    const code = error?.code || "";
-
-    const errors = {
-        "auth/invalid-credential": "Email or password is incorrect.",
-        "auth/invalid-login-credentials": "Email or password is incorrect.",
-        "auth/user-not-found": "No account found with this email.",
-        "auth/wrong-password": "Incorrect password.",
-        "auth/invalid-email": "Please enter a valid email address.",
-        "auth/too-many-requests": "Too many login attempts. Please try again later.",
-        "auth/network-request-failed": "Network problem. Check your internet connection.",
-        "auth/operation-not-allowed": "This authentication method is not enabled in Firebase.",
-        "auth/invalid-phone-number": "Please enter a valid 10 digit mobile number.",
-        "auth/quota-exceeded": "SMS limit reached. Please try again later.",
-        "auth/code-expired": "OTP expired. Please request a new OTP.",
-        "auth/invalid-verification-code": "Invalid OTP. Please check the OTP.",
-        "auth/unauthorized-domain": "This website domain is not authorized in Firebase.",
-        "auth/popup-blocked": "Google login was blocked by the browser.",
-        "auth/popup-closed-by-user": "Google login was cancelled.",
-        "auth/account-exists-with-different-credential": "An account already exists with another sign-in method."
-    };
-
-    return errors[code] || "Login failed. Please try again.";
-}
-
-
-/* ==================================================
-   NAVIGATION
-================================================== */
-
-function goHome() {
-    window.location.assign("home.html");
-}
-
-
-/* ==================================================
-   TAB SWITCHING (FIXED BUTTON SWITCHING)
-================================================== */
-
-function switchTab(mode) {
-    const emailForm = document.getElementById("emailForm");
-    const phoneSection = document.getElementById("phoneSection");
-    const googleSection = document.getElementById("googleSection");
-
-    const emailTab = document.getElementById("emailTab");
-    const phoneTab = document.getElementById("phoneTab");
-    const googleTab = document.getElementById("googleTab");
-
-    // Hide all sections
-    emailForm.style.display = "none";
-    phoneSection.style.display = "none";
-    googleSection.style.display = "none";
-
-    // Remove active state
-    emailTab.classList.remove("active");
-    phoneTab.classList.remove("active");
-    googleTab.classList.remove("active");
-
-    // Clear previous messages
-    const msgBox = document.getElementById("message");
-    msgBox.className = "message";
-    msgBox.textContent = "";
-
-    // Show active section
-    if (mode === "email") {
-        emailForm.style.display = "block";
-        emailTab.classList.add("active");
-    } else if (mode === "phone") {
-        phoneSection.style.display = "block";
-        phoneTab.classList.add("active");
-    } else if (mode === "google") {
-        googleSection.style.display = "block";
-        googleTab.classList.add("active");
-    }
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-    document.getElementById("emailTab").addEventListener("click", () => switchTab("email"));
-    document.getElementById("phoneTab").addEventListener("click", () => switchTab("phone"));
-    document.getElementById("googleTab").addEventListener("click", () => switchTab("google"));
-});
-      
-
-/* ==================================================
-   PASSWORD SHOW / HIDE
-================================================== */
-
-document.getElementById("passwordEye").addEventListener("click", function () {
-    const password = document.getElementById("password");
-
-    if (password.type === "password") {
-        password.type = "text";
-        this.textContent = "👁️";
-    } else {
-        password.type = "password";
-        this.textContent = "🙈";
-    }
-});
-
-
-/* ==================================================
-   EMAIL LOGIN
-================================================== */
-
-document.getElementById("emailForm").addEventListener("submit", async function (event) {
-    event.preventDefault();
-
-    const email = document.getElementById("email").value.trim();
-    const password = document.getElementById("password").value;
-
-    if (password.length !== 6) {
-        showMessage("Password must be exactly 6 characters.");
-        return;
-    }
-
-    const button = document.getElementById("emailLoginButton");
-    button.disabled = true;
-    button.textContent = "SIGNING IN...";
-
-    try {
-        await signInWithEmailAndPassword(auth, email, password);
-        showMessage("Login successful. Opening Home...", "success");
-        setTimeout(goHome, 500);
-    } catch (error) {
-        console.error("Firebase Email Login:", error);
-        showMessage(getFirebaseError(error));
-    } finally {
-        button.disabled = false;
-        button.textContent = "SIGN IN";
-    }
-});
-
-
-/* ==================================================
-   FORGOT PASSWORD
-================================================== */
-
-document.getElementById("forgotPassword").addEventListener("click", async function () {
-    const email = document.getElementById("email").value.trim();
-
-    if (!email) {
-        showMessage("First enter your email address.");
-        return;
-    }
-
-    try {
-        await sendPasswordResetEmail(auth, email);
-        showMessage("Password reset email sent. Check your email.", "success");
-    } catch (error) {
-        console.error("Password Reset:", error);
-        showMessage(getFirebaseError(error));
-    }
-});
-
-
-/* ==================================================
-   GOOGLE LOGIN
-================================================== */
-
-document.getElementById("googleButton").addEventListener("click", async function () {
-    const button = this;
-    button.disabled = true;
-    button.innerHTML = "Opening Google...";
-
-    try {
-        await signInWithRedirect(auth, googleProvider);
-    } catch (error) {
-        console.error("Google Login:", error);
-        button.disabled = false;
-        button.innerHTML = `
-            <span class="google-icon">G</span>
-            Continue with Google
-        `;
-        showMessage(getFirebaseError(error));
-    }
-});
-
-
-/* ==================================================
-   GOOGLE REDIRECT RESULT
-================================================== */
-
-getRedirectResult(auth)
-    .then(function (result) {
-        if (result && result.user) {
-            showMessage("Google Login successful. Opening Home...", "success");
-            setTimeout(goHome, 500);
+    <!-- FIREBASE & LOGIC -->
+    <script type="module">
+        import { auth } from "./firebase-config.js";
+        import {
+            signInWithEmailAndPassword,
+            GoogleAuthProvider,
+            signInWithRedirect,
+            RecaptchaVerifier,
+            signInWithPhoneNumber,
+            sendPasswordResetEmail,
+            getRedirectResult
+        } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
+
+        const googleProvider = new GoogleAuthProvider();
+        googleProvider.setCustomParameters({ prompt: "select_account" });
+
+        let confirmationResult = null;
+        let recaptchaVerifier = null;
+
+        function showMessage(text, type = "error") {
+            const box = document.getElementById("message");
+            box.textContent = text;
+            box.className = "message show " + type;
         }
-    })
-    .catch(function (error) {
-        console.error("Google Redirect:", error);
-        showMessage(getFirebaseError(error));
-    });
 
+        function getFirebaseError(error) {
+            const code = error?.code || "";
+            const errors = {
+                "auth/invalid-credential": "Email or password is incorrect.",
+                "auth/invalid-login-credentials": "Email or password is incorrect.",
+                "auth/user-not-found": "No account found with this email.",
+                "auth/wrong-password": "Incorrect password.",
+                "auth/invalid-email": "Please enter a valid email address.",
+                "auth/too-many-requests": "Too many login attempts. Please try again later.",
+                "auth/network-request-failed": "Network problem. Check your internet connection.",
+                "auth/operation-not-allowed": "This authentication method is not enabled in Firebase.",
+                "auth/invalid-phone-number": "Please enter a valid 10 digit mobile number.",
+                "auth/quota-exceeded": "SMS limit reached. Please try again later.",
+                "auth/code-expired": "OTP expired. Please request a new OTP.",
+                "auth/invalid-verification-code": "Invalid OTP. Please check the OTP.",
+                "auth/unauthorized-domain": "This website domain is not authorized in Firebase.",
+                "auth/popup-blocked": "Google login was blocked by the browser.",
+                "auth/popup-closed-by-user": "Google login was cancelled.",
+                "auth/account-exists-with-different-credential": "An account already exists with another sign-in method."
+            };
+            return errors[code] || "Login failed. Please try again.";
+        }
 
-/* ==================================================
-   MOBILE OTP LOGIN (ADDED COMPLETE LOGIC)
-===========================================
+        function goHome() {
+            window.location.assign("home.html");
+        }
+
+        function switchTab(mode) {
+            const emailForm = document.getElementById("emailForm");
+            const phoneSection = document.getElementById("phoneSection");
+            const googleSection = document.getElementById("googleSection");
+
+            const emailTab = document.getElementById("emailTab");
+            const phoneTab = document.getElementById("phoneTab");
+            const googleTab = document.getElementById("googleTab");
+
+            emailForm.style.display = "none";
+            phoneSection.style.display = "none";
+            googleSection.style.display = "none";
+
+            emailTab.classList.remove("active");
+            phoneTab.classList.remove("active");
+            googleTab.classList.remove("active");
+
+            const msgBox = document.getElementById("message");
+            msgBox.className = "message";
+            msgBox.textContent = "";
+
+            if (mode === "email") {
+                emailForm.style.display = "block";
+                emailTab.classList.add("active");
+            } else if (mode === "phone") {
+                phoneSection.style.display = "block";
+                phoneTab.classList.add("active");
+            } else if (mode === "google") {
+                googleSection.style.display = "block";
+                googleTab.classList.add("active");
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            document.getElementById("emailTab").addEventListener("click", () => switchTab("email"));
+            document.getElementById("phoneTab").addEventListener("click", () => switchTab("phone"));
+            document.getElementById("googleTab").addEventListener("click", () => switchTab("google"));
+        });
+
+        document.getElementById("passwordEye").addEventListener("click", function () {
+            const password = document.getElementById("password");
+            if (password.type === "password") {
+                password.type = "text";
+                this.textContent = "👁️";
+            } else {
+                password.type = "password";
+                this.textContent = "🙈";
+            }
+        });
+
+        document.getElementById("emailForm").addEventListener("submit", async function (event) {
+            event.preventDefault();
+            const email = document.getElementById("email").value.trim();
+            const password = document.getElementById("password").value;
+
+            if (password.length !== 6) {
+                showMessage("Password must be exactly 6 characters.");
+                return;
+            }
+
+            const button = document.getElementById("emailLoginButton");
+            button.disabled = true;
+            button.textContent = "SIGNING IN...";
+
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+                showMessage("Login successful. Opening Home...", "success");
+                setTimeout(goHome, 500);
+            } catch (error) {
+                console.error("Firebase Email Login:", error);
+                showMessage(getFirebaseError(error));
+            } finally {
+                button.disabled = false;
+                button.textContent = "SIGN IN";
+            }
+        });
+
+        document.getElementById("forgotPassword").addEventListener("click", async function () {
+            const email = document.getElementById("email").value.trim();
+            if (!email) {
+                showMessage("First enter your email address.");
+                return;
+            }
+            try {
+                await sendPasswordResetEmail(auth, email);
+                showMessage("Password reset email sent. Check your email.", "success");
+            } catch (error) {
+                console.error("Password Reset:", error);
+                showMessage(getFirebaseError(error));
+            }
+        });
+
+        document.getElementById("googleButton").addEventListener("click", async function () {
+            const button = this;
+            button.disabled = true;
+            button.innerHTML = "Opening Google...";
+            try {
+                await signInWithRedirect(auth, googleProvider);
+            } catch (error) {
+                console.error("Google Login:", error);
+                button.disabled = false;
+                button.innerHTML = `<span class="google-icon">G</span> Continue with Google`;
+                showMessage(getFirebaseError(error));
+            }
+        });
+
+        getRedirectResult(auth)
+            .then(function (result) {
+                if (result && result.user) {
+                    showMessage("Google Login successful. Opening Home...", "success");
+                    setTimeout(goHome, 500);
+                }
+            })
+            .catch(function (error) {
+                console.error("Google Redirect:", error);
+                showMessage(getFirebaseError(error));
+            });
+
+        // OTP functionality logic
+        document.getElementById("sendOtpButton").addEventListener("click", async function () {
+            const phoneNum = document.getElementById("phoneNumber").value.trim();
+            const countryCode = document.getElementById("countryCode").value;
+            if (phoneNum.length !== 10) {
+                showMessage("Please enter a valid 10 digit mobile number.");
+                return;
+            }
+            const fullPhone = countryCode + phoneNum;
+            this.disabled = true;
+            this.textContent = "SENDING OTP...";
+
+            try {
+                if (!recaptchaVerifier) {
+                    recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', { 'size': 'invisible' });
+                }
+                confirmationResult = await signInWithPhoneNumber(auth, fullPhone, recaptchaVerifier);
+                document.getElementById("otpArea").style.display = "block";
+                showMessage("OTP sent successfully.", "success");
+            } catch (error) {
+                console.error("OTP Error:", error);
+                showMessage(getFirebaseError(error));
+                this.disabled = false;
+                this.textContent = "SEND OTP";
+            }
+        });
+
+        document.getElementById("verifyOtpButton").addEventListener("click", async function () {
+            const otp = document.getElementById("otpCode").value.trim();
+            if (otp.length !== 6) {
+                showMessage("Please enter 6 digit OTP.");
+                return;
+            }
+            this.disabled = true;
+            this.textContent = "VERIFYING...";
+
+            try {
+                await confirmationResult.confirm(otp);
+                showMessage("OTP Verified! Opening Home...", "success");
+                setTimeout(goHome, 500);
+            } catch (error) {
+                console.error("OTP Verification Error:", error);
+                showMessage(getFirebaseError(error));
+                this.disabled = false;
+                this.textContent = "VERIFY OTP & CONTINUE";
+            }
+        });
+    </script>
+</body>
+
+</html>
