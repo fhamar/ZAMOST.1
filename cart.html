@@ -3,19 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cart | FHAMAR ZAMOST</title>
+<title>Cart | FHAMAR.ZAMOST</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
-body{background:#050b12;color:#fff}
-a{text-decoration:none;color:inherit}
+body{background:#050b12;color:#fff}a{text-decoration:none;color:inherit}
 header{height:75px;padding:0 6%;display:flex;align-items:center;justify-content:space-between;background:#07111d;border-bottom:1px solid #30465d;position:sticky;top:0;z-index:1000}
 .brand-area{display:flex;align-items:center;gap:10px}.fz-logo{width:45px;height:45px;display:flex;align-items:center;justify-content:center;border-radius:12px;border:1px solid #8298ad;background:linear-gradient(145deg,#173b5b,#050b12);color:#4da3ff;font-size:17px;font-weight:900}.brand{font-size:18px;font-weight:900;letter-spacing:2px}.blue{color:#4da3ff}.silver{color:#aeb9c5}
 nav{display:flex;gap:22px}nav a{color:#91a2b5;font-size:12px}nav a:hover,nav .active{color:#4da3ff}.profile-btn{padding:9px 13px;border:1px solid #60768c;border-radius:8px;color:#dce5ee;font-size:11px}
 .page{max-width:1150px;margin:auto;padding:55px 6% 90px}.eyebrow{color:#71869c;font-size:10px;letter-spacing:3px;font-weight:bold}.page-title h1{margin-top:12px;font-size:45px}.page-title h1 span{color:#4da3ff}.page-title p{margin-top:10px;color:#8396a9;font-size:13px}
 .cart-layout{margin-top:35px;display:grid;grid-template-columns:1fr 350px;gap:22px}.cart-items{display:flex;flex-direction:column;gap:12px}
 .cart-item{padding:18px;background:#0a1725;border:1px solid #293e53;border-radius:15px;display:grid;grid-template-columns:85px 1fr auto;gap:17px;align-items:center}
-.item-image{width:85px;height:85px;border-radius:12px;background:linear-gradient(145deg,#17324d,#07111d);border:1px solid #3a526a;display:flex;align-items:center;justify-content:center;font-size:38px;overflow:hidden}
-.item-image img{width:100%;height:100%;object-fit:cover}
+.item-image{width:85px;height:85px;border-radius:12px;background:linear-gradient(145deg,#17324d,#07111d);border:1px solid #3a526a;display:flex;align-items:center;justify-content:center;font-size:38px;overflow:hidden}.item-image img{width:100%;height:100%;object-fit:cover}
 .item-category{color:#7189a0;font-size:9px;letter-spacing:1px}.item-name{margin-top:7px;font-size:15px;font-weight:bold}.item-price{margin-top:8px;color:#dce5ee;font-size:14px;font-weight:bold}
 .item-actions{display:flex;align-items:center;gap:10px}.quantity{display:flex;align-items:center;border:1px solid #3b536a;border-radius:8px;overflow:hidden;background:#07111d}.quantity button{width:32px;height:32px;border:none;background:#0e1d2d;color:#fff;cursor:pointer;font-size:16px}.quantity button:hover{background:#173957}.quantity span{width:32px;text-align:center;font-size:12px;font-weight:bold}.remove{border:none;background:transparent;color:#8193a6;cursor:pointer;font-size:10px}.remove:hover{color:#ff7d7d}
 .empty-cart{padding:70px 25px;text-align:center;border:1px dashed #3b5269;border-radius:16px;background:#08131f;display:none}.empty-cart-icon{font-size:45px}.empty-cart h2{margin-top:18px;font-size:24px}.empty-cart p{margin-top:8px;color:#7f92a6;font-size:12px}.shop-btn{display:inline-flex;margin-top:22px;padding:12px 18px;border-radius:9px;background:#4da3ff;color:#04101c;font-size:11px;font-weight:bold}
@@ -73,7 +71,7 @@ footer{padding:35px 7%;background:#03080e;border-top:1px solid #263b50;color:#7d
 <b>NEXT PAGE:</b> Checkout Page<br><br>
 Checkout पर customer delivery address, mobile number, order information और payment option select करेगा।
 <br><br>
-<b>STATUS:</b> Cart firebase-config.js aur LocalStorage ke saath jud chuki hai.
+<b>STATUS:</b> Cart LocalStorage के साथ काम करती है और logged-in customer के लिए Firebase Firestore sync support भी दिया गया है।
 </div>
 </main>
 
@@ -82,174 +80,166 @@ Checkout पर customer delivery address, mobile number, order information औ�
 <p>Premium Digital Collection</p>
 </footer>
 
-<!-- 1. Aapki firebase-config.js file ko yahan connect kar diya gaya hai -->
-<script type="module" src="firebase-config.js"></script>
-
-<!-- 2. Main Cart Logic & Firebase Sync -->
 <script type="module">
-import { db, auth } from "./firebase-config.js"; 
-import { doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { app } from "./firebase-config.js";
+import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
+const db = getFirestore(app);
+const auth = getAuth(app);
 const CART_KEY = "fz_cart";
 let cart = [];
 let currentUser = null;
 
-// Cart Load: LocalStorage + Firebase Firestore
-async function loadCart(){
- try {
-  const saved = JSON.parse(localStorage.getItem(CART_KEY) || "[]");
-  cart = Array.isArray(saved) ? saved : [];
- } catch(error) {
-  cart = [];
- }
-
- cart = cart.map(item => ({
-  id: item.id || item.productId || ("item-" + Math.random().toString(36).substr(2, 9)),
-  name: item.name || "Product",
-  price: Math.max(Number(item.price) || 0, 0),
-  icon: item.icon || "📦",
-  image: item.image || null,
-  quantity: Math.min(Math.max(parseInt(item.quantity) || 1, 1), 10)
- }));
-
- renderCart();
-}
-
-// Cart Save: LocalStorage + Firebase Firestore Sync
-async function saveCart(){
- localStorage.setItem(CART_KEY, JSON.stringify(cart));
- 
- if (currentUser && db) {
-  try {
-   const userCartRef = doc(db, "carts", currentUser.uid);
-   await setDoc(userCartRef, { items: cart, updatedAt: new Date() }, { merge: true });
-  } catch (e) {
-   console.log("Firebase sync error:", e);
-  }
- }
+function normalise(items){
+  return (Array.isArray(items) ? items : []).map(item => ({
+    id: item.id || item.productId || ("item-" + Math.random().toString(36).slice(2,11)),
+    name: item.name || "Product",
+    price: Math.min(Math.max(Number(item.price) || 0, 0), 1500),
+    icon: item.icon || "📦",
+    image: item.image || null,
+    quantity: Math.min(Math.max(parseInt(item.quantity) || 1, 1), 10)
+  }));
 }
 
 function money(value){
- return "₹" + Number(value || 0).toLocaleString("en-IN");
-}
-
-function renderCart(){
- const list = document.getElementById("cartItems");
- const empty = document.getElementById("emptyCart");
- const checkout = document.getElementById("checkoutButton");
-
- if(cart.length === 0){
-  list.innerHTML = "";
-  empty.style.display = "block";
-  checkout.classList.add("disabled");
-  checkout.removeAttribute("href");
-  updateSummary();
-  return;
- }
-
- empty.style.display = "none";
- checkout.classList.remove("disabled");
- checkout.setAttribute("href", "checkout.html");
-
- list.innerHTML = cart.map((item, index) => {
-  const mediaContent = item.image 
-   ? `<img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.name)}">`
-   : escapeHtml(item.icon);
-
-  return `
-  <div class="cart-item">
-   <div class="item-image">${mediaContent}</div>
-   <div>
-    <div class="item-category">FHAMAR.ZAMOST PRODUCT</div>
-    <div class="item-name">${escapeHtml(item.name)}</div>
-    <div class="item-price">${money(item.price)}</div>
-   </div>
-   <div class="item-actions">
-    <div class="quantity">
-     <button type="button" data-action="decrease" data-index="${index}">−</button>
-     <span>${item.quantity}</span>
-     <button type="button" data-action="increase" data-index="${index}">+</button>
-    </div>
-    <button type="button" class="remove" data-action="remove" data-index="${index}">REMOVE</button>
-   </div>
-  </div>`;
- }).join("");
-
- updateSummary();
+  return "₹" + Number(value || 0).toLocaleString("en-IN");
 }
 
 function escapeHtml(value){
- const div = document.createElement("div");
- div.textContent = String(value);
- return div.innerHTML;
+  const div = document.createElement("div");
+  div.textContent = String(value);
+  return div.innerHTML;
 }
 
-// Global Event Listener
-document.addEventListener("click", function(e) {
- const target = e.target;
- const action = target.getAttribute("data-action");
- const index = parseInt(target.getAttribute("data-index"));
+async function loadLocalCart(){
+  try {
+    const saved = JSON.parse(localStorage.getItem(CART_KEY) || "[]");
+    cart = normalise(saved);
+  } catch(e) {
+    cart = [];
+  }
+  renderCart();
+}
 
- if (action === "increase") changeQuantity(index, 1);
- else if (action === "decrease") changeQuantity(index, -1);
- else if (action === "remove") removeItem(index);
-});
+async function saveCart(){
+  cart = normalise(cart);
+  localStorage.setItem(CART_KEY, JSON.stringify(cart));
 
-function changeQuantity(index, change){
- if(!cart[index]) return;
- cart[index].quantity = Math.min(Math.max(cart[index].quantity + change, 1), 10);
- saveCart();
- renderCart();
+  if(currentUser){
+    try {
+      await setDoc(
+        doc(db, "carts", currentUser.uid),
+        { items: cart, updatedAt: new Date() },
+        { merge: true }
+      );
+    } catch(e) {
+      console.log("Firebase cart sync error:", e);
+    }
+  }
+}
+
+function renderCart(){
+  const list = document.getElementById("cartItems");
+  const empty = document.getElementById("emptyCart");
+  const checkout = document.getElementById("checkoutButton");
+
+  if(!cart.length){
+    list.innerHTML = "";
+    empty.style.display = "block";
+    checkout.classList.add("disabled");
+    checkout.removeAttribute("href");
+    updateSummary();
+    return;
+  }
+
+  empty.style.display = "none";
+  checkout.classList.remove("disabled");
+  checkout.href = "checkout.html";
+
+  list.innerHTML = cart.map((item,index) => {
+    const media = item.image
+      ? `<img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.name)}">`
+      : escapeHtml(item.icon);
+
+    return `
+      <div class="cart-item">
+        <div class="item-image">${media}</div>
+        <div>
+          <div class="item-category">FHAMAR.ZAMOST PRODUCT</div>
+          <div class="item-name">${escapeHtml(item.name)}</div>
+          <div class="item-price">${money(item.price)}</div>
+        </div>
+        <div class="item-actions">
+          <div class="quantity">
+            <button type="button" data-action="decrease" data-index="${index}">−</button>
+            <span>${item.quantity}</span>
+            <button type="button" data-action="increase" data-index="${index}">+</button>
+          </div>
+          <button type="button" class="remove" data-action="remove" data-index="${index}">REMOVE</button>
+        </div>
+      </div>`;
+  }).join("");
+
+  updateSummary();
+}
+
+function changeQuantity(index,change){
+  if(!cart[index]) return;
+  cart[index].quantity = Math.min(Math.max(cart[index].quantity + change,1),10);
+  saveCart();
+  renderCart();
 }
 
 function removeItem(index){
- if(!cart[index]) return;
- cart.splice(index, 1);
- saveCart();
- renderCart();
+  if(!cart[index]) return;
+  cart.splice(index,1);
+  saveCart();
+  renderCart();
 }
 
 function updateSummary(){
- let count = 0, total = 0;
- cart.forEach(item => {
-  count += item.quantity;
-  total += item.price * item.quantity;
- });
- document.getElementById("itemCount").textContent = count;
- document.getElementById("subtotal").textContent = money(total);
- document.getElementById("grandTotal").textContent = money(total);
+  let count = 0, total = 0;
+  cart.forEach(item => {
+    count += item.quantity;
+    total += item.price * item.quantity;
+  });
+  document.getElementById("itemCount").textContent = count;
+  document.getElementById("subtotal").textContent = money(total);
+  document.getElementById("grandTotal").textContent = money(total);
 }
 
-// Firebase Auth Tracker
-if (auth) {
- onAuthStateChanged(auth, async (user) => {
+document.addEventListener("click", e => {
+  const action = e.target.getAttribute("data-action");
+  const index = parseInt(e.target.getAttribute("data-index"));
+  if(action === "increase") changeQuantity(index,1);
+  if(action === "decrease") changeQuantity(index,-1);
+  if(action === "remove") removeItem(index);
+});
+
+onAuthStateChanged(auth, async user => {
   currentUser = user;
-  if (user && db) {
-   try {
-    const userCartRef = doc(db, "carts", user.uid);
-    const docSnap = await getDoc(userCartRef);
-    if (docSnap.exists() && docSnap.data().items) {
-     const cloudItems = docSnap.data().items;
-     if (cloudItems.length > 0) {
-      cart = cloudItems;
-      localStorage.setItem(CART_KEY, JSON.stringify(cart));
-     }
-    }
-   } catch (e) {
-    console.log("Error fetching cloud cart:", e);
-   }
-  }
-  loadCart();
- });
-} else {
- loadCart();
-}
 
-window.addEventListener("storage", function(event){
- if(event.key === CART_KEY){
-  loadCart();
- }
+  if(user){
+    try {
+      const snap = await getDoc(doc(db,"carts",user.uid));
+      if(snap.exists() && Array.isArray(snap.data().items)){
+        const cloudItems = normalise(snap.data().items);
+        if(cloudItems.length){
+          cart = cloudItems;
+          localStorage.setItem(CART_KEY,JSON.stringify(cart));
+        }
+      }
+    } catch(e) {
+      console.log("Firebase cloud cart read error:",e);
+    }
+  }
+
+  loadLocalCart();
+});
+
+window.addEventListener("storage", e => {
+  if(e.key === CART_KEY) loadLocalCart();
 });
 </script>
 </body>
