@@ -4,28 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Administrative Desk | FHAMAR ZAMOST</title>
-
-<!-- ADMIN PASSWORD GUARD SCRIPT -->
-<script>
-(function() {
-  const ADMIN_PASS = "FZ@Admin2026"; 
-  if (sessionStorage.getItem("fz_admin_auth") !== "true") {
-    const inputPass = prompt("🔐 Administrative Security\n\nPlease enter Admin Password to access Dashboard:");
-    if (inputPass === ADMIN_PASS) {
-      sessionStorage.setItem("fz_admin_auth", "true");
-    } else {
-      alert("❌ Incorrect Password! Access Denied.");
-      window.location.href = "home.html";
-    }
-  }
-})();
-</script>
-
+<!-- SECURITY NOTE:
+Do not store a real production admin password or Razorpay Key Secret in this HTML file.
+Use Firebase Authentication/custom claims for admin authorization and a secure backend
+environment variable for Razorpay Key Secret.
+-->
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
 body{background:#050b12;color:#fff}button,input,select,textarea{font-family:inherit}button{cursor:pointer}a{text-decoration:none;color:inherit}
 header{height:75px;padding:0 5%;display:flex;align-items:center;justify-content:space-between;background:#07111d;border-bottom:1px solid #30465d;position:sticky;top:0;z-index:1000}
-.brand-area{display:flex;align-items:center;gap:10px}.fz-logo{width:45px;height:45px;display:flex;align-items:center;justify-content:center;border-radius:12px;border:1px solid #8298ad;background:linear-gradient(145deg,#173b5b,#050b12);color:#4da3ff;font-size:17px;font-weight:900}.brand{font-size:18px;font-weight:900;letter-spacing:2px}.blue{color:#4da3ff}.silver{color:#aeb9c5}.header-right{display:flex;align-items:center;gap:12px}.admin-badge{padding:8px 12px;border:1px solid #3c5870;border-radius:20px;color:#4da3ff;font-size:9px;font-weight:bold}.home-btn{padding:9px 13px;border:1px solid #526b82;border-radius:8px;color:#dce5ed;font-size:10px}.logout-btn{padding:9px 13px;border:1px solid #823c3c;border-radius:8px;color:#ff9999;font-size:10px;background:#240c0c}
+.brand-area{display:flex;align-items:center;gap:10px}.fz-logo{width:45px;height:45px;display:flex;align-items:center;justify-content:center;border-radius:12px;border:1px solid #8298ad;background:linear-gradient(145deg,#173b5b,#050b12);color:#4da3ff;font-size:17px;font-weight:900}.brand{font-size:18px;font-weight:900;letter-spacing:2px}.blue{color:#4da3ff}.silver{color:#aeb9c5}.header-right{display:flex;align-items:center;gap:12px}.admin-badge{padding:8px 12px;border:1px solid #3c5870;border-radius:20px;color:#4da3ff;font-size:9px;font-weight:bold}.home-btn{padding:9px 13px;border:1px solid #526b82;border-radius:8px;color:#dce5ed;font-size:10px}
 .layout{display:grid;grid-template-columns:220px 1fr;min-height:calc(100vh - 75px)}.sidebar{padding:25px 15px;background:#06101a;border-right:1px solid #253a4e}.sidebar-title{color:#657b91;font-size:9px;letter-spacing:2px;margin:5px 10px 15px}.menu-btn{width:100%;padding:13px 12px;margin-bottom:7px;text-align:left;border:1px solid transparent;border-radius:9px;background:transparent;color:#8fa1b4;font-size:11px}.menu-btn:hover,.menu-btn.active{background:#102b42;border-color:#315574;color:#4da3ff}
 .content{padding:35px 4% 80px;overflow:hidden}.eyebrow{color:#71869c;font-size:9px;letter-spacing:3px;font-weight:bold}.page-title{margin-top:10px;font-size:35px}.page-title span{color:#4da3ff}.subtitle{margin-top:8px;color:#8194a8;font-size:12px;line-height:1.7}
 .stats{margin-top:25px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.stat{padding:18px;border:1px solid #293f55;border-radius:13px;background:#081421}.stat small{color:#71869c;font-size:9px}.stat strong{display:block;margin-top:8px;font-size:24px}.stat.blue-stat strong{color:#4da3ff}
@@ -38,6 +26,14 @@ header{height:75px;padding:0 5%;display:flex;align-items:center;justify-content:
 .order-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.order-card{padding:18px;border:1px solid #293f55;border-radius:13px;background:#07111d}.order-top{display:flex;justify-content:space-between;gap:10px}.order-id{color:#dce5ed;font-size:13px;font-weight:bold}.order-info{margin-top:15px;color:#8295a8;font-size:10px;line-height:1.8}.order-info strong{color:#dce5ed}.order-actions{margin-top:15px;display:flex;gap:7px;flex-wrap:wrap}.order-actions select{flex:1;min-width:150px}
 .delivery-box{margin-top:20px;padding:18px;border:1px solid #30475e;border-radius:12px;background:#07111d}.delivery-box h3{font-size:15px;margin-bottom:13px}.delivery-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .vote-result{margin-top:15px;padding:16px;border:1px solid #293f55;border-radius:11px;background:#07111d}.vote-row{margin-top:13px}.vote-row-top{display:flex;justify-content:space-between;color:#aebdca;font-size:10px}.vote-bar{height:7px;margin-top:7px;border-radius:10px;background:#142535;overflow:hidden}.vote-fill{height:100%;background:#4da3ff}
+
+.payment-warning{padding:14px;border:1px solid #665b2d;border-radius:10px;background:#211d0d;color:#d9c779;font-size:9px;line-height:1.8;margin-bottom:15px}
+.payment-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.payment-field.full{grid-column:1/-1}
+.payment-field label{display:block;margin-bottom:6px;color:#9aabbb;font-size:9px;font-weight:bold}
+.payment-field input,.payment-field select{width:100%;height:43px;padding:0 11px;border-radius:8px;border:1px solid #30465c;background:#050c14;color:white;outline:none;font-size:11px}
+.secret-note{margin-top:8px;color:#71869c;font-size:9px;line-height:1.7}
+@media(max-width:600px){.payment-grid{grid-template-columns:1fr}.payment-field.full{grid-column:auto}}
 .api-note{margin-top:20px;padding:15px;border:1px dashed #405a72;border-radius:10px;background:#06101a;color:#74899d;text-align:center;font-size:9px;line-height:1.7}
 .toast{position:fixed;right:20px;bottom:20px;z-index:3000;display:none;max-width:320px;padding:13px 16px;border:1px solid #3b566e;border-radius:10px;background:#0b1b2a;color:#dce5ed;font-size:10px;box-shadow:0 10px 30px rgba(0,0,0,.4)}
 .empty{padding:35px;text-align:center;color:#71869c;font-size:11px}
@@ -50,22 +46,17 @@ footer{padding:35px 7%;background:#03080e;border-top:1px solid #263b50;color:#7d
 
 <header>
 <div class="brand-area"><div class="fz-logo">FZ</div><div class="brand"><span class="blue">FHAMAR</span><span class="silver">.ZAMOST</span></div></div>
-<div class="header-right">
-  <div class="admin-badge">ADMINISTRATOR</div>
-  <a href="home.html" class="home-btn">HOME</a>
-  <button class="logout-btn" onclick="logoutAdmin()">LOGOUT</button>
-</div>
+<div class="header-right"><div class="admin-badge">ADMINISTRATOR</div><a href="home.html" class="home-btn">HOME</a></div>
 </header>
 
 <div class="layout">
 <aside class="sidebar">
 <div class="sidebar-title">ADMIN CONTROL</div>
-<button class="menu-btn active" id="btnOverview">📊 Overview</button>
-<button class="menu-btn" id="btnTeam">👥 Team Members</button>
-<a href="products.html" class="menu-btn">🛍️ Manage Products</a>
-<button class="menu-btn" id="btnOrders">📦 State Orders</button>
-<button class="menu-btn" id="btnDelivery">🚚 Delivery Partners</button>
-<button class="menu-btn" id="btnVoting">🗳️ Voting Results</button>
+<button class="menu-btn active" onclick="showSection('overview',this)">📊 Overview</button>
+<button class="menu-btn" onclick="showSection('team',this)">👥 Team Members</button>
+<button class="menu-btn" onclick="showSection('orders',this)">📦 State Orders</button>
+<button class="menu-btn" onclick="showSection('delivery',this)">🚚 Delivery Partners</button>
+<button class="menu-btn" onclick="showSection('voting',this)">🗳️ Voting Results</button>
 </aside>
 
 <main class="content">
@@ -83,38 +74,78 @@ footer{padding:35px 7%;background:#03080e;border-top:1px solid #263b50;color:#7d
 <section id="overview" class="section active">
 <div class="section-header"><h2>Dashboard Overview</h2></div>
 <div class="panel">
-<p style="color:#899caf;font-size:12px;line-height:1.8">Welcome to the FHAMAR.ZAMOST Administrative Desk.<br><br>Here you can manage Team Members, State-wise Orders, Packaging, Dispatch, Delivery Partners and Voting.</p>
-<div class="api-note"><b>ADMIN CONTROL SYSTEM</b><br><br>Protected with Password Session Authentication and connected directly with <b>firebase-config.js</b>.</div>
+<p style="color:#899caf;font-size:12px;line-height:1.8">Welcome to the FHAMAR.ZAMOST Administrative Desk.<br><br>यहाँ से Team Members, State-wise Orders, Packaging, Dispatch, Delivery Partners और Voting को manage कर सकते हैं।</p>
+<div class="api-note"><b>ADMIN CONTROL</b><br><br>यह frontend demo localStorage पर चलता है। Live website में Firebase Authentication + Firestore Security Rules लगाकर केवल authorized Admin को management access देना चाहिए।</div>
 </div>
 </section>
 
 <section id="team" class="section">
-<div class="section-header"><h2>Team Members</h2><button class="primary-btn" id="btnAddMember">+ ADD TEAM MEMBER</button></div>
+<div class="section-header"><h2>Team Members</h2><button class="primary-btn" onclick="openMemberModal()">+ ADD TEAM MEMBER</button></div>
 <div class="panel">
 <div class="toolbar">
-<input id="memberSearch" class="search" placeholder="Search member...">
-<select id="memberStateFilter" class="select"><option value="all">All States</option><option>Bihar</option><option>Delhi</option><option>Maharashtra</option><option>West Bengal</option><option>Karnataka</option></select>
-<select id="memberStatusFilter" class="select"><option value="all">All Status</option><option>Approved</option><option>Pending</option><option>Suspended</option></select>
+<input id="memberSearch" class="search" placeholder="Search member..." oninput="renderMembers()">
+<select id="memberStateFilter" class="select" onchange="renderMembers()"><option value="all">All States</option><option>Bihar</option><option>Delhi</option><option>Maharashtra</option><option>West Bengal</option><option>Karnataka</option></select>
+<select id="memberStatusFilter" class="select" onchange="renderMembers()"><option value="all">All Status</option><option>Approved</option><option>Pending</option><option>Suspended</option></select>
 </div>
 <div class="table-wrap"><table><thead><tr><th>MEMBER</th><th>MOBILE</th><th>STATE</th><th>STATUS</th><th>ACTION</th></tr></thead><tbody id="memberTable"></tbody></table></div>
 </div>
+<div class="api-note"><b>TEAM MEMBER DATABASE</b><br><br>Real system में registration, KYC/Aadhaar verification, Admin approval और state assignment Firebase/secure backend से control होंगे।</div>
 </section>
 
 <section id="orders" class="section">
-<div class="section-header"><h2>State-wise Orders</h2><select id="orderStateFilter" class="select"><option value="all">All States</option><option>Bihar</option><option>Delhi</option><option>Maharashtra</option><option>West Bengal</option><option>Karnataka</option></select></div>
+<div class="section-header"><h2>State-wise Orders</h2><select id="orderStateFilter" class="select" onchange="renderOrders()"><option value="all">All States</option><option>Bihar</option><option>Delhi</option><option>Maharashtra</option><option>West Bengal</option><option>Karnataka</option></select></div>
 <div id="orderGrid" class="order-grid"></div>
+<div class="api-note"><b>STATE ORDER CONNECTION</b><br><br>Team Member को live system में केवल उसके assigned state के orders दिखाने के लिए role + state based database rules लगेंगे।</div>
 </section>
 
 <section id="delivery" class="section">
-<div class="section-header"><h2>Delivery Partners</h2><button class="primary-btn" id="btnAddPartner">+ ADD PARTNER</button></div>
+<div class="section-header"><h2>Delivery Partners</h2><button class="primary-btn" onclick="addDeliveryPartner()">+ ADD PARTNER</button></div>
 <div class="panel"><div class="table-wrap"><table><thead><tr><th>PARTNER</th><th>SERVICE AREA</th><th>PHONE</th><th>STATUS</th><th>ACTION</th></tr></thead><tbody id="deliveryTable"></tbody></table></div></div>
-<div class="delivery-box"><h3>Delivery Assignment</h3><div class="delivery-grid"><select id="deliveryState" class="select"><option value="">Select State</option><option>Bihar</option><option>Delhi</option><option>Maharashtra</option><option>West Bengal</option><option>Karnataka</option></select><select id="deliveryPartner" class="select"></select></div><br><button class="primary-btn" id="btnAssignPartner">ASSIGN DELIVERY PARTNER</button></div>
+<div class="delivery-box"><h3>Delivery Assignment</h3><div class="delivery-grid"><select id="deliveryState" class="select"><option value="">Select State</option><option>Bihar</option><option>Delhi</option><option>Maharashtra</option><option>West Bengal</option><option>Karnataka</option></select><select id="deliveryPartner" class="select"></select></div><br><button class="primary-btn" onclick="assignPartner()">ASSIGN DELIVERY PARTNER</button></div>
+<div class="api-note"><b>DELIVERY CONNECTION</b><br><br>Live system में shipment/tracking API को backend से connect किया जाएगा। API secret keys को frontend HTML में नहीं रखना चाहिए।</div>
 </section>
 
 <section id="voting" class="section">
 <div class="section-header"><h2>Voting Results</h2></div>
 <div class="panel"><p style="color:#8396a9;font-size:11px">Current demo voting results:</p><div id="voteResults" class="vote-result"></div></div>
+<div class="api-note"><b>VOTING DATABASE</b><br><br>Live system में one-user-one-vote, eligibility और result calculations secure database rules से control होंगे।</div>
 </section>
+
+<section id="payments" class="section">
+<div class="section-header"><h2>Payment Settings</h2></div>
+<div class="panel">
+<div class="payment-warning">
+<b>RAZORPAY SECURITY</b><br><br>
+Frontend HTML में Razorpay Key Secret नहीं रखा जाएगा। यहाँ केवल public Key ID और payment mode जैसी non-secret settings रखी जा सकती हैं. Secret backend/server environment में ही रखना चाहिए.
+</div>
+
+<div class="payment-grid">
+<div class="payment-field">
+<label>RAZORPAY MODE</label>
+<select id="razorpayMode">
+<option value="test">Test Mode</option>
+<option value="live">Live Mode</option>
+</select>
+</div>
+
+<div class="payment-field">
+<label>RAZORPAY KEY ID (PUBLIC)</label>
+<input id="razorpayKeyId" placeholder="rzp_test_... or rzp_live_..." autocomplete="off">
+</div>
+
+<div class="payment-field full">
+<label>BACKEND PAYMENT ENDPOINT</label>
+<input id="razorpayBackendUrl" placeholder="Example: https://your-domain.com/api/create-order" autocomplete="off">
+<div class="secret-note">Key Secret इस HTML/Admin Dashboard में कभी paste न करें. Backend endpoint Razorpay order बनाएगा और payment signature verify करेगा.</div>
+</div>
+</div>
+
+<button class="primary-btn" id="btnSavePaymentSettings" style="margin-top:16px">SAVE PAYMENT SETTINGS</button>
+
+<div class="api-note" id="paymentStatus">Payment settings are not configured yet.</div>
+</div>
+</section>
+
 </main>
 </div>
 
@@ -122,32 +153,21 @@ footer{padding:35px 7%;background:#03080e;border-top:1px solid #263b50;color:#7d
 
 <div id="memberModal" class="modal">
 <div class="modal-box">
-<div class="modal-top"><h2 id="memberModalTitle">Add Team Member</h2><button class="close" id="btnCloseModal">×</button></div>
+<div class="modal-top"><h2 id="memberModalTitle">Add Team Member</h2><button class="close" onclick="closeMemberModal()">×</button></div>
 <div class="form-grid">
 <div class="form-group"><label>FULL NAME *</label><input id="memberName" maxlength="80" placeholder="Member name"></div>
 <div class="form-group"><label>MOBILE *</label><input id="memberMobile" inputmode="numeric" maxlength="10" placeholder="10 digit mobile"></div>
 <div class="form-group"><label>STATE *</label><select id="memberState"><option value="">Select State</option><option>Bihar</option><option>Delhi</option><option>Maharashtra</option><option>West Bengal</option><option>Karnataka</option></select></div>
 <div class="form-group"><label>STATUS</label><select id="memberStatus"><option>Pending</option><option>Approved</option><option>Suspended</option></select></div>
 </div>
-<button class="save-btn" id="btnSaveMember">SAVE TEAM MEMBER</button>
+<button class="save-btn" onclick="saveMember()">SAVE TEAM MEMBER</button>
 </div>
 </div>
 
 <div id="toast" class="toast"></div>
 
-<!-- Logout Script -->
 <script>
-function logoutAdmin() {
-  sessionStorage.removeItem("fz_admin_auth");
-  alert("Logged out successfully.");
-  window.location.href = "home.html";
-}
-</script>
-
-<!-- Firebase Modular Engine Sync -->
-<script type="module">
-import { db } from "./firebase-config.js";
-import { doc, setDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+"use strict";
 
 const TEAM_KEY="fz_admin_team";
 const PARTNER_KEY="fz_delivery_partners";
@@ -156,30 +176,30 @@ const VOTE_KEY="fz_demo_votes";
 let editingMemberId=null;
 
 const defaultTeam=[
-  {id:1,name:"Aman Kumar",mobile:"9876543210",state:"Bihar",status:"Approved"},
-  {id:2,name:"Delhi Team Member",mobile:"9876543211",state:"Delhi",status:"Approved"},
-  {id:3,name:"Mumbai Team Member",mobile:"9876543212",state:"Maharashtra",status:"Pending"},
-  {id:4,name:"Kolkata Team Member",mobile:"9876543213",state:"West Bengal",status:"Approved"}
+{id:1,name:"Aman Kumar",mobile:"0000000000",state:"Bihar",status:"Approved"},
+{id:2,name:"Delhi Team Member",mobile:"0000000000",state:"Delhi",status:"Approved"},
+{id:3,name:"Mumbai Team Member",mobile:"0000000000",state:"Maharashtra",status:"Pending"},
+{id:4,name:"Kolkata Team Member",mobile:"0000000000",state:"West Bengal",status:"Approved"}
 ];
 
 const defaultPartners=[
-  {id:1,name:"FZ Delivery Network",area:"Bihar",phone:"9800000001",status:"Active"},
-  {id:2,name:"Local Delivery Partner",area:"Delhi",phone:"9800000002",status:"Active"}
+{id:1,name:"FZ Delivery Network",area:"Bihar",phone:"0000000000",status:"Active"},
+{id:2,name:"Local Delivery Partner",area:"Delhi",phone:"0000000000",status:"Active"}
 ];
 
 const defaultOrders=[
-  {id:"FZ100001",customer:"Customer One",state:"Bihar",total:799,status:"Order Placed"},
-  {id:"FZ100002",customer:"Customer Two",state:"Delhi",total:1299,status:"Packaging"},
-  {id:"FZ100003",customer:"Customer Three",state:"Maharashtra",total:499,status:"Shipped"},
-  {id:"FZ100004",customer:"Customer Four",state:"West Bengal",total:999,status:"Out for Delivery"},
-  {id:"FZ100005",customer:"Customer Five",state:"Bihar",total:599,status:"Order Confirmed"}
+{id:"FZ100001",customer:"Customer One",state:"Bihar",total:799,status:"Order Placed"},
+{id:"FZ100002",customer:"Customer Two",state:"Delhi",total:1299,status:"Packaging"},
+{id:"FZ100003",customer:"Customer Three",state:"Maharashtra",total:499,status:"Shipped"},
+{id:"FZ100004",customer:"Customer Four",state:"West Bengal",total:999,status:"Out for Delivery"},
+{id:"FZ100005",customer:"Customer Five",state:"Bihar",total:599,status:"Order Confirmed"}
 ];
 
 const defaultVotes={
-  "New Product Collection":42,
-  "More State Team Members":28,
-  "Customer Support":18,
-  "New Website Features":12
+"New Product Collection":42,
+"More State Team Members":28,
+"Customer Support":18,
+"New Website Features":12
 };
 
 function load(key,fallback){
@@ -194,15 +214,15 @@ let partners=load(PARTNER_KEY,defaultPartners);
 let orders=load(ORDER_KEY,defaultOrders);
 let votes=load(VOTE_KEY,defaultVotes);
 
-function showSection(id, btn){
+function showSection(id,btn){
   document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
   document.getElementById(id).classList.add("active");
   document.querySelectorAll(".menu-btn").forEach(b=>b.classList.remove("active"));
-  if(btn) btn.classList.add("active");
-  if(id==="team") renderMembers();
-  if(id==="orders") renderOrders();
-  if(id==="delivery") renderPartners();
-  if(id==="voting") renderVotes();
+  if(btn)btn.classList.add("active");
+  if(id==="team")renderMembers();
+  if(id==="orders")renderOrders();
+  if(id==="delivery")renderPartners();
+  if(id==="voting")renderVotes();
   updateStats();
 }
 
@@ -228,20 +248,11 @@ function renderMembers(){
   const rows=team.filter(m=>(m.name+" "+m.mobile+" "+m.state).toLowerCase().includes(q)&&(state==="all"||m.state===state)&&(status==="all"||m.status===status));
   document.getElementById("memberTable").innerHTML=rows.length?rows.map(m=>`
 <tr><td><strong>${esc(m.name)}</strong></td><td>${esc(m.mobile)}</td><td>${esc(m.state)}</td><td><span class="status ${statusClass(m.status)}">${esc(m.status.toUpperCase())}</span></td><td>
-<button class="action btn-edit-mem" data-id="${m.id}">EDIT</button>
-${m.status==="Pending"?`<button class="action btn-app-mem" data-id="${m.id}">APPROVE</button>`:""}
-<button class="action btn-tog-mem" data-id="${m.id}">${m.status==="Suspended"?"ACTIVATE":"SUSPEND"}</button>
-<button class="action delete btn-del-mem" data-id="${m.id}">DELETE</button></td></tr>`).join(""):`<tr><td colspan="5" class="empty">No team members found.</td></tr>`;
-  
-  bindMemberButtons();
+<button class="action" onclick="editMember(${m.id})">EDIT</button>
+${m.status==="Pending"?`<button class="action" onclick="approveMember(${m.id})">APPROVE</button>`:""}
+<button class="action" onclick="toggleMember(${m.id})">${m.status==="Suspended"?"ACTIVATE":"SUSPEND"}</button>
+<button class="action delete" onclick="deleteMember(${m.id})">DELETE</button></td></tr>`).join(""):`<tr><td colspan="5" class="empty">No team members found.</td></tr>`;
   updateStats();
-}
-
-function bindMemberButtons(){
-  document.querySelectorAll(".btn-edit-mem").forEach(b => b.onclick = () => editMember(Number(b.dataset.id)));
-  document.querySelectorAll(".btn-app-mem").forEach(b => b.onclick = () => approveMember(Number(b.dataset.id)));
-  document.querySelectorAll(".btn-tog-mem").forEach(b => b.onclick = () => toggleMember(Number(b.dataset.id)));
-  document.querySelectorAll(".btn-del-mem").forEach(b => b.onclick = () => deleteMember(Number(b.dataset.id)));
 }
 
 function openMemberModal(){
@@ -253,7 +264,6 @@ function openMemberModal(){
   document.getElementById("memberModal").classList.add("show");
 }
 function closeMemberModal(){document.getElementById("memberModal").classList.remove("show")}
-
 function saveMember(){
   const name=document.getElementById("memberName").value.trim();
   const mobile=document.getElementById("memberMobile").value.trim();
@@ -262,25 +272,14 @@ function saveMember(){
   if(name.length<2)return toast("Please enter member name.");
   if(!/^\d{10}$/.test(mobile))return toast("Enter a valid 10 digit mobile number.");
   if(!state)return toast("Please select a state.");
-  
-  let targetMember;
   if(editingMemberId!==null){
     const m=team.find(x=>x.id===editingMemberId);
-    if(m){ Object.assign(m,{name,mobile,state,status}); targetMember = m; }
-  } else {
-    targetMember = {id:Date.now(),name,mobile,state,status};
-    team.unshift(targetMember);
-  }
-  
-   save(TEAM_KEY, team);
-  syncTeamToFirebase(targetMember);
-  closeMemberModal();
-  renderMembers();
-  toast("Team member saved.");
+    if(m)Object.assign(m,{name,mobile,state,status});
+  }else team.unshift({id:Date.now(),name,mobile,state,status});
+  save(TEAM_KEY,team);closeMemberModal();renderMembers();toast("Team member saved.");
 }
-
 function editMember(id){
-  const m=team.find(x=>x.id===id); if(!m) return;
+  const m=team.find(x=>x.id===id);if(!m)return;
   editingMemberId=id;
   document.getElementById("memberModalTitle").textContent="Edit Team Member";
   document.getElementById("memberName").value=m.name;
@@ -289,182 +288,135 @@ function editMember(id){
   document.getElementById("memberStatus").value=m.status;
   document.getElementById("memberModal").classList.add("show");
 }
-
-function approveMember(id){
-  const m=team.find(x=>x.id===id);
-  if(m){
-    m.status="Approved";
-    save(TEAM_KEY, team);
-    syncTeamToFirebase(m);
-    renderMembers();
-    toast("Member approved.");
-  }
-}
-
-function toggleMember(id){
-  const m=team.find(x=>x.id===id);
-  if(m){
-    m.status=m.status==="Suspended"?"Approved":"Suspended";
-    save(TEAM_KEY, team);
-    syncTeamToFirebase(m);
-    renderMembers();
-    toast("Status updated.");
-  }
-}
-
-function deleteMember(id){
-  if(!confirm("Are you sure you want to delete this member?")) return;
-  team=team.filter(x=>x.id!==id);
-  save(TEAM_KEY, team);
-  removeTeamFromFirebase(id);
-  renderMembers();
-  toast("Member deleted.");
-}
+function approveMember(id){const m=team.find(x=>x.id===id);if(m){m.status="Approved";save(TEAM_KEY,team);renderMembers();toast("Member approved.")}}
+function toggleMember(id){const m=team.find(x=>x.id===id);if(m){m.status=m.status==="Suspended"?"Approved":"Suspended";save(TEAM_KEY,team);renderMembers();toast("Member status updated.")}}
+function deleteMember(id){const m=team.find(x=>x.id===id);if(m&&!confirm(`Delete ${m.name}?`))return;team=team.filter(x=>x.id!==id);save(TEAM_KEY,team);renderMembers();toast("Member deleted.")}
 
 function renderOrders(){
-  const state = document.getElementById("orderStateFilter").value;
-  const filtered = orders.filter(o => state === "all" || o.state === state);
-  const grid = document.getElementById("orderGrid");
-
-  grid.innerHTML = filtered.length ? filtered.map(o => `
-    <div class="order-card">
-      <div class="order-top">
-        <span class="order-id">${esc(o.id)}</span>
-        <span class="status ${statusClass(o.status)}">${esc(o.status.toUpperCase())}</span>
-      </div>
-      <div class="order-info">
-        Customer: <strong>${esc(o.customer)}</strong><br>
-        State: <strong>${esc(o.state)}</strong><br>
-        Total: <strong>₹${Number(o.total).toLocaleString('en-IN')}</strong>
-      </div>
-      <div class="order-actions">
-        <select class="select sel-ord-status" data-id="${o.id}">
-          <option ${o.status==='Order Placed'?'selected':''}>Order Placed</option>
-          <option ${o.status==='Order Confirmed'?'selected':''}>Order Confirmed</option>
-          <option ${o.status==='Packaging'?'selected':''}>Packaging</option>
-          <option ${o.status==='Shipped'?'selected':''}>Shipped</option>
-          <option ${o.status==='Out for Delivery'?'selected':''}>Out for Delivery</option>
-          <option ${o.status==='Delivered'?'selected':''}>Delivered</option>
-        </select>
-      </div>
-    </div>
-  `).join("") : '<div class="empty">No orders found.</div>';
-
-  document.querySelectorAll(".sel-ord-status").forEach(s => {
-    s.onchange = (e) => updateOrderStatus(e.target.dataset.id, e.target.value);
-  });
+  const state=document.getElementById("orderStateFilter").value;
+  const list=orders.filter(o=>state==="all"||o.state===state);
+  document.getElementById("orderGrid").innerHTML=list.length?list.map(o=>`
+<div class="order-card"><div class="order-top"><div class="order-id">${esc(o.id)}</div><span class="status ${statusClass(o.status)}">${esc(o.status.toUpperCase())}</span></div>
+<div class="order-info">Customer: <strong>${esc(o.customer)}</strong><br>State: <strong>${esc(o.state)}</strong><br>Total: <strong>₹${Number(o.total).toLocaleString("en-IN")}</strong></div>
+<div class="order-actions"><select onchange="updateOrderStatus('${esc(o.id)}',this.value)">${["Order Placed","Order Confirmed","Packaging","Shipped","Out for Delivery","Delivered"].map(s=>`<option ${s===o.status?"selected":""}>${s}</option>`).join("")}</select><button class="action" onclick="viewOrder('${esc(o.id)}')">VIEW</button></div></div>`).join(""):`<div class="empty">No orders found.</div>`;
   updateStats();
 }
-
-function updateOrderStatus(id, newStatus){
-  const o = orders.find(x => x.id === id);
-  if(o){
-    o.status = newStatus;
-    save(ORDER_KEY, orders);
-    syncOrderToFirebase(o);
-    toast("Order status updated.");
-    updateStats();
-  }
-}
+function updateOrderStatus(id,status){const o=orders.find(x=>x.id===id);if(o){o.status=status;save(ORDER_KEY,orders);renderOrders();toast("Order status updated.")}}
+function viewOrder(id){const o=orders.find(x=>x.id===id);if(o)alert(`Order: ${o.id}\nCustomer: ${o.customer}\nState: ${o.state}\nTotal: ₹${o.total}\nStatus: ${o.status}`)}
 
 function renderPartners(){
-  const table = document.getElementById("deliveryTable");
-  table.innerHTML = partners.length ? partners.map(p => `
-    <tr>
-      <td><strong>${esc(p.name)}</strong></td>
-      <td>${esc(p.area)}</td>
-      <td>${esc(p.phone)}</td>
-      <td><span class="status approved">${esc(p.status.toUpperCase())}</span></td>
-      <td><button class="action delete btn-del-part" data-id="${p.id}">DELETE</button></td>
-    </tr>
-  `).join("") : '<tr><td colspan="5" class="empty">No delivery partners registered.</td></tr>';
-
-  document.querySelectorAll(".btn-del-part").forEach(b => {
-    b.onclick = () => {
-      partners = partners.filter(x => x.id !== Number(b.dataset.id));
-      save(PARTNER_KEY, partners);
-      renderPartners();
-      toast("Partner removed.");
-    };
-  });
-
-  const pSelect = document.getElementById("deliveryPartner");
-  pSelect.innerHTML = partners.map(p => `<option>${esc(p.name)} (${esc(p.area)})</option>`).join("");
+  document.getElementById("deliveryPartner").innerHTML='<option value="">Select Delivery Partner</option>'+partners.map(p=>`<option value="${p.id}">${esc(p.name)} — ${esc(p.area)}</option>`).join("");
+  document.getElementById("deliveryTable").innerHTML=partners.length?partners.map(p=>`
+<tr><td><strong>${esc(p.name)}</strong></td><td>${esc(p.area)}</td><td>${esc(p.phone)}</td><td><span class="status ${statusClass(p.status)}">${esc(p.status.toUpperCase())}</span></td><td>
+<button class="action" onclick="editPartner(${p.id})">EDIT</button><button class="action delete" onclick="deletePartner(${p.id})">DELETE</button></td></tr>`).join(""):`<tr><td colspan="5" class="empty">No delivery partners.</td></tr>`;
 }
-
 function addDeliveryPartner(){
-  const name = prompt("Enter Partner Name:");
-  if(!name) return;
-  const area = prompt("Enter Service Area (State):", "Bihar");
-  if(!area) return;
-  const phone = prompt("Enter Phone Number:");
-  if(!phone) return;
-
-  partners.push({id: Date.now(), name, area, phone, status: "Active"});
-  save(PARTNER_KEY, partners);
-  renderPartners();
-  toast("Partner added successfully.");
+  const name=prompt("Partner name:");if(!name)return;
+  const area=prompt("Service area/state:");if(!area)return;
+  const phone=prompt("Phone number:")||"";
+  partners.push({id:Date.now(),name:name.trim(),area:area.trim(),phone:phone.trim(),status:"Active"});
+  save(PARTNER_KEY,partners);renderPartners();toast("Delivery partner added.");
 }
-
+function editPartner(id){
+  const p=partners.find(x=>x.id===id);if(!p)return;
+  const name=prompt("Partner name:",p.name);if(!name)return;
+  const area=prompt("Service area:",p.area);if(!area)return;
+  const phone=prompt("Phone:",p.phone)||p.phone;
+  Object.assign(p,{name:name.trim(),area:area.trim(),phone:phone.trim()});save(PARTNER_KEY,partners);renderPartners();toast("Partner updated.");
+}
+function deletePartner(id){const p=partners.find(x=>x.id===id);if(p&&!confirm(`Delete ${p.name}?`))return;partners=partners.filter(x=>x.id!==id);save(PARTNER_KEY,partners);renderPartners();toast("Partner deleted.")}
 function assignPartner(){
-  const state = document.getElementById("deliveryState").value;
-  const partner = document.getElementById("deliveryPartner").value;
-  if(!state || !partner) return toast("Please select state and partner.");
-  toast(`Assigned ${partner} to ${state}`);
+  const state=document.getElementById("deliveryState").value;
+  const id=Number(document.getElementById("deliveryPartner").value);
+  const p=partners.find(x=>x.id===id);
+  if(!state||!p)return toast("Select state and delivery partner.");
+  toast(`${p.name} assigned to ${state}.`);
 }
 
 function renderVotes(){
-  const box = document.getElementById("voteResults");
-  const total = Object.values(votes).reduce((a, b) => a + b, 0);
-  box.innerHTML = Object.entries(votes).map(([title, val]) => {
-    const pct = total > 0 ? Math.round((val / total) * 100) : 0;
-    return `
-      <div class="vote-row">
-        <div class="vote-row-top"><span>${esc(title)}</span><span>${val} votes (${pct}%)</span></div>
-        <div class="vote-bar"><div class="vote-fill" style="width:${pct}%"></div></div>
-      </div>
-    `;
+  const total=Object.values(votes).reduce((a,b)=>a+Number(b),0)||1;
+  document.getElementById("voteResults").innerHTML=Object.entries(votes).map(([name,count])=>{
+    const pct=Math.round(Number(count)/total*100);
+    return `<div class="vote-row"><div class="vote-row-top"><span>${esc(name)}</span><strong>${pct}%</strong></div><div class="vote-bar"><div class="vote-fill" style="width:${pct}%"></div></div></div>`;
   }).join("");
 }
 
-// Firestore Syncing Functions
-async function syncTeamToFirebase(member){
-  if(!db) return;
-  try { await setDoc(doc(db, "team_members", String(member.id)), member); } catch(e){}
-}
-async function removeTeamFromFirebase(id){
-  if(!db) return;
-  try { await deleteDoc(doc(db, "team_members", String(id))); } catch(e){}
-}
-async function syncOrderToFirebase(order){
-  if(!db) return;
-  try { await setDoc(doc(db, "orders", String(order.id)), order); } catch(e){}
-}
+document.getElementById("memberModal").addEventListener("click",e=>{if(e.target.id==="memberModal")closeMemberModal()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeMemberModal()});
 
-// Event Listeners Binding
-document.getElementById("btnOverview").onclick = (e) => showSection("overview", e.target);
-document.getElementById("btnTeam").onclick = (e) => showSection("team", e.target);
-document.getElementById("btnOrders").onclick = (e) => showSection("orders", e.target);
-document.getElementById("btnDelivery").onclick = (e) => showSection("delivery", e.target);
-document.getElementById("btnVoting").onclick = (e) => showSection("voting", e.target);
-
-document.getElementById("btnAddMember").onclick = openMemberModal;
-document.getElementById("btnCloseModal").onclick = closeMemberModal;
-document.getElementById("btnSaveMember").onclick = saveMember;
-document.getElementById("btnAddPartner").onclick = addDeliveryPartner;
-document.getElementById("btnAssignPartner").onclick = assignPartner;
-
-document.getElementById("memberSearch").oninput = renderMembers;
-document.getElementById("memberStateFilter").onchange = renderMembers;
-document.getElementById("memberStatusFilter").onchange = renderMembers;
-document.getElementById("orderStateFilter").onchange = renderOrders;
-
-// Initial Application Render
-renderMembers();
-renderOrders();
-renderPartners();
-renderVotes();
-updateStats();
+renderMembers();renderOrders();renderPartners();renderVotes();updateStats();
 </script>
+
+<script>
+(function(){
+  const PAYMENT_KEY = "fz_payment_settings";
+
+  function loadPaymentSettings(){
+    let data = {};
+    try{ data = JSON.parse(localStorage.getItem(PAYMENT_KEY) || "{}"); }catch(e){}
+
+    const mode = document.getElementById("razorpayMode");
+    const keyId = document.getElementById("razorpayKeyId");
+    const backend = document.getElementById("razorpayBackendUrl");
+
+    if(mode) mode.value = data.mode === "live" ? "live" : "test";
+    if(keyId) keyId.value = data.keyId || "";
+    if(backend) backend.value = data.backendUrl || "";
+
+    updatePaymentStatus();
+  }
+
+  function updatePaymentStatus(){
+    const status = document.getElementById("paymentStatus");
+    if(!status) return;
+
+    let data = {};
+    try{ data = JSON.parse(localStorage.getItem(PAYMENT_KEY) || "{}"); }catch(e){}
+
+    if(data.keyId && data.backendUrl){
+      status.innerHTML = "<b>PAYMENT CONFIG SAVED</b><br><br>Mode: " +
+        (data.mode === "live" ? "LIVE" : "TEST") +
+        "<br>Public Key ID configured • Backend endpoint configured";
+    }else{
+      status.textContent = "Payment settings are not configured yet.";
+    }
+  }
+
+  window.savePaymentSettings = function(){
+    const mode = document.getElementById("razorpayMode").value;
+    const keyId = document.getElementById("razorpayKeyId").value.trim();
+    const backendUrl = document.getElementById("razorpayBackendUrl").value.trim();
+
+    if(keyId && !/^rzp_(test|live)_/i.test(keyId)){
+      alert("Razorpay Key ID format check karein. Test key usually rzp_test_ aur live key rzp_live_ se start hoti hai.");
+      return;
+    }
+
+    const data = { mode, keyId, backendUrl };
+    localStorage.setItem(PAYMENT_KEY, JSON.stringify(data));
+    updatePaymentStatus();
+    alert("Non-secret payment settings saved.");
+  };
+
+  document.addEventListener("DOMContentLoaded", function(){
+    const paymentBtn = document.getElementById("btnPayments");
+    if(paymentBtn){
+      paymentBtn.addEventListener("click", function(){
+        document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
+        document.getElementById("payments").classList.add("active");
+        document.querySelectorAll(".menu-btn").forEach(b => b.classList.remove("active"));
+        paymentBtn.classList.add("active");
+        loadPaymentSettings();
+      });
+    }
+
+    const saveBtn = document.getElementById("btnSavePaymentSettings");
+    if(saveBtn) saveBtn.addEventListener("click", savePaymentSettings);
+
+    loadPaymentSettings();
+  });
+})();
+</script>
+
 </body>
 </html>
