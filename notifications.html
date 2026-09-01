@@ -26,7 +26,7 @@ footer{padding:35px 7%;background:#03080e;border-top:1px solid #263b50;color:#7d
 
 <header>
 <div class="brand-area"><div class="fz-logo">FZ</div><div class="brand"><span class="blue">FHAMAR</span><span class="silver">.ZAMOST</span></div></div>
-<div class="header-right"><div class="role-badge" id="roleDisplay">GUEST USER</div><a href="profile.html" class="portal-btn">MY PORTAL</a></div>
+<div class="header-right"><div class="role-badge">NOTIFICATION CENTER</div><a href="profile.html" class="portal-btn">MY PORTAL</a></div>
 </header>
 
 <main class="page">
@@ -38,6 +38,14 @@ footer{padding:35px 7%;background:#03080e;border-top:1px solid #263b50;color:#7d
 <div class="summary-card"><small>TOTAL NOTIFICATIONS</small><strong id="totalCount" class="blue-number">0</strong></div>
 <div class="summary-card"><small>UNREAD</small><strong id="unreadCount">0</strong></div>
 <div class="summary-card"><small>TODAY</small><strong id="todayCount">0</strong></div>
+</div>
+
+<div style="margin-top:20px;display:flex;gap:8px;flex-wrap:wrap">
+<a href="home.html" class="portal-btn">🏠 HOME</a>
+<a href="catalog.html" class="portal-btn">🛍️ CATALOG</a>
+<a href="cart.html" class="portal-btn">🛒 CART</a>
+<a href="track-order.html" class="portal-btn">📦 TRACK ORDER</a>
+<a href="help-support.html" class="portal-btn">❓ HELP</a>
 </div>
 
 <div class="toolbar">
@@ -52,248 +60,135 @@ footer{padding:35px 7%;background:#03080e;border-top:1px solid #263b50;color:#7d
 <div id="notificationList" class="notification-list"></div>
 <div id="emptyState" class="empty"><div class="empty-icon">🔔</div><h3>No Notifications</h3><p>You are all caught up.</p></div>
 
-<div class="api-note"><b>FIREBASE REALTIME STATUS</b><br><br>
-<span id="syncStatus">Syncing offline storage...</span>
+<div class="api-note"><b>NOTIFICATION DATABASE / API CONNECTION</b><br><br>
+This page currently uses browser storage for demo notifications.<br>
+In the production version, Firebase can provide account-based notifications and real-time updates.<br>
+Customer को केवल उसके account की notifications, Team Member को permitted state की notifications और Admin को permitted system notifications मिलनी चाहिए।
 </div>
 </main>
 
 <footer><div class="brand"><span class="blue">FHAMAR</span><span class="silver">.ZAMOST</span></div><p>Notifications • Orders • Team • System</p></footer>
 <div id="toast" class="toast"></div>
 
-<!-- Firebase SDKs -->
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
-
 <script>
-const STORAGE_KEY = "fz_notifications";
+const STORAGE_KEY="fz_notifications";
 
-// TODO: Replace with your actual Firebase Project Configuration
-const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
-};
+const defaultNotifications=[
+{id:1,type:"order",icon:"📦",title:"New Order Update",text:"Order FZ20001 has been confirmed and is ready for processing.",time:"Just now",createdAt:new Date().toISOString(),unread:true},
+{id:2,type:"payment",icon:"💳",title:"Payment Status Updated",text:"Payment information for order FZ20001 has been received.",time:"10 min ago",createdAt:new Date(Date.now()-10*60000).toISOString(),unread:true},
+{id:3,type:"order",icon:"🚚",title:"Order Shipped",text:"Your order FZ20004 has been shipped.",time:"1 hour ago",createdAt:new Date(Date.now()-60*60000).toISOString(),unread:false},
+{id:4,type:"team",icon:"👥",title:"Team Registration",text:"A new Team Member registration is waiting for Admin review.",time:"2 hours ago",createdAt:new Date(Date.now()-2*3600000).toISOString(),unread:true},
+{id:5,type:"voting",icon:"🗳️",title:"Voting Update",text:"A new member voting proposal is available in My Portal.",time:"Today",createdAt:new Date().toISOString(),unread:false},
+{id:6,type:"stock",icon:"⚠️",title:"Low Stock Alert",text:"Some products have stock below the configured minimum level.",time:"Today",createdAt:new Date().toISOString(),unread:true},
+{id:7,type:"system",icon:"⚙️",title:"System Notice",text:"Your FHAMAR.ZAMOST account information is ready to manage.",time:"Yesterday",createdAt:new Date(Date.now()-86400000).toISOString(),unread:false}
+];
 
-let db = null;
-let currentUser = null;
-let userRole = "customer"; // Default fallback role
+let notifications=loadNotifications();
 
-// Firebase Initialization Guard
-if (firebaseConfig.apiKey !== "YOUR_API_KEY") {
-    firebase.initializeApp(firebaseConfig);
-    db = firebase.firestore();
-    document.getElementById("syncStatus").innerText = "Realtime Firebase sync enabled.";
-    
-    firebase.auth().onAuthStateChanged(user => {
-        if (user) {
-            currentUser = user;
-            fetchUserRoleAndNotifications(user.uid);
-        } else {
-            currentUser = null;
-            document.getElementById("roleDisplay").textContent = "GUEST USER";
-            loadFallbackNotifications();
-        }
-    });
-} else {
-    loadFallbackNotifications();
+function loadNotifications(){
+    try{
+        const saved=JSON.parse(localStorage.getItem(STORAGE_KEY));
+        return Array.isArray(saved)?saved:defaultNotifications;
+    }catch(e){return defaultNotifications;}
 }
 
-let notifications = [];
-
-function loadFallbackNotifications() {
-    try {
-        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
-        notifications = Array.isArray(saved) ? saved : [];
-    } catch(e) {
-        notifications = [];
-    }
-    renderNotifications();
+function saveNotifications(){
+    localStorage.setItem(STORAGE_KEY,JSON.stringify(notifications));
 }
 
-function fetchUserRoleAndNotifications(uid) {
-    db.collection("users").doc(uid).get().then(doc => {
-        if (doc.exists) {
-            userRole = doc.data().role || "customer";
-            document.getElementById("roleDisplay").textContent = userRole.toUpperCase();
-        }
-        listenToNotifications(uid, userRole);
-    }).catch(err => {
-        console.error("User profile error:", err);
-        listenToNotifications(uid, "customer");
-    });
+function typeName(type){
+    return ({order:"ORDER",payment:"PAYMENT",team:"TEAM",voting:"VOTING",stock:"STOCK",system:"SYSTEM"})[type]||"SYSTEM";
 }
 
-function listenToNotifications(uid, role) {
-    // Realtime Listener querying user-specific notifications
-    db.collection("notifications")
-      .where("recipientType", "in", ["all", role, uid])
-      .orderBy("createdAt", "desc")
-      .onSnapshot(snapshot => {
-          notifications = snapshot.docs.map(doc => ({
-              id: doc.id,
-              ...doc.data()
-          }));
-          saveLocalNotifications();
-          renderNotifications();
-      }, err => {
-          console.warn("Firestore listener fallback to localStorage:", err);
-          loadFallbackNotifications();
-      });
+function escapeHTML(value){
+    return String(value??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
 }
 
-function saveLocalNotifications() {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(notifications));
-}
+function renderNotifications(){
+    const list=document.getElementById("notificationList");
+    const search=document.getElementById("searchInput").value.toLowerCase().trim();
+    const filter=document.getElementById("filterType").value;
 
-function typeName(type) {
-    return ({order:"ORDER",payment:"PAYMENT",team:"TEAM",voting:"VOTING",stock:"STOCK",system:"SYSTEM"})[type] || "SYSTEM";
-}
-
-function escapeHTML(value) {
-    return String(value??"").replace(/[&<>"']/g, m => ({
-        "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#039;"
-    }[m]));
-}
-
-function formatDisplayTime(dateStr) {
-    if (!dateStr) return "Recently";
-    const date = new Date(dateStr);
-    if (isNaN(date.getTime())) return dateStr;
-    const diffMin = Math.floor((new Date() - date) / 60000);
-    if (diffMin < 1) return "Just now";
-    if (diffMin < 60) return `${diffMin} min ago`;
-    const diffHours = Math.floor(diffMin / 60);
-    if (diffHours < 24) return `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
-    return date.toLocaleDateString();
-}
-
-function renderNotifications() {
-    const list = document.getElementById("notificationList");
-    const search = document.getElementById("searchInput").value.toLowerCase().trim();
-    const filter = document.getElementById("filterType").value;
-
-    const filtered = notifications.filter(item => {
-        const text = ((item.title || "") + " " + (item.text || "") + " " + typeName(item.type)).toLowerCase();
-        return text.includes(search) && (filter === "all" || item.type === filter);
+    const filtered=notifications.filter(item=>{
+        const text=(item.title+" "+item.text+" "+typeName(item.type)).toLowerCase();
+        return text.includes(search)&&(filter==="all"||item.type===filter);
     });
 
-    list.innerHTML = filtered.map(item => `
-        <div class="notification ${item.unread ? "unread" : ""}">
-            <div class="notification-icon">${escapeHTML(item.icon || "🔔")}</div>
+    list.innerHTML=filtered.map(item=>`
+        <div class="notification ${item.unread?"unread":""}">
+            <div class="notification-icon">${escapeHTML(item.icon)}</div>
             <div class="notification-body">
                 <div class="notification-top">
                     <div class="notification-title">${escapeHTML(item.title)}</div>
-                    <div class="notification-time">${escapeHTML(formatDisplayTime(item.createdAt || item.time))}</div>
+                    <div class="notification-time">${escapeHTML(item.time)}</div>
                 </div>
                 <div class="notification-text">${escapeHTML(item.text)}</div>
                 <div class="notification-type">${typeName(item.type)}</div>
                 <div class="notification-actions">
                     ${item.unread
-                    ? `<button class="small-btn" onclick="markRead('${item.id}')">MARK AS READ</button>`
-                    : `<button class="small-btn" onclick="markUnread('${item.id}')">MARK UNREAD</button>`}
-                    <button class="small-btn delete" onclick="deleteNotification('${item.id}')">DELETE</button>
+                    ?`<button class="small-btn" onclick="markRead(${item.id})">MARK AS READ</button>`
+                    :`<button class="small-btn" onclick="markUnread(${item.id})">MARK UNREAD</button>`}
+                    <button class="small-btn delete" onclick="deleteNotification(${item.id})">DELETE</button>
                 </div>
             </div>
         </div>`).join("");
 
     updateCounts();
-    document.getElementById("emptyState").style.display = filtered.length ? "none" : "block";
+    document.getElementById("emptyState").style.display=filtered.length?"none":"block";
 }
 
-function updateCounts() {
-    const todayKey = new Date().toDateString();
-    const today = notifications.filter(item => {
-        const d = new Date(item.createdAt || Date.now());
-        return d.toDateString() === todayKey;
+function updateCounts(){
+    const todayKey=new Date().toDateString();
+    const today=notifications.filter(item=>{
+        const d=new Date(item.createdAt||Date.now());
+        return d.toDateString()===todayKey;
     }).length;
 
-    document.getElementById("totalCount").textContent = notifications.length;
-    document.getElementById("unreadCount").textContent = notifications.filter(item => item.unread).length;
-    document.getElementById("todayCount").textContent = today;
+    document.getElementById("totalCount").textContent=notifications.length;
+    document.getElementById("unreadCount").textContent=notifications.filter(item=>item.unread).length;
+    document.getElementById("todayCount").textContent=today;
 }
 
-function markRead(id) {
-    const item = notifications.find(n => n.id == id);
-    if (item) {
-        item.unread = false;
-        if (db && currentUser) {
-            db.collection("notifications").doc(id).update({ unread: false });
-        }
-        saveLocalNotifications();
-        renderNotifications();
-        showToast("Notification marked as read.");
-    }
+function markRead(id){
+    const item=notifications.find(n=>n.id===id);
+    if(item){item.unread=false;saveNotifications();renderNotifications();showToast("Notification marked as read.");}
 }
 
-function markUnread(id) {
-    const item = notifications.find(n => n.id == id);
-    if (item) {
-        item.unread = true;
-        if (db && currentUser) {
-            db.collection("notifications").doc(id).update({ unread: true });
-        }
-        saveLocalNotifications();
-        renderNotifications();
-        showToast("Notification marked as unread.");
-    }
+function markUnread(id){
+    const item=notifications.find(n=>n.id===id);
+    if(item){item.unread=true;saveNotifications();renderNotifications();showToast("Notification marked as unread.");}
 }
 
-function markAllRead() {
-    notifications.forEach(item => item.unread = false);
-    if (db && currentUser) {
-        const batch = db.batch();
-        notifications.forEach(n => {
-            if (n.id) batch.update(db.collection("notifications").doc(n.id), { unread: false });
-        });
-        batch.commit();
-    }
-    saveLocalNotifications();
-    renderNotifications();
-    showToast("All notifications marked as read.");
+function markAllRead(){
+    notifications.forEach(item=>item.unread=false);
+    saveNotifications();renderNotifications();showToast("All notifications marked as read.");
 }
 
-function deleteNotification(id) {
-    if (!confirm("Delete this notification?")) return;
-    if (db && currentUser) {
-        db.collection("notifications").doc(id).delete();
-    }
-    notifications = notifications.filter(n => n.id != id);
-    saveLocalNotifications();
-    renderNotifications();
-    showToast("Notification deleted.");
+function deleteNotification(id){
+    const item=notifications.find(n=>n.id===id);
+    if(!item)return;
+    if(!confirm("Delete this notification?"))return;
+    notifications=notifications.filter(n=>n.id!==id);
+    saveNotifications();renderNotifications();showToast("Notification deleted.");
 }
 
-function clearAll() {
-    if (!notifications.length) {
-        showToast("There are no notifications to clear.");
-        return;
-    }
-    if (!confirm("Clear all notifications?")) return;
-    if (db && currentUser) {
-        const batch = db.batch();
-        notifications.forEach(n => {
-            if (n.id) batch.delete(db.collection("notifications").doc(n.id));
-        });
-        batch.commit();
-    }
-    notifications = [];
-    saveLocalNotifications();
-    renderNotifications();
-    showToast("All notifications cleared.");
+function clearAll(){
+    if(!notifications.length){showToast("There are no notifications to clear.");return;}
+    if(!confirm("Clear all notifications?"))return;
+    notifications=[];
+    saveNotifications();renderNotifications();showToast("All notifications cleared.");
 }
 
-function showToast(text) {
-    const toast = document.getElementById("toast");
-    toast.textContent = text;
+function showToast(text){
+    const toast=document.getElementById("toast");
+    toast.textContent=text;
     toast.classList.add("show");
     clearTimeout(window.toastTimer);
-    window.toastTimer = setTimeout(() => toast.classList.remove("show"), 2200);
+    window.toastTimer=setTimeout(()=>toast.classList.remove("show"),2200);
 }
+
+renderNotifications();
 </script>
 </body>
-</html>
-
+  </html>
+  
