@@ -3,332 +3,347 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Track Order | FHAMAR ZAMOST</title>
+<title>FHAMAR.ZAMOST - Premium Platform</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
-body{background:#050b12;color:#fff}
+:root{
+  --bg:#070b13;--card:#0e1623;--card2:#111c2b;--border:#202d40;
+  --blue:#3182f6;--blue2:#60a5fa;--silver:#c2cad5;--muted:#8e9bad;--white:#f5f7fb;
+}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif}
+body{background:radial-gradient(circle at 50% -10%,#13223a 0,#070b13 42%);color:var(--white);line-height:1.6}
 a{text-decoration:none;color:inherit}
-header{height:75px;padding:0 6%;display:flex;align-items:center;justify-content:space-between;background:#07111d;border-bottom:1px solid #30465d;position:sticky;top:0;z-index:1000}
-.brand-area{display:flex;align-items:center;gap:10px}.fz-logo{width:45px;height:45px;display:flex;align-items:center;justify-content:center;border-radius:12px;border:1px solid #8298ad;background:linear-gradient(145deg,#173b5b,#050b12);color:#4da3ff;font-size:17px;font-weight:900}.brand{font-size:18px;font-weight:900;letter-spacing:2px}.blue{color:#4da3ff}.silver{color:#aeb9c5}
-nav{display:flex;gap:22px}nav a{color:#91a2b5;font-size:12px}nav a:hover{color:white}.profile-btn{padding:9px 13px;border:1px solid #60768c;border-radius:8px;color:#dce5ee;font-size:11px}
-.page{max-width:1000px;margin:auto;padding:55px 6% 90px}.eyebrow{color:#71869c;font-size:10px;letter-spacing:3px;font-weight:bold}.title{margin-top:10px;font-size:43px}.title span{color:#4da3ff}.subtitle{margin-top:10px;color:#8396a9;font-size:13px;line-height:1.7}
-.search-box{margin-top:30px;padding:20px;border:1px solid #30475e;border-radius:14px;background:#091622;display:flex;gap:10px}.search-input{flex:1;height:45px;padding:0 13px;background:#050c14;border:1px solid #30465c;border-radius:8px;color:white;outline:none}.search-input:focus{border-color:#4da3ff}.search-button{padding:0 20px;border:none;border-radius:8px;background:#4da3ff;color:#04101c;font-size:10px;font-weight:900;cursor:pointer}.search-button:hover{background:#72b7ff}
-.order-card{margin-top:25px;padding:28px;border:1px solid #344d64;border-radius:18px;background:#091622;display:none}.order-top{display:flex;justify-content:space-between;align-items:center;gap:20px;padding-bottom:22px;border-bottom:1px solid #24394e}.order-number small{display:block;color:#71869c;font-size:9px;letter-spacing:2px}.order-number strong{display:block;margin-top:7px;font-size:19px;color:#dce5ed}.current-status{padding:9px 13px;border-radius:20px;background:#102a40;border:1px solid #41627f;color:#4da3ff;font-size:10px;font-weight:bold}
-.details{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:22px}.detail{padding:15px;border-radius:11px;background:#07111d;border:1px solid #293f55}.detail small{display:block;color:#71869c;font-size:9px}.detail strong{display:block;margin-top:7px;color:#dce5ed;font-size:12px}
-.timeline{margin-top:35px}.timeline h2{font-size:20px;margin-bottom:25px}.timeline-item{position:relative;display:flex;gap:18px;min-height:78px}.timeline-item:not(:last-child)::before{content:"";position:absolute;left:14px;top:30px;width:2px;height:70px;background:#2a4156}.timeline-dot{width:30px;height:30px;min-width:30px;border-radius:50%;border:1px solid #526a81;background:#081522;display:flex;align-items:center;justify-content:center;color:#667e95;font-size:12px;z-index:2}.timeline-item.completed .timeline-dot{background:#4da3ff;border-color:#4da3ff;color:#04101c}.timeline-item.active .timeline-dot{background:#173b5b;border-color:#4da3ff;color:#4da3ff;box-shadow:0 0 20px rgba(77,163,255,.15)}.timeline-content{padding-bottom:20px}.timeline-content h3{font-size:13px;color:#dce5ed}.timeline-content p{margin-top:5px;color:#74889d;font-size:10px;line-height:1.6}.timeline-time{margin-top:5px;color:#4da3ff;font-size:9px}
-.product-section{margin-top:10px;padding-top:25px;border-top:1px solid #24394e}.product-section h2{font-size:18px;margin-bottom:13px}.product-row{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:13px;border:1px solid #293f55;border-radius:10px;background:#07111d;font-size:11px;color:#aebdca;margin-bottom:8px}.product-row strong{color:#dce5ed;white-space:nowrap}
-.buttons{display:flex;gap:12px;margin-top:25px}.btn{padding:13px 18px;border-radius:9px;font-size:10px;font-weight:900;letter-spacing:1px;text-align:center}.home{background:transparent;border:1px solid #536b82;color:#dce5ed}.shop{background:#4da3ff;color:#04101c}.portal{background:transparent;border:1px solid #40586f;color:#aebdca}
-.api-note{margin-top:25px;padding:16px;border:1px dashed #405a72;border-radius:10px;background:#06101a;color:#75899d;font-size:10px;line-height:1.7;text-align:center}.no-order{margin-top:25px;padding:30px;border:1px dashed #354c63;border-radius:13px;background:#08131f;color:#8295a8;text-align:center;font-size:12px;display:none}
-footer{padding:35px 7%;background:#03080e;border-top:1px solid #263b50;color:#7d90a4;font-size:11px}
-@media(max-width:750px){header nav{display:none}.details{grid-template-columns:1fr}.order-top{flex-direction:column;align-items:flex-start}.buttons{flex-direction:column}.btn{width:100%}}
-@media(max-width:550px){.page{padding-left:5%;padding-right:5%}.title{font-size:35px}.search-box{flex-direction:column}.search-button{height:45px}}
+header{
+ display:flex;justify-content:space-between;align-items:center;padding:13px 2rem;
+ background:rgba(7,11,19,.94);border-bottom:1px solid var(--border);
+ position:sticky;top:0;z-index:100;backdrop-filter:blur(14px)
+}
+.logo-container{display:flex;align-items:center;gap:10px}
+.logo-badge{
+ width:44px;height:44px;display:grid;place-items:center;border-radius:12px;
+ background:linear-gradient(145deg,#17263b,#0b111b);border:1px solid #34445a;
+ color:#fff;font-weight:900;letter-spacing:1px;box-shadow:0 0 24px rgba(49,130,246,.15)
+}
+.brand-name{font-size:1.12rem;font-weight:800;letter-spacing:1.2px}
+.brand-name small{display:block;color:#748196;font-size:9px;letter-spacing:2px;margin-top:-2px}
+.header-actions{display:flex;align-items:center;gap:9px}
+.btn-team,.profile-btn{
+ background:linear-gradient(135deg,#2563eb,#3b82f6);color:#fff;padding:9px 14px;border-radius:10px;
+ border:1px solid rgba(255,255,255,.1);font-size:.8rem;font-weight:700;cursor:pointer
+}
+.profile-btn{display:flex;align-items:center;gap:8px;background:#101b2a}
+.profile-avatar{width:28px;height:28px;border-radius:50%;object-fit:cover;background:#1d2b3d;border:1px solid #516176}
+.top-quick-nav{
+ display:flex;justify-content:center;align-items:center;gap:10px;padding:11px 1rem;
+ background:#0c1421;border-bottom:1px solid var(--border);overflow-x:auto;white-space:nowrap
+}
+.nav-item-btn{
+ background:linear-gradient(180deg,#162235,#111a28);color:var(--text-main);
+ text-decoration:none;padding:8px 15px;border-radius:20px;font-size:.82rem;
+ border:1px solid #26354a;transition:.25s;box-shadow:0 4px 12px rgba(0,0,0,.12)
+}
+.nav-item-btn:hover,.nav-item-btn.active{background:#2563eb;border-color:#4d91ff;transform:translateY(-1px)}
+.container{max-width:1120px;margin:auto;padding:22px 1rem}
+.hero{
+ text-align:center;padding:3.5rem 1rem;background:radial-gradient(circle at 50% 15%,#243a59 0,#111b2b 28%,#0b1019 72%);
+ border-radius:18px;border:1px solid var(--border);margin-bottom:2rem;overflow:hidden;position:relative
+}
+.hero:after{content:"";position:absolute;width:240px;height:240px;border:1px solid rgba(96,165,250,.15);border-radius:50%;right:-100px;top:-110px}
+.hero-tag{color:#7e9cc3;font-size:.76rem;letter-spacing:2.4px;margin-bottom:10px}
+.hero h1{font-size:clamp(2rem,6vw,3rem);margin-bottom:14px;letter-spacing:1px}
+.hero p{color:var(--muted);max-width:650px;margin:0 auto 20px;font-size:.94rem}
+.hero-btns{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+.btn-primary,.btn-secondary{padding:10px 19px;border-radius:9px;text-decoration:none;font-size:.85rem;font-weight:700}
+.btn-primary{background:var(--blue);color:white}.btn-secondary{background:#101a28;border:1px solid #2a3a50;color:white}
+.section-heading{margin-bottom:15px}
+.section-heading span{color:var(--blue2);font-size:.73rem;letter-spacing:1.7px;text-transform:uppercase;font-weight:800}
+.section-heading h2{font-size:1.55rem;margin-top:3px}
+.ad-banner-section{
+ background:linear-gradient(145deg,#101b2a,#0b131f);border:1px solid #294261;border-radius:16px;
+ padding:12px;text-align:center;margin-bottom:2.5rem;box-shadow:0 12px 30px rgba(0,0,0,.14)
+}
+.media-frame{
+ width:100%;min-height:185px;max-height:420px;background:#080f19;border-radius:11px;
+ display:flex;align-items:center;justify-content:center;overflow:hidden;color:var(--muted);font-size:.85rem
+}
+.media-frame img,.media-frame video{width:100%;height:auto;max-height:420px;object-fit:cover;display:block}
+.media-help{padding:8px 4px 2px;color:#69778a;font-size:.7rem}
+.products-section{margin-bottom:3rem}
+.product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.product-card{
+ background:linear-gradient(145deg,#111c2b,#0b131f);border:1px solid var(--border);border-radius:15px;
+ padding:13px;display:flex;flex-direction:column;min-width:0;transition:.25s;overflow:hidden
+}
+.product-card:hover{transform:translateY(-3px);border-color:#31577e;box-shadow:0 12px 25px rgba(0,0,0,.2)}
+.product-image{
+ height:170px;border-radius:11px;background:linear-gradient(135deg,#1a2b41,#09111c);
+ display:flex;align-items:center;justify-content:center;color:#6f8198;font-size:.72rem;margin-bottom:12px;overflow:hidden
+}
+.product-image img{width:100%;height:100%;object-fit:cover}
+.product-card h3{font-size:1rem;margin-bottom:5px}
+.product-card p{color:var(--muted);font-size:.78rem;margin-bottom:11px;min-height:38px}
+.price{color:#74b4ff;font-size:1.05rem;font-weight:800;margin-bottom:9px}
+.btn-view{display:block;text-align:center;padding:8px;background:#152337;color:white;border-radius:8px;font-size:.78rem;border:1px solid #283b53}
+.team-box{
+ background:linear-gradient(145deg,#101a29,#0b131f);border:1px solid var(--border);border-radius:16px;
+ padding:22px;margin-bottom:2rem;display:flex;justify-content:space-between;align-items:center;gap:18px
+}
+.team-copy p{color:var(--muted);margin-top:8px;font-size:.86rem;max-width:760px}
+.team-points{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.team-points span{font-size:.7rem;color:#c9d3df;background:#0c1725;border:1px solid #24364d;padding:5px 8px;border-radius:20px}
+.trust-section{margin:0 0 2rem}
+.trust-strip{display:grid;grid-template-columns:repeat(7,1fr);gap:7px}
+.trust-item{
+ background:#0c1522;border:1px solid var(--border);border-radius:11px;padding:10px 6px;
+ text-align:center;font-size:.62rem;color:#b9c4d1;min-width:0
+}
+.trust-item strong{display:block;color:#68adff;font-size:.72rem;margin-bottom:2px;white-space:nowrap}
+footer{border-top:1px solid var(--border);background:#050911;margin-top:0}
+.footer-inner{max-width:1120px;margin:auto;padding:26px 1rem 13px}
+.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1.25fr;gap:25px;text-align:left}
+.footer-col h3{font-size:1rem;margin-bottom:8px;color:#edf2f8}
+.footer-col p,.footer-col a{font-size:.76rem;color:var(--muted);line-height:1.7}
+.footer-col a{display:block}.footer-col a:hover{color:#fff}
+.footer-brand{color:#68adff!important;font-weight:800;letter-spacing:1px}
+.footer-badge{display:inline-block;margin-top:8px;border:1px solid #31516f;border-radius:20px;padding:5px 9px;color:#a9c6e4!important;font-size:.68rem!important}
+.footer-bottom{
+ border-top:1px solid var(--border);margin-top:20px;padding-top:11px;
+ text-align:center;white-space:nowrap;overflow-x:auto;color:#78879a;font-size:.67rem
+}
+.profile-panel{
+ position:fixed;right:18px;top:70px;width:min(330px,calc(100vw - 36px));background:#0b1522;
+ border:1px solid #2a405a;border-radius:16px;padding:15px;z-index:200;box-shadow:0 20px 55px rgba(0,0,0,.5);display:none
+}
+.profile-panel.show{display:block}
+.profile-info{display:flex;gap:10px;align-items:center;border-bottom:1px solid var(--border);padding-bottom:12px}
+.profile-info img{width:48px;height:48px;border-radius:50%;object-fit:cover;background:#172537}
+.profile-info b{display:block}.profile-info span{display:block;color:var(--muted);font-size:.7rem;word-break:break-all}
+.profile-status{font-size:.7rem;color:#72b5ff;margin:10px 0}
+.logout-btn{width:100%;padding:9px;border:1px solid #2b3b50;border-radius:9px;background:#111d2c;color:#fff;font-weight:700;cursor:pointer}
+.toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:#101d2c;border:1px solid #355676;color:#fff;padding:9px 13px;border-radius:9px;font-size:.75rem;display:none;z-index:300}
+.toast.show{display:block}
+@media(max-width:900px){.product-grid{grid-template-columns:repeat(2,1fr)}.trust-strip{grid-template-columns:repeat(4,1fr)}.footer-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){
+ header{padding:10px 12px}.brand-name{font-size:.95rem}.brand-name small{font-size:7px}.btn-team{display:none}
+ .container{padding:15px 10px}.hero{padding:2.6rem .9rem}.hero h1{font-size:2rem}
+ .product-grid{grid-template-columns:repeat(2,1fr);gap:9px}.product-card{padding:9px}.product-image{height:125px}
+ .team-box{display:block;padding:17px}.team-box .btn-primary{display:inline-block;margin-top:14px}
+ .trust-strip{grid-template-columns:repeat(2,1fr)}.footer-grid{grid-template-columns:1fr}
+ .footer-bottom{text-align:left;font-size:.62rem}
+}
 </style>
 </head>
 <body>
 
 <header>
-<div class="brand-area">
-<div class="fz-logo">FZ</div>
-<div class="brand"><span class="blue">FHAMAR</span><span class="silver">.ZAMOST</span></div>
-</div>
-<nav>
-<a href="home.html">Home</a>
-<a href="catalog.html">Catalog</a>
-<a href="profile.html">My Portal</a>
-<a href="admin.html">Administrative Desk</a>
-</nav>
-<a href="profile.html" class="profile-btn">MY PROFILE</a>
+  <div class="logo-container">
+    <div class="logo-badge">FZ</div>
+    <div class="brand-name">FHAMAR.ZAMOST<small>PREMIUM SMART PORTAL</small></div>
+  </div>
+  <div class="header-actions">
+    <a href="team.html" class="btn-team">TEAM MEMBERS</a>
+    <button class="profile-btn" id="profileBtn" type="button">
+      <img class="profile-avatar" id="headerAvatar" alt="">
+      <span id="headerName">Profile</span>
+    </button>
+  </div>
 </header>
 
-<main class="page">
-<div class="eyebrow">FHAMAR.ZAMOST ORDER SYSTEM</div>
-<h1 class="title">Track Your <span>Order</span></h1>
-<p class="subtitle">Enter your order number to view the current delivery status and order progress.</p>
+<nav class="top-quick-nav">
+  <a href="home.html" class="nav-item-btn active">Home</a>
+  <a href="catalog.html" class="nav-item-btn">Catalog</a>
+  <a href="cart.html" class="nav-item-btn">Cart</a>
+  <a href="track-order.html" class="nav-item-btn">Track</a>
+  <a href="#help" class="nav-item-btn">Help</a>
+  <a href="#profile" class="nav-item-btn">Profile</a>
+</nav>
 
-<div class="search-box">
-<input type="text" id="orderSearch" class="search-input" placeholder="Enter Order Number e.g. FZ1234567890" autocomplete="off">
-<button type="button" id="trackBtn" class="search-button">TRACK ORDER</button>
+<div class="profile-panel" id="profilePanel">
+  <div class="profile-info">
+    <img id="panelAvatar" alt="">
+    <div><b id="panelName">Loading...</b><span id="panelContact">Checking account...</span></div>
+  </div>
+  <div class="profile-status" id="profileStatus">Firebase account</div>
+  <button class="logout-btn" id="logoutBtn" type="button">Logout</button>
 </div>
 
-<div id="noOrder" class="no-order">
-Order not found.<br><br>Please check your Order Number and try again.
-</div>
+<div class="container">
 
-<section id="orderCard" class="order-card">
-<div class="order-top">
-<div class="order-number"><small>ORDER NUMBER</small><strong id="displayOrderNumber">FZ-000000</strong></div>
-<div id="currentStatus" class="current-status">ORDER PLACED</div>
-</div>
-
-<div class="details">
-<div class="detail"><small>CUSTOMER</small><strong id="customerName">Customer</strong></div>
-<div class="detail"><small>TOTAL</small><strong id="orderTotal">₹0</strong></div>
-<div class="detail"><small>PAYMENT</small><strong id="paymentStatus">Pending</strong></div>
-</div>
-
-<div class="timeline">
-<h2>Delivery Progress</h2>
-
-<div class="timeline-item" id="step1"><div class="timeline-dot">1</div><div class="timeline-content"><h3>Order Placed</h3><p>Your order has been received successfully.</p><div class="timeline-time" id="time1"></div></div></div>
-<div class="timeline-item" id="step2"><div class="timeline-dot">2</div><div class="timeline-content"><h3>Order Confirmed</h3><p>Your order is being reviewed and confirmed.</p><div class="timeline-time" id="time2"></div></div></div>
-<div class="timeline-item" id="step3"><div class="timeline-dot">3</div><div class="timeline-content"><h3>Packaging</h3><p>Your product is being prepared for dispatch.</p><div class="timeline-time" id="time3"></div></div></div>
-<div class="timeline-item" id="step4"><div class="timeline-dot">4</div><div class="timeline-content"><h3>Shipped</h3><p>Your package has been handed over for delivery.</p><div class="timeline-time" id="time4"></div></div></div>
-<div class="timeline-item" id="step5"><div class="timeline-dot">5</div><div class="timeline-content"><h3>Out for Delivery</h3><p>Your package is on the way to your delivery address.</p><div class="timeline-time" id="time5"></div></div></div>
-<div class="timeline-item" id="step6"><div class="timeline-dot">6</div><div class="timeline-content"><h3>Delivered</h3><p>Your order has been delivered successfully.</p><div class="timeline-time" id="time6"></div></div></div>
-</div>
-
-<div class="product-section">
-<h2>Ordered Products</h2>
-<div id="productList"></div>
-</div>
-
-<div class="buttons">
-<a href="home.html" class="btn home">HOME</a>
-<a href="catalog.html" class="btn shop">CONTINUE SHOPPING</a>
-<a href="profile.html" class="btn portal">MY PORTAL</a>
-</div>
-
-<div class="api-note">
-<b>ORDER TRACKING SYSTEM CONNECTED</b><br><br>
-यह page LocalStorage (<b>fz_last_order</b>) aur Firebase Cloud Database dono se Live Sync hai.
-<br><br>
-ORDER PLACED → CONFIRMED → PACKAGING → SHIPPED → OUT FOR DELIVERY → DELIVERED
-</div>
+<section class="hero">
+  <div class="hero-tag">PREMIUM • BLUE • SILVER • DARK</div>
+  <h1>WELCOME TO FHAMAR.ZAMOST</h1>
+  <p>A modern digital platform connecting products, members, state teams, customer services and profile management in one place.</p>
+  <div class="hero-btns">
+    <a href="catalog.html" class="btn-primary">EXPLORE COLLECTION</a>
+    <a href="#team" class="btn-secondary">JOIN OUR TEAM</a>
+  </div>
 </section>
-</main>
+
+<section class="ad-banner-section">
+  <div class="section-heading" style="text-align:left;margin:2px 4px 9px">
+    <span>PROMO • MEDIA</span><h2>Featured Advertisement</h2>
+  </div>
+  <div class="media-frame">
+    <!-- PHOTO लगानी हो:
+    <img src="promo.jpg" alt="FHAMAR.ZAMOST Promo">
+    -->
+    <!-- VIDEO लगाना हो:
+    <video controls muted playsinline src="promo.mp4"></video>
+    -->
+    📢 PROMO / ADVERTISEMENT PHOTO OR VIDEO
+  </div>
+  <div class="media-help">इस जगह पर आप अपनी promotional photo या video लगा सकते हैं।</div>
+</section>
+
+<section class="products-section" id="featured-products">
+  <div class="section-heading">
+    <span>SHOP • SELECT • DISCOVER</span>
+    <h2>Featured Products</h2>
+  </div>
+  <div class="product-grid">
+    <div class="product-card">
+      <div class="product-image">PRODUCT PHOTO</div>
+      <h3>Premium Fragrance</h3>
+      <p>Elegant everyday fragrance selected for a premium experience.</p>
+      <div class="price">₹899</div>
+      <a href="#" class="btn-view">VIEW PRODUCT</a>
+    </div>
+    <div class="product-card">
+      <div class="product-image">PRODUCT PHOTO</div>
+      <h3>Essential Oils</h3>
+      <p>Selected aromatic essentials for everyday use.</p>
+      <div class="price">₹499</div>
+      <a href="#" class="btn-view">VIEW PRODUCT</a>
+    </div>
+    <div class="product-card">
+      <div class="product-image">PRODUCT PHOTO</div>
+      <h3>Special Edition</h3>
+      <p>Exclusive collection with a distinctive premium identity.</p>
+      <div class="price">₹1299</div>
+      <a href="#" class="btn-view">VIEW PRODUCT</a>
+    </div>
+    <div class="product-card">
+      <div class="product-image">PRODUCT PHOTO</div>
+      <h3>Daily Essentials</h3>
+      <p>Useful products selected for regular customer needs.</p>
+      <div class="price">₹699</div>
+      <a href="#" class="btn-view">VIEW PRODUCT</a>
+    </div>
+  </div>
+</section>
+
+<section class="team-box" id="team">
+  <div class="team-copy">
+    <h2>Become a FHAMAR.ZAMOST Team Member</h2>
+    <p>Join our state-wise network and help customers with local operations, order coordination, packaging, dispatch support and delivery coordination. Team applications are reviewed by Admin before activation. Customers can use the portal to discover products, follow order updates and contact support through the available service channels.</p>
+    <div class="team-points">
+      <span>✓ State-wise Network</span><span>✓ Admin Verified</span><span>✓ Order Support</span><span>✓ Customer Service</span>
+    </div>
+  </div>
+  <a href="team-registration.html" class="btn-primary">TEAM REGISTRATION</a>
+</section>
+
+<section class="trust-section">
+  <div class="trust-strip">
+    <div class="trust-item"><strong>✓</strong>TRUSTED QUALITY</div>
+    <div class="trust-item"><strong>10,000+</strong>HAPPY CUSTOMERS</div>
+    <div class="trust-item"><strong>FZ</strong>FHAMAR.ZAMOST</div>
+    <div class="trust-item"><strong>LIVE</strong>SMART LIVE SERVICE</div>
+    <div class="trust-item"><strong>100%</strong>SECURE PAYMENT</div>
+    <div class="trust-item"><strong>UPI+</strong>MULTIPLE PAYMENT OPTIONS</div>
+    <div class="trust-item"><strong>CHAT</strong>WHATSAPP CHAT SUPPORT</div>
+  </div>
+</section>
+
+</div>
 
 <footer>
-<div class="brand"><span class="blue">FHAMAR</span><span class="silver">.ZAMOST</span></div>
-<p>Premium Order Tracking System</p>
+<div class="footer-inner">
+  <div class="footer-grid">
+    <div class="footer-col">
+      <h3 class="footer-brand">FHAMAR.ZAMOST</h3>
+      <p>A luxury, decentralized e-commerce ecosystem empowering local state partners to coordinate fast deliveries with premium retail standards.</p>
+      <span class="footer-badge">✓ Verified Role-Based Portal</span>
+    </div>
+    <div class="footer-col">
+      <h3>EXPLORE</h3>
+      <a href="home.html">Featured Landing</a>
+      <a href="catalog.html">Shop Products</a>
+      <a href="state-network.html">State Network Map</a>
+      <a href="profile.html">Customer Dashboard</a>
+    </div>
+    <div class="footer-col">
+      <h3>ACTIVE STATES</h3>
+      <p>Bihar</p><p>Delhi</p><p>Maharashtra</p><p>Telangana</p><p>West Bengal</p>
+      <p style="margin-top:5px;color:#6e7d90">*Future states opening soon</p>
+    </div>
+    <div class="footer-col">
+      <h3>SUPPORT &amp; CONTACT</h3>
+      <p>Have questions? Connect with our central admin support or message our representatives directly.</p>
+      <a href="https://wa.me/919334273697" target="_blank" rel="noopener">WhatsApp support</a>
+      <a href="mailto:fhamarzamost@gmail.com">fhamarzamost@gmail.com</a>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 FHAMAR.ZAMOST Retail Services Ltd. All rights reserved. &nbsp; Privacy Policy &nbsp; Terms of Service &nbsp; 100% Secure Checkout</div>
+</div>
 </footer>
 
-<!-- Firebase Connection -->
+<div class="toast" id="toast"></div>
+
 <script type="module">
-import { db } from "./firebase-config.js";
-import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import { app } from "./firebase-config.js";
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
-const LAST_ORDER_KEY = "fz_last_order";
-let savedOrder = null;
+const auth = getAuth(app);
+const profileBtn = document.getElementById("profileBtn");
+const profilePanel = document.getElementById("profilePanel");
+const logoutBtn = document.getElementById("logoutBtn");
+const headerName = document.getElementById("headerName");
+const headerAvatar = document.getElementById("headerAvatar");
+const panelName = document.getElementById("panelName");
+const panelContact = document.getElementById("panelContact");
+const panelAvatar = document.getElementById("panelAvatar");
+const profileStatus = document.getElementById("profileStatus");
+const toast = document.getElementById("toast");
 
-function safeReadOrder() {
-    try {
-        const data = JSON.parse(localStorage.getItem(LAST_ORDER_KEY) || "null");
-        return data && typeof data === "object" ? data : null;
-    } catch (error) {
-        console.error("Order data error:", error);
-        return null;
-    }
+function fallbackAvatar(letter="U"){
+  return "https://ui-avatars.com/api/?name="+encodeURIComponent(letter)+"&background=172537&color=ffffff&size=100";
 }
-
-function escapeHtml(value) {
-    const div = document.createElement("div");
-    div.textContent = String(value ?? "");
-    return div.innerHTML;
+function showToast(text){
+  toast.textContent=text; toast.classList.add("show");
+  setTimeout(()=>toast.classList.remove("show"),2500);
 }
-
-function money(value) {
-    return "₹" + Number(value || 0).toLocaleString("en-IN");
-}
-
-function normalizeStatus(status) {
-    const s = String(status || "Order Placed").toLowerCase().trim();
-    if (s.includes("deliver") && !s.includes("out")) return 6;
-    if (s.includes("out for") || s.includes("out_for") || s.includes("delivery")) return 5;
-    if (s.includes("ship")) return 4;
-    if (s.includes("pack")) return 3;
-    if (s.includes("confirm")) return 2;
-    return 1;
-}
-
-function getStatusLabel(step) {
-    return ["", "ORDER PLACED", "ORDER CONFIRMED", "PACKAGING", "SHIPPED", "OUT FOR DELIVERY", "DELIVERED"][step];
-}
-
-function getOrderNumber(order) {
-    return String(order?.orderNumber || order?.orderId || order?.id || "").trim();
-}
-
-function getItems(order) {
-    if (Array.isArray(order?.items)) return order.items;
-    if (order?.product) return [order.product];
-    return [];
-}
-
-function calculateTotal(order) {
-    return getItems(order).reduce((sum, item) => {
-        const price = Number(item?.price) || 0;
-        const quantity = Math.max(1, parseInt(item?.quantity) || 1);
-        return sum + (price * quantity);
-    }, 0);
-}
-
-function formatTime(value) {
-    if (!value) return "";
-    try {
-        const date = new Date(value);
-        if (Number.isNaN(date.getTime())) return String(value);
-        return date.toLocaleString("en-IN", {
-            day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit"
-        });
-    } catch (error) {
-        return String(value);
-    }
-}
-
-function getTimelineTimes(order, currentStep) {
-    const times = order?.timeline || order?.statusHistory || {};
-    const fallback = order?.createdAt || order?.orderDate || order?.created_at || "";
-
-    for (let i = 1; i <= 6; i++) {
-        const element = document.getElementById("time" + i);
-        let value = "";
-
-        if (Array.isArray(times)) {
-            const entry = times[i - 1];
-            value = entry?.time || entry?.date || entry?.timestamp || "";
-        } else {
-            const keys = [i, String(i), ["placed", "confirmed", "packaging", "shipped", "outForDelivery", "delivered"][i - 1]];
-            for (const key of keys) {
-                if (times[key]) {
-                    value = times[key]?.time || times[key]?.date || times[key]?.timestamp || times[key];
-                    break;
-                }
-            }
-        }
-        if (!value && i === 1) value = fallback;
-        element.textContent = i <= currentStep ? formatTime(value) : "";
-    }
-}
-
-function updateTimeline(currentStep) {
-    for (let i = 1; i <= 6; i++) {
-        const step = document.getElementById("step" + i);
-        const dot = step.querySelector(".timeline-dot");
-        step.classList.remove("completed", "active");
-
-        if (i < currentStep) {
-            step.classList.add("completed");
-            dot.textContent = "✓";
-        } else if (i === currentStep) {
-            step.classList.add("active");
-            dot.textContent = i;
-        } else {
-            dot.textContent = i;
-        }
-    }
-}
-
-function showOrder(order) {
-    const card = document.getElementById("orderCard");
-    const noOrder = document.getElementById("noOrder");
-
-    if (!order) {
-        card.style.display = "none";
-        noOrder.style.display = "block";
-        return;
-    }
-
-    const orderNumber = getOrderNumber(order);
-    if (!orderNumber) {
-        card.style.display = "none";
-        noOrder.style.display = "block";
-        return;
-    }
-
-    noOrder.style.display = "none";
-    card.style.display = "block";
-
-    document.getElementById("displayOrderNumber").textContent = orderNumber;
-
-    const customer = order.customer;
-    const customerName = typeof customer === "string" ? customer : customer?.name || order.customerName || "Customer";
-    document.getElementById("customerName").textContent = customerName;
-
-    const payment = order.paymentStatus || order.payment?.status || (order.paymentMethod ? "Payment Selected" : "Payment Pending");
-    document.getElementById("paymentStatus").textContent = payment;
-
-    const total = Number(order.total);
-    document.getElementById("orderTotal").textContent = Number.isFinite(total) && total > 0 ? money(total) : money(calculateTotal(order));
-
-    const currentStep = normalizeStatus(order.status);
-    document.getElementById("currentStatus").textContent = getStatusLabel(currentStep);
-
-    const items = getItems(order);
-    const productList = document.getElementById("productList");
-
-    if (items.length) {
-        productList.innerHTML = items.map(item => {
-            const name = item?.name || item?.title || "Product";
-            const icon = item?.icon || "📦";
-            const price = Number(item?.price) || 0;
-            const quantity = Math.max(1, parseInt(item?.quantity) || 1);
-
-            return `
-            <div class="product-row">
-                <span>${escapeHtml(icon)} &nbsp; ${escapeHtml(name)} × ${quantity}</span>
-                <strong>${money(price * quantity)}</strong>
-            </div>`;
-        }).join("");
-    } else {
-        productList.innerHTML = `<div class="product-row"><span>📦 Order products</span><strong>See order details</strong></div>`;
-    }
-
-    updateTimeline(currentStep);
-    getTimelineTimes(order, currentStep);
-}
-
-async function searchOrder() {
-    const input = document.getElementById("orderSearch").value.trim().toLowerCase().replace(/[^a-z0-9]/g, "");
-    savedOrder = safeReadOrder();
-
-    if (!input) {
-        showOrder(savedOrder);
-        return;
-    }
-
-    // 1. LocalStorage Search Check
-    const localNumber = getOrderNumber(savedOrder).toLowerCase().replace(/[^a-z0-9]/g, "");
-    if (savedOrder && localNumber === input) {
-        showOrder(savedOrder);
-        return;
-    }
-
-    // 2. Firebase Cloud Search (Firestore Lookup)
-    if (db) {
-        try {
-            const orderDocRef = doc(db, "orders", input.toUpperCase());
-            const docSnap = await getDoc(orderDocRef);
-            if (docSnap.exists()) {
-                showOrder(docSnap.data());
-                return;
-            }
-        } catch (e) {
-            console.log("Firebase lookup error:", e);
-        }
-    }
-
-    showOrder(null);
-}
-
-// Event Listeners
-document.getElementById("trackBtn").addEventListener("click", searchOrder);
-document.getElementById("orderSearch").addEventListener("keydown", (e) => {
-    if (e.key === "Enter") searchOrder();
+profileBtn.addEventListener("click",()=>profilePanel.classList.toggle("show"));
+document.addEventListener("click",e=>{
+  if(!profilePanel.contains(e.target) && !profileBtn.contains(e.target)) profilePanel.classList.remove("show");
+});
+logoutBtn.addEventListener("click",async()=>{
+  try{
+    await signOut(auth);
+    showToast("Logout successful");
+    setTimeout(()=>location.href="index.html",600);
+  }catch(err){console.error(err);showToast("Logout failed");}
 });
 
-window.addEventListener("storage", (e) => {
-    if (e.key === LAST_ORDER_KEY) {
-        savedOrder = safeReadOrder();
-        if (!document.getElementById("orderSearch").value.trim()) showOrder(savedOrder);
-    }
+onAuthStateChanged(auth,user=>{
+  if(!user){
+    headerName.textContent="Login";
+    panelName.textContent="Not logged in";
+    panelContact.textContent="Please login to continue";
+    profileStatus.textContent="No Firebase session found";
+    const av=fallbackAvatar("U"); headerAvatar.src=av; panelAvatar.src=av;
+    logoutBtn.style.display="none";
+    return;
+  }
+  const name=user.displayName || (user.email ? user.email.split("@")[0] : "Customer");
+  const contact=user.email || user.phoneNumber || "Firebase customer";
+  const av=user.photoURL || fallbackAvatar(name.charAt(0).toUpperCase());
+  headerName.textContent=name;
+  panelName.textContent=name;
+  panelContact.textContent=contact;
+  profileStatus.textContent="Signed in • Firebase Authentication";
+  headerAvatar.src=av; panelAvatar.src=av;
+  logoutBtn.style.display="block";
 });
-
-// Auto Load
-savedOrder = safeReadOrder();
-if (savedOrder) {
-    document.getElementById("orderSearch").value = getOrderNumber(savedOrder);
-    showOrder(savedOrder);
-}
 </script>
 </body>
 </html>
