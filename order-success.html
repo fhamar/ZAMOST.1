@@ -28,7 +28,7 @@ footer{padding:35px 7%;background:#03080e;border-top:1px solid #263b50;color:#7d
 <body>
 <header>
 <div class="brand-area"><div class="fz-logo">FZ</div><div class="brand"><span class="blue">FHAMAR</span><span class="silver">.ZAMOST</span></div></div>
-<nav><a href="home.html">Home</a><a href="catalog.html">Catalog</a><a href="notifications.html">Notifications</a><a href="profile.html">My Portal</a></nav>
+<nav><a href="home.html">Home</a><a href="catalog.html">Catalog</a><a href="profile.html">My Portal</a><a href="admin.html">Administrative Desk</a></nav>
 <a href="profile.html" class="profile-btn">MY PROFILE</a>
 </header>
 
@@ -37,7 +37,7 @@ footer{padding:35px 7%;background:#03080e;border-top:1px solid #263b50;color:#7d
 <div class="success-icon">✓</div>
 <div class="eyebrow">FHAMAR.ZAMOST ORDER</div>
 <h1>Order <span>Confirmed</span></h1>
-<p class="success-message">Thank you for your order. Your order information has been successfully received and is now ready for processing.</p>
+<p class="success-message">🎉 Your order has been placed successfully! Thank you for shopping with FHAMAR.ZAMOST. Your order information has been received and is now ready for processing.</p>
 
 <div class="order-number"><small>ORDER NUMBER</small><strong id="orderNumber">FZ-000000</strong></div>
 
@@ -48,19 +48,27 @@ footer{padding:35px 7%;background:#03080e;border-top:1px solid #263b50;color:#7d
 </div>
 
 <div class="status-box"><span class="status-label">Current Order Status</span><span class="status" id="orderStatus">ORDER PLACED</span></div>
+<div style="margin-top:15px;color:#72b7ff;font-size:10px;font-weight:bold">✓ ORDER SUCCESSFULLY RECEIVED</div>
 
 <div class="products"><h2>Your Order</h2><div id="productList"></div></div>
 
+<div style="display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:20px">
+<a href="home.html" class="btn portal">🏠 HOME</a>
+<a href="cart.html" class="btn portal">🛒 CART</a>
+<a href="help-support.html" class="btn portal">❓ HELP</a>
+</div>
+
 <div class="buttons">
-<a id="trackBtn" href="track-order.html" class="btn track">TRACK ORDER →</a>
+<a href="track-order.html" class="btn track">TRACK ORDER →</a>
 <a href="catalog.html" class="btn shop">CONTINUE SHOPPING</a>
-<a href="notifications.html" class="btn portal">NOTIFICATIONS</a>
+<a href="profile.html" class="btn portal">MY PORTAL</a>
 </div>
 
 <div id="noOrder" class="warning" style="display:none">No recent order was found in this browser. Please return to the catalog and place an order first.</div>
 
-<div class="note"><b>FIREBASE REALTIME STATUS</b><br><br>
-<span id="syncStatus">Syncing offline storage...</span>
+<div class="note"><b>ORDER SYSTEM CONNECTION</b><br><br>
+This page currently reads the last order saved by checkout.html in browser storage. In the production version, order confirmation, payment verification, notifications and tracking should be connected to your secure backend/Firebase.
+<br><br><b>Important:</b> Payment verification must be performed on the server/backend; browser localStorage should not be treated as proof of payment.
 </div>
 </section>
 </main>
@@ -68,127 +76,78 @@ footer{padding:35px 7%;background:#03080e;border-top:1px solid #263b50;color:#7d
 <footer><div class="brand"><span class="blue">FHAMAR</span><span class="silver">.ZAMOST</span></div><p>Premium Digital Portal</p></footer>
 <div id="toast" class="toast"></div>
 
-<!-- Firebase SDKs -->
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
-
 <script>
-const ORDER_KEY = "fz_last_order";
-const NOTIFICATION_KEY = "fz_notifications";
+const ORDER_KEY="fz_last_order";
+let order=null;
 
-const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
-};
+try{order=JSON.parse(localStorage.getItem(ORDER_KEY)||"null")}catch(e){order=null}
 
-let db = null;
-if (firebaseConfig.apiKey !== "YOUR_API_KEY") {
-    firebase.initializeApp(firebaseConfig);
-    db = firebase.firestore();
-    document.getElementById("syncStatus").innerText = "Realtime Firebase sync connected.";
+function escapeHTML(value){
+    return String(value??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
 }
 
-let order = null;
-try { order = JSON.parse(localStorage.getItem(ORDER_KEY) || "null"); } catch(e) { order = null; }
-
-function escapeHTML(value) {
-    return String(value ?? "").replace(/[&<>"']/g, m => ({
-        "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#039;"
-    }[m]));
+function formatMoney(value){
+    const number=Number(value);
+    return Number.isFinite(number) ? "₹"+number.toLocaleString("en-IN") : "₹0";
 }
 
-function formatMoney(value) {
-    const number = Number(value);
-    return Number.isFinite(number) ? "₹" + number.toLocaleString("en-IN") : "₹0";
-}
-
-function paymentLabel(method) {
-    if (method === "upi") return "UPI";
-    if (method === "cod") return "Cash on Delivery";
+function paymentLabel(method){
+    if(method==="upi") return "UPI";
+    if(method==="cod") return "Cash on Delivery";
     return "Pending";
 }
 
-function pushOrderNotification(orderData) {
-    const newNotif = {
-        id: Date.now(),
-        type: "order",
-        icon: "📦",
-        title: "Order Confirmed",
-        text: `Order ${orderData.orderNumber || "FZ-ORDER"} has been placed successfully.`,
-        time: "Just now",
-        createdAt: new Date().toISOString(),
-        unread: true,
-        recipientType: "customer"
-    };
-
-    // 1. Sync to LocalStorage for Notifications Page
-    try {
-        let existing = JSON.parse(localStorage.getItem(NOTIFICATION_KEY) || "[]");
-        if (!Array.isArray(existing)) existing = [];
-        if (!existing.some(n => n.text === newNotif.text)) {
-            existing.unshift(newNotif);
-            localStorage.setItem(NOTIFICATION_KEY, JSON.stringify(existing));
-        }
-    } catch(e) {}
-
-    // 2. Sync to Firestore Realtime DB
-    if (db) {
-        db.collection("notifications").add(newNotif).catch(err => console.error("Firestore Error:", err));
-    }
+function showToast(text){
+    const toast=document.getElementById("toast");
+    toast.textContent=text;
+    toast.classList.add("show");
+    clearTimeout(window.toastTimer);
+    window.toastTimer=setTimeout(()=>toast.classList.remove("show"),2200);
 }
 
-function renderOrder() {
-    if (!order) {
-        document.getElementById("noOrder").style.display = "block";
-        document.getElementById("productList").innerHTML = "<div class='product-item'><span>No order data available.</span><strong>—</strong></div>";
+function renderOrder(){
+    if(!order){
+        document.getElementById("noOrder").style.display="block";
+        document.getElementById("productList").innerHTML="<div class='product-item'><span>No order data available.</span><strong>—</strong></div>";
         return;
     }
 
-    const orderId = order.orderNumber || ("FZ-" + Date.now().toString().slice(-6));
-    document.getElementById("orderNumber").textContent = orderId;
-    document.getElementById("customerName").textContent = order.customer?.name || "Customer";
-    document.getElementById("paymentMethod").textContent = paymentLabel(order.paymentMethod);
-    document.getElementById("orderStatus").textContent = String(order.status || "ORDER PLACED").toUpperCase();
-    
-    // Set direct URL parameter for Track Order
-    document.getElementById("trackBtn").href = `track-order.html?id=${encodeURIComponent(orderId)}`;
+    document.getElementById("orderNumber").textContent=order.orderNumber||"FZ-"+Date.now();
+    document.getElementById("customerName").textContent=order.customer?.name||"Customer";
+    document.getElementById("paymentMethod").textContent=paymentLabel(order.paymentMethod);
+    document.getElementById("orderStatus").textContent=String(order.status||"ORDER PLACED").toUpperCase();
 
-    const items = Array.isArray(order.items) ? order.items : [];
-    let total = 0;
-    const productList = document.getElementById("productList");
+    const items=Array.isArray(order.items)?order.items:[];
+    let total=0;
 
-    if (!items.length) {
-        productList.innerHTML = "<div class='product-item'><span>No products found in this order.</span><strong>—</strong></div>";
-    } else {
-        productList.innerHTML = items.map(item => {
-            const quantity = Math.max(1, Number(item.quantity) || 1);
-            const price = Math.max(0, Number(item.price) || 0);
-            const itemTotal = price * quantity;
-            total += itemTotal;
-            return `<div class="product-item"><span>${escapeHTML(item.name || "Product")} × ${quantity}</span><strong>${formatMoney(itemTotal)}</strong></div>`;
+    const productList=document.getElementById("productList");
+
+    if(!items.length){
+        productList.innerHTML="<div class='product-item'><span>No products found in this order.</span><strong>—</strong></div>";
+    }else{
+        productList.innerHTML=items.map(item=>{
+            const quantity=Math.max(1,Number(item.quantity)||1);
+            const price=Math.max(0,Number(item.price)||0);
+            const itemTotal=price*quantity;
+            total+=itemTotal;
+            return `<div class="product-item"><span>${escapeHTML(item.name||"Product")} × ${quantity}</span><strong>${formatMoney(itemTotal)}</strong></div>`;
         }).join("");
     }
 
-    const storedTotal = Number(order.total);
-    const finalTotal = Number.isFinite(storedTotal) && storedTotal >= 0 ? storedTotal : total;
-    document.getElementById("orderTotal").textContent = formatMoney(finalTotal);
-
-    // Trigger Notification Sync
-    pushOrderNotification({ ...order, orderNumber: orderId });
+    // Prefer the checkout-calculated total when available and valid.
+    const storedTotal=Number(order.total);
+    const finalTotal=Number.isFinite(storedTotal)&&storedTotal>=0?storedTotal:total;
+    document.getElementById("orderTotal").textContent=formatMoney(finalTotal);
 }
 
 renderOrder();
 
-window.addEventListener("storage", () => {
-    try {
-        order = JSON.parse(localStorage.getItem(ORDER_KEY) || "null");
+/* Keep order-confirmation page safe if user opens it without an order. */
+window.addEventListener("storage",()=>{
+    try{
+        order=JSON.parse(localStorage.getItem(ORDER_KEY)||"null");
         renderOrder();
-    } catch(e) {}
+    }catch(e){}
 });
 </script>
 </body>
