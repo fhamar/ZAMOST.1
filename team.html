@@ -58,7 +58,7 @@ footer{padding:35px 7%;background:#03080e;border-top:1px solid #263b50;color:#7d
 
 <section id="dashboard" class="section">
 <div class="section-header"><h2>Operations Overview</h2></div>
-<div class="api-note"><b>TEAM MEMBER ACCESS</b><br><br>Current demo is assigned to: <b id="dashboardState">BIHAR</b><br><br>Firebase Integration is active. Real-time changes in Firestore will automatically sync here.</div>
+<div class="api-note"><b>TEAM MEMBER ACCESS</b><br><br>Current demo is assigned to: <b id="dashboardState">BIHAR</b><br><br>Real system में Firebase Login के assignedState के अनुसार Team Member को केवल उसी state के orders दिखेंगे.</div>
 </section>
 
 <section id="orders" class="section" style="display:none">
@@ -75,209 +75,229 @@ footer{padding:35px 7%;background:#03080e;border-top:1px solid #263b50;color:#7d
 <section id="members" class="section" style="display:none">
 <div class="section-header"><h2>Team Members</h2></div>
 <div id="memberList" class="member-list"></div>
-<div class="api-note"><b>ADMIN VIEW CONNECTION</b><br><br>Admin Dashboard se Team Member ka pura dashboard view kiya ja sakega.</div>
+<div class="api-note"><b>ADMIN VIEW CONNECTION</b><br><br>Admin Dashboard से Team Member का पूरा dashboard view किया जा सकेगा.<br>Real system में Firebase role/permission rules जरूरी हैं.</div>
 </section>
 
 <section id="delivery" class="section" style="display:none">
 <div class="section-header"><h2>Delivery Operations</h2></div>
 <div class="partner-box"><h3>Select Delivery Partner</h3><div class="partner-row"><select id="deliveryPartner"><option value="">Select Partner</option><option>FZ Delivery Network</option><option>Local Delivery Partner</option><option>Professional Courier Partner</option></select><button onclick="assignDelivery()">ASSIGN</button></div></div>
 <div id="deliveryResult" class="api-note">No delivery partner assigned yet.</div>
+<div class="api-note"><b>DELIVERY API CONNECTION</b><br><br>Production version में shipment creation, tracking ID और delivery status backend/API से आएंगे.</div>
 </section>
 
-<div class="api-note"><b>FIREBASE REALTIME FIRESTORE CONNECTED</b><br><br>Data is syncing with Firebase Firestore database.</div>
+<div class="api-note"><b>FIREBASE / DATABASE CONNECTION AREA</b><br><br>YAHAN FIREBASE AUTHENTICATION, TEAM ROLE, ASSIGNED STATE, ORDERS DATABASE, ORDER STATUS UPDATE और DELIVERY API connection लगेगा.<br><br>Important: केवल HTML/JavaScript से role security सुरक्षित नहीं होती; production में server/Firebase Security Rules जरूरी हैं.</div>
 </main>
 </div>
 
 <footer><div class="brand"><span class="blue">FHAMAR</span><span class="silver">.ZAMOST</span></div><p>Team Operations • State-wise Order Management</p></footer>
 <div id="toast" class="toast"></div>
 
-<!-- Firebase Module Script -->
 <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-  import { getFirestore, collection, query, where, onSnapshot, doc, updateDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import { app } from "./firebase-config.js";
+import {
+  getFirestore, collection, query, where, onSnapshot, doc, setDoc
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
-  // -------------------------------------------------------------
-  // [PLACEHOLDER] YAHAN AAPNI FIREBASE API KEYS DAALNI HAIN
-  // Jab aapke pass keys aa jayein, "YOUR_..." ko replace kar dein.
-  // -------------------------------------------------------------
-  const firebaseConfig = {
-    apiKey: "YOUR_API_KEY_HERE",
-    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_PROJECT_ID.appspot.com",
-    messagingSenderId: "YOUR_SENDER_ID",
-    appId: "YOUR_APP_ID"
-  };
+const db = getFirestore(app);
+let TEAM_STATE = "Bihar";
+let TEAM_MEMBER_ID = "FZTM001";
+let orders = [];
 
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
+const teamMembers = [
+  {id:"FZTM001",name:"Rahul Kumar",state:"Bihar",status:"Approved"},
+  {id:"FZTM002",name:"Aman Khan",state:"Delhi",status:"Approved"},
+  {id:"FZTM003",name:"Sameer Ali",state:"Maharashtra",status:"Approved"},
+  {id:"FZTM004",name:"Arif Hasan",state:"West Bengal",status:"Pending"},
+  {id:"FZTM005",name:"Vikas Singh",state:"Karnataka",status:"Approved"}
+];
 
-  let TEAM_STATE = "Bihar";
-  let TEAM_MEMBER_ID = "FZTM001";
-  let orders = [];
-
-  const teamMembers = [
-    {id:"FZTM001",name:"Rahul Kumar",state:"Bihar",status:"Approved"},
-    {id:"FZTM002",name:"Aman Khan",state:"Delhi",status:"Approved"},
-    {id:"FZTM003",name:"Sameer Ali",state:"Maharashtra",status:"Approved"},
-    {id:"FZTM004",name:"Arif Hasan",state:"West Bengal",status:"Pending"},
-    {id:"FZTM005",name:"Vikas Singh",state:"Karnataka",status:"Approved"}
+function demoOrders(){
+  return [
+    {id:"FZ20001",customer:"Mohammad Ali",mobile:"9000000011",state:"Bihar",product:"Classic Backpack",amount:799,status:"Confirmed"},
+    {id:"FZ20002",customer:"Aman Kumar",mobile:"9000000012",state:"Bihar",product:"Smart Watch",amount:1299,status:"Packaging"},
+    {id:"FZ20003",customer:"Ravi Singh",mobile:"9000000013",state:"Bihar",product:"Running Shoes",amount:1499,status:"Ready to Ship"},
+    {id:"FZ20004",customer:"Imran Khan",mobile:"9000000014",state:"Bihar",product:"Wireless Earphones",amount:999,status:"Shipped"},
+    {id:"FZ20005",customer:"Neha Sharma",mobile:"9000000015",state:"Bihar",product:"Sunglasses",amount:599,status:"Delivered"}
   ];
+}
 
-  // REAL-TIME FIRESTORE LISTENER
-  function initRealtimeOrders() {
-    try {
-      const q = query(collection(db, "orders"), where("state", "==", TEAM_STATE));
-      onSnapshot(q, (snapshot) => {
-        orders = [];
-        snapshot.forEach((docSnap) => {
-          orders.push({ id: docSnap.id, ...docSnap.data() });
-        });
-        
-        // Fallback demo data if DB is empty
-        if (orders.length === 0) {
-          orders = [
-            {id:"FZ20001",customer:"Mohammad Ali",mobile:"9000000011",state:"Bihar",product:"Classic Backpack",amount:799,status:"Confirmed"},
-            {id:"FZ20002",customer:"Aman Kumar",mobile:"9000000012",state:"Bihar",product:"Smart Watch",amount:1299,status:"Packaging"},
-            {id:"FZ20003",customer:"Ravi Singh",mobile:"9000000013",state:"Bihar",product:"Running Shoes",amount:1499,status:"Ready to Ship"},
-            {id:"FZ20004",customer:"Imran Khan",mobile:"9000000014",state:"Bihar",product:"Wireless Earphones",amount:999,status:"Shipped"},
-            {id:"FZ20005",customer:"Neha Sharma",mobile:"9000000015",state:"Bihar",product:"Sunglasses",amount:599,status:"Delivered"}
-          ];
-        }
-        window.renderOrders();
-        window.updateStats();
-      }, (error) => {
-        console.warn("Firestore listener offline, running local state:", error);
-      });
-    } catch (e) {
-      console.log("Firebase config pending...");
-    }
-  }
-
-  // UPDATE ORDER STATUS IN FIRESTORE
-  window.setOrderStatus = async function(id, status) {
-    const order = orders.find(o => o.id === id);
-    if(!order) return;
-    
-    // Update locally first
-    order.status = status;
-    window.renderOrders();
-    window.showToast(`${id} updated to ${status}.`);
-
-    // Sync to Firestore
-    try {
-      const orderRef = doc(db, "orders", id);
-      await setDoc(orderRef, { status: status }, { merge: true });
-    } catch (err) {
-      console.log("Firestore sync pending key update.");
-    }
-  };
-
-  window.advanceOrder = function(id) {
-    const order = orders.find(o => o.id === id);
-    if(!order) return;
-    const flow = ["Confirmed","Packaging","Ready to Ship","Shipped","Out for Delivery","Delivered"];
-    const i = flow.indexOf(order.status);
-    if(i < 0 || i === flow.length - 1){ window.showToast("Order is already completed."); return; }
-    window.setOrderStatus(id, flow[i+1]);
-  };
-
-  window.renderOrders = function() {
-    const grid = document.getElementById("orderGrid"), empty = document.getElementById("orderEmpty");
-    const search = document.getElementById("orderSearch").value.toLowerCase().trim();
-    const filter = document.getElementById("orderStatusFilter").value;
-    const filtered = orders.filter(o => {
-      if(o.state !== TEAM_STATE) return false;
-      const text = (o.id + " " + o.customer + " " + o.product).toLowerCase();
-      return text.includes(search) && (filter === "all" || o.status === filter);
+function initRealtimeOrders(){
+  try{
+    const q = query(collection(db,"orders"),where("state","==",TEAM_STATE));
+    onSnapshot(q,(snapshot)=>{
+      orders = snapshot.docs.map(d=>({id:d.id,...d.data()}));
+      if(!orders.length) orders = demoOrders();
+      renderOrders();
+      updateStats();
+    },(error)=>{
+      console.warn("Firestore listener:",error);
+      orders = demoOrders();
+      renderOrders();
+      updateStats();
+      showToast("Firebase connection check karein.");
     });
-    
-    grid.innerHTML = filtered.map(order => `
+  }catch(error){
+    console.error(error);
+    orders = demoOrders();
+    renderOrders();
+    updateStats();
+  }
+}
+
+window.setOrderStatus = async function(id,status){
+  const order = orders.find(o=>o.id===id);
+  if(!order) return;
+  order.status = status;
+  renderOrders();
+  showToast(`${id} → ${status}`);
+  try{
+    await setDoc(doc(db,"orders",id),{
+      status,
+      updatedAt:new Date().toISOString()
+    },{merge:true});
+  }catch(error){
+    console.error(error);
+    showToast("Firebase update nahi hua.");
+  }
+};
+
+window.advanceOrder = function(id){
+  const order = orders.find(o=>o.id===id);
+  if(!order) return;
+  const flow=["Confirmed","Packaging","Ready to Ship","Shipped","Out for Delivery","Delivered"];
+  const i=flow.indexOf(order.status);
+  if(i<0 || i===flow.length-1){
+    showToast("Order is already completed.");
+    return;
+  }
+  setOrderStatus(id,flow[i+1]);
+};
+
+window.renderOrders = function(){
+  const grid=document.getElementById("orderGrid");
+  const empty=document.getElementById("orderEmpty");
+  const search=document.getElementById("orderSearch").value.toLowerCase().trim();
+  const filter=document.getElementById("orderStatusFilter").value;
+
+  const filtered=orders.filter(o=>{
+    if(o.state!==TEAM_STATE) return false;
+    const text=(String(o.id||"")+" "+String(o.customer||"")+" "+String(o.product||"")).toLowerCase();
+    return text.includes(search) && (filter==="all" || o.status===filter);
+  });
+
+  grid.innerHTML=filtered.map(order=>`
     <article class="order-card">
-      <div class="order-top"><div class="order-id">${escapeHTML(order.id)}</div><div class="status">${escapeHTML(order.status)}</div></div>
-      <div class="order-info">Customer: <strong>${escapeHTML(order.customer)}</strong><br>Mobile: <strong>${escapeHTML(order.mobile)}</strong><br>Product: <strong>${escapeHTML(order.product)}</strong><br>Amount: <strong>₹${Number(order.amount).toLocaleString("en-IN")}</strong><br>State: <strong>${escapeHTML(order.state)}</strong></div>
-      <div class="order-actions">${nextAction(order)}<button class="action" onclick="advanceOrder('${order.id}')">NEXT STATUS</button></div>
-      <div class="packaging"><div class="packaging-title">ORDER PROGRESS</div><div class="packaging-steps">${progressSteps(order.status)}</div></div>
-    </article>`).join("");
-    
-    empty.style.display = filtered.length ? "none" : "block";
-    window.updateStats();
+      <div class="order-top">
+        <div class="order-id">${escapeHTML(order.id)}</div>
+        <div class="status">${escapeHTML(order.status)}</div>
+      </div>
+      <div class="order-info">
+        Customer: <strong>${escapeHTML(order.customer)}</strong><br>
+        Mobile: <strong>${escapeHTML(order.mobile)}</strong><br>
+        Product: <strong>${escapeHTML(order.product)}</strong><br>
+        Amount: <strong>₹${Number(order.amount||0).toLocaleString("en-IN")}</strong><br>
+        State: <strong>${escapeHTML(order.state)}</strong>
+      </div>
+      <div class="order-actions">
+        ${nextAction(order)}
+        <button class="action" onclick="advanceOrder('${escapeHTML(order.id)}')">NEXT STATUS</button>
+      </div>
+      <div class="packaging">
+        <div class="packaging-title">ORDER PROGRESS</div>
+        <div class="packaging-steps">${progressSteps(order.status)}</div>
+      </div>
+    </article>
+  `).join("");
+
+  empty.style.display=filtered.length?"none":"block";
+  updateStats();
+};
+
+function nextAction(order){
+  const id=escapeHTML(order.id);
+  const map={
+    "Confirmed":`<button class="action primary" onclick="setOrderStatus('${id}','Packaging')">START PACKAGING</button>`,
+    "Packaging":`<button class="action primary" onclick="setOrderStatus('${id}','Ready to Ship')">READY TO SHIP</button>`,
+    "Ready to Ship":`<button class="action primary" onclick="setOrderStatus('${id}','Shipped')">DISPATCH ORDER</button>`,
+    "Shipped":`<button class="action primary" onclick="setOrderStatus('${id}','Out for Delivery')">OUT FOR DELIVERY</button>`,
+    "Out for Delivery":`<button class="action primary" onclick="setOrderStatus('${id}','Delivered')">MARK DELIVERED</button>`
   };
+  return map[order.status] || `<button class="action" disabled>COMPLETED</button>`;
+}
 
-  function nextAction(order){
-    if(order.status==="Confirmed")return `<button class="action primary" onclick="setOrderStatus('${order.id}','Packaging')">START PACKAGING</button>`;
-    if(order.status==="Packaging")return `<button class="action primary" onclick="setOrderStatus('${order.id}','Ready to Ship')">READY TO SHIP</button>`;
-    if(order.status==="Ready to Ship")return `<button class="action primary" onclick="setOrderStatus('${order.id}','Shipped')">DISPATCH ORDER</button>`;
-    if(order.status==="Shipped")return `<button class="action primary" onclick="setOrderStatus('${order.id}','Out for Delivery')">OUT FOR DELIVERY</button>`;
-    if(order.status==="Out for Delivery")return `<button class="action primary" onclick="setOrderStatus('${order.id}','Delivered')">MARK DELIVERED</button>`;
-    return `<button class="action" disabled>COMPLETED</button>`;
-  }
+function progressSteps(status){
+  const all=["Confirmed","Packaging","Ready to Ship","Shipped","Out for Delivery","Delivered"];
+  const index=all.indexOf(status);
+  return all.map((s,i)=>`<span class="step ${i<=index?"done":""}">${i+1}. ${escapeHTML(s)}</span>`).join("");
+}
 
-  function progressSteps(status){
-    const all = ["Confirmed","Packaging","Ready to Ship","Shipped","Out for Delivery","Delivered"];
-    const index = all.indexOf(status);
-    return all.map((s,i) => `<span class="step ${i<=index?"done":""}">${i+1}. ${s}</span>`).join("");
-  }
-
-  window.renderMembers = function() {
-    document.getElementById("memberList").innerHTML = teamMembers.map(m => `
+window.renderMembers=function(){
+  document.getElementById("memberList").innerHTML=teamMembers.map(m=>`
     <article class="member-card">
-      <div class="member-card-top"><h3>${escapeHTML(m.name)}</h3><span class="member-status">${escapeHTML(m.status)}</span></div>
+      <div class="member-card-top">
+        <h3>${escapeHTML(m.name)}</h3>
+        <span class="member-status">${escapeHTML(m.status)}</span>
+      </div>
       <p>Member ID: ${escapeHTML(m.id)}<br>Assigned State: ${escapeHTML(m.state)}</p>
-      <button class="view-btn" onclick="viewMember('${m.id}')">VIEW MEMBER</button>
-    </article>`).join("");
-  };
+      <button class="view-btn" onclick="viewMember('${escapeHTML(m.id)}')">VIEW MEMBER</button>
+    </article>
+  `).join("");
+};
 
-  window.viewMember = function(id) {
-    const m = teamMembers.find(x => x.id === id);
-    if(m) window.showToast(`${m.name} • ${m.state} • ${m.status}`);
-  };
+window.viewMember=function(id){
+  const m=teamMembers.find(x=>x.id===id);
+  if(m) showToast(`${m.name} • ${m.state} • ${m.status}`);
+};
 
-  window.assignDelivery = function() {
-    const partner = document.getElementById("deliveryPartner").value;
-    if(!partner){ window.showToast("Please select a delivery partner."); return; }
-    const data = {partner, memberId: TEAM_MEMBER_ID, state: TEAM_STATE, assignedAt: new Date().toISOString()};
-    localStorage.setItem("fz_delivery_assignment", JSON.stringify(data));
-    document.getElementById("deliveryResult").innerHTML = `<b>ASSIGNED:</b> ${escapeHTML(partner)}<br>State: ${escapeHTML(TEAM_STATE)}<br>Member: ${escapeHTML(TEAM_MEMBER_ID)}`;
-    window.showToast("Delivery partner assigned.");
-  };
-
-  window.updateStats = function() {
-    const mine = orders.filter(o => o.state === TEAM_STATE);
-    const count = s => mine.filter(o => o.status === s).length;
-    document.getElementById("todayOrders").textContent = mine.length;
-    document.getElementById("pendingOrders").textContent = count("Confirmed");
-    document.getElementById("packagingOrders").textContent = count("Packaging");
-    document.getElementById("shippedOrders").textContent = count("Shipped") + count("Ready to Ship") + count("Out for Delivery");
-    document.getElementById("deliveredOrders").textContent = count("Delivered");
-  };
-
-  window.showSection = function(id, button) {
-    document.querySelectorAll(".section").forEach(s => s.style.display = "none");
-    document.querySelectorAll(".menu-btn").forEach(b => b.classList.remove("active"));
-    const section = document.getElementById(id);
-    if(section) section.style.display = "block";
-    if(button) button.classList.add("active");
-    if(id === "orders") window.renderOrders();
-    if(id === "members") window.renderMembers();
-  };
-
-  function escapeHTML(value){
-    return String(value??"").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
+window.assignDelivery=function(){
+  const partner=document.getElementById("deliveryPartner").value;
+  if(!partner){
+    showToast("Please select a delivery partner.");
+    return;
   }
+  const data={partner,memberId:TEAM_MEMBER_ID,state:TEAM_STATE,assignedAt:new Date().toISOString()};
+  localStorage.setItem("fz_delivery_assignment",JSON.stringify(data));
+  document.getElementById("deliveryResult").innerHTML=
+    `<b>ASSIGNED:</b> ${escapeHTML(partner)}<br>State: ${escapeHTML(TEAM_STATE)}<br>Member: ${escapeHTML(TEAM_MEMBER_ID)}`;
+  showToast("Delivery partner assigned.");
+};
 
-  window.showToast = function(text) {
-    const t = document.getElementById("toast");
-    t.textContent = text;
-    t.classList.add("show");
-    clearTimeout(window.toastTimer);
-    window.toastTimer = setTimeout(() => t.classList.remove("show"), 2200);
-  };
+window.updateStats=function(){
+  const mine=orders.filter(o=>o.state===TEAM_STATE);
+  const count=s=>mine.filter(o=>o.status===s).length;
+  document.getElementById("todayOrders").textContent=mine.length;
+  document.getElementById("pendingOrders").textContent=count("Confirmed");
+  document.getElementById("packagingOrders").textContent=count("Packaging");
+  document.getElementById("shippedOrders").textContent=count("Shipped")+count("Ready to Ship")+count("Out for Delivery");
+  document.getElementById("deliveredOrders").textContent=count("Delivered");
+};
 
-  // Initialize
-  document.getElementById("dashboardState").textContent = TEAM_STATE.toUpperCase();
-  document.getElementById("assignedState").textContent = "ASSIGNED STATE: " + TEAM_STATE.toUpperCase();
-  initRealtimeOrders();
+window.showSection=function(id,button){
+  document.querySelectorAll(".section").forEach(s=>s.style.display="none");
+  document.querySelectorAll(".menu-btn").forEach(b=>b.classList.remove("active"));
+  const section=document.getElementById(id);
+  if(section) section.style.display="block";
+  if(button) button.classList.add("active");
+  if(id==="orders") renderOrders();
+  if(id==="members") renderMembers();
+};
+
+function escapeHTML(value){
+  return String(value??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
+}
+
+window.showToast=function(text){
+  const t=document.getElementById("toast");
+  t.textContent=text;
+  t.classList.add("show");
+  clearTimeout(window.toastTimer);
+  window.toastTimer=setTimeout(()=>t.classList.remove("show"),2200);
+};
+
+  document.getElementById("dashboardState").textContent=TEAM_STATE.toUpperCase();
+document.getElementById("assignedState").textContent="ASSIGNED STATE: "+TEAM_STATE.toUpperCase();
+renderMembers();
+initRealtimeOrders();
 </script>
 </body>
 </html>
