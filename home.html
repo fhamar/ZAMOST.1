@@ -1,348 +1,350 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FHAMAR.ZAMOST - Premium Platform</title>
-    <style>
-        :root {
-            --bg-color: #0b0f19;
-            --card-bg: #111827;
-            --border-color: #1f293d;
-            --accent-blue: #2563eb;
-            --text-main: #f3f4f6;
-            --text-sub: #9ca3af;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            line-height: 1.6;
-        }
-
-        /* Top Header */
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 2rem;
-            background-color: rgba(11, 15, 25, 0.9);
-            border-bottom: 1px solid var(--border-color);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .logo-badge {
-            background: #1e293b;
-            border: 1px solid var(--border-color);
-            padding: 5px 10px;
-            border-radius: 6px;
-            font-weight: bold;
-            color: #fff;
-        }
-
-        .brand-name {
-            font-size: 1.2rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-        }
-
-        .btn-team {
-            background-color: var(--accent-blue);
-            color: #fff;
-            padding: 8px 16px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-        }
-
-        /* 1. Single Line Quick Nav Bar (As per sketch) */
-        .top-quick-nav {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 12px;
-            padding: 12px 1rem;
-            background-color: #0f172a;
-            border-bottom: 1px solid var(--border-color);
-            overflow-x: auto;
-            white-space: nowrap;
-        }
-
-        .nav-item-btn {
-            background: #1e293b;
-            color: var(--text-main);
-            text-decoration: none;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            border: 1px solid var(--border-color);
-            transition: all 0.3s ease;
-        }
-
-        .nav-item-btn:hover {
-            background: var(--accent-blue);
-            border-color: var(--accent-blue);
-        }
-
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 2rem 1rem;
-        }
-
-        /* Hero Section */
-        .hero {
-            text-align: center;
-            padding: 3rem 1rem;
-            background: radial-gradient(circle at center, #1e293b 0%, #0b0f19 70%);
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            margin-bottom: 2rem;
-        }
-
-        .hero-tag {
-            color: var(--text-sub);
-            font-size: 0.8rem;
-            letter-spacing: 2px;
-            margin-bottom: 10px;
-        }
-
-        .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            letter-spacing: 1px;
-        }
-
-        .hero p {
-            color: var(--text-sub);
-            max-width: 600px;
-            margin: 0 auto 20px;
-            font-size: 0.95rem;
-        }
-
-        .hero-btns {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-        }
-
-        .btn-primary, .btn-secondary {
-            padding: 10px 20px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 600;
-        }
-
-        .btn-primary { background: var(--accent-blue); color: white; }
-        .btn-secondary { background: transparent; border: 1px solid var(--border-color); color: white; }
-
-        /* 2. Promo / Ad Banner Section */
-        .ad-banner-section {
-            background: #161e2e;
-            border: 1px dashed var(--accent-blue);
-            border-radius: 10px;
-            padding: 1.5rem;
-            text-align: center;
-            margin-bottom: 2.5rem;
-        }
-
-        .ad-placeholder {
-            width: 100%;
-            max-height: 180px;
-            background: #0f172a;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-sub);
-            font-size: 0.9rem;
-            padding: 20px;
-        }
-
-        /* 3. Featured Products Showcase */
-        .section-title {
-            margin-bottom: 1.5rem;
-        }
-
-        .section-title span {
-            color: var(--accent-blue);
-            font-size: 0.8rem;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-        }
-
-        .section-title h2 {
-            font-size: 1.5rem;
-            margin-top: 5px;
-        }
-
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 3rem;
-        }
-
-        .product-card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .product-card h3 {
-            font-size: 1.1rem;
-            margin-bottom: 8px;
-        }
-
-        .product-card p {
-            color: var(--text-sub);
-            font-size: 0.85rem;
-            margin-bottom: 15px;
-        }
-
-        .btn-view {
-            display: inline-block;
-            text-align: center;
-            padding: 8px;
-            background: #1e293b;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-size: 0.8rem;
-            border: 1px solid var(--border-color);
-        }
-
-        /* Team Section */
-        .team-box {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        footer {
-            text-align: center;
-            padding: 2rem;
-            border-top: 1px solid var(--border-color);
-            color: var(--text-sub);
-            font-size: 0.85rem;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FHAMAR.ZAMOST - Premium Platform</title>
+<style>
+:root{
+  --bg:#070b13;--card:#0e1623;--card2:#111c2b;--border:#202d40;
+  --blue:#3182f6;--blue2:#60a5fa;--silver:#c2cad5;--muted:#8e9bad;--white:#f5f7fb;
+}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif}
+body{background:radial-gradient(circle at 50% -10%,#13223a 0,#070b13 42%);color:var(--white);line-height:1.6}
+a{text-decoration:none;color:inherit}
+header{
+ display:flex;justify-content:space-between;align-items:center;padding:13px 2rem;
+ background:rgba(7,11,19,.94);border-bottom:1px solid var(--border);
+ position:sticky;top:0;z-index:100;backdrop-filter:blur(14px)
+}
+.logo-container{display:flex;align-items:center;gap:10px}
+.logo-badge{
+ width:44px;height:44px;display:grid;place-items:center;border-radius:12px;
+ background:linear-gradient(145deg,#17263b,#0b111b);border:1px solid #34445a;
+ color:#fff;font-weight:900;letter-spacing:1px;box-shadow:0 0 24px rgba(49,130,246,.15)
+}
+.brand-name{font-size:1.12rem;font-weight:800;letter-spacing:1.2px}
+.brand-name small{display:block;color:#748196;font-size:9px;letter-spacing:2px;margin-top:-2px}
+.header-actions{display:flex;align-items:center;gap:9px}
+.btn-team,.profile-btn{
+ background:linear-gradient(135deg,#2563eb,#3b82f6);color:#fff;padding:9px 14px;border-radius:10px;
+ border:1px solid rgba(255,255,255,.1);font-size:.8rem;font-weight:700;cursor:pointer
+}
+.profile-btn{display:flex;align-items:center;gap:8px;background:#101b2a}
+.profile-avatar{width:28px;height:28px;border-radius:50%;object-fit:cover;background:#1d2b3d;border:1px solid #516176}
+.top-quick-nav{
+ display:flex;justify-content:center;align-items:center;gap:10px;padding:11px 1rem;
+ background:#0c1421;border-bottom:1px solid var(--border);overflow-x:auto;white-space:nowrap
+}
+.nav-item-btn{
+ background:linear-gradient(180deg,#162235,#111a28);color:var(--text-main);
+ text-decoration:none;padding:8px 15px;border-radius:20px;font-size:.82rem;
+ border:1px solid #26354a;transition:.25s;box-shadow:0 4px 12px rgba(0,0,0,.12)
+}
+.nav-item-btn:hover,.nav-item-btn.active{background:#2563eb;border-color:#4d91ff;transform:translateY(-1px)}
+.container{max-width:1120px;margin:auto;padding:22px 1rem}
+.hero{
+ text-align:center;padding:3.5rem 1rem;background:radial-gradient(circle at 50% 15%,#243a59 0,#111b2b 28%,#0b1019 72%);
+ border-radius:18px;border:1px solid var(--border);margin-bottom:2rem;overflow:hidden;position:relative
+}
+.hero:after{content:"";position:absolute;width:240px;height:240px;border:1px solid rgba(96,165,250,.15);border-radius:50%;right:-100px;top:-110px}
+.hero-tag{color:#7e9cc3;font-size:.76rem;letter-spacing:2.4px;margin-bottom:10px}
+.hero h1{font-size:clamp(2rem,6vw,3rem);margin-bottom:14px;letter-spacing:1px}
+.hero p{color:var(--muted);max-width:650px;margin:0 auto 20px;font-size:.94rem}
+.hero-btns{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+.btn-primary,.btn-secondary{padding:10px 19px;border-radius:9px;text-decoration:none;font-size:.85rem;font-weight:700}
+.btn-primary{background:var(--blue);color:white}.btn-secondary{background:#101a28;border:1px solid #2a3a50;color:white}
+.section-heading{margin-bottom:15px}
+.section-heading span{color:var(--blue2);font-size:.73rem;letter-spacing:1.7px;text-transform:uppercase;font-weight:800}
+.section-heading h2{font-size:1.55rem;margin-top:3px}
+.ad-banner-section{
+ background:linear-gradient(145deg,#101b2a,#0b131f);border:1px solid #294261;border-radius:16px;
+ padding:12px;text-align:center;margin-bottom:2.5rem;box-shadow:0 12px 30px rgba(0,0,0,.14)
+}
+.media-frame{
+ width:100%;min-height:185px;max-height:420px;background:#080f19;border-radius:11px;
+ display:flex;align-items:center;justify-content:center;overflow:hidden;color:var(--muted);font-size:.85rem
+}
+.media-frame img,.media-frame video{width:100%;height:auto;max-height:420px;object-fit:cover;display:block}
+.media-help{padding:8px 4px 2px;color:#69778a;font-size:.7rem}
+.products-section{margin-bottom:3rem}
+.product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.product-card{
+ background:linear-gradient(145deg,#111c2b,#0b131f);border:1px solid var(--border);border-radius:15px;
+ padding:13px;display:flex;flex-direction:column;min-width:0;transition:.25s;overflow:hidden
+}
+.product-card:hover{transform:translateY(-3px);border-color:#31577e;box-shadow:0 12px 25px rgba(0,0,0,.2)}
+.product-image{
+ height:170px;border-radius:11px;background:linear-gradient(135deg,#1a2b41,#09111c);
+ display:flex;align-items:center;justify-content:center;color:#6f8198;font-size:.72rem;margin-bottom:12px;overflow:hidden
+}
+.product-image img{width:100%;height:100%;object-fit:cover}
+.product-card h3{font-size:1rem;margin-bottom:5px}
+.product-card p{color:var(--muted);font-size:.78rem;margin-bottom:11px;min-height:38px}
+.price{color:#74b4ff;font-size:1.05rem;font-weight:800;margin-bottom:9px}
+.btn-view{display:block;text-align:center;padding:8px;background:#152337;color:white;border-radius:8px;font-size:.78rem;border:1px solid #283b53}
+.team-box{
+ background:linear-gradient(145deg,#101a29,#0b131f);border:1px solid var(--border);border-radius:16px;
+ padding:22px;margin-bottom:2rem;display:flex;justify-content:space-between;align-items:center;gap:18px
+}
+.team-copy p{color:var(--muted);margin-top:8px;font-size:.86rem;max-width:760px}
+.team-points{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.team-points span{font-size:.7rem;color:#c9d3df;background:#0c1725;border:1px solid #24364d;padding:5px 8px;border-radius:20px}
+.trust-section{margin:0 0 2rem}
+.trust-strip{display:grid;grid-template-columns:repeat(7,1fr);gap:7px}
+.trust-item{
+ background:#0c1522;border:1px solid var(--border);border-radius:11px;padding:10px 6px;
+ text-align:center;font-size:.62rem;color:#b9c4d1;min-width:0
+}
+.trust-item strong{display:block;color:#68adff;font-size:.72rem;margin-bottom:2px;white-space:nowrap}
+footer{border-top:1px solid var(--border);background:#050911;margin-top:0}
+.footer-inner{max-width:1120px;margin:auto;padding:26px 1rem 13px}
+.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1.25fr;gap:25px;text-align:left}
+.footer-col h3{font-size:1rem;margin-bottom:8px;color:#edf2f8}
+.footer-col p,.footer-col a{font-size:.76rem;color:var(--muted);line-height:1.7}
+.footer-col a{display:block}.footer-col a:hover{color:#fff}
+.footer-brand{color:#68adff!important;font-weight:800;letter-spacing:1px}
+.footer-badge{display:inline-block;margin-top:8px;border:1px solid #31516f;border-radius:20px;padding:5px 9px;color:#a9c6e4!important;font-size:.68rem!important}
+.footer-bottom{
+ border-top:1px solid var(--border);margin-top:20px;padding-top:11px;
+ text-align:center;white-space:nowrap;overflow-x:auto;color:#78879a;font-size:.67rem
+}
+.profile-panel{
+ position:fixed;right:18px;top:70px;width:min(330px,calc(100vw - 36px));background:#0b1522;
+ border:1px solid #2a405a;border-radius:16px;padding:15px;z-index:200;box-shadow:0 20px 55px rgba(0,0,0,.5);display:none
+}
+.profile-panel.show{display:block}
+.profile-info{display:flex;gap:10px;align-items:center;border-bottom:1px solid var(--border);padding-bottom:12px}
+.profile-info img{width:48px;height:48px;border-radius:50%;object-fit:cover;background:#172537}
+.profile-info b{display:block}.profile-info span{display:block;color:var(--muted);font-size:.7rem;word-break:break-all}
+.profile-status{font-size:.7rem;color:#72b5ff;margin:10px 0}
+.logout-btn{width:100%;padding:9px;border:1px solid #2b3b50;border-radius:9px;background:#111d2c;color:#fff;font-weight:700;cursor:pointer}
+.toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:#101d2c;border:1px solid #355676;color:#fff;padding:9px 13px;border-radius:9px;font-size:.75rem;display:none;z-index:300}
+.toast.show{display:block}
+@media(max-width:900px){.product-grid{grid-template-columns:repeat(2,1fr)}.trust-strip{grid-template-columns:repeat(4,1fr)}.footer-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){
+ header{padding:10px 12px}.brand-name{font-size:.95rem}.brand-name small{font-size:7px}.btn-team{display:none}
+ .container{padding:15px 10px}.hero{padding:2.6rem .9rem}.hero h1{font-size:2rem}
+ .product-grid{grid-template-columns:repeat(2,1fr);gap:9px}.product-card{padding:9px}.product-image{height:125px}
+ .team-box{display:block;padding:17px}.team-box .btn-primary{display:inline-block;margin-top:14px}
+ .trust-strip{grid-template-columns:repeat(2,1fr)}.footer-grid{grid-template-columns:1fr}
+ .footer-bottom{text-align:left;font-size:.62rem}
+}
+</style>
 </head>
 <body>
 
-    <!-- Main Header -->
-    <header>
-        <div class="logo-container">
-            <div class="logo-badge">FZ</div>
-            <div class="brand-name">FHAMAR.ZAMOST</div>
-        </div>
-        <a href="team.html" class="btn-team">TEAM MEMBERS</a>
-    </header>
+<header>
+  <div class="logo-container">
+    <div class="logo-badge">FZ</div>
+    <div class="brand-name">FHAMAR.ZAMOST<small>PREMIUM SMART PORTAL</small></div>
+  </div>
+  <div class="header-actions">
+    <a href="team.html" class="btn-team">TEAM MEMBERS</a>
+    <button class="profile-btn" id="profileBtn" type="button">
+      <img class="profile-avatar" id="headerAvatar" alt="">
+      <span id="headerName">Profile</span>
+    </button>
+  </div>
+</header>
 
-    <!-- Top Quick Navigation Bar (1 Line Order: Home, Catalog, Cart, Track, Help, Profile) -->
-    <nav class="top-quick-nav">
-        <a href="home.html" class="nav-item-btn">Home</a>
-        <a href="#catalog" class="nav-item-btn">Catalog</a>
-        <a href="#cart" class="nav-item-btn">Cart</a>
-        <a href="#track" class="nav-item-btn">Track</a>
-        <a href="#help" class="nav-item-btn">Help</a>
-        <a href="#profile" class="nav-item-btn">Profile</a>
-    </nav>
+<nav class="top-quick-nav">
+  <a href="home.html" class="nav-item-btn active">Home</a>
+  <a href="#catalog" class="nav-item-btn">Catalog</a>
+  <a href="#cart" class="nav-item-btn">Cart</a>
+  <a href="#track" class="nav-item-btn">Track</a>
+  <a href="#help" class="nav-item-btn">Help</a>
+  <a href="#profile" class="nav-item-btn">Profile</a>
+</nav>
 
-    <div class="container">
+<div class="profile-panel" id="profilePanel">
+  <div class="profile-info">
+    <img id="panelAvatar" alt="">
+    <div><b id="panelName">Loading...</b><span id="panelContact">Checking account...</span></div>
+  </div>
+  <div class="profile-status" id="profileStatus">Firebase account</div>
+  <button class="logout-btn" id="logoutBtn" type="button">Logout</button>
+</div>
 
-        <!-- Hero Section -->
-        <section class="hero">
-            <div class="hero-tag">PREMIUM • BLUE • SILVER • DARK</div>
-            <h1>WELCOME TO FHAMAR.ZAMOST</h1>
-            <p>A modern digital platform connecting products, members, state teams, and profile management in one place.</p>
-            <div class="hero-btns">
-                <a href="#catalog" class="btn-primary">EXPLORE COLLECTION</a>
-                <a href="#team" class="btn-secondary">JOIN OUR TEAM</a>
-            </div>
-        </section>
+<div class="container">
 
-        <!-- Ad / Video Banner Section (Under Hero) -->
-        <section class="ad-banner-section">
-            <div class="ad-placeholder">
-                📢 [PROMO / ADVERTISEMENT BANNER]
-                <br>
-                Aap yahan apna Video Player (`<video>`) ya Photo Offer Banner (`<img>`) laga sakte hain.
-            </div>
-        </section>
+<section class="hero">
+  <div class="hero-tag">PREMIUM • BLUE • SILVER • DARK</div>
+  <h1>WELCOME TO FHAMAR.ZAMOST</h1>
+  <p>A modern digital platform connecting products, members, state teams, customer services and profile management in one place.</p>
+  <div class="hero-btns">
+    <a href="#catalog" class="btn-primary">EXPLORE COLLECTION</a>
+    <a href="#team" class="btn-secondary">JOIN OUR TEAM</a>
+  </div>
+</section>
 
-        <!-- Featured Products Showcase -->
-        <section class="products-section" id="catalog">
-            <div class="section-title">
-                <span>EXCLUSIVE LINE</span>
-                <h2>Featured Fragrances & Products</h2>
-            </div>
+<section class="ad-banner-section">
+  <div class="section-heading" style="text-align:left;margin:2px 4px 9px">
+    <span>PROMO • MEDIA</span><h2>Featured Advertisement</h2>
+  </div>
+  <div class="media-frame">
+    <!-- PHOTO लगानी हो:
+    <img src="promo.jpg" alt="FHAMAR.ZAMOST Promo">
+    -->
+    <!-- VIDEO लगाना हो:
+    <video controls muted playsinline src="promo.mp4"></video>
+    -->
+    📢 PROMO / ADVERTISEMENT PHOTO OR VIDEO
+  </div>
+  <div class="media-help">इस जगह पर आप अपनी promotional photo या video लगा सकते हैं।</div>
+</section>
 
-            <div class="product-grid">
-                <div class="product-card">
-                    <div>
-                        <h3>Luxury Perfumes</h3>
-                        <p>Premium long-lasting attar & fragrances curated for elegance.</p>
-                    </div>
-                    <a href="#" class="btn-view">VIEW LINE</a>
-                </div>
-
-                <div class="product-card">
-                    <div>
-                        <h3>Organic Essential Oils</h3>
-                        <p>Pure, high-grade natural extracts and scents for all uses.</p>
-                    </div>
-                    <a href="#" class="btn-view">VIEW LINE</a>
-                </div>
-
-                <div class="product-card">
-                    <div>
-                        <h3>Special Editions</h3>
-                        <p>Exclusive handcrafted perfume blends for unique identity.</p>
-                    </div>
-                    <a href="#" class="btn-view">VIEW LINE</a>
-                </div>
-            </div>
-        </section>
-
-        <!-- Team Network Section -->
-        <section class="team-box" id="team">
-            <h2>Become a FHAMAR.ZAMOST Team Member</h2>
-            <p style="color: var(--text-sub); margin-top: 5px; font-size: 0.9rem;">
-                State-wise operations available across India. Register your interest via the team portal.
-            </p>
-        </section>
-
+<section class="products-section" id="catalog">
+  <div class="section-heading">
+    <span>SHOP • SELECT • DISCOVER</span>
+    <h2>Featured Products</h2>
+  </div>
+  <div class="product-grid">
+    <div class="product-card">
+      <div class="product-image">PRODUCT PHOTO</div>
+      <h3>Premium Fragrance</h3>
+      <p>Elegant everyday fragrance selected for a premium experience.</p>
+      <div class="price">₹899</div>
+      <a href="#" class="btn-view">VIEW PRODUCT</a>
     </div>
+    <div class="product-card">
+      <div class="product-image">PRODUCT PHOTO</div>
+      <h3>Essential Oils</h3>
+      <p>Selected aromatic essentials for everyday use.</p>
+      <div class="price">₹499</div>
+      <a href="#" class="btn-view">VIEW PRODUCT</a>
+    </div>
+    <div class="product-card">
+      <div class="product-image">PRODUCT PHOTO</div>
+      <h3>Special Edition</h3>
+      <p>Exclusive collection with a distinctive premium identity.</p>
+      <div class="price">₹1299</div>
+      <a href="#" class="btn-view">VIEW PRODUCT</a>
+    </div>
+    <div class="product-card">
+      <div class="product-image">PRODUCT PHOTO</div>
+      <h3>Daily Essentials</h3>
+      <p>Useful products selected for regular customer needs.</p>
+      <div class="price">₹699</div>
+      <a href="#" class="btn-view">VIEW PRODUCT</a>
+    </div>
+  </div>
+</section>
 
-    <footer>
-        FHAMAR.ZAMOST © 2026. All rights reserved.
-    </footer>
+<section class="team-box" id="team">
+  <div class="team-copy">
+    <h2>Become a FHAMAR.ZAMOST Team Member</h2>
+    <p>Join our state-wise network and help customers with local operations, order coordination, packaging, dispatch support and delivery coordination. Team applications are reviewed by Admin before activation. Customers can use the portal to discover products, follow order updates and contact support through the available service channels.</p>
+    <div class="team-points">
+      <span>✓ State-wise Network</span><span>✓ Admin Verified</span><span>✓ Order Support</span><span>✓ Customer Service</span>
+    </div>
+  </div>
+  <a href="team-registration.html" class="btn-primary">TEAM REGISTRATION</a>
+</section>
 
+<section class="trust-section">
+  <div class="trust-strip">
+    <div class="trust-item"><strong>✓</strong>TRUSTED QUALITY</div>
+    <div class="trust-item"><strong>10,000+</strong>HAPPY CUSTOMERS</div>
+    <div class="trust-item"><strong>FZ</strong>FHAMAR.ZAMOST</div>
+    <div class="trust-item"><strong>LIVE</strong>SMART LIVE SERVICE</div>
+    <div class="trust-item"><strong>100%</strong>SECURE PAYMENT</div>
+    <div class="trust-item"><strong>UPI+</strong>MULTIPLE PAYMENT OPTIONS</div>
+    <div class="trust-item"><strong>CHAT</strong>WHATSAPP CHAT SUPPORT</div>
+  </div>
+</section>
+
+</div>
+
+<footer>
+<div class="footer-inner">
+  <div class="footer-grid">
+    <div class="footer-col">
+      <h3 class="footer-brand">FHAMAR.ZAMOST</h3>
+      <p>A luxury, decentralized e-commerce ecosystem empowering local state partners to coordinate fast deliveries with premium retail standards.</p>
+      <span class="footer-badge">✓ Verified Role-Based Portal</span>
+    </div>
+    <div class="footer-col">
+      <h3>EXPLORE</h3>
+      <a href="home.html">Featured Landing</a>
+      <a href="catalog.html">Shop Products</a>
+      <a href="state-network.html">State Network Map</a>
+      <a href="profile.html">Customer Dashboard</a>
+    </div>
+    <div class="footer-col">
+      <h3>ACTIVE STATES</h3>
+      <p>Bihar</p><p>Delhi</p><p>Maharashtra</p><p>Telangana</p><p>West Bengal</p>
+      <p style="margin-top:5px;color:#6e7d90">*Future states opening soon</p>
+    </div>
+    <div class="footer-col">
+      <h3>SUPPORT &amp; CONTACT</h3>
+      <p>Have questions? Connect with our central admin support or message our representatives directly.</p>
+      <a href="https://wa.me/919334273697" target="_blank" rel="noopener">WhatsApp support</a>
+      <a href="mailto:fhamarzamost@gmail.com">fhamarzamost@gmail.com</a>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 FHAMAR.ZAMOST Retail Services Ltd. All rights reserved. &nbsp; Privacy Policy &nbsp; Terms of Service &nbsp; 100% Secure Checkout</div>
+</div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script type="module">
+import { app } from "./firebase-config.js";
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+const auth = getAuth(app);
+const profileBtn = document.getElementById("profileBtn");
+const profilePanel = document.getElementById("profilePanel");
+const logoutBtn = document.getElementById("logoutBtn");
+const headerName = document.getElementById("headerName");
+const headerAvatar = document.getElementById("headerAvatar");
+const panelName = document.getElementById("panelName");
+const panelContact = document.getElementById("panelContact");
+const panelAvatar = document.getElementById("panelAvatar");
+const profileStatus = document.getElementById("profileStatus");
+const toast = document.getElementById("toast");
+
+function fallbackAvatar(letter="U"){
+  return "https://ui-avatars.com/api/?name="+encodeURIComponent(letter)+"&background=172537&color=ffffff&size=100";
+}
+function showToast(text){
+  toast.textContent=text; toast.classList.add("show");
+  setTimeout(()=>toast.classList.remove("show"),2500);
+}
+profileBtn.addEventListener("click",()=>profilePanel.classList.toggle("show"));
+document.addEventListener("click",e=>{
+  if(!profilePanel.contains(e.target) && !profileBtn.contains(e.target)) profilePanel.classList.remove("show");
+});
+logoutBtn.addEventListener("click",async()=>{
+  try{
+    await signOut(auth);
+    showToast("Logout successful");
+    setTimeout(()=>location.href="index.html",600);
+  }catch(err){console.error(err);showToast("Logout failed");}
+});
+
+onAuthStateChanged(auth,user=>{
+  if(!user){
+    headerName.textContent="Login";
+    panelName.textContent="Not logged in";
+    panelContact.textContent="Please login to continue";
+    profileStatus.textContent="No Firebase session found";
+    const av=fallbackAvatar("U"); headerAvatar.src=av; panelAvatar.src=av;
+    logoutBtn.style.display="none";
+    return;
+  }
+  const name=user.displayName || (user.email ? user.email.split("@")[0] : "Customer");
+  const contact=user.email || user.phoneNumber || "Firebase customer";
+  const av=user.photoURL || fallbackAvatar(name.charAt(0).toUpperCase());
+  headerName.textContent=name;
+  panelName.textContent=name;
+  panelContact.textContent=contact;
+  profileStatus.textContent="Signed in • Firebase Authentication";
+  headerAvatar.src=av; panelAvatar.src=av;
+  logoutBtn.style.display="block";
+});
+</script>
 </body>
-</html>
-
+      </html>
+        
