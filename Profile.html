@@ -21,6 +21,21 @@ footer{padding:35px 7%;background:#03080e;border-top:1px solid #263b50;color:#7d
 #authMessage{display:none;margin-top:15px;padding:12px;border-radius:9px;border:1px solid #6d4d4d;background:#1b1111;color:#ffb1b1;font-size:10px;text-align:center}
 @media(max-width:850px){header nav{display:none}.dashboard-grid{grid-template-columns:repeat(2,1fr)}.quick-links{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:600px){.page{padding-left:5%;padding-right:5%}.title{font-size:35px}.profile-card{flex-direction:column;align-items:flex-start}.profile-left{align-items:flex-start}.dashboard-grid,.registration-row{grid-template-columns:1fr}.voting-header{flex-direction:column;align-items:flex-start}.quick-links{grid-template-columns:1fr}}
+
+/* Profile Photo System */
+.avatar-wrap{position:relative;width:92px;height:92px;flex:0 0 92px}
+.avatar{width:92px;height:92px;border-radius:22px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#173b5b,#07111d);border:1px solid #6d8499;color:#4da3ff;font-size:27px;font-weight:900}
+.avatar img{width:100%;height:100%;object-fit:cover;display:none}
+.photo-edit{position:absolute;right:-5px;bottom:-5px;width:30px;height:30px;border-radius:50%;border:1px solid #4da3ff;background:#07111d;color:#4da3ff;cursor:pointer;font-size:14px}
+.photo-panel{margin-top:14px;display:flex;gap:9px;flex-wrap:wrap}
+.photo-btn{padding:9px 12px;border:1px solid #405a72;border-radius:8px;background:#07111d;color:#cbd7e2;font-size:9px;font-weight:900;cursor:pointer}
+.photo-btn.primary{background:#4da3ff;border-color:#4da3ff;color:#04101c}
+.photo-btn:disabled{opacity:.45;cursor:not-allowed}
+.photo-note{width:100%;color:#71869c;font-size:9px;line-height:1.5}
+#photoInput{display:none}
+#photoMessage{display:none;margin-top:10px;padding:10px;border-radius:8px;border:1px solid #304b63;background:#071521;color:#8fa4b8;font-size:9px}
+@media(max-width:600px){.avatar-wrap{width:78px;height:78px;flex-basis:78px}.avatar{width:78px;height:78px}}
+
 </style>
 </head>
 <body>
@@ -42,11 +57,25 @@ footer{padding:35px 7%;background:#03080e;border-top:1px solid #263b50;color:#7d
 
 <section class="profile-card">
 <div class="profile-left">
-<div class="avatar" id="avatar">FZ</div>
+<div class="avatar-wrap">
+<div class="avatar" id="avatar">
+<span id="avatarInitials">FZ</span>
+<img id="profilePhoto" alt="Profile Photo">
+</div>
+<button class="photo-edit" id="photoEditButton" type="button" title="Add or change profile photo">📷</button>
+</div>
 <div><div class="profile-name" id="profileName">Loading...</div><div class="profile-email" id="profileEmail">Checking account...</div></div>
 </div>
 <div class="account-status" id="accountStatus">CHECKING...</div>
 </section>
+
+<div class="photo-panel">
+<input type="file" id="photoInput" accept="image/*">
+<button type="button" id="addPhotoButton" class="photo-btn primary">ADD PROFILE PHOTO</button>
+<button type="button" id="changePhotoButton" class="photo-btn">CHANGE PHOTO</button>
+<div class="photo-note">📷 Phone gallery/camera से photo चुनें. Photo Firebase Storage और आपके Firebase account profile में save होगी.</div>
+<div id="photoMessage"></div>
+</div>
 
 <section class="dashboard-grid">
 <div class="dashboard-card"><div class="card-icon">📦</div><h3>My Orders</h3><p>View your recent order and check its delivery progress.</p><a href="track-order.html" class="card-link">TRACK ORDER →</a></div>
@@ -65,7 +94,7 @@ footer{padding:35px 7%;background:#03080e;border-top:1px solid #263b50;color:#7d
 <label class="vote-option"><input type="radio" name="vote" value="support"><span>Customer Support</span></label>
 <label class="vote-option"><input type="radio" name="vote" value="features"><span>New Website Features</span></label>
 </div>
-<button type="button" id="voteButton" class="vote-submit">SUBMIT MY VOTE</button>
+<button type="button" onclick="submitVote()" id="voteButton" class="vote-submit">SUBMIT MY VOTE</button>
 <div id="voteMessage" class="vote-message"></div>
 </div>
 </section>
@@ -85,8 +114,8 @@ footer{padding:35px 7%;background:#03080e;border-top:1px solid #263b50;color:#7d
 
 <div class="api-note">
 <b>FIREBASE MEMBER PORTAL</b><br><br>
-Connected directly via <b>firebase-config.js</b> for central authentication & Firestore syncing.<br><br>
-Voting and account information syncs seamlessly across devices.
+Firebase Authentication is connected for the signed-in account. Profile information can be read from Firebase/Firestore when the corresponding member documents are available.<br><br>
+Voting in this version uses the signed-in Firebase user's UID as the browser-side key. For a final production voting system, Firestore Security Rules should enforce one-vote-per-user on the server side.
 </div>
 </main>
 
@@ -95,46 +124,81 @@ Voting and account information syncs seamlessly across devices.
 <p>Member Portal • Profile • Voting</p>
 </footer>
 
-<!-- Centralized Firebase Integration -->
 <script type="module">
-import { db, auth } from "./firebase-config.js";
-import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-import { doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import { app } from "./firebase-config.js";
+import {
+    getAuth, onAuthStateChanged, signOut, updateProfile
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+import {
+    getFirestore, doc, getDoc, setDoc
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+import {
+    getStorage, ref, uploadBytes, getDownloadURL
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-storage.js";
+
+const auth = getAuth(app);
+const db = getFirestore(app);
+const storage = getStorage(app);
 
 let currentUser = null;
 
+const $ = (id) => document.getElementById(id);
+
 function showAuthMessage(text){
-    const box = document.getElementById("authMessage");
+    const box = $("authMessage");
     box.textContent = text;
     box.style.display = "block";
+}
+
+function showPhotoMessage(text, error=false){
+    const box = $("photoMessage");
+    box.textContent = text;
+    box.style.display = "block";
+    box.style.borderColor = error ? "#6d4d4d" : "#304b63";
+    box.style.color = error ? "#ffb1b1" : "#8fa4b8";
+}
+
+function setAvatarPhoto(url, name=""){
+    const img = $("profilePhoto");
+    const initials = $("avatarInitials");
+
+    if(url){
+        img.src = url;
+        img.style.display = "block";
+        initials.style.display = "none";
+    }else{
+        img.removeAttribute("src");
+        img.style.display = "none";
+        initials.textContent = (name.trim().charAt(0) || "F").toUpperCase();
+        initials.style.display = "block";
+    }
 }
 
 function setProfile(user, data = {}){
     const savedName = localStorage.getItem("fz_user_name");
     const name = data.name || data.fullName || user.displayName || savedName || "FHAMAR User";
     const email = user.email || data.email || localStorage.getItem("fz_user_email") || "Login account";
-    const first = (name.trim().charAt(0) || "F").toUpperCase();
 
-    document.getElementById("profileName").textContent = name;
-    document.getElementById("profileEmail").textContent = email;
-    document.getElementById("avatar").textContent = first;
-    document.getElementById("accountStatus").textContent = "ACCOUNT ACTIVE";
+    $("profileName").textContent = name;
+    $("profileEmail").textContent = email;
+    $("accountStatus").textContent = "ACCOUNT ACTIVE";
+
+    const photoURL = data.photoURL || user.photoURL || localStorage.getItem("fz_profile_photo_url") || "";
+    setAvatarPhoto(photoURL, name);
 
     const state = data.state || data.memberState || localStorage.getItem("fz_member_state");
-    if(state) document.getElementById("memberState").textContent = state;
-    if(data.status || data.memberStatus) document.getElementById("memberStatus").textContent = data.status || data.memberStatus;
-    if(data.applicationStatus) document.getElementById("applicationStatus").textContent = data.applicationStatus;
+    if(state) $("memberState").textContent = state;
+    if(data.status || data.memberStatus) $("memberStatus").textContent = data.status || data.memberStatus;
+    if(data.applicationStatus) $("applicationStatus").textContent = data.applicationStatus;
 }
 
 async function loadMemberProfile(user){
     let data = {};
-    if (db) {
-        try {
-            const snap = await getDoc(doc(db, "users", user.uid));
-            if(snap.exists()) data = snap.data();
-        } catch(error) {
-            console.warn("Firestore profile read error:", error);
-        }
+    try{
+        const snap = await getDoc(doc(db, "users", user.uid));
+        if(snap.exists()) data = snap.data();
+    }catch(error){
+        console.warn("Firestore profile read error:", error);
     }
 
     setProfile(user, data);
@@ -144,19 +208,104 @@ async function loadMemberProfile(user){
     if(data.state) localStorage.setItem("fz_member_state", data.state);
 }
 
-function voteKey(uid){
-    return "fz_has_voted_" + uid;
+async function saveProfilePhoto(file){
+    if(!currentUser || !file) return;
+
+    if(!file.type.startsWith("image/")){
+        showPhotoMessage("Please select an image file.", true);
+        return;
+    }
+
+    // Keep uploads reasonable for a phone-based website.
+    if(file.size > 5 * 1024 * 1024){
+        showPhotoMessage("Photo must be 5 MB or smaller.", true);
+        return;
+    }
+
+    $("addPhotoButton").disabled = true;
+    $("changePhotoButton").disabled = true;
+    $("photoEditButton").disabled = true;
+    showPhotoMessage("Uploading photo...");
+
+    try{
+        const extension = (file.name.split(".").pop() || "jpg").toLowerCase();
+        const photoRef = ref(storage, `profilePhotos/${currentUser.uid}/profile.${extension}`);
+
+        await uploadBytes(photoRef, file, { contentType: file.type });
+        const photoURL = await getDownloadURL(photoRef);
+
+        // Firebase Authentication account profile.
+        await updateProfile(currentUser, { photoURL });
+
+        // Firestore member profile.
+        await setDoc(doc(db, "users", currentUser.uid), {
+            photoURL: photoURL,
+            updatedAt: new Date()
+        }, { merge: true });
+
+        // Local cache for quick display.
+        localStorage.setItem("fz_profile_photo_url", photoURL);
+        setAvatarPhoto(photoURL, $("profileName").textContent);
+
+        showPhotoMessage("✓ Profile photo saved successfully.");
+    }catch(error){
+        console.error("Profile photo upload error:", error);
+        let message = "Photo upload failed. Please try again.";
+        if(error?.code === "storage/unauthorized"){
+            message = "Firebase Storage permission denied. Storage Rules में signed-in users को अपनी photo upload/read permission दें.";
+        }else if(error?.code === "storage/unknown"){
+            message = "Firebase Storage is not available yet. Please check Storage setup.";
+        }
+        showPhotoMessage(message, true);
+    }finally{
+        $("addPhotoButton").disabled = false;
+        $("changePhotoButton").disabled = false;
+        $("photoEditButton").disabled = false;
+        $("photoInput").value = "";
+    }
 }
 
-function voteValueKey(uid){
-    return "fz_vote_" + uid;
-}
+$("photoEditButton").addEventListener("click", () => $("photoInput").click());
+$("addPhotoButton").addEventListener("click", () => $("photoInput").click());
+$("changePhotoButton").addEventListener("click", () => $("photoInput").click());
+$("photoInput").addEventListener("change", (e) => {
+    const file = e.target.files?.[0];
+    if(file) saveProfilePhoto(file);
+});
+
+// Logout: Firebase account is signed out, then user returns to first/login page.
+$("logoutButton").addEventListener("click", async()=>{
+    const button = $("logoutButton");
+    button.disabled = true;
+    button.textContent = "LOGGING OUT...";
+
+    try{
+        await signOut(auth);
+
+        // Do not remove the saved profile photo URL from the server.
+        // Clear only convenience account cache so another account can sign in cleanly.
+        localStorage.removeItem("fz_user_name");
+        localStorage.removeItem("fz_user_email");
+        localStorage.removeItem("fz_member_state");
+        localStorage.removeItem("fz_profile_photo_url");
+
+        window.location.replace("index.html");
+    }catch(error){
+        console.error(error);
+        button.disabled = false;
+        button.textContent = "LOGOUT";
+        showAuthMessage("Logout failed. Please try again.");
+    }
+});
+
+function voteKey(uid){ return "fz_has_voted_" + uid; }
+function voteValueKey(uid){ return "fz_vote_" + uid; }
 
 function restoreVoteState(uid){
     const already = localStorage.getItem(voteKey(uid)) === "true";
-    const button = document.getElementById("voteButton");
-    const status = document.getElementById("voteStatus");
-    const message = document.getElementById("voteMessage");
+    const button = $("voteButton");
+    const status = $("voteStatus");
+    const message = $("voteMessage");
 
     if(already){
         button.disabled = true;
@@ -172,9 +321,9 @@ function restoreVoteState(uid){
 }
 
 async function submitVote(){
-    const message = document.getElementById("voteMessage");
-    const button = document.getElementById("voteButton");
-    const status = document.getElementById("voteStatus");
+    const message = $("voteMessage");
+    const button = $("voteButton");
+    const status = $("voteStatus");
 
     if(!currentUser){
         message.style.display = "block";
@@ -195,63 +344,48 @@ async function submitVote(){
         return;
     }
 
-    // Save to LocalStorage
-    localStorage.setItem(voteKey(currentUser.uid), "true");
-    localStorage.setItem(voteValueKey(currentUser.uid), selected.value);
-
-    // Sync Vote to Firestore Database
-    if (db) {
-        try {
-            await setDoc(doc(db, "votes", currentUser.uid), {
-                option: selected.value,
-                votedAt: new Date(),
-                userEmail: currentUser.email || ""
-            }, { merge: true });
-        } catch(e) {
-            console.log("Firestore vote sync error:", e);
-        }
-    }
-
-    button.disabled = true;
-    status.textContent = "VOTE SUBMITTED";
-    message.style.display = "block";
-    message.textContent = "✓ Your vote has been recorded successfully.";
-}
-
-document.getElementById("voteButton").addEventListener("click", submitVote);
-
-document.getElementById("logoutButton").addEventListener("click", async()=>{
     try{
-        if (auth) await signOut(auth);
-        localStorage.removeItem("fz_user_name");
-        localStorage.removeItem("fz_user_email");
-        localStorage.removeItem("fz_member_state");
-        window.location.href = "index.html";
-    } catch(error) {
-        console.error(error);
-        showAuthMessage("Logout failed. Please try again.");
+        await setDoc(doc(db, "votes", currentUser.uid), {
+            option: selected.value,
+            votedAt: new Date(),
+            userEmail: currentUser.email || ""
+        }, { merge: true });
+
+        localStorage.setItem(voteKey(currentUser.uid), "true");
+        localStorage.setItem(voteValueKey(currentUser.uid), selected.value);
+
+        button.disabled = true;
+        status.textContent = "VOTE SUBMITTED";
+        message.style.display = "block";
+        message.textContent = "✓ Your vote has been recorded successfully.";
+    }catch(e){
+        console.error("Firestore vote sync error:", e);
+        message.style.display = "block";
+        message.textContent = "Vote could not be saved. Please try again.";
     }
-});
-
-// Firebase Auth Observer
-if (auth) {
-    onAuthStateChanged(auth, async(user)=>{
-        if(!user){
-            document.getElementById("profileName").textContent = "Sign In Required";
-            document.getElementById("profileEmail").textContent = "Please sign in to open your portal.";
-            document.getElementById("accountStatus").textContent = "NOT SIGNED IN";
-            document.getElementById("avatar").textContent = "FZ";
-            document.getElementById("voteButton").disabled = true;
-            showAuthMessage("You are not signed in. Redirecting to the login page...");
-            setTimeout(() => window.location.href = "index.html", 1000);
-            return;
-        }
-
-        currentUser = user;
-        await loadMemberProfile(user);
-        restoreVoteState(user.uid);
-    });
 }
+
+$("voteButton").addEventListener("click", submitVote);
+
+onAuthStateChanged(auth, async(user)=>{
+    if(!user){
+        $("profileName").textContent = "Sign In Required";
+        $("profileEmail").textContent = "Please sign in to open your portal.";
+        $("accountStatus").textContent = "NOT SIGNED IN";
+        setAvatarPhoto("", "F");
+        $("voteButton").disabled = true;
+        $("addPhotoButton").disabled = true;
+        $("changePhotoButton").disabled = true;
+        $("photoEditButton").disabled = true;
+        showAuthMessage("You are not signed in. Redirecting to the login page...");
+        setTimeout(() => window.location.replace("index.html"), 700);
+        return;
+    }
+
+    currentUser = user;
+    await loadMemberProfile(user);
+    restoreVoteState(user.uid);
+});
 </script>
 </body>
 </html>
