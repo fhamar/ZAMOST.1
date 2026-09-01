@@ -1,554 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FHAMAR ZAMOST | Catalog</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-    body {
-      background: #050b12;
-      color: #fff;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-
-    /* Standard Sticky Header */
-    header {
-      height: 75px;
-      padding: 0 6%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: #07111d;
-      border-bottom: 1px solid #30465d;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-    .brand-area {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .fz-logo {
-      width: 45px;
-      height: 45px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 12px;
-      border: 1px solid #8298ad;
-      background: linear-gradient(145deg, #173b5b, #050b12);
-      color: #4da3ff;
-      font-size: 17px;
-      font-weight: 900;
-      box-shadow: 0 4px 12px rgba(77, 163, 255, 0.15);
-    }
-    .brand {
-      font-size: 18px;
-      font-weight: 900;
-      letter-spacing: 2px;
-    }
-    .blue { color: #4da3ff; }
-    .silver { color: #aeb9c5; }
-
-    nav {
-      display: flex;
-      gap: 22px;
-      align-items: center;
-    }
-    nav a {
-      color: #91a2b5;
-      font-size: 13px;
-      font-weight: 500;
-      transition: color 0.3s ease;
-    }
-    nav a:hover, nav a.active {
-      color: #4da3ff;
-    }
-    .profile-btn {
-      padding: 9px 15px;
-      border: 1px solid #60768c;
-      border-radius: 8px;
-      color: #dce5ee;
-      font-size: 12px;
-      font-weight: 600;
-      background: transparent;
-      transition: all 0.3s ease;
-    }
-    .profile-btn:hover {
-      background: #4da3ff;
-      color: #04101c;
-      border-color: #4da3ff;
-    }
-
-    /* Main Container */
-    .page {
-      max-width: 1250px;
-      width: 100%;
-      margin: 0 auto;
-      padding: 50px 6% 80px;
-      flex: 1;
-    }
-    .eyebrow {
-      color: #6f879e;
-      font-size: 11px;
-      letter-spacing: 3px;
-      font-weight: 700;
-      text-transform: uppercase;
-    }
-    .page-title {
-      margin-bottom: 35px;
-    }
-    .page-title h1 {
-      margin-top: 10px;
-      font-size: 42px;
-      font-weight: 800;
-    }
-    .page-title h1 span {
-      color: #4da3ff;
-    }
-    .page-title p {
-      margin-top: 10px;
-      color: #8295a9;
-      line-height: 1.6;
-      font-size: 14px;
-      max-width: 600px;
-    }
-
-    /* Search & Filter Controls */
-    .search-area {
-      display: flex;
-      gap: 12px;
-      margin-bottom: 20px;
-    }
-    .search-box {
-      flex: 1;
-      height: 50px;
-      padding: 0 18px;
-      background: #08131f;
-      border: 1px solid #30465c;
-      border-radius: 10px;
-      color: #fff;
-      outline: none;
-      font-size: 14px;
-      transition: border-color 0.3s;
-    }
-    .category {
-      width: 200px;
-      height: 50px;
-      padding: 0 14px;
-      background: #08131f;
-      border: 1px solid #30465c;
-      border-radius: 10px;
-      color: #cbd6e0;
-      outline: none;
-      font-size: 13px;
-      cursor: pointer;
-      transition: border-color 0.3s;
-    }
-    .search-box:focus, .category:focus {
-      border-color: #4da3ff;
-    }
-
-    /* Quick Filter Chips */
-    .categories {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-bottom: 35px;
-    }
-    .category-btn {
-      padding: 8px 16px;
-      background: #091622;
-      color: #9aaabd;
-      border: 1px solid #30465c;
-      border-radius: 25px;
-      cursor: pointer;
-      font-size: 12px;
-      font-weight: 600;
-      transition: all 0.3s ease;
-    }
-    .category-btn:hover {
-      border-color: #4da3ff;
-      color: #4da3ff;
-    }
-    .category-btn.active {
-      background: #4da3ff;
-      color: #04101c;
-      border-color: #4da3ff;
-    }
-
-    /* Product Grid & Cards */
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
-    }
-    .product {
-      background: #0a1725;
-      border: 1px solid #293e53;
-      border-radius: 16px;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
-    }
-    .product:hover {
-      transform: translateY(-6px);
-      border-color: #4da3ff;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-    }
-    .product-image {
-      height: 180px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(145deg, #17324d, #0a1420);
-      font-size: 60px;
-      user-select: none;
-    }
-    .product-info {
-      padding: 18px;
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-    }
-    .product-category {
-      align-self: flex-start;
-      padding: 4px 10px;
-      border: 1px solid #3a5269;
-      border-radius: 20px;
-      color: #7f96ab;
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 1px;
-    }
-    .product-info h3 {
-      margin-top: 12px;
-      font-size: 16px;
-      color: #f0f5fa;
-    }
-    .product-description {
-      margin-top: 8px;
-      color: #788b9f;
-      font-size: 12px;
-      line-height: 1.5;
-      flex: 1;
-    }
-    .product-bottom {
-      margin-top: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .price {
-      font-size: 20px;
-      font-weight: 900;
-      color: #dbe4ed;
-    }
-    .view-btn {
-      padding: 8px 14px;
-      border: 1px solid #5d748a;
-      border-radius: 8px;
-      color: #cbd6e0;
-      font-size: 11px;
-      font-weight: 700;
-      transition: all 0.25s ease;
-    }
-    .view-btn:hover {
-      background: #4da3ff;
-      color: #04101c;
-      border-color: #4da3ff;
-    }
-
-    /* No Results State */
-    .no-results {
-      display: none;
-      padding: 60px 20px;
-      text-align: center;
-      border: 1px dashed #30465c;
-      border-radius: 16px;
-      color: #8194a8;
-      background: #081421;
-      font-size: 14px;
-    }
-
-    /* Floating Cart Indicator */
-    .cart-bar {
-      position: fixed;
-      right: 25px;
-      bottom: 25px;
-      z-index: 500;
-    }
-    .cart-button {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 12px 20px;
-      border-radius: 50px;
-      background: #4da3ff;
-      color: #04101c;
-      font-size: 12px;
-      font-weight: 900;
-      letter-spacing: 0.5px;
-      box-shadow: 0 10px 25px rgba(77, 163, 255, 0.3);
-      transition: transform 0.2s ease;
-    }
-    .cart-button:hover {
-      transform: scale(1.05);
-    }
-    #cartCount {
-      width: 22px;
-      height: 22px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      background: #07111d;
-      color: #fff;
-      font-size: 11px;
-    }
-
-    /* Bottom Info Card */
-    .info-box {
-      margin-top: 60px;
-      padding: 30px;
-      border: 1px solid #293e53;
-      border-radius: 18px;
-      background: #081421;
-    }
-    .info-box h2 {
-      font-size: 22px;
-    }
-    .info-box h2 span {
-      color: #4da3ff;
-    }
-    .info-box p {
-      margin-top: 10px;
-      color: #8194a8;
-      font-size: 13px;
-      line-height: 1.7;
-    }
-
-    /* Footer */
-    footer {
-      padding: 35px 6%;
-      background: #03080e;
-      border-top: 1px solid #263b50;
-      color: #7d90a4;
-      font-size: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 15px;
-    }
-
-    /* Responsive Adjustments */
-    @media (max-width: 1024px) {
-      .product-grid { grid-template-columns: repeat(3, 1fr); }
-    }
-    @media (max-width: 768px) {
-      header nav { display: none; }
-      .product-grid { grid-template-columns: repeat(2, 1fr); }
-      .search-area { flex-direction: column; }
-      .category { width: 100%; }
-    }
-    @media (max-width: 480px) {
-      .product-grid { grid-template-columns: 1fr; }
-      .page-title h1 { font-size: 32px; }
-      footer { flex-direction: column; text-align: center; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FHAMAR ZAMOST | Catalog</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
+body{background:#050b12;color:#fff}a{text-decoration:none;color:inherit}
+header{height:75px;padding:0 6%;display:flex;align-items:center;justify-content:space-between;background:#07111d;border-bottom:1px solid #30465d;position:sticky;top:0;z-index:1000}
+.brand-area{display:flex;align-items:center;gap:10px}.fz-logo{width:45px;height:45px;display:flex;align-items:center;justify-content:center;border-radius:12px;border:1px solid #8298ad;background:linear-gradient(145deg,#173b5b,#050b12);color:#4da3ff;font-size:17px;font-weight:900}.brand{font-size:18px;font-weight:900;letter-spacing:2px}.blue{color:#4da3ff}.silver{color:#aeb9c5}
+nav{display:flex;gap:22px}nav a{color:#91a2b5;font-size:12px}nav a:hover,nav .active{color:#4da3ff}.profile-btn{padding:9px 13px;border:1px solid #60768c;border-radius:8px;color:#dce5ee;font-size:11px}
+.page{max-width:1250px;margin:auto;padding:55px 6% 80px}.eyebrow{color:#6f879e;font-size:10px;letter-spacing:3px;font-weight:bold}.page-title{margin-bottom:30px}.page-title h1{margin-top:12px;font-size:46px}.page-title h1 span{color:#4da3ff}.page-title p{margin-top:12px;color:#8295a9;line-height:1.7;font-size:13px}
+.search-area{display:flex;gap:12px;margin-bottom:18px}.search-box{flex:1;height:50px;padding:0 16px;background:#08131f;border:1px solid #30465c;border-radius:10px;color:#fff;outline:none;font-size:13px}.category{width:190px;height:50px;padding:0 12px;background:#08131f;border:1px solid #30465c;border-radius:10px;color:#cbd6e0;outline:none}
+.search-box:focus,.category:focus{border-color:#4da3ff}.categories{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:30px}.category-btn{padding:9px 14px;background:#091622;color:#9aaabd;border:1px solid #30465c;border-radius:25px;cursor:pointer;font-size:11px}.category-btn.active{background:#4da3ff;color:#04101c;border-color:#4da3ff;font-weight:bold}
+.product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:17px}.product{background:#0a1725;border:1px solid #293e53;border-radius:16px;overflow:hidden;transition:.25s}.product:hover{transform:translateY(-5px);border-color:#52728f}.product-image{height:175px;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#17324d,#0a1420);font-size:55px}.product-info{padding:17px}.product-category{display:inline-block;padding:5px 8px;border:1px solid #3a5269;border-radius:20px;color:#7f96ab;font-size:9px}.product-info h3{margin-top:12px;font-size:15px}.product-description{margin-top:7px;color:#788b9f;font-size:11px;line-height:1.5}.product-bottom{margin-top:15px;display:flex;align-items:center;justify-content:space-between}.price{font-size:19px;font-weight:900;color:#dbe4ed}.view-btn{padding:8px 10px;border:1px solid #5d748a;border-radius:8px;color:#cbd6e0;font-size:10px}.view-btn:hover{background:#4da3ff;color:#04101c;border-color:#4da3ff}
+.no-results{display:none;padding:45px;text-align:center;border:1px dashed #405a72;border-radius:15px;color:#8194a8;background:#081421}.cart-bar{position:fixed;right:20px;bottom:20px;z-index:500}.cart-button{display:flex;align-items:center;gap:8px;padding:13px 17px;border-radius:12px;background:#4da3ff;color:#04101c;font-size:11px;font-weight:900;box-shadow:0 10px 30px rgba(0,0,0,.5)}#cartCount{width:20px;height:20px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:#07111d;color:#fff;font-size:10px}
+.info-box{margin-top:60px;padding:30px;border:1px solid #293e53;border-radius:18px;background:#081421}.info-box h2{font-size:25px}.info-box h2 span{color:#4da3ff}.info-box p{margin-top:10px;color:#8194a8;font-size:13px;line-height:1.7}footer{padding:35px 7%;background:#03080e;border-top:1px solid #263b50;color:#7d90a4;font-size:11px}
+@media(max-width:950px){.product-grid{grid-template-columns:repeat(3,1fr)}}@media(max-width:750px){header nav{display:none}.product-grid{grid-template-columns:repeat(2,1fr)}.search-area{flex-direction:column}.category{width:100%}}@media(max-width:480px){.product-grid{grid-template-columns:1fr}.page-title h1{font-size:38px}}
+</style>
 </head>
 <body>
+<header>
+<div class="brand-area"><div class="fz-logo">FZ</div><div class="brand"><span class="blue">FHAMAR</span><span class="silver">.ZAMOST</span></div></div>
+<nav><a href="home.html">Home</a><a href="catalog.html" class="active">Catalog</a><a href="profile.html">My Portal</a><a href="admin.html">Administrative Desk</a></nav>
+<a href="profile.html" class="profile-btn">MY PROFILE</a>
+</header>
 
-  <!-- Sticky Navigation Header -->
-  <header>
-    <div class="brand-area">
-      <div class="fz-logo">FZ</div>
-      <div class="brand"><span class="blue">FHAMAR</span><span class="silver">.ZAMOST</span></div>
-    </div>
-    <nav>
-      <a href="home.html">Home</a>
-      <a href="catalog.html" class="active">Catalog</a>
-      <a href="profile.html">My Portal</a>
-      <a href="admin.html">Administrative Desk</a>
-    </nav>
-    <a href="profile.html" class="profile-btn">MY PROFILE</a>
-  </header>
+<main class="page">
+<div class="page-title"><div class="eyebrow">FHAMAR.ZAMOST COLLECTION</div><h1>Our <span>Catalog</span></h1><p>Explore our selected collection of stylish and useful products. Every sample product is priced at ₹1,500 or below.</p></div>
 
-  <!-- Catalog Main Page Content -->
-  <main class="page">
-    <div class="page-title">
-      <div class="eyebrow">FHAMAR.ZAMOST COLLECTION</div>
-      <h1>Our <span>Catalog</span></h1>
-      <p>Explore our selected collection of stylish and useful products. Every sample product is priced at ₹1,500 or below.</p>
-    </div>
+<div class="search-area">
+<input id="searchBox" class="search-box" type="text" placeholder="Search products...">
+<select id="categorySelect" class="category">
+<option value="all">All Categories</option><option value="fashion">Fashion</option><option value="electronics">Electronics</option><option value="accessories">Accessories</option><option value="personal">Personal Care</option>
+</select>
+</div>
 
-    <!-- Search & Filter Controls -->
-    <div class="search-area">
-      <input id="searchBox" class="search-box" type="text" placeholder="Search products by name or description...">
-      <select id="categorySelect" class="category">
-        <option value="all">All Categories</option>
-        <option value="fashion">Fashion</option>
-        <option value="electronics">Electronics</option>
-        <option value="accessories">Accessories</option>
-        <option value="personal">Personal Care</option>
-      </select>
-    </div>
+<div class="categories">
+<button class="category-btn active" data-category="all">All</button><button class="category-btn" data-category="fashion">Fashion</button><button class="category-btn" data-category="electronics">Electronics</button><button class="category-btn" data-category="accessories">Accessories</button><button class="category-btn" data-category="personal">Personal Care</button>
+</div>
 
-    <!-- Category Filter Buttons -->
-    <div class="categories">
-      <button class="category-btn active" data-category="all">All</button>
-      <button class="category-btn" data-category="fashion">Fashion</button>
-      <button class="category-btn" data-category="electronics">Electronics</button>
-      <button class="category-btn" data-category="accessories">Accessories</button>
-      <button class="category-btn" data-category="personal">Personal Care</button>
-    </div>
+<div id="productGrid" class="product-grid"></div>
+<div id="noResults" class="no-results">No products found. Try another search or category.</div>
 
-    <!-- Product Grid Container -->
-    <div id="productGrid" class="product-grid"></div>
+<div class="info-box"><h2>FHAMAR <span>Collection</span></h2><p>All demo products are limited to ₹1,500 or below. Product details and cart information use the product IDs in this catalog. Firebase/database integration can be connected to this structure later.</p></div>
+</main>
 
-    <!-- Empty State Message -->
-    <div id="noResults" class="no-results">
-      No products match your search criteria. Try using different keywords or changing categories.
-    </div>
+<div class="cart-bar"><a href="cart.html" class="cart-button">🛒 CART <span id="cartCount">0</span></a></div>
 
-    <!-- Info Box -->
-    <div class="info-box">
-      <h2>FHAMAR <span>Collection</span></h2>
-      <p>All demo products are limited to ₹1,500 or below. Product details and cart information use the product IDs in this catalog. Firebase/database integration can be connected to this structure later.</p>
-    </div>
-  </main>
+<footer><div class="brand"><span class="blue">FHAMAR</span><span class="silver">.ZAMOST</span></div><p>Premium Digital Catalog • Products • Categories • Shopping</p></footer>
 
-  <!-- Cart Floating Button -->
-  <div class="cart-bar">
-    <a href="cart.html" class="cart-button">
-      🛒 CART <span id="cartCount">0</span>
-    </a>
-  </div>
+<script>
+const products=[
+["backpack","fashion","🎒","Classic Backpack","Stylish everyday backpack.",799],
+["watch","electronics","⌚","Smart Watch","Modern smart watch design.",1299],
+["sunglasses","accessories","🕶️","Premium Sunglasses","Clean and stylish sunglasses.",699],
+["shoes","fashion","👟","Running Shoes","Comfortable everyday shoes.",1499],
+["earphones","electronics","🎧","Wireless Earphones","Compact wireless audio.",999],
+["charger","electronics","🔌","Fast Charger","Compact charging accessory.",499],
+["perfume","personal","🧴","Signature Perfume","Premium fragrance collection.",899],
+["tshirt","fashion","👕","Classic T-Shirt","Simple everyday casual wear.",599],
+["cap","fashion","🧢","Premium Cap","Comfortable everyday cap.",399],
+["slippers","fashion","🩴","Comfort Slippers","Lightweight daily slippers.",449],
+["hoodie","fashion","🧥","Classic Hoodie","Warm casual hoodie design.",1199],
+["wallet","accessories","👛","Classic Wallet","Compact everyday wallet.",599],
+["belt","accessories","🧷","Classic Belt","Simple durable belt.",499],
+["watchstrap","accessories","⌚","Watch Strap","Replacement smart watch strap.",299],
+["powerbank","electronics","🔋","Power Bank","Portable charging power bank.",1299],
+["speaker","electronics","🔊","Mini Bluetooth Speaker","Compact wireless speaker.",1099],
+["keyboard","electronics","⌨️","Wireless Keyboard","Clean compact keyboard.",999],
+["mouse","electronics","🖱️","Wireless Mouse","Comfortable wireless mouse.",599],
+["usb","electronics","💾","USB Drive","Compact storage accessory.",499],
+["haircare","personal","💇","Hair Care Kit","Everyday personal care kit.",799],
+["comb","personal","🪮","Premium Comb","Simple personal care accessory.",249],
+["facewash","personal","🧼","Daily Face Wash","Gentle everyday cleansing product.",399],
+["grooming","personal","🧴","Grooming Kit","Useful everyday grooming kit.",999],
+["sunglasscase","accessories","🕶️","Sunglasses Case","Protective compact case.",299],
+["phonecase","accessories","📱","Premium Phone Case","Stylish protective phone case.",499]
+];
 
-  <!-- Standard Footer -->
-  <footer>
-    <div class="brand"><span class="blue">FHAMAR</span><span class="silver">.ZAMOST</span></div>
-    <p>Premium Digital Catalog • Products • Categories • Shopping</p>
-  </footer>
-
-  <script>
-    // Master Product Catalog Array
-    const products = [
-      ["backpack", "fashion", "🎒", "Classic Backpack", "Stylish everyday backpack.", 799],
-      ["watch", "electronics", "⌚", "Smart Watch", "Modern smart watch design.", 1299],
-      ["sunglasses", "accessories", "🕶️", "Premium Sunglasses", "Clean and stylish sunglasses.", 699],
-      ["shoes", "fashion", "👟", "Running Shoes", "Comfortable everyday shoes.", 1499],
-      ["earphones", "electronics", "🎧", "Wireless Earphones", "Compact wireless audio.", 999],
-      ["charger", "electronics", "🔌", "Fast Charger", "Compact charging accessory.", 499],
-      ["perfume", "personal", "🧴", "Signature Perfume", "Premium fragrance collection.", 899],
-      ["tshirt", "fashion", "👕", "Classic T-Shirt", "Simple everyday casual wear.", 599],
-      ["cap", "fashion", "🧢", "Premium Cap", "Comfortable everyday cap.", 399],
-      ["slippers", "fashion", "🩴", "Comfort Slippers", "Lightweight daily slippers.", 449],
-      ["hoodie", "fashion", "🧥", "Classic Hoodie", "Warm casual hoodie design.", 1199],
-      ["wallet", "accessories", "👛", "Classic Wallet", "Compact everyday wallet.", 599],
-      ["belt", "accessories", "🧷", "Classic Belt", "Simple durable belt.", 499],
-      ["watchstrap", "accessories", "⌚", "Watch Strap", "Replacement smart watch strap.", 299],
-      ["powerbank", "electronics", "🔋", "Power Bank", "Portable charging power bank.", 1299],
-      ["speaker", "electronics", "🔊", "Mini Bluetooth Speaker", "Compact wireless speaker.", 1099],
-      ["keyboard", "electronics", "⌨️", "Wireless Keyboard", "Clean compact keyboard.", 999],
-      ["mouse", "electronics", "🖱️", "Wireless Mouse", "Comfortable wireless mouse.", 599],
-      ["usb", "electronics", "💾", "USB Drive", "Compact storage accessory.", 499],
-      ["haircare", "personal", "💇", "Hair Care Kit", "Everyday personal care kit.", 799],
-      ["comb", "personal", "🪮", "Premium Comb", "Simple personal care accessory.", 249],
-      ["facewash", "personal", "🧼", "Daily Face Wash", "Gentle everyday cleansing product.", 399],
-      ["grooming", "personal", "🧴", "Grooming Kit", "Useful everyday grooming kit.", 999],
-      ["sunglasscase", "accessories", "🕶️", "Sunglasses Case", "Protective compact case.", 299],
-      ["phonecase", "accessories", "📱", "Premium Phone Case", "Stylish protective phone case.", 499]
-    ];
-
-    // Filter and Render Products
-    function renderProducts() {
-      const search = document.getElementById("searchBox").value.toLowerCase().trim();
-      const category = document.getElementById("categorySelect").value;
-
-      const filtered = products.filter(p => {
-        const matchesText = (p[3] + " " + p[4]).toLowerCase().includes(search);
-        const matchesCategory = (category === "all" || p[1] === category);
-        return matchesText && matchesCategory;
-      });
-
-      const gridContainer = document.getElementById("productGrid");
-      
-      if (filtered.length === 0) {
-        gridContainer.innerHTML = "";
-        document.getElementById("noResults").style.display = "block";
-      } else {
-        document.getElementById("noResults").style.display = "none";
-        gridContainer.innerHTML = filtered.map(p => `
-          <article class="product">
-            <div class="product-image">${p[2]}</div>
-            <div class="product-info">
-              <span class="product-category">${p[1].toUpperCase()}</span>
-              <h3>${p[3]}</h3>
-              <p class="product-description">${p[4]}</p>
-              <div class="product-bottom">
-                <div class="price">₹${p[5].toLocaleString("en-IN")}</div>
-                <a href="product-details.html?id=${encodeURIComponent(p[0])}" class="view-btn">VIEW</a>
-              </div>
-            </div>
-          </article>
-        `).join("");
-      }
-    }
-
-    // Event Listeners for Live Search & Filter Options
-    document.getElementById("searchBox").addEventListener("input", renderProducts);
-    
-    document.getElementById("categorySelect").addEventListener("change", (e) => {
-      const selectedCat = e.target.value;
-      document.querySelectorAll(".category-btn").forEach(b => {
-        b.classList.toggle("active", b.dataset.category === selectedCat);
-      });
-      renderProducts();
-    });
-
-    document.querySelectorAll(".category-btn").forEach(btn => {
-      btn.addEventListener("click", () => {
-        document.querySelectorAll(".category-btn").forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
-        
-        const selectedCat = btn.dataset.category;
-        document.getElementById("categorySelect").value = selectedCat;
-        renderProducts();
-      });
-    });
-
-    // Sync Cart Quantity from LocalStorage
-    function updateCartCount() {
-      try {
-        const cart = JSON.parse(localStorage.getItem("fz_cart") || "[]");
-        const totalItems = cart.reduce((sum, item) => sum + Number(item.quantity || 1), 0);
-        document.getElementById("cartCount").textContent = totalItems;
-      } catch (e) {
-        document.getElementById("cartCount").textContent = "0";
-      }
-    }
-
-    // Initial Load
-    renderProducts();
-    updateCartCount();
-  </script>
+function renderProducts(){
+ const search=document.getElementById("searchBox").value.toLowerCase().trim();
+ const category=document.getElementById("categorySelect").value;
+ const filtered=products.filter(p=>(p[3]+" "+p[4]).toLowerCase().includes(search)&&(category==="all"||p[1]===category));
+ document.getElementById("productGrid").innerHTML=filtered.map(p=>`
+ <article class="product">
+ <div class="product-image">${p[2]}</div>
+ <div class="product-info">
+ <span class="product-category">${p[1].toUpperCase()}</span>
+ <h3>${p[3]}</h3><p class="product-description">${p[4]}</p>
+ <div class="product-bottom"><div class="price">₹${p[5].toLocaleString("en-IN")}</div>
+ <a href="product-details.html?id=${encodeURIComponent(p[0])}" class="view-btn">VIEW</a></div>
+ </div></article>`).join("");
+ document.getElementById("noResults").style.display=filtered.length?"none":"block";
+}
+document.getElementById("searchBox").addEventListener("input",renderProducts);
+document.getElementById("categorySelect").addEventListener("change",()=>{
+ document.querySelectorAll(".category-btn").forEach(b=>b.classList.toggle("active",b.dataset.category===document.getElementById("categorySelect").value));
+ renderProducts();
+});
+document.querySelectorAll(".category-btn").forEach(btn=>btn.addEventListener("click",()=>{
+ document.querySelectorAll(".category-btn").forEach(b=>b.classList.remove("active"));
+ btn.classList.add("active");document.getElementById("categorySelect").value=btn.dataset.category;renderProducts();
+}));
+function updateCartCount(){
+ try{const cart=JSON.parse(localStorage.getItem("fz_cart")||"[]");document.getElementById("cartCount").textContent=cart.reduce((s,i)=>s+Number(i.quantity||1),0)}
+ catch(e){document.getElementById("cartCount").textContent="0"}
+}
+renderProducts();updateCartCount();
+</script>
 </body>
 </html>
