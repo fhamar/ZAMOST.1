@@ -2,285 +2,391 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Settings | FHAMAR ZAMOST</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>My Portal | FHAMAR ZAMOST</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
-body{background:#050b12;color:#fff}
-button,input,select,textarea{font-family:inherit}button{cursor:pointer}a{text-decoration:none;color:inherit}
-header{height:75px;padding:0 5%;display:flex;align-items:center;justify-content:space-between;background:#07111d;border-bottom:1px solid #30465d;position:sticky;top:0;z-index:1000}
+body{background:#050b12;color:#fff}a{text-decoration:none;color:inherit}
+header{height:75px;padding:0 6%;display:flex;align-items:center;justify-content:space-between;background:#07111d;border-bottom:1px solid #30465d;position:sticky;top:0;z-index:1000}
 .brand-area{display:flex;align-items:center;gap:10px}.fz-logo{width:45px;height:45px;display:flex;align-items:center;justify-content:center;border-radius:12px;border:1px solid #8298ad;background:linear-gradient(145deg,#173b5b,#050b12);color:#4da3ff;font-size:17px;font-weight:900}.brand{font-size:18px;font-weight:900;letter-spacing:2px}.blue{color:#4da3ff}.silver{color:#aeb9c5}
-.header-right{display:flex;align-items:center;gap:10px}.admin-badge{padding:8px 12px;border:1px solid #3c5870;border-radius:20px;color:#4da3ff;font-size:9px;font-weight:bold}.home-btn{padding:9px 13px;border:1px solid #526b82;border-radius:8px;color:#dce5ed;font-size:10px}
-.layout{display:grid;grid-template-columns:220px 1fr;min-height:calc(100vh - 75px)}
-.sidebar{padding:25px 15px;background:#06101a;border-right:1px solid #253a4e}.sidebar-title{margin:5px 10px 15px;color:#657b91;font-size:9px;letter-spacing:2px}.menu-btn{width:100%;padding:13px 12px;margin-bottom:7px;text-align:left;border:1px solid transparent;border-radius:9px;background:transparent;color:#8fa1b4;font-size:11px}.menu-btn:hover{background:#0b1b2a;color:white}.menu-btn.active{background:#102b42;border-color:#315574;color:#4da3ff}
-.content{padding:35px 4% 80px;overflow:hidden}.eyebrow{color:#71869c;font-size:9px;letter-spacing:3px;font-weight:bold}.page-title{margin-top:10px;font-size:35px}.page-title span{color:#4da3ff}.subtitle{margin-top:8px;color:#8194a8;font-size:12px;line-height:1.7}
-.save-bar{margin-top:22px;padding:14px 17px;border:1px solid #293f55;border-radius:12px;background:#081421;display:flex;align-items:center;justify-content:space-between;gap:15px}.save-info{color:#7f93a7;font-size:9px;line-height:1.6}
-.btn-group{display:flex;gap:10px}
-.save-btn{height:40px;padding:0 17px;border:none;border-radius:8px;background:#4da3ff;color:#04101c;font-size:9px;font-weight:900}.reset-btn{height:40px;padding:0 17px;border:1px solid #4f3333;border-radius:8px;background:#200c0c;color:#ff6b6b;font-size:9px;font-weight:900}
-.settings-grid{margin-top:20px;display:grid;grid-template-columns:repeat(2,1fr);gap:15px}.setting-card{padding:21px;border:1px solid #293f55;border-radius:14px;background:#081421}.setting-card.full{grid-column:1/-1}.setting-card h2{font-size:17px;margin-bottom:5px}.setting-card h2 span{color:#4da3ff}.setting-description{color:#71869c;font-size:9px;line-height:1.6;margin-bottom:18px}
-.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.form-group.full{grid-column:1/-1}label{display:block;margin-bottom:6px;color:#9aabba;font-size:9px;font-weight:bold}input,select,textarea{width:100%;min-height:42px;padding:10px 11px;border:1px solid #30465c;border-radius:8px;background:#050c14;color:#fff;outline:none;font-size:10px}textarea{min-height:85px;resize:vertical}input:focus,select:focus,textarea:focus{border-color:#4da3ff}
-.toggle-row{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:13px 0;border-bottom:1px solid #1e3144}.toggle-row:last-child{border-bottom:none}.toggle-text strong{display:block;color:#dce5ed;font-size:11px}.toggle-text small{display:block;margin-top:4px;color:#6f8498;font-size:8px;line-height:1.5}
-.switch{position:relative;width:45px;height:24px;flex:none}.switch input{opacity:0;width:0;height:0}.slider{position:absolute;inset:0;border-radius:20px;background:#26394b;border:1px solid #40566d;transition:.2s}.slider:before{content:"";position:absolute;width:17px;height:17px;left:3px;top:2px;border-radius:50%;background:#8294a6;transition:.2s}.switch input:checked+.slider{background:#173b5b;border-color:#4da3ff}.switch input:checked+.slider:before{transform:translateX(20px);background:#4da3ff}
-.security-box{margin-top:12px;padding:15px;border:1px solid #293f55;border-radius:10px;background:#07111d;color:#7f93a7;font-size:9px;line-height:1.8}.security-box strong{color:#dce5ed}
-.api-note{margin-top:20px;padding:16px;border:1px dashed #405a72;border-radius:10px;background:#06101a;color:#74899d;font-size:9px;line-height:1.8;text-align:center}
+nav{display:flex;gap:22px}nav a{color:#91a2b5;font-size:12px}nav a:hover,nav .active{color:#4da3ff}.logout-btn{padding:9px 13px;border:1px solid #60768c;border-radius:8px;color:#dce5ee;background:transparent;cursor:pointer;font-size:10px}
+.page{max-width:1150px;margin:auto;padding:55px 6% 90px}.eyebrow{color:#71869c;font-size:10px;letter-spacing:3px;font-weight:bold}.title{margin-top:10px;font-size:43px}.title span{color:#4da3ff}.subtitle{margin-top:10px;color:#8396a9;font-size:13px;line-height:1.7}
+.profile-card{margin-top:30px;padding:28px;border:1px solid #344d64;border-radius:18px;background:#091622;display:flex;align-items:center;justify-content:space-between;gap:20px}.profile-left{display:flex;align-items:center;gap:18px}.avatar{width:75px;height:75px;border-radius:20px;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#173b5b,#07111d);border:1px solid #6d8499;color:#4da3ff;font-size:27px;font-weight:900}.profile-name{font-size:22px;font-weight:bold}.profile-email{margin-top:6px;color:#7f92a6;font-size:11px}.account-status{padding:9px 13px;border-radius:20px;background:#10283d;border:1px solid #3e607e;color:#4da3ff;font-size:10px;font-weight:bold}
+.dashboard-grid{margin-top:22px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.dashboard-card{padding:23px;border-radius:15px;border:1px solid #293f55;background:#081421}.card-icon{font-size:24px}.dashboard-card h3{margin-top:15px;font-size:15px}.dashboard-card p{margin-top:7px;color:#7e92a6;font-size:11px;line-height:1.6}.card-link{display:inline-block;margin-top:17px;color:#4da3ff;font-size:10px;font-weight:bold}
+.voting-section{margin-top:30px;padding:28px;border-radius:18px;border:1px solid #344d64;background:linear-gradient(145deg,#0a1826,#07111d)}.voting-header{display:flex;align-items:center;justify-content:space-between;gap:15px}.voting-header h2{font-size:24px}.voting-header h2 span{color:#4da3ff}.vote-status{padding:8px 12px;border:1px solid #3b566e;border-radius:20px;color:#91a5b8;font-size:9px}.vote-card{margin-top:22px;padding:22px;background:#050d15;border:1px solid #293f55;border-radius:14px}.vote-question{font-size:17px;font-weight:bold;line-height:1.5}.vote-description{margin-top:9px;color:#8194a8;font-size:11px;line-height:1.6}.vote-options{margin-top:20px;display:grid;gap:10px}.vote-option{display:flex;align-items:center;gap:10px;padding:13px;border:1px solid #30465c;border-radius:9px;background:#08131f;cursor:pointer}.vote-option:hover{border-color:#4da3ff}.vote-option input{accent-color:#4da3ff}.vote-submit{margin-top:18px;padding:13px 18px;border:none;border-radius:9px;background:#4da3ff;color:#04101c;font-size:10px;font-weight:900;letter-spacing:1px;cursor:pointer}.vote-submit:disabled{opacity:.5;cursor:not-allowed}.vote-message{display:none;margin-top:14px;padding:12px;border-radius:9px;border:1px solid #35506a;background:#091a29;color:#91a5b8;font-size:10px;line-height:1.6}
+.registration{margin-top:22px;padding:23px;border:1px solid #293f55;border-radius:15px;background:#081421}.registration h2{font-size:20px}.registration h2 span{color:#4da3ff}.registration-row{margin-top:18px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.registration-item{padding:15px;border-radius:10px;background:#07111d;border:1px solid #263c51}.registration-item small{display:block;color:#71869c;font-size:9px}.registration-item strong{display:block;margin-top:7px;color:#dce5ed;font-size:12px}.pending{color:#e1c56d!important}
+.quick-links{margin-top:22px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.quick-link{padding:17px;text-align:center;border:1px solid #293f55;border-radius:11px;background:#081421;color:#aebdca;font-size:10px;font-weight:bold}.quick-link:hover{border-color:#4da3ff;color:#4da3ff}
+.api-note{margin-top:25px;padding:16px;border:1px dashed #405a72;border-radius:10px;background:#06101a;color:#75899d;font-size:10px;line-height:1.7;text-align:center}
 footer{padding:35px 7%;background:#03080e;border-top:1px solid #263b50;color:#7d90a4;font-size:11px}
-.toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,20px);padding:11px 15px;border:1px solid #4da3ff;border-radius:8px;background:#0b2032;color:#dce5ed;font-size:10px;opacity:0;pointer-events:none;transition:.25s;z-index:3000}.toast.show{opacity:1;transform:translate(-50%,0)}
-@media(max-width:900px){.layout{grid-template-columns:1fr}.sidebar{display:flex;overflow-x:auto;gap:5px;border-right:none;border-bottom:1px solid #253a4e;padding:10px}.sidebar-title{display:none}.menu-btn{width:auto;min-width:max-content;margin:0}.settings-grid{grid-template-columns:1fr}.setting-card.full{grid-column:auto}}
-@media(max-width:600px){.content{padding:25px 5% 65px}.page-title{font-size:29px}.form-grid{grid-template-columns:1fr}.form-group.full{grid-column:auto}.save-bar{flex-direction:column;align-items:flex-start}.btn-group{width:100%}.save-btn,.reset-btn{flex:1}}
+#authMessage{display:none;margin-top:15px;padding:12px;border-radius:9px;border:1px solid #6d4d4d;background:#1b1111;color:#ffb1b1;font-size:10px;text-align:center}
+@media(max-width:850px){header nav{display:none}.dashboard-grid{grid-template-columns:repeat(2,1fr)}.quick-links{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.page{padding-left:5%;padding-right:5%}.title{font-size:35px}.profile-card{flex-direction:column;align-items:flex-start}.profile-left{align-items:flex-start}.dashboard-grid,.registration-row{grid-template-columns:1fr}.voting-header{flex-direction:column;align-items:flex-start}.quick-links{grid-template-columns:1fr}}
+
+/* Profile Photo System */
+.avatar-wrap{position:relative;width:92px;height:92px;flex:0 0 92px}
+.avatar{width:92px;height:92px;border-radius:22px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#173b5b,#07111d);border:1px solid #6d8499;color:#4da3ff;font-size:27px;font-weight:900}
+.avatar img{width:100%;height:100%;object-fit:cover;display:none}
+.photo-edit{position:absolute;right:-5px;bottom:-5px;width:30px;height:30px;border-radius:50%;border:1px solid #4da3ff;background:#07111d;color:#4da3ff;cursor:pointer;font-size:14px}
+.photo-panel{margin-top:14px;display:flex;gap:9px;flex-wrap:wrap}
+.photo-btn{padding:9px 12px;border:1px solid #405a72;border-radius:8px;background:#07111d;color:#cbd7e2;font-size:9px;font-weight:900;cursor:pointer}
+.photo-btn.primary{background:#4da3ff;border-color:#4da3ff;color:#04101c}
+.photo-btn:disabled{opacity:.45;cursor:not-allowed}
+.photo-note{width:100%;color:#71869c;font-size:9px;line-height:1.5}
+#photoInput{display:none}
+#photoMessage{display:none;margin-top:10px;padding:10px;border-radius:8px;border:1px solid #304b63;background:#071521;color:#8fa4b8;font-size:9px}
+@media(max-width:600px){.avatar-wrap{width:78px;height:78px;flex-basis:78px}.avatar{width:78px;height:78px}}
+
 </style>
 </head>
 <body>
+
 <header>
 <div class="brand-area"><div class="fz-logo">FZ</div><div class="brand"><span class="blue">FHAMAR</span><span class="silver">.ZAMOST</span></div></div>
-<div class="header-right"><div class="admin-badge">ADMINISTRATOR</div><a href="home.html" class="home-btn">HOME</a></div>
+<nav>
+<a href="home.html">Home</a><a href="catalog.html">Catalog</a><a href="profile.html" class="active">My Portal</a><a href="admin.html">
+<a id="settingsLink" href="setting.html" class="quick-link">⚙️ Settings</a>Administrative Desk</a>
+</nav>
+<button id="logoutButton" class="logout-btn" type="button">LOGOUT</button>
 </header>
 
-<div class="layout">
-<aside class="sidebar">
-<div class="sidebar-title">SETTINGS</div>
-<button class="menu-btn active" onclick="scrollToSection('website',this)">🌐 Website</button>
-<button class="menu-btn" onclick="scrollToSection('team',this)">👥 Team</button>
-<button class="menu-btn" onclick="scrollToSection('orders',this)">📦 Orders</button>
-<button class="menu-btn" onclick="scrollToSection('voting',this)">🗳️ Voting</button>
-<button class="menu-btn" onclick="scrollToSection('notifications',this)">🔔 Notifications</button>
-<button class="menu-btn" onclick="scrollToSection('security',this)">🔐 Security</button>
-</aside>
+<main class="page">
+<div class="eyebrow">FHAMAR.ZAMOST MEMBER PORTAL</div>
+<h1 class="title">My <span>Profile</span></h1>
+<p class="subtitle">Manage your account, orders, registration status and eligible community voting from one place.</p>
 
-<main class="content">
-<div class="eyebrow">FHAMAR.ZAMOST ADMINISTRATIVE DESK</div>
-<h1 class="page-title">System <span>Settings</span></h1>
-<p class="subtitle">Configure website, team, orders, voting, notifications and security preferences.</p>
+<div id="authMessage"></div>
 
-<div class="save-bar">
-<div class="save-info">System configuration settings.<br><span id="syncStatus">Syncing with Firebase Cloud...</span></div>
-<div class="btn-group">
-<button class="reset-btn" onclick="resetSettings()">RESET DEFAULTS</button>
-<button class="save-btn" onclick="saveSettings()">SAVE ALL SETTINGS</button>
+<section class="profile-card">
+<div class="profile-left">
+<div class="avatar-wrap">
+<div class="avatar" id="avatar">
+<span id="avatarInitials">FZ</span>
+<img id="profilePhoto" alt="Profile Photo">
 </div>
+<button class="photo-edit" id="photoEditButton" type="button" title="Add or change profile photo">📷</button>
 </div>
-
-<div class="settings-grid">
-<section id="website" class="setting-card full">
-<h2>Website <span>Settings</span></h2><p class="setting-description">Basic FHAMAR.ZAMOST business and website information.</p>
-<div class="form-grid">
-<div class="form-group"><label>WEBSITE NAME</label><input id="siteName" value="FHAMAR ZAMOST"></div>
-<div class="form-group"><label>MOBILE NUMBER</label><input id="siteMobile" value="9334273697" inputmode="numeric" maxlength="10"></div>
-<div class="form-group"><label>EMAIL ADDRESS</label><input id="siteEmail" type="email" value="fhamarzamost@gmail.com"></div>
-<div class="form-group"><label>CURRENCY</label><select id="currency"><option selected>INR (₹)</option><option>USD ($)</option></select></div>
-<div class="form-group"><label>WEBSITE STATUS</label><select id="siteStatus"><option selected>Online</option><option>Maintenance</option></select></div>
-<div class="form-group"><label>MAXIMUM PRODUCT PRICE</label><input id="maxPrice" type="number" value="1500" min="1" max="1500"></div>
+<div><div class="profile-name" id="profileName">Loading...</div><div class="profile-email" id="profileEmail">Checking account...</div></div>
 </div>
+<div class="account-status" id="accountStatus">CHECKING...</div>
 </section>
 
-<section id="team" class="setting-card">
-<h2>Team <span>Settings</span></h2><p class="setting-description">Control Team Member registration and approval workflow.</p>
-<div class="toggle-row"><div class="toggle-text"><strong>Team Registration</strong><small>Allow new people to submit Team Member applications.</small></div><label class="switch"><input id="teamRegistration" type="checkbox" checked><span class="slider"></span></label></div>
-<div class="toggle-row"><div class="toggle-text"><strong>Admin Approval Required</strong><small>New Team Members stay pending until Admin approval.</small></div><label class="switch"><input id="adminApproval" type="checkbox" checked><span class="slider"></span></label></div>
-<div class="toggle-row"><div class="toggle-text"><strong>State Assignment</strong><small>Team Members operate only in their assigned state.</small></div><label class="switch"><input id="stateAssignment" type="checkbox" checked><span class="slider"></span></label></div>
-</section>
-
-<section id="orders" class="setting-card">
-<h2>Order <span>Settings</span></h2><p class="setting-description">Configure basic order processing behavior.</p>
-<div class="toggle-row"><div class="toggle-text"><strong>Order Confirmation</strong><small>Require order confirmation before packaging.</small></div><label class="switch"><input id="orderConfirmation" type="checkbox" checked><span class="slider"></span></label></div>
-<div class="toggle-row"><div class="toggle-text"><strong>Packaging Status</strong><small>Enable Team Members to update packaging progress.</small></div><label class="switch"><input id="packagingStatus" type="checkbox" checked><span class="slider"></span></label></div>
-<div class="toggle-row"><div class="toggle-text"><strong>Shipping Status</strong><small>Enable shipping and dispatch status updates.</small></div><label class="switch"><input id="shippingStatus" type="checkbox" checked><span class="slider"></span></label></div>
-<div class="toggle-row"><div class="toggle-text"><strong>Delivery Tracking</strong><small>Show delivery progress to customers.</small></div><label class="switch"><input id="deliveryTracking" type="checkbox" checked><span class="slider"></span></label></div>
-</section>
-
-<section id="voting" class="setting-card">
-<h2>Member <span>Voting</span></h2><p class="setting-description">Manage the voting feature available inside Member Portal.</p>
-<div class="toggle-row"><div class="toggle-text"><strong>Voting System</strong><small>Enable or disable member voting.</small></div><label class="switch"><input id="votingEnabled" type="checkbox" checked><span class="slider"></span></label></div>
-<div class="toggle-row"><div class="toggle-text"><strong>One User One Vote</strong><small>A user can submit only one vote for each proposal.</small></div><label class="switch"><input id="oneVote" type="checkbox" checked><span class="slider"></span></label></div>
-<br><label>CURRENT VOTING PROPOSAL</label><textarea id="votingProposal">Which area should FHAMAR.ZAMOST focus on next?</textarea>
-</section>
-
-<section id="notifications" class="setting-card">
-<h2>Notification <span>Settings</span></h2><p class="setting-description">Choose which system events generate notifications.</p>
-<div class="toggle-row"><div class="toggle-text"><strong>New Order</strong><small>Notify Admin and assigned Team Member.</small></div><label class="switch"><input id="newOrderNotification" type="checkbox" checked><span class="slider"></span></label></div>
-<div class="toggle-row"><div class="toggle-text"><strong>Team Registration</strong><small>Notify Admin when a new application arrives.</small></div><label class="switch"><input id="teamNotification" type="checkbox" checked><span class="slider"></span></label></div>
-<div class="toggle-row"><div class="toggle-text"><strong>Low Stock Alert</strong><small>Alert Admin when product stock becomes low.</small></div><label class="switch"><input id="stockNotification" type="checkbox" checked><span class="slider"></span></label></div>
-<div class="toggle-row"><div class="toggle-text"><strong>Delivery Updates</strong><small>Notify customers when order status changes.</small></div><label class="switch"><input id="deliveryNotification" type="checkbox" checked><span class="slider"></span></label></div>
-</section>
-
-<section id="security" class="setting-card full">
-<h2>Security & <span>Access</span></h2><p class="setting-description">Role-based access control for the FHAMAR.ZAMOST system.</p>
-<div class="form-grid">
-<div class="form-group"><label>ADMIN ACCESS</label><select id="adminAccess"><option selected>Full Access</option><option>Restricted</option></select></div>
-<div class="form-group"><label>TEAM MEMBER ACCESS</label><select id="teamAccess"><option selected>Assigned State Only</option><option>Restricted</option></select></div>
-<div class="form-group"><label>CUSTOMER ACCESS</label><select id="customerAccess"><option selected>Own Account Only</option><option>Restricted</option></select></div>
-</div>
-<div class="security-box"><strong>SECURITY STATUS</strong><br><br>All system administrative configurations are protected under Firestore Rules and Firebase Authentication.</div>
-</section>
+<div class="photo-panel">
+<input type="file" id="photoInput" accept="image/*">
+<button type="button" id="addPhotoButton" class="photo-btn primary">ADD PROFILE PHOTO</button>
+<button type="button" id="changePhotoButton" class="photo-btn">CHANGE PHOTO</button>
+<div class="photo-note">📷 Phone gallery/camera से photo चुनें. Photo Firebase Storage और आपके Firebase account profile में save होगी.</div>
+<div id="photoMessage"></div>
 </div>
 
-<div class="api-note"><b>FIREBASE / API INTEGRATION ACTIVE</b><br><br>Settings are kept synchronized in LocalStorage and stored in Firebase Firestore under the document <code>settings/global</code>.</div>
+<section class="dashboard-grid">
+<div class="dashboard-card"><div class="card-icon">📦</div><h3>My Orders</h3><p>View your recent order and check its delivery progress.</p><a href="track-order.html" class="card-link">TRACK ORDER →</a></div>
+<div class="dashboard-card"><div class="card-icon">🛒</div><h3>My Cart</h3><p>Open your selected products and continue shopping.</p><a href="cart.html" class="card-link">OPEN CART →</a></div>
+<div class="dashboard-card"><div class="card-icon">🛍️</div><h3>Catalog</h3><p>Explore the latest FHAMAR.ZAMOST product collection.</p><a href="catalog.html" class="card-link">VIEW CATALOG →</a></div>
+</section>
+
+<section class="voting-section">
+<div class="voting-header"><h2>Member <span>Voting</span></h2><div id="voteStatus" class="vote-status">VOTE AVAILABLE</div></div>
+<div class="vote-card">
+<div class="vote-question">Which area should FHAMAR.ZAMOST focus on next?</div>
+<p class="vote-description">Select one option and submit your vote. This page prevents a second vote for the same signed-in account in the current browser.</p>
+<div class="vote-options">
+<label class="vote-option"><input type="radio" name="vote" value="products"><span>New Product Collection</span></label>
+<label class="vote-option"><input type="radio" name="vote" value="team"><span>More State Team Members</span></label>
+<label class="vote-option"><input type="radio" name="vote" value="support"><span>Customer Support</span></label>
+<label class="vote-option"><input type="radio" name="vote" value="features"><span>New Website Features</span></label>
+</div>
+<button type="button" onclick="submitVote()" id="voteButton" class="vote-submit">SUBMIT MY VOTE</button>
+<div id="voteMessage" class="vote-message"></div>
+</div>
+</section>
+
+<section class="registration">
+<h2>Team Registration <span>Status</span></h2>
+<div class="registration-row">
+<div class="registration-item"><small>MEMBER STATUS</small><strong class="pending" id="memberStatus">Pending Review</strong></div>
+<div class="registration-item"><small>STATE</small><strong id="memberState">Not Registered</strong></div>
+<div class="registration-item"><small>APPLICATION</small><strong id="applicationStatus">Admin Review</strong></div>
+</div>
+</section>
+
+<section class="quick-links">
+<a href="home.html" class="quick-link">HOME</a><a href="catalog.html" class="quick-link">CATALOG</a><a href="track-order.html" class="quick-link">TRACK ORDER</a><a href="admin.html" class="quick-link">ADMIN DESK</a>
+</section>
+
+<div class="api-note">
+<b>FIREBASE MEMBER PORTAL</b><br><br>
+Firebase Authentication is connected for the signed-in account. Profile information can be read from Firebase/Firestore when the corresponding member documents are available.<br><br>
+Voting in this version uses the signed-in Firebase user's UID as the browser-side key. For a final production voting system, Firestore Security Rules should enforce one-vote-per-user on the server side.
+</div>
 </main>
-</div>
 
-<footer><div class="brand"><span class="blue">FHAMAR</span><span class="silver">.ZAMOST</span></div><p>Administrative Settings • FHAMAR.ZAMOST</p></footer>
-<div id="toast" class="toast"></div>
+<footer>
+<div class="brand"><span class="blue">FHAMAR</span><span class="silver">.ZAMOST</span></div>
+<p>Member Portal • Profile • Voting</p>
+</footer>
 
-<!-- Firebase SDKs -->
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+<script type="module">
+import { app } from "./firebase-config.js";
+import {
+    getAuth, onAuthStateChanged, signOut, updateProfile
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+import {
+    getFirestore, doc, getDoc, setDoc
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+import {
+    getStorage, ref, uploadBytes, getDownloadURL
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-storage.js";
 
-<script>
-const SETTINGS_KEY = "fz_admin_settings";
+const auth = getAuth(app);
+const db = getFirestore(app);
+const storage = getStorage(app);
 
-const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
-};
+let currentUser = null;
 
-let db = null;
-if (firebaseConfig.apiKey !== "YOUR_API_KEY") {
-    firebase.initializeApp(firebaseConfig);
-    db = firebase.firestore();
-    document.getElementById("syncStatus").innerText = "Realtime Firebase Firestore Connected.";
+const $ = (id) => document.getElementById(id);
+
+function showAuthMessage(text){
+    const box = $("authMessage");
+    box.textContent = text;
+    box.style.display = "block";
 }
 
-const fields = {
-    siteName:"value",siteMobile:"value",siteEmail:"value",currency:"value",
-    siteStatus:"value",maxPrice:"value",teamRegistration:"checked",
-    adminApproval:"checked",stateAssignment:"checked",orderConfirmation:"checked",
-    packagingStatus:"checked",shippingStatus:"checked",deliveryTracking:"checked",
-    votingEnabled:"checked",oneVote:"checked",votingProposal:"value",
-    newOrderNotification:"checked",teamNotification:"checked",
-    stockNotification:"checked",deliveryNotification:"checked",
-    adminAccess:"value",teamAccess:"value",customerAccess:"value"
-};
+function showPhotoMessage(text, error=false){
+    const box = $("photoMessage");
+    box.textContent = text;
+    box.style.display = "block";
+    box.style.borderColor = error ? "#6d4d4d" : "#304b63";
+    box.style.color = error ? "#ffb1b1" : "#8fa4b8";
+}
 
-function getSettings(){
+function setAvatarPhoto(url, name=""){
+    const img = $("profilePhoto");
+    const initials = $("avatarInitials");
+
+    if(url){
+        img.src = url;
+        img.style.display = "block";
+        initials.style.display = "none";
+    }else{
+        img.removeAttribute("src");
+        img.style.display = "none";
+        initials.textContent = (name.trim().charAt(0) || "F").toUpperCase();
+        initials.style.display = "block";
+    }
+}
+
+function setProfile(user, data = {}){
+    const savedName = localStorage.getItem("fz_user_name");
+    const name = data.name || data.fullName || user.displayName || savedName || "FHAMAR User";
+    const email = user.email || data.email || localStorage.getItem("fz_user_email") || "Login account";
+
+    $("profileName").textContent = name;
+    $("profileEmail").textContent = email;
+    $("accountStatus").textContent = "ACCOUNT ACTIVE";
+
+    const photoURL = data.photoURL || user.photoURL || localStorage.getItem("fz_profile_photo_url") || "";
+    setAvatarPhoto(photoURL, name);
+
+    const state = data.state || data.memberState || localStorage.getItem("fz_member_state");
+    if(state) $("memberState").textContent = state;
+    if(data.status || data.memberStatus) $("memberStatus").textContent = data.status || data.memberStatus;
+    if(data.applicationStatus) $("applicationStatus").textContent = data.applicationStatus;
+}
+
+async function loadMemberProfile(user){
+    let data = {};
     try{
-        const data = JSON.parse(localStorage.getItem(SETTINGS_KEY)||"{}");
-        return data && typeof data === "object" ? data : {};
-    }catch(e){ return {}; }
-}
-
-function loadSettings(){
-    const applyToUI = (saved) => {
-        Object.keys(fields).forEach(id => {
-            const el = document.getElementById(id);
-            if(!el || saved[id] === undefined) return;
-            el[fields[id]] = saved[id];
-        });
-        validatePrice();
-    };
-
-    // 1. Load Local Storage
-    const localSaved = getSettings();
-    applyToUI(localSaved);
-
-    // 2. Fetch Latest from Firebase Firestore
-    if(db){
-        db.collection("settings").doc("global").get().then(doc => {
-            if(doc.exists){
-                const cloudData = doc.data();
-                applyToUI(cloudData);
-                localStorage.setItem(SETTINGS_KEY, JSON.stringify(cloudData));
-            }
-        }).catch(err => console.warn("Firestore Read Failed, using LocalStorage:", err));
+        const snap = await getDoc(doc(db, "users", user.uid));
+        if(snap.exists()) data = snap.data();
+    }catch(error){
+        console.warn("Firestore profile read error:", error);
     }
+
+    setProfile(user, data);
+
+    if(data.name) localStorage.setItem("fz_user_name", data.name);
+    if(data.email) localStorage.setItem("fz_user_email", data.email);
+    if(data.state) localStorage.setItem("fz_member_state", data.state);
 }
 
-function collectSettings(){
-    const data = {};
-    Object.keys(fields).forEach(id => {
-        const el = document.getElementById(id);
-        if(el) data[id] = el[fields[id]];
-    });
-    data.updatedAt = new Date().toISOString();
-    return data;
-}
+async function saveProfilePhoto(file){
+    if(!currentUser || !file) return;
 
-function validatePrice(){
-    const input = document.getElementById("maxPrice");
-    let value = Number(input.value);
-    if(!Number.isFinite(value) || value < 1) value = 1;
-    if(value > 1500) value = 1500;
-    input.value = value;
-}
-
-function saveSettings(){
-    validatePrice();
-    const mobile = document.getElementById("siteMobile").value.replace(/\D/g,"").slice(0,10);
-    document.getElementById("siteMobile").value = mobile;
-    if(mobile.length !== 10){
-        showToast("Please enter a valid 10 digit mobile number.");
-        document.getElementById("siteMobile").focus();
-        return;
-    }
-    const email = document.getElementById("siteEmail").value.trim();
-    if(email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
-        showToast("Please enter a valid email address.");
-        document.getElementById("siteEmail").focus();
+    if(!file.type.startsWith("image/")){
+        showPhotoMessage("Please select an image file.", true);
         return;
     }
 
-    const payload = collectSettings();
+    // Keep uploads reasonable for a phone-based website.
+    if(file.size > 5 * 1024 * 1024){
+        showPhotoMessage("Photo must be 5 MB or smaller.", true);
+        return;
+    }
 
-    // 1. Save Local Storage
-    try {
-        localStorage.setItem(SETTINGS_KEY, JSON.stringify(payload));
-    } catch(e) {}
+    $("addPhotoButton").disabled = true;
+    $("changePhotoButton").disabled = true;
+    $("photoEditButton").disabled = true;
+    showPhotoMessage("Uploading photo...");
 
-    // 2. Sync to Firestore Realtime DB
-    if (db) {
-        db.collection("settings").doc("global").set(payload, { merge: true })
-        .then(() => {
-            showToast("Settings saved to Cloud successfully.");
-        })
-        .catch(err => {
-            console.error(err);
-            showToast("Saved locally. Cloud sync failed.");
-        });
-    } else {
-        showToast("Settings saved locally.");
+    try{
+        const extension = (file.name.split(".").pop() || "jpg").toLowerCase();
+        const photoRef = ref(storage, `profilePhotos/${currentUser.uid}/profile.${extension}`);
+
+        await uploadBytes(photoRef, file, { contentType: file.type });
+        const photoURL = await getDownloadURL(photoRef);
+
+        // Firebase Authentication account profile.
+        await updateProfile(currentUser, { photoURL });
+
+        // Firestore member profile.
+        await setDoc(doc(db, "users", currentUser.uid), {
+            photoURL: photoURL,
+            updatedAt: new Date()
+        }, { merge: true });
+
+        // Local cache for quick display.
+        localStorage.setItem("fz_profile_photo_url", photoURL);
+        setAvatarPhoto(photoURL, $("profileName").textContent);
+
+        showPhotoMessage("✓ Profile photo saved successfully.");
+    }catch(error){
+        console.error("Profile photo upload error:", error);
+        let message = "Photo upload failed. Please try again.";
+        if(error?.code === "storage/unauthorized"){
+            message = "Firebase Storage permission denied. Storage Rules में signed-in users को अपनी photo upload/read permission दें.";
+        }else if(error?.code === "storage/unknown"){
+            message = "Firebase Storage is not available yet. Please check Storage setup.";
+        }
+        showPhotoMessage(message, true);
+    }finally{
+        $("addPhotoButton").disabled = false;
+        $("changePhotoButton").disabled = false;
+        $("photoEditButton").disabled = false;
+        $("photoInput").value = "";
     }
 }
 
-function resetSettings(){
-    if(!confirm("Reset all settings to default values?")) return;
-    localStorage.removeItem(SETTINGS_KEY);
-    if (db) {
-        db.collection("settings").doc("global").delete().catch(e => console.error(e));
-    }
-    location.reload();
-}
-
-function scrollToSection(id, button){
-    const section = document.getElementById(id);
-    if(section) section.scrollIntoView({behavior:"smooth", block:"start"});
-    document.querySelectorAll(".menu-btn").forEach(b => b.classList.remove("active"));
-    if(button) button.classList.add("active");
-}
-
-function showToast(text){
-    const toast = document.getElementById("toast");
-    toast.textContent = text;
-    toast.classList.add("show");
-    clearTimeout(window.toastTimer);
-    window.toastTimer = setTimeout(() => toast.classList.remove("show"), 2200);
-}
-
-document.getElementById("maxPrice").addEventListener("input", validatePrice);
-document.getElementById("siteMobile").addEventListener("input", e => {
-    e.target.value = e.target.value.replace(/\D/g, "").slice(0, 10);
+$("photoEditButton").addEventListener("click", () => $("photoInput").click());
+$("addPhotoButton").addEventListener("click", () => $("photoInput").click());
+$("changePhotoButton").addEventListener("click", () => $("photoInput").click());
+$("photoInput").addEventListener("change", (e) => {
+    const file = e.target.files?.[0];
+    if(file) saveProfilePhoto(file);
 });
-document.addEventListener("keydown", e => {
-    if((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "s"){
-        e.preventDefault();
-        saveSettings();
+
+// Logout: Firebase account is signed out, then user returns to first/login page.
+$("logoutButton").addEventListener("click", async()=>{
+    const button = $("logoutButton");
+    button.disabled = true;
+    button.textContent = "LOGGING OUT...";
+
+    try{
+        await signOut(auth);
+
+        // Do not remove the saved profile photo URL from the server.
+        // Clear only convenience account cache so another account can sign in cleanly.
+        localStorage.removeItem("fz_user_name");
+        localStorage.removeItem("fz_user_email");
+        localStorage.removeItem("fz_member_state");
+        localStorage.removeItem("fz_profile_photo_url");
+
+        window.location.replace("index.html");
+    }catch(error){
+        console.error(error);
+        button.disabled = false;
+        button.textContent = "LOGOUT";
+        showAuthMessage("Logout failed. Please try again.");
     }
 });
 
-loadSettings();
+function voteKey(uid){ return "fz_has_voted_" + uid; }
+function voteValueKey(uid){ return "fz_vote_" + uid; }
+
+function restoreVoteState(uid){
+    const already = localStorage.getItem(voteKey(uid)) === "true";
+    const button = $("voteButton");
+    const status = $("voteStatus");
+    const message = $("voteMessage");
+
+    if(already){
+        button.disabled = true;
+        status.textContent = "VOTE SUBMITTED";
+        message.style.display = "block";
+        message.textContent = "✓ Your vote has already been recorded in this browser for this account.";
+        const value = localStorage.getItem(voteValueKey(uid));
+        if(value){
+            const radio = document.querySelector(`input[name="vote"][value="${CSS.escape(value)}"]`);
+            if(radio) radio.checked = true;
+        }
+    }
+}
+
+async function submitVote(){
+    const message = $("voteMessage");
+    const button = $("voteButton");
+    const status = $("voteStatus");
+
+    if(!currentUser){
+        message.style.display = "block";
+        message.textContent = "Please sign in first.";
+        return;
+    }
+
+    if(localStorage.getItem(voteKey(currentUser.uid)) === "true"){
+        message.style.display = "block";
+        message.textContent = "Your vote has already been recorded for this account.";
+        return;
+    }
+
+    const selected = document.querySelector('input[name="vote"]:checked');
+    if(!selected){
+        message.style.display = "block";
+        message.textContent = "Please select one option before submitting your vote.";
+        return;
+    }
+
+try{
+        await setDoc(doc(db, "votes", currentUser.uid), {
+            option: selected.value,
+            votedAt: new Date(),
+            userEmail: currentUser.email || ""
+        }, { merge: true });
+
+        localStorage.setItem(voteKey(currentUser.uid), "true");
+        localStorage.setItem(voteValueKey(currentUser.uid), selected.value);
+
+        button.disabled = true;
+        status.textContent = "VOTE SUBMITTED";
+        message.style.display = "block";
+        message.textContent = "✓ Your vote has been recorded successfully.";
+    }catch(e){
+        console.error("Firestore vote sync error:", e);
+        message.style.display = "block";
+        message.textContent = "Vote could not be saved. Please try again.";
+    }
+}
+
+$("voteButton").addEventListener("click", submitVote);
+
+onAuthStateChanged(auth, async(user)=>{
+    if(!user){
+        $("profileName").textContent = "Sign In Required";
+        $("profileEmail").textContent = "Please sign in to open your portal.";
+        $("accountStatus").textContent = "NOT SIGNED IN";
+        setAvatarPhoto("", "F");
+        $("voteButton").disabled = true;
+        $("addPhotoButton").disabled = true;
+        $("changePhotoButton").disabled = true;
+        $("photoEditButton").disabled = true;
+        showAuthMessage("You are not signed in. Redirecting to the login page...");
+        setTimeout(() => window.location.replace("index.html"), 700);
+        return;
+    }
+
+    currentUser = user;
+    await loadMemberProfile(user);
+    restoreVoteState(user.uid);
+});
 </script>
 </body>
-   </html>
-
+</html>
