@@ -28,13 +28,22 @@ header{height:75px;padding:0 5%;display:flex;align-items:center;justify-content:
 
 <header>
 <div class="brand-area"><div class="fz-logo">FZ</div><div class="brand"><span class="blue">FHAMAR</span><span class="silver">.ZAMOST</span></div></div>
-<div class="header-right"><div class="support-badge">SUPPORT CENTER</div><a href="admin.html" class="portal-btn">ADMIN PORTAL</a></div>
+<div class="header-right"><div class="support-badge">SUPPORT CENTER</div><a href="home.html" class="portal-btn">HOME</a></div>
 </header>
 
 <main class="page">
 <div class="eyebrow">FHAMAR.ZAMOST CUSTOMER CARE</div>
 <h1 class="title">Help & <span>Support</span></h1>
 <p class="subtitle">Find answers, track problems and contact FHAMAR.ZAMOST support.</p>
+
+<div style="margin-top:20px;display:flex;gap:8px;flex-wrap:wrap">
+<a href="home.html" class="portal-btn">🏠 HOME</a>
+<a href="catalog.html" class="portal-btn">🛍️ CATALOG</a>
+<a href="cart.html" class="portal-btn">🛒 CART</a>
+<a href="track-order.html" class="portal-btn">📦 TRACK ORDER</a>
+<a href="profile.html" class="portal-btn">👤 PROFILE</a>
+<a href="team.html" class="portal-btn">👥 TEAM</a>
+</div>
 
 <div class="support-cards">
 <div class="support-card"><div class="support-icon">💬</div><h2>WhatsApp Support</h2><p>For order questions, product information and general support, contact us through WhatsApp.</p><a href="#" class="support-btn" onclick="openWhatsApp(event)">OPEN WHATSAPP</a></div>
@@ -81,7 +90,7 @@ header{height:75px;padding:0 5%;display:flex;align-items:center;justify-content:
 
 <div class="faq" data-keywords="notification alert order team voting stock">
 <button class="faq-question" onclick="toggleFAQ(this)">Where can I see notifications?<span>+</span></button>
-<div class="faq-answer">Open notifications.html to see notifications when that page is enabled and connected to the site's notification data.</div>
+<div class="faq-answer">Open the <a href="notifications.html" style="color:#4da3ff;font-weight:bold">Notifications page</a> to see notifications when that page is enabled and connected to the site's notification data.</div>
 </div>
 
 <div class="faq" data-keywords="voting vote member proposal one user one vote">
@@ -115,6 +124,20 @@ header{height:75px;padding:0 5%;display:flex;align-items:center;justify-content:
 <div id="formMessage" class="form-message"></div>
 </section>
 
+<section class="contact-box" style="text-align:left">
+<h2 style="text-align:center">Quick Help Links</h2>
+<p style="text-align:center">Open the page related to your issue.</p>
+<div class="contact-buttons">
+<a href="catalog.html" class="contact-btn email">🛍️ CATALOG</a>
+<a href="cart.html" class="contact-btn email">🛒 CART</a>
+<a href="checkout.html" class="contact-btn email">💳 CHECKOUT</a>
+<a href="track-order.html" class="contact-btn email">📦 TRACK ORDER</a>
+<a href="profile.html" class="contact-btn email">👤 PROFILE</a>
+<a href="notifications.html" class="contact-btn email">🔔 NOTIFICATIONS</a>
+<a href="team.html" class="contact-btn email">👥 TEAM</a>
+</div>
+</section>
+
 <section class="contact-box">
 <h2>Need More Help?</h2><p>Our support channels are available for your questions and assistance.</p>
 <div class="contact-buttons">
@@ -125,41 +148,23 @@ header{height:75px;padding:0 5%;display:flex;align-items:center;justify-content:
 
 <div class="api-note"><b>FIREBASE / API CONNECTION AREA</b><br><br>
 WhatsApp support is configured with the support number in this page.<br>
-Support requests are saved locally and synced to Firebase Firestore if configured.<br>
-For production, Firebase Authentication and database security rules control customer and admin access.
+Support requests are currently saved locally as a demo. A future Firebase/API connection can send them to the Admin Support Ticket system.<br>
+For production, Firebase Authentication and database security rules should control customer and admin access.
 </div>
 </main>
 
 <footer><div class="brand"><span class="blue">FHAMAR</span><span class="silver">.ZAMOST</span></div><p>Help & Support • FHAMAR.ZAMOST</p></footer>
 
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+<script>
+const WHATSAPP_NUMBER = "919334273697";
 
-const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
-};
-
-let db = null;
-try {
-  const app = initializeApp(firebaseConfig);
-  db = getFirestore(app);
-} catch(e) {}
-
-window.WHATSAPP_NUMBER = "919334273697";
-
-window.openWhatsApp = function(event){
+function openWhatsApp(event){
     if(event) event.preventDefault();
     const message=encodeURIComponent("Hello FHAMAR ZAMOST Support, I need help.");
-    window.open("https://wa.me/"+window.WHATSAPP_NUMBER+"?text="+message,"_blank");
-};
+    window.open("https://wa.me/"+WHATSAPP_NUMBER+"?text="+message,"_blank");
+}
 
-window.toggleFAQ = function(button){
+function toggleFAQ(button){
     const faq=button.parentElement;
     const wasOpen=faq.classList.contains("open");
     document.querySelectorAll(".faq").forEach(item=>{
@@ -172,9 +177,9 @@ window.toggleFAQ = function(button){
         const s=button.querySelector("span");
         if(s) s.textContent="−";
     }
-};
+}
 
-window.searchFAQ = function(){
+function searchFAQ(){
     const q=document.getElementById("faqSearch").value.toLowerCase().trim();
     let matches=0;
     document.querySelectorAll(".faq").forEach(faq=>{
@@ -184,14 +189,9 @@ window.searchFAQ = function(){
         if(found) matches++;
     });
     document.getElementById("faqNoResults").style.display=matches?"none":"block";
-};
-
-async function syncTicketToFirebase(ticket){
-  if(!db) return;
-  try { await setDoc(doc(db, "support_tickets", ticket.id), ticket); } catch(e){}
 }
 
-window.submitProblem = async function(){
+function submitProblem(){
     const name=document.getElementById("problemName").value.trim();
     const email=document.getElementById("problemEmail").value.trim();
     const order=document.getElementById("problemOrder").value.trim();
@@ -222,16 +222,14 @@ window.submitProblem = async function(){
     tickets.push(ticket);
     localStorage.setItem("fz_support_tickets",JSON.stringify(tickets));
 
-    await syncTicketToFirebase(ticket);
-
     message.style.display="block";
     message.innerHTML="✓ Support request submitted.<br>Ticket ID: <b>"+ticket.id+"</b><br>Our support system can use this ticket for follow-up.";
 
     document.getElementById("problemText").value="";
-};
+}
 
-window.searchFAQ();
+searchFAQ();
 </script>
 </body>
-</html>
-
+  </html>
+  
