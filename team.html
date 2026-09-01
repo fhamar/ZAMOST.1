@@ -292,9 +292,8 @@ window.showToast=function(text){
   t.classList.add("show");
   clearTimeout(window.toastTimer);
   window.toastTimer=setTimeout(()=>t.classList.remove("show"),2200);
-};
-
-  document.getElementById("dashboardState").textContent=TEAM_STATE.toUpperCase();
+}
+document.getElementById("dashboardState").textContent=TEAM_STATE.toUpperCase();
 document.getElementById("assignedState").textContent="ASSIGNED STATE: "+TEAM_STATE.toUpperCase();
 renderMembers();
 initRealtimeOrders();
