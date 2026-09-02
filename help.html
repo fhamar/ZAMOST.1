@@ -1,40 +1,263 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Help & Support | FHAMAR ZAMOST</title>
+
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
 body{background:#050b12;color:#fff}
 button,input,textarea,select{font-family:inherit}
-button{cursor:pointer} a{text-decoration:none;color:inherit}
-header{height:75px;padding:0 5%;display:flex;align-items:center;justify-content:space-between;background:#07111d;border-bottom:1px solid #30465d;position:sticky;top:0;z-index:1000}
-.brand-area{display:flex;align-items:center;gap:10px}.fz-logo{width:45px;height:45px;display:flex;align-items:center;justify-content:center;border-radius:12px;border:1px solid #8298ad;background:linear-gradient(145deg,#173b5b,#050b12);color:#4da3ff;font-size:17px;font-weight:900}.brand{font-size:18px;font-weight:900;letter-spacing:2px}.blue{color:#4da3ff}.silver{color:#aeb9c5}
-.header-right{display:flex;align-items:center;gap:10px}.portal-btn,.support-badge{padding:9px 13px;border:1px solid #526b82;border-radius:8px;color:#dce5ed;font-size:10px}.support-badge{padding:8px 11px;border-color:#3c5870;border-radius:20px;color:#4da3ff;font-weight:bold}
-.page{max-width:1050px;margin:auto;padding:45px 5% 80px}.eyebrow{color:#71869c;font-size:9px;letter-spacing:3px;font-weight:bold}.title{margin-top:10px;font-size:38px}.title span{color:#4da3ff}.subtitle{margin-top:9px;color:#8295a8;font-size:12px;line-height:1.7}
-.support-cards{margin-top:25px;display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.support-card,.search-box,.problem,.contact-box,.role-card{padding:22px;border:1px solid #293f55;border-radius:15px;background:#081421}.support-icon{width:45px;height:45px;display:flex;align-items:center;justify-content:center;border-radius:12px;background:#102b42;border:1px solid #355774;font-size:20px}.support-card h2{margin-top:14px;font-size:17px}.support-card p,.problem-description,.contact-box p{margin-top:7px;color:#7f93a7;font-size:10px;line-height:1.7}.support-btn{display:inline-block;margin-top:15px;padding:10px 14px;border-radius:8px;background:#4da3ff;color:#04101c;font-size:9px;font-weight:900}.support-btn.secondary{background:#0a1725;border:1px solid #40586f;color:#b9c7d4}
-.search-box{margin-top:25px}.search-box h2,.problem h2{font-size:18px}.search-box p{margin-top:6px;color:#71869c;font-size:9px}.search-input{width:100%;height:45px;margin-top:14px;padding:0 13px;background:#050c14;border:1px solid #30465c;border-radius:8px;color:white;outline:none;font-size:11px}.search-input:focus,input:focus,textarea:focus,select:focus{border-color:#4da3ff}
-.faq-list{margin-top:15px;display:grid;gap:9px}.faq{border:1px solid #293f55;border-radius:11px;background:#07111d;overflow:hidden}.faq.hidden{display:none}.faq-question{width:100%;padding:15px;border:none;background:transparent;color:#dce5ed;text-align:left;font-size:11px;font-weight:bold;display:flex;justify-content:space-between;align-items:center;gap:10px}.faq-question span{color:#4da3ff;font-size:17px}.faq-answer{display:none;padding:0 15px 15px;color:#7f93a7;font-size:9px;line-height:1.8}.faq.open .faq-answer{display:block}.no-results{display:none;padding:18px;text-align:center;color:#7f93a7;font-size:10px;border:1px dashed #405a72;border-radius:10px}
-.role-help{margin-top:25px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.role-card h3{color:#4da3ff;font-size:14px}.role-card ul{margin-top:12px;padding-left:17px;color:#8497a9;font-size:9px;line-height:2}
-.problem{margin-top:25px}.form-grid{margin-top:18px;display:grid;grid-template-columns:1fr 1fr;gap:12px}.form-group.full{grid-column:1/-1}label{display:block;margin-bottom:6px;color:#9aabba;font-size:9px;font-weight:bold}input,textarea,select{width:100%;padding:11px;border:1px solid #30465c;border-radius:8px;background:#050c14;color:white;outline:none;font-size:10px}input,select{height:43px}textarea{min-height:100px;resize:vertical}.submit-btn{width:100%;height:44px;margin-top:16px;border:none;border-radius:8px;background:#4da3ff;color:#04101c;font-size:10px;font-weight:900}.form-message{display:none;margin-top:12px;padding:12px;border:1px solid #355069;border-radius:9px;background:#07111d;color:#91a5b8;font-size:10px;line-height:1.6}
-.contact-box{margin-top:25px;text-align:center}.contact-box h2{font-size:20px}.contact-buttons{margin-top:17px;display:flex;justify-content:center;gap:10px;flex-wrap:wrap}.contact-btn{padding:11px 18px;border-radius:8px;font-size:9px;font-weight:900}.whatsapp{background:#4da3ff;color:#04101c}.email{background:#0a1725;border:1px solid #40586f;color:#b9c7d4}
-.api-note{margin-top:25px;padding:17px;border:1px dashed #405a72;border-radius:10px;background:#06101a;color:#74899d;font-size:9px;line-height:1.8;text-align:center}footer{padding:35px 7%;background:#03080e;border-top:1px solid #263b50;color:#7d90a4;font-size:11px}
-@media(max-width:850px){.support-cards,.role-help{grid-template-columns:1fr}}
-@media(max-width:600px){header{padding:0 4%}.support-badge{display:none}.page{padding:30px 5% 65px}.title{font-size:31px}.form-grid{grid-template-columns:1fr}.form-group.full{grid-column:auto}.portal-btn{font-size:9px;padding:8px 10px}}
+button{cursor:pointer}
+a{text-decoration:none;color:inherit}
+
+header{
+height:75px;padding:0 5%;display:flex;align-items:center;
+justify-content:space-between;background:#07111d;
+border-bottom:1px solid #30465d;
+position:sticky;top:0;z-index:1000
+}
+
+.brand-area{display:flex;align-items:center;gap:10px}
+.fz-logo{
+width:45px;height:45px;display:flex;
+align-items:center;justify-content:center;
+border-radius:12px;border:1px solid #8298ad;
+background:linear-gradient(145deg,#173b5b,#050b12);
+color:#4da3ff;font-size:17px;font-weight:900
+}
+
+.brand{font-size:18px;font-weight:900;letter-spacing:2px}
+.blue{color:#4da3ff}
+.silver{color:#aeb9c5}
+
+.header-right{display:flex;align-items:center;gap:10px}
+.portal-btn,.support-badge{
+padding:9px 13px;border:1px solid #526b82;
+border-radius:8px;color:#dce5ed;font-size:10px
+}
+
+.support-badge{
+padding:8px 11px;border-color:#3c5870;
+border-radius:20px;color:#4da3ff;font-weight:bold
+}
+
+.page{max-width:1050px;margin:auto;padding:45px 5% 80px}
+.eyebrow{color:#71869c;font-size:9px;letter-spacing:3px;font-weight:bold}
+.title{margin-top:10px;font-size:38px}
+.title span{color:#4da3ff}
+.subtitle{margin-top:9px;color:#8295a8;font-size:12px;line-height:1.7}
+
+.support-cards{
+margin-top:25px;
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:14px
+}
+
+.support-card,.search-box,.problem,.contact-box,.role-card{
+padding:22px;border:1px solid #293f55;
+border-radius:15px;background:#081421
+}
+
+.support-icon{
+width:45px;height:45px;
+display:flex;align-items:center;justify-content:center;
+border-radius:12px;background:#102b42;
+border:1px solid #355774;font-size:20px
+}
+
+.support-card h2{margin-top:14px;font-size:17px}
+.support-card p,.problem-description,.contact-box p{
+margin-top:7px;color:#7f93a7;font-size:10px;line-height:1.7
+}
+
+.support-btn{
+display:inline-block;margin-top:15px;padding:10px 14px;
+border-radius:8px;background:#4da3ff;
+color:#04101c;font-size:9px;font-weight:900
+}
+
+.support-btn.secondary{
+background:#0a1725;border:1px solid #40586f;color:#b9c7d4
+}
+
+.search-box{margin-top:25px}
+.search-box h2,.problem h2{font-size:18px}
+.search-box p{margin-top:6px;color:#71869c;font-size:9px}
+
+.search-input{
+width:100%;height:45px;margin-top:14px;
+padding:0 13px;background:#050c14;
+border:1px solid #30465c;border-radius:8px;
+color:white;outline:none;font-size:11px
+}
+
+.search-input:focus,input:focus,textarea:focus,select:focus{
+border-color:#4da3ff
+}
+
+.faq-list{margin-top:15px;display:grid;gap:9px}
+.faq{
+border:1px solid #293f55;border-radius:11px;
+background:#07111d;overflow:hidden
+}
+.faq.hidden{display:none}
+
+.faq-question{
+width:100%;padding:15px;border:none;background:transparent;
+color:#dce5ed;text-align:left;font-size:11px;font-weight:bold;
+display:flex;justify-content:space-between;align-items:center
+}
+
+.faq-question span{color:#4da3ff;font-size:17px}
+
+.faq-answer{
+display:none;padding:0 15px 15px;
+color:#7f93a7;font-size:9px;line-height:1.8
+}
+
+.faq.open .faq-answer{display:block}
+
+.no-results{
+display:none;padding:18px;text-align:center;
+color:#7f93a7;font-size:10px;
+border:1px dashed #405a72;border-radius:10px
+}
+
+.role-help{
+margin-top:25px;
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:12px
+}
+
+.role-card h3{color:#4da3ff;font-size:14px}
+.role-card ul{
+margin-top:12px;padding-left:17px;
+color:#8497a9;font-size:9px;line-height:2
+}
+
+.problem{margin-top:25px}
+
+.form-grid{
+margin-top:18px;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px
+}
+
+.form-group.full{grid-column:1/-1}
+
+label{
+display:block;margin-bottom:6px;
+color:#9aabba;font-size:9px;font-weight:bold
+}
+
+input,textarea,select{
+width:100%;padding:11px;
+border:1px solid #30465c;
+border-radius:8px;background:#050c14;
+color:white;outline:none;font-size:10px
+}
+
+input,select{height:43px}
+textarea{min-height:100px;resize:vertical}
+
+.submit-btn{
+width:100%;height:44px;margin-top:16px;
+border:none;border-radius:8px;
+background:#4da3ff;color:#04101c;
+font-size:10px;font-weight:900
+}
+
+.form-message{
+display:none;margin-top:12px;padding:12px;
+border:1px solid #355069;border-radius:9px;
+background:#07111d;color:#91a5b8;
+font-size:10px;line-height:1.6
+}
+
+.contact-box{margin-top:25px;text-align:center}
+
+.contact-box h2{font-size:20px}
+
+.contact-buttons{
+margin-top:17px;
+display:flex;
+justify-content:center;
+gap:10px;
+flex-wrap:wrap
+}
+
+.contact-btn{
+padding:11px 18px;border-radius:8px;
+font-size:9px;font-weight:900
+}
+
+.whatsapp{background:#4da3ff;color:#04101c}
+.email{
+background:#0a1725;
+border:1px solid #40586f;
+color:#b9c7d4
+}
+
+.api-note{
+margin-top:25px;padding:17px;
+border:1px dashed #405a72;
+border-radius:10px;background:#06101a;
+color:#74899d;font-size:9px;
+line-height:1.8;text-align:center
+}
+
+footer{
+padding:35px 7%;
+background:#03080e;
+border-top:1px solid #263b50;
+color:#7d90a4;font-size:11px
+}
+
+@media(max-width:850px){
+.support-cards,.role-help{grid-template-columns:1fr}
+}
+
+@media(max-width:600px){
+header{padding:0 4%}
+.support-badge{display:none}
+.page{padding:30px 5% 65px}
+.title{font-size:31px}
+.form-grid{grid-template-columns:1fr}
+.form-group.full{grid-column:auto}
+.portal-btn{font-size:9px;padding:8px 10px}
+}
 </style>
 </head>
+
 <body>
 
 <header>
-<div class="brand-area"><div class="fz-logo">FZ</div><div class="brand"><span class="blue">FHAMAR</span><span class="silver">.ZAMOST</span></div></div>
-<div class="header-right"><div class="support-badge">SUPPORT CENTER</div><a href="home.html" class="portal-btn">HOME</a></div>
+<div class="brand-area">
+<div class="fz-logo">FZ</div>
+<div class="brand">
+<span class="blue">FHAMAR</span><span class="silver">.ZAMOST</span>
+</div>
+</div>
+
+<div class="header-right">
+<div class="support-badge">SUPPORT CENTER</div>
+<a href="home.html" class="portal-btn">HOME</a>
+</div>
 </header>
 
 <main class="page">
+
 <div class="eyebrow">FHAMAR.ZAMOST CUSTOMER CARE</div>
 <h1 class="title">Help & <span>Support</span></h1>
-<p class="subtitle">Find answers, track problems and contact FHAMAR.ZAMOST support.</p>
+<p class="subtitle">
+Find answers, report problems and contact FHAMAR.ZAMOST support.
+</p>
 
 <div style="margin-top:20px;display:flex;gap:8px;flex-wrap:wrap">
 <a href="home.html" class="portal-btn">🏠 HOME</a>
@@ -42,194 +265,430 @@ header{height:75px;padding:0 5%;display:flex;align-items:center;justify-content:
 <a href="cart.html" class="portal-btn">🛒 CART</a>
 <a href="track-order.html" class="portal-btn">📦 TRACK ORDER</a>
 <a href="profile.html" class="portal-btn">👤 PROFILE</a>
-<a href="team.html" class="portal-btn">👥 TEAM</a>
 </div>
 
 <div class="support-cards">
-<div class="support-card"><div class="support-icon">💬</div><h2>WhatsApp Support</h2><p>For order questions, product information and general support, contact us through WhatsApp.</p><a href="#" class="support-btn" onclick="openWhatsApp(event)">OPEN WHATSAPP</a></div>
-<div class="support-card"><div class="support-icon">✉️</div><h2>Email Support</h2><p>For detailed questions or support requests, send us an email.</p><a href="mailto:fhamarzamost@gmail.com" class="support-btn secondary">SEND EMAIL</a></div>
+
+<div class="support-card">
+<div class="support-icon">💬</div>
+<h2>WhatsApp Support</h2>
+<p>For order questions, product information and customer support contact us directly.</p>
+<a href="#" class="support-btn" onclick="openWhatsApp(event)">
+OPEN WHATSAPP
+</a>
+</div>
+
+<div class="support-card">
+<div class="support-icon">✉️</div>
+<h2>Email Support</h2>
+<p>For detailed support requests send us an email.</p>
+<a href="mailto:fhamarzamost@gmail.com" class="support-btn secondary">
+SEND EMAIL
+</a>
+</div>
+
 </div>
 
 <section class="search-box">
-<h2>Search Help</h2><p>Type your question to find a matching FAQ.</p>
-<input id="faqSearch" class="search-input" placeholder="Example: How can I track my order?" oninput="searchFAQ()">
+<h2>Search Help</h2>
+<p>Type your question to search FAQ.</p>
+
+<input id="faqSearch"
+class="search-input"
+placeholder="Example: How can I track my order?"
+oninput="searchFAQ()">
 </section>
 
 <section>
+
 <div id="faqList" class="faq-list">
 
-<div class="faq" data-keywords="order shopping buy product place">
-<button class="faq-question" onclick="toggleFAQ(this)">How can I place an order?<span>+</span></button>
-<div class="faq-answer">Open the product catalog, select a product, add it to your cart and continue to checkout. Enter your delivery information and complete the available payment step.</div>
+<div class="faq" data-keywords="order shopping buy product">
+<button class="faq-question" onclick="toggleFAQ(this)">
+How can I place an order?<span>+</span>
+</button>
+<div class="faq-answer">
+Open Catalog, select product, add to cart and continue checkout.
+</div>
 </div>
 
-<div class="faq" data-keywords="track tracking order status delivery">
-<button class="faq-question" onclick="toggleFAQ(this)">How can I track my order?<span>+</span></button>
-<div class="faq-answer">Open the Track Order page and enter your order number. Your order progress can show stages such as Order Placed, Confirmed, Packaging, Shipped, Out for Delivery and Delivered.</div>
+<div class="faq" data-keywords="track tracking delivery order status">
+<button class="faq-question" onclick="toggleFAQ(this)">
+How can I track my order?<span>+</span>
+</button>
+<div class="faq-answer">
+Open Track Order page and enter your Order Number to see latest status.
+</div>
 </div>
 
-<div class="faq" data-keywords="payment pay checkout upi cod">
-<button class="faq-question" onclick="toggleFAQ(this)">How does payment work?<span>+</span></button>
-<div class="faq-answer">Available payment methods are shown at checkout. If UPI is enabled, follow the payment instructions shown there. Cash on Delivery can be enabled according to the website's settings.</div>
+<div class="faq" data-keywords="payment upi cod checkout">
+<button class="faq-question" onclick="toggleFAQ(this)">
+How does payment work?<span>+</span>
+</button>
+<div class="faq-answer">
+Payment options available at checkout including UPI or Cash on Delivery when enabled.
+</div>
 </div>
 
-<div class="faq" data-keywords="team member registration state admin approval">
-<button class="faq-question" onclick="toggleFAQ(this)">How can I register as a Team Member?<span>+</span></button>
-<div class="faq-answer">Open the Team Registration section, fill in the required information and submit the application. Admin approval may be required before team access is provided.</div>
+<div class="faq" data-keywords="profile account update email">
+<button class="faq-question" onclick="toggleFAQ(this)">
+How can I update my profile?<span>+</span>
+</button>
+<div class="faq-answer">
+Open Profile page and update available account information.
+</div>
 </div>
 
-<div class="faq" data-keywords="team state order packaging dispatch delivery">
-<button class="faq-question" onclick="toggleFAQ(this)">How does Team Member order processing work?<span>+</span></button>
-<div class="faq-answer">A Team Member can work with orders assigned to their permitted state and update the applicable processing stages according to their role.</div>
+<div class="faq" data-keywords="notification alerts">
+<button class="faq-question" onclick="toggleFAQ(this)">
+Where can I see notifications?<span>+</span>
+</button>
+<div class="faq-answer">
+Open Notifications page to see your latest order and account alerts.
+</div>
 </div>
 
-<div class="faq" data-keywords="profile account email name update">
-<button class="faq-question" onclick="toggleFAQ(this)">How can I update my profile?<span>+</span></button>
-<div class="faq-answer">Open your Profile page and update the information that is available for editing. In the final system, account data can be connected to the user database.</div>
+<div class="faq" data-keywords="vote voting proposal">
+<button class="faq-question" onclick="toggleFAQ(this)">
+How does voting work?<span>+</span>
+</button>
+<div class="faq-answer">
+Eligible users can participate when voting is enabled by Admin.
 </div>
-
-<div class="faq" data-keywords="notification alert order team voting stock">
-<button class="faq-question" onclick="toggleFAQ(this)">Where can I see notifications?<span>+</span></button>
-<div class="faq-answer">Open the <a href="notifications.html" style="color:#4da3ff;font-weight:bold">Notifications page</a> to see notifications when that page is enabled and connected to the site's notification data.</div>
-</div>
-
-<div class="faq" data-keywords="voting vote member proposal one user one vote">
-<button class="faq-question" onclick="toggleFAQ(this)">How does the voting system work?<span>+</span></button>
-<div class="faq-answer">When voting is enabled, eligible users can participate in available proposals. The final one-user-one-vote rule should be enforced by the connected database.</div>
 </div>
 
 </div>
-<div id="faqNoResults" class="no-results">No matching help topic found.</div>
+
+<div id="faqNoResults" class="no-results">
+No matching help topic found.
+</div>
+
 </section>
 
-<section>
-<div class="role-help">
-<div class="role-card"><h3>👤 Customer</h3><ul><li>Shop Products</li><li>Manage Cart</li><li>Checkout</li><li>Track Orders</li><li>Manage Profile</li><li>View Notifications</li></ul></div>
-<div class="role-card"><h3>👥 Team Member</h3><ul><li>View Assigned State</li><li>View State Orders</li><li>Packaging Updates</li><li>Dispatch Orders</li><li>Delivery Operations</li><li>Team Dashboard</li></ul></div>
-<div class="role-card"><h3>⚙️ Admin</h3><ul><li>Manage Products</li><li>Manage Team Members</li><li>Manage Orders</li><li>View Team Dashboards</li><li>Manage Voting</li><li>Manage Settings</li></ul></div>
+<section class="role-help">
+
+<div class="role-card">
+<h3>👤 Customer</h3>
+<ul>
+<li>Shop Products</li>
+<li>Manage Cart</li>
+<li>Checkout</li>
+<li>Track Orders</li>
+<li>Manage Profile</li>
+<li>Notifications</li>
+</ul>
 </div>
+
+<div class="role-card">
+<h3>⚙️ Admin</h3>
+<ul>
+<li>Manage Products</li>
+<li>Manage Orders</li>
+<li>Manage Voting</li>
+<li>Manage Settings</li>
+<li>Manage Customers</li>
+<li>System Control</li>
+</ul>
+</div>
+
 </section>
 
 <section class="problem">
+
 <h2>Report a Problem</h2>
-<p class="problem-description">If you cannot find the answer above, describe your problem below.</p>
+
+<p class="problem-description">
+Fill the form below and submit your support request.
+</p>
+
 <div class="form-grid">
-<div class="form-group"><label>NAME</label><input id="problemName" placeholder="Your name"></div>
-<div class="form-group"><label>EMAIL</label><input id="problemEmail" type="email" placeholder="Your email"></div>
-<div class="form-group"><label>ORDER ID</label><input id="problemOrder" placeholder="Optional"></div>
-<div class="form-group"><label>PROBLEM TYPE</label><select id="problemType"><option>Order</option><option>Payment</option><option>Product</option><option>Account</option><option>Team</option><option>Other</option></select></div>
-<div class="form-group full"><label>DESCRIBE YOUR PROBLEM</label><textarea id="problemText" placeholder="Write your problem here..."></textarea></div>
+
+<div class="form-group">
+<label>NAME</label>
+<input id="problemName" placeholder="Your name">
 </div>
-<button class="submit-btn" onclick="submitProblem()">SUBMIT SUPPORT REQUEST</button>
-<div id="formMessage" class="form-message"></div>
+
+<div class="form-group">
+<label>MOBILE NUMBER</label>
+<input id="problemMobile"
+inputmode="numeric"
+maxlength="10"
+placeholder="10 digit mobile">
+</div>
+
+<div class="form-group">
+<label>EMAIL</label>
+<input id="problemEmail"
+type="email"
+placeholder="Your email">
+</div>
+
+<div class="form-group">
+<label>ORDER ID</label>
+<input id="problemOrder"
+placeholder="Optional">
+</div>
+
+<div class="form-group full">
+<label>PROBLEM TYPE</label>
+<select id="problemType">
+<option>Order</option>
+<option>Payment</option>
+<option>Product</option>
+<option>Account</option>
+<option>Delivery</option>
+<option>Other</option>
+</select>
+</div>
+
+<div class="form-group full">
+<label>DESCRIBE YOUR PROBLEM</label>
+<textarea id="problemText"
+placeholder="Write your complete problem here..."></textarea>
+</div>
+
+</div>
+
+<button class="submit-btn"
+onclick="submitProblem()">
+SUBMIT SUPPORT REQUEST
+</button>
+
+<div id="formMessage"
+class="form-message"></div>
+
 </section>
 
 <section class="contact-box" style="text-align:left">
+
 <h2 style="text-align:center">Quick Help Links</h2>
-<p style="text-align:center">Open the page related to your issue.</p>
+
+<p style="text-align:center">
+Open the page related to your issue.
+</p>
+
 <div class="contact-buttons">
+
 <a href="catalog.html" class="contact-btn email">🛍️ CATALOG</a>
+
 <a href="cart.html" class="contact-btn email">🛒 CART</a>
+
 <a href="checkout.html" class="contact-btn email">💳 CHECKOUT</a>
+
 <a href="track-order.html" class="contact-btn email">📦 TRACK ORDER</a>
+
 <a href="profile.html" class="contact-btn email">👤 PROFILE</a>
+
 <a href="notifications.html" class="contact-btn email">🔔 NOTIFICATIONS</a>
-<a href="team.html" class="contact-btn email">👥 TEAM</a>
+
 </div>
+
 </section>
 
 <section class="contact-box">
-<h2>Need More Help?</h2><p>Our support channels are available for your questions and assistance.</p>
+
+<h2>Need More Help?</h2>
+
+<p>
+Our customer support team is available through WhatsApp and Email.
+</p>
+
 <div class="contact-buttons">
-<a href="#" class="contact-btn whatsapp" onclick="openWhatsApp(event)">💬 WHATSAPP SUPPORT</a>
-<a href="mailto:fhamarzamost@gmail.com" class="contact-btn email">✉️ EMAIL SUPPORT</a>
+
+<a href="#"
+class="contact-btn whatsapp"
+onclick="openWhatsApp(event)">
+💬 WHATSAPP SUPPORT
+</a>
+
+<a href="mailto:fhamarzamost@gmail.com"
+class="contact-btn email">
+✉️ EMAIL SUPPORT
+</a>
+
 </div>
+
 </section>
 
-<div class="api-note"><b>FIREBASE / API CONNECTION AREA</b><br><br>
-WhatsApp support is configured with the support number in this page.<br>
-Support requests are currently saved locally as a demo. A future Firebase/API connection can send them to the Admin Support Ticket system.<br>
-For production, Firebase Authentication and database security rules should control customer and admin access.
+<div class="api-note">
+
+<b>FHAMAR.ZAMOST SUPPORT SYSTEM</b>
+
+<br><br>
+
+Support requests are saved in this browser.
+
+<br>
+
+Future Firebase integration can connect these tickets to Admin Dashboard.
+
 </div>
+
 </main>
 
-<footer><div class="brand"><span class="blue">FHAMAR</span><span class="silver">.ZAMOST</span></div><p>Help & Support • FHAMAR.ZAMOST</p></footer>
+<footer>
+
+<div class="brand">
+<span class="blue">FHAMAR</span><span class="silver">.ZAMOST</span>
+</div>
+
+<p>Help & Support • FHAMAR.ZAMOST</p>
+
+</footer>
 
 <script>
-const WHATSAPP_NUMBER = "919334273697";
+
+const WHATSAPP_NUMBER="919334273697";
 
 function openWhatsApp(event){
-    if(event) event.preventDefault();
-    const message=encodeURIComponent("Hello FHAMAR ZAMOST Support, I need help.");
-    window.open("https://wa.me/"+WHATSAPP_NUMBER+"?text="+message,"_blank");
+if(event)event.preventDefault();
+
+const msg=encodeURIComponent(
+"Hello FHAMAR.ZAMOST Support, I need help."
+);
+
+window.open(
+"https://wa.me/"+WHATSAPP_NUMBER+"?text="+msg,
+"_blank"
+);
 }
 
 function toggleFAQ(button){
-    const faq=button.parentElement;
-    const wasOpen=faq.classList.contains("open");
-    document.querySelectorAll(".faq").forEach(item=>{
-        item.classList.remove("open");
-        const s=item.querySelector(".faq-question span");
-        if(s) s.textContent="+";
-    });
-    if(!wasOpen){
-        faq.classList.add("open");
-        const s=button.querySelector("span");
-        if(s) s.textContent="−";
-    }
+
+const faq=button.parentElement;
+
+const open=faq.classList.contains("open");
+
+document.querySelectorAll(".faq").forEach(f=>{
+f.classList.remove("open");
+f.querySelector("span").textContent="+";
+});
+
+if(!open){
+faq.classList.add("open");
+button.querySelector("span").textContent="−";
+}
+
 }
 
 function searchFAQ(){
-    const q=document.getElementById("faqSearch").value.toLowerCase().trim();
-    let matches=0;
-    document.querySelectorAll(".faq").forEach(faq=>{
-        const text=(faq.innerText+" "+(faq.dataset.keywords||"")).toLowerCase();
-        const found=!q || text.includes(q);
-        faq.classList.toggle("hidden",!found);
-        if(found) matches++;
-    });
-    document.getElementById("faqNoResults").style.display=matches?"none":"block";
+
+const q=document.getElementById("faqSearch").value.toLowerCase();
+
+let count=0;
+
+document.querySelectorAll(".faq").forEach(faq=>{
+
+const text=(faq.innerText+" "+faq.dataset.keywords).toLowerCase();
+
+const found=text.includes(q)||q==="";
+
+faq.classList.toggle("hidden",!found);
+
+if(found)count++;
+
+});
+
+document.getElementById("faqNoResults").style.display=count?"none":"block";
+
 }
 
+document.getElementById("problemMobile").addEventListener("input",function(){
+this.value=this.value.replace(/\D/g,"").slice(0,10);
+});
+
 function submitProblem(){
-    const name=document.getElementById("problemName").value.trim();
-    const email=document.getElementById("problemEmail").value.trim();
-    const order=document.getElementById("problemOrder").value.trim();
-    const type=document.getElementById("problemType").value;
-    const text=document.getElementById("problemText").value.trim();
-    const message=document.getElementById("formMessage");
 
-    if(!name || !email || !text){
-        message.style.display="block";
-        message.textContent="Please enter your name, email and describe the problem.";
-        return;
-    }
-    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
-        message.style.display="block";
-        message.textContent="Please enter a valid email address.";
-        return;
-    }
+const name=document.getElementById("problemName").value.trim();
 
-    const ticket={
-        id:"FZ-SUP-"+Date.now(),
-        name,email,orderId:order,problemType:type,
-        message:text,
-        createdAt:new Date().toISOString(),
-        status:"Open"
-    };
+const mobile=document.getElementById("problemMobile").value.trim();
 
-    const tickets=JSON.parse(localStorage.getItem("fz_support_tickets")||"[]");
-    tickets.push(ticket);
-    localStorage.setItem("fz_support_tickets",JSON.stringify(tickets));
+const email=document.getElementById("problemEmail").value.trim();
 
-    message.style.display="block";
-    message.innerHTML="✓ Support request submitted.<br>Ticket ID: <b>"+ticket.id+"</b><br>Our support system can use this ticket for follow-up.";
+const order=document.getElementById("problemOrder").value.trim();
 
-    document.getElementById("problemText").value="";
+const type=document.getElementById("problemType").value;
+
+const text=document.getElementById("problemText").value.trim();
+
+const box=document.getElementById("formMessage");
+
+if(!name||!mobile||!email||!text){
+
+box.style.display="block";
+
+box.textContent=
+"Please fill Name, Mobile Number, Email and Problem.";
+
+return;
+
+}
+
+if(mobile.length!==10){
+
+box.style.display="block";
+
+box.textContent="Please enter valid 10 digit mobile number.";
+
+return;
+
+}
+
+if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+
+box.style.display="block";
+
+box.textContent="Please enter valid email address.";
+
+return;
+
+}
+
+const ticket={
+
+id:"FZ-SUP-"+Date.now(),
+
+name:name,
+
+mobile:mobile,
+
+email:email,
+
+orderId:order,
+
+problemType:type,
+
+message:text,
+
+createdAt:new Date().toISOString(),
+
+status:"Open"
+
+};
+
+const list=JSON.parse(localStorage.getItem("fz_support_tickets")||"[]");
+
+list.push(ticket);
+
+localStorage.setItem(
+"fz_support_tickets",
+JSON.stringify(list)
+);
+
+box.style.display="block";
+
+box.innerHTML=
+"✓ Support Request Submitted Successfully.<br><br>"+
+"Ticket ID: <b>"+ticket.id+"</b>";
+
+document.getElementById("problemText").value="";
+
 }
 
 searchFAQ();
+
 </script>
+
 </body>
-  </html>
-  
+    </html>
+    
