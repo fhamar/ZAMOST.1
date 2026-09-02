@@ -7,7 +7,7 @@
 <style>
 :root{
   --bg:#070b13;--card:#0e1623;--card2:#111c2b;--border:#202d40;
-  --blue:#3182f6;--blue2:#60a5fa;--silver:#c2cad5;--muted:#8e9bad;--white:#f5f7fb;
+  --blue:#3182f6;--blue2:#60a5fa;--silver:#c2cad5;--muted:#8e9bad;--white:#f5f7fb;--text-main:#dbe4ef;
 }
 *{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif}
 body{background:radial-gradient(circle at 50% -10%,#13223a 0,#070b13 42%);color:var(--white);line-height:1.6}
@@ -30,7 +30,7 @@ header{
  background:linear-gradient(135deg,#2563eb,#3b82f6);color:#fff;padding:9px 14px;border-radius:10px;
  border:1px solid rgba(255,255,255,.1);font-size:.8rem;font-weight:700;cursor:pointer
 }
-.profile-btn{display:flex;align-items:center;gap:8px;background:#101b2a}
+.role-only{display:none!important}.role-only.show-role{display:flex!important}.profile-btn{display:flex;align-items:center;gap:8px;background:#101b2a}
 .profile-avatar{width:28px;height:28px;border-radius:50%;object-fit:cover;background:#1d2b3d;border:1px solid #516176}
 .top-quick-nav{
  display:flex;justify-content:center;align-items:center;gap:10px;padding:11px 1rem;
@@ -140,7 +140,8 @@ footer{border-top:1px solid var(--border);background:#050911;margin-top:0}
     <div class="brand-name">FHAMAR.ZAMOST<small>PREMIUM SMART PORTAL</small></div>
   </div>
   <div class="header-actions">
-    <a href="team.html" class="btn-team">TEAM MEMBERS</a>
+    <a href="team.html" class="btn-team role-only" id="teamMembersBtn">TEAM MEMBERS</a>
+    <a href="admin.html" class="btn-team role-only" id="adminBtn">ADMIN</a>
     <button class="profile-btn" id="profileBtn" type="button">
       <img class="profile-avatar" id="headerAvatar" alt="">
       <span id="headerName">Profile</span>
@@ -150,11 +151,14 @@ footer{border-top:1px solid var(--border);background:#050911;margin-top:0}
 
 <nav class="top-quick-nav">
   <a href="home.html" class="nav-item-btn active">Home</a>
-  <a href="#catalog" class="nav-item-btn">Catalog</a>
-  <a href="#cart" class="nav-item-btn">Cart</a>
-  <a href="#track" class="nav-item-btn">Track</a>
-  <a href="#help" class="nav-item-btn">Help</a>
-  <a href="#profile" class="nav-item-btn">Profile</a>
+  <a href="catalog.html" class="nav-item-btn">Catalog</a>
+  <a href="cart.html" class="nav-item-btn">Cart</a>
+  <a href="track-order.html" class="nav-item-btn">Track</a>
+  <a href="notifications.html" class="nav-item-btn">Notifications</a>
+  <a href="help.html" class="nav-item-btn">Help</a>
+  <a href="Profile.html" class="nav-item-btn">Profile</a>
+  <a href="settings.html" class="nav-item-btn">Settings</a>
+  <a href="voting.html" class="nav-item-btn">Voting</a>
 </nav>
 
 <div class="profile-panel" id="profilePanel">
@@ -173,8 +177,8 @@ footer{border-top:1px solid var(--border);background:#050911;margin-top:0}
   <h1>WELCOME TO FHAMAR.ZAMOST</h1>
   <p>A modern digital platform connecting products, members, state teams, customer services and profile management in one place.</p>
   <div class="hero-btns">
-    <a href="#catalog" class="btn-primary">EXPLORE COLLECTION</a>
-    <a href="#team" class="btn-secondary">JOIN OUR TEAM</a>
+    <a href="catalog.html" class="btn-primary">EXPLORE COLLECTION</a>
+    <a href="team.html" class="btn-secondary">JOIN OUR TEAM</a>
   </div>
 </section>
 
@@ -194,7 +198,7 @@ footer{border-top:1px solid var(--border);background:#050911;margin-top:0}
   <div class="media-help">इस जगह पर आप अपनी promotional photo या video लगा सकते हैं।</div>
 </section>
 
-<section class="products-section" id="catalog">
+<section class="products-section" id="featured-products">
   <div class="section-heading">
     <span>SHOP • SELECT • DISCOVER</span>
     <h2>Featured Products</h2>
@@ -205,28 +209,28 @@ footer{border-top:1px solid var(--border);background:#050911;margin-top:0}
       <h3>Premium Fragrance</h3>
       <p>Elegant everyday fragrance selected for a premium experience.</p>
       <div class="price">₹899</div>
-      <a href="#" class="btn-view">VIEW PRODUCT</a>
+      <a href="product-details.html" class="btn-view">VIEW PRODUCT</a>
     </div>
     <div class="product-card">
       <div class="product-image">PRODUCT PHOTO</div>
       <h3>Essential Oils</h3>
       <p>Selected aromatic essentials for everyday use.</p>
       <div class="price">₹499</div>
-      <a href="#" class="btn-view">VIEW PRODUCT</a>
+      <a href="product-details.html" class="btn-view">VIEW PRODUCT</a>
     </div>
     <div class="product-card">
       <div class="product-image">PRODUCT PHOTO</div>
       <h3>Special Edition</h3>
       <p>Exclusive collection with a distinctive premium identity.</p>
       <div class="price">₹1299</div>
-      <a href="#" class="btn-view">VIEW PRODUCT</a>
+      <a href="product-details.html" class="btn-view">VIEW PRODUCT</a>
     </div>
     <div class="product-card">
       <div class="product-image">PRODUCT PHOTO</div>
       <h3>Daily Essentials</h3>
       <p>Useful products selected for regular customer needs.</p>
       <div class="price">₹699</div>
-      <a href="#" class="btn-view">VIEW PRODUCT</a>
+      <a href="product-details.html" class="btn-view">VIEW PRODUCT</a>
     </div>
   </div>
 </section>
@@ -239,7 +243,19 @@ footer{border-top:1px solid var(--border);background:#050911;margin-top:0}
       <span>✓ State-wise Network</span><span>✓ Admin Verified</span><span>✓ Order Support</span><span>✓ Customer Service</span>
     </div>
   </div>
-  <a href="team-registration.html" class="btn-primary">TEAM REGISTRATION</a>
+  <a href="team.html" class="btn-primary">TEAM REGISTRATION</a>
+</section>
+
+
+<section class="team-box" id="voting">
+  <div class="team-copy">
+    <h2>Community Voting</h2>
+    <p>Login करके available proposal पर अपना vote दें. Voting system one-user-one-vote structure के साथ Firebase में सुरक्षित तरीके से record किया जाएगा.</p>
+    <div class="team-points">
+      <span>✓ Login Required</span><span>✓ One User • One Vote</span><span>✓ Firebase Record</span><span>✓ Results Controlled</span>
+    </div>
+  </div>
+  <a href="voting.html" class="btn-primary">OPEN VOTING</a>
 </section>
 
 <section class="trust-section">
@@ -268,8 +284,8 @@ footer{border-top:1px solid var(--border);background:#050911;margin-top:0}
       <h3>EXPLORE</h3>
       <a href="home.html">Featured Landing</a>
       <a href="catalog.html">Shop Products</a>
-      <a href="state-network.html">State Network Map</a>
-      <a href="profile.html">Customer Dashboard</a>
+      <a href="team.html" id="footerTeamLink">Team Portal</a>
+      <a href="Profile.html">My Profile</a>
     </div>
     <div class="footer-col">
       <h3>ACTIVE STATES</h3>
@@ -291,9 +307,16 @@ footer{border-top:1px solid var(--border);background:#050911;margin-top:0}
 
 <script type="module">
 import { app } from "./firebase-config.js";
-import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+import {
+  getAuth, onAuthStateChanged, signOut
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+import {
+  getFirestore, doc, getDoc
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 const auth = getAuth(app);
+const db = getFirestore(app);
+
 const profileBtn = document.getElementById("profileBtn");
 const profilePanel = document.getElementById("profilePanel");
 const logoutBtn = document.getElementById("logoutBtn");
@@ -304,6 +327,9 @@ const panelContact = document.getElementById("panelContact");
 const panelAvatar = document.getElementById("panelAvatar");
 const profileStatus = document.getElementById("profileStatus");
 const toast = document.getElementById("toast");
+const teamMembersBtn = document.getElementById("teamMembersBtn");
+const adminBtn = document.getElementById("adminBtn");
+const footerTeamLink = document.getElementById("footerTeamLink");
 
 function fallbackAvatar(letter="U"){
   return "https://ui-avatars.com/api/?name="+encodeURIComponent(letter)+"&background=172537&color=ffffff&size=100";
@@ -312,6 +338,31 @@ function showToast(text){
   toast.textContent=text; toast.classList.add("show");
   setTimeout(()=>toast.classList.remove("show"),2500);
 }
+function hideRoleButtons(){
+  teamMembersBtn?.classList.remove("show-role");
+  adminBtn?.classList.remove("show-role");
+  if (footerTeamLink) footerTeamLink.style.display = "none";
+}
+function showTeamButton(){
+  teamMembersBtn?.classList.add("show-role");
+  if (footerTeamLink) footerTeamLink.style.display = "block";
+}
+function showAdminButton(){
+  adminBtn?.classList.add("show-role");
+  showTeamButton();
+}
+function isApprovedTeam(data){
+  const role = String(data?.role || data?.userRole || "").toLowerCase().replace(/[\s-]/g,"_");
+  if (role === "admin") return true;
+  const teamRole = ["team_member","teammember","team"].includes(role);
+  const status = String(data?.status || data?.approvalStatus || data?.verificationStatus || "").toLowerCase();
+  const approved = data?.approved === true || data?.verified === true || data?.isVerified === true ||
+                   ["approved","verified","active"].includes(status);
+  return teamRole && approved;
+}
+
+hideRoleButtons();
+
 profileBtn.addEventListener("click",()=>profilePanel.classList.toggle("show"));
 document.addEventListener("click",e=>{
   if(!profilePanel.contains(e.target) && !profileBtn.contains(e.target)) profilePanel.classList.remove("show");
@@ -321,30 +372,51 @@ logoutBtn.addEventListener("click",async()=>{
     await signOut(auth);
     showToast("Logout successful");
     setTimeout(()=>location.href="index.html",600);
-  }catch(err){console.error(err);showToast("Logout failed");}
+  }catch(err){ console.error(err); showToast("Logout failed"); }
 });
 
-onAuthStateChanged(auth,user=>{
+onAuthStateChanged(auth, async user=>{
+  hideRoleButtons();
+
   if(!user){
     headerName.textContent="Login";
     panelName.textContent="Not logged in";
     panelContact.textContent="Please login to continue";
     profileStatus.textContent="No Firebase session found";
-    const av=fallbackAvatar("U"); headerAvatar.src=av; panelAvatar.src=av;
+    const av=fallbackAvatar("U");
+    headerAvatar.src=av; panelAvatar.src=av;
     logoutBtn.style.display="none";
     return;
   }
+
   const name=user.displayName || (user.email ? user.email.split("@")[0] : "Customer");
   const contact=user.email || user.phoneNumber || "Firebase customer";
   const av=user.photoURL || fallbackAvatar(name.charAt(0).toUpperCase());
+
   headerName.textContent=name;
   panelName.textContent=name;
   panelContact.textContent=contact;
   profileStatus.textContent="Signed in • Firebase Authentication";
   headerAvatar.src=av; panelAvatar.src=av;
   logoutBtn.style.display="block";
+
+  try{
+    const snap = await getDoc(doc(db,"users",user.uid));
+    const data = snap.exists() ? snap.data() : {};
+    const role = String(data.role || data.userRole || "").toLowerCase().replace(/[\s-]/g,"_");
+
+    if(role === "admin"){
+      showAdminButton();
+      profileStatus.textContent="Signed in • Admin";
+    }else if(isApprovedTeam(data)){
+      showTeamButton();
+      profileStatus.textContent="Signed in • Verified Team Member";
+    }
+  }catch(err){
+    console.warn("Role lookup failed:", err);
+    // Security-first default: keep Team/Admin buttons hidden.
+  }
 });
 </script>
 </body>
-      </html>
-        
+</html>
