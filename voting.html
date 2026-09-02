@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>FHAMAR.ZAMOST - Voting</title>
+<style>
+:root{--bg:#070b13;--card:#0e1623;--border:#202d40;--blue:#3182f6;--silver:#c2cad5;--muted:#8e9bad;--white:#f5f7fb}
+*{box-sizing:border-box;margin:0;padding:0;font-family:Segoe UI,Tahoma,sans-serif}
+body{background:radial-gradient(circle at 50% -10%,#13223a 0,#070b13 45%);color:var(--white);min-height:100vh}
+a{text-decoration:none;color:inherit}
+header{padding:14px 18px;border-bottom:1px solid var(--border);background:#070b13eF;position:sticky;top:0;z-index:5}
+.head{max-width:900px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.logo{width:42px;height:42px;border:1px solid #34445a;border-radius:12px;display:grid;place-items:center;font-weight:900;background:#101b2a}
+.brand{font-weight:800;letter-spacing:1px}
+.sub{display:block;color:#748196;font-size:9px;letter-spacing:2px}
+.brandbox{display:flex;align-items:center;gap:10px}
+.back{padding:8px 12px;border:1px solid #2a3a50;border-radius:9px;background:#101a28;font-size:13px}
+.wrap{max-width:900px;margin:auto;padding:24px 14px 50px}
+.card{background:linear-gradient(145deg,#111c2b,#0b131f);border:1px solid var(--border);border-radius:16px;padding:20px;margin-bottom:16px}
+.tag{color:#60a5fa;font-size:11px;letter-spacing:2px;font-weight:800}
+h1{font-size:clamp(1.7rem,6vw,2.4rem);margin:7px 0}
+p{color:var(--muted);font-size:14px;line-height:1.7}
+.option{display:flex;align-items:center;gap:10px;padding:13px;margin-top:10px;border:1px solid #26354a;border-radius:11px;background:#0c1522;cursor:pointer}
+.option input{accent-color:#3182f6}
+button{border:0;border-radius:10px;padding:11px 16px;font-weight:800;cursor:pointer;background:#3182f6;color:white;margin-top:15px}
+button.secondary{background:#111d2c;border:1px solid #2b3b50}
+.status{margin-top:13px;padding:10px;border-radius:10px;background:#0c1522;border:1px solid #26354a;font-size:13px}
+.hidden{display:none!important}
+.admin{border-color:#31516f}
+input[type=text]{width:100%;padding:11px;border-radius:9px;border:1px solid #2a3a50;background:#09111c;color:white;margin-top:8px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.small{font-size:12px;color:#748196;margin-top:7px}
+@media(max-width:600px){.row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><div class="head">
+  <div class="brandbox"><div class="logo">FZ</div><div class="brand">FHAMAR.ZAMOST<span class="sub">COMMUNITY VOTING</span></div></div>
+  <a href="home.html" class="back">HOME</a>
+</div></header>
+
+<main class="wrap">
+  <section class="card">
+    <div class="tag">VOTING • FIREBASE</div>
+    <h1 id="title">Loading voting...</h1>
+    <p id="description">Checking the current voting proposal.</p>
+    <div id="loginStatus" class="status">Checking login...</div>
+  </section>
+
+  <section id="voteCard" class="card hidden">
+    <div id="options"></div>
+    <button id="voteBtn">SUBMIT VOTE</button>
+    <div id="voteStatus" class="status hidden"></div>
+  </section>
+
+  <section id="resultCard" class="card hidden">
+    <h2>Voting Results</h2>
+    <div id="results" style="margin-top:12px"></div>
+  </section>
+
+  <section id="adminCard" class="card admin hidden">
+    <h2>Admin — Voting Proposal</h2>
+    <p class="small">Create/update the proposal stored at <b>settings/voting</b>. Options are comma-separated.</p>
+    <label>Title<input id="adminTitle" type="text"></label>
+    <label>Description<input id="adminDesc" type="text"></label>
+    <label>Options<input id="adminOptions" type="text" placeholder="Option A, Option B"></label>
+    <div class="row">
+      <label>Voting Open<input id="adminOpen" type="text" placeholder="true or false"></label>
+      <label>Show Results<input id="adminResults" type="text" placeholder="true or false"></label>
+    </div>
+    <button id="saveProposal">SAVE PROPOSAL</button>
+    <div id="adminStatus" class="status hidden"></div>
+  </section>
+</main>
+
+<script type="module">
+import { app } from "./firebase-config.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+import {
+  getFirestore, doc, getDoc, setDoc, runTransaction, collection, getDocs
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+const auth=getAuth(app), db=getFirestore(app);
+const $=id=>document.getElementById(id);
+let currentUser=null, proposal=null;
+
+function bool(v, fallback=false){
+  if(typeof v==="boolean") return v;
+  const s=String(v??"").toLowerCase().trim();
+  if(["true","1","yes","open"].includes(s)) return true;
+  if(["false","0","no","closed"].includes(s)) return false;
+  return fallback;
+}
+function msg(el,text){el.textContent=text;el.classList.remove("hidden")}
+function esc(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
+
+async function getRole(uid){
+  const s=await getDoc(doc(db,"users",uid));
+  return s.exists()?s.data():{};
+}
+async function loadProposal(){
+  const s=await getDoc(doc(db,"settings","voting"));
+  proposal=s.exists()?s.data():null;
+  if(!proposal){
+    $("title").textContent="Voting is not configured";
+    $("description").textContent="Admin must create a voting proposal before customers can vote.";
+    return;
+  }
+  $("title").textContent=proposal.title || "Community Voting";
+  $("description").textContent=proposal.description || "Please choose one option.";
+  renderOptions();
+  if(proposal.showResults===true || proposal.showResults==="true") await renderResults();
+}
+function renderOptions(){
+  const open=proposal && (proposal.open===true || proposal.open==="true");
+  const opts=Array.isArray(proposal.options)?proposal.options:[];
+  $("options").innerHTML=opts.map((o,i)=>`<label class="option"><input type="radio" name="vote" value="${esc(o)}"> <span>${esc(o)}</span></label>`).join("");
+  if(currentUser && open && opts.length) $("voteCard").classList.remove("hidden");
+  else $("voteCard").classList.add("hidden");
+}
+async function alreadyVoted(){
+  if(!currentUser) return false;
+  const s=await getDoc(doc(db,"voting","votes", "users", currentUser.uid));
+  return s.exists();
+}
+async function submitVote(){
+  if(!currentUser || !proposal) return;
+  const choice=document.querySelector('input[name="vote"]:checked')?.value;
+  if(!choice){msg($("voteStatus"),"Please select one option.");return}
+  const voteRef=doc(db,"voting","votes","users",currentUser.uid);
+  try{
+    await runTransaction(db,async tx=>{
+      const existing=await tx.get(voteRef);
+      if(existing.exists()) throw new Error("ALREADY_VOTED");
+      tx.set(voteRef,{uid:currentUser.uid,choice,createdAt:new Date().toISOString(),proposalId:"current"});
+    });
+    msg($("voteStatus"),"Vote submitted successfully.");
+    $("voteBtn").disabled=true;
+    document.querySelectorAll('input[name="vote"]').forEach(x=>x.disabled=true);
+    await renderResults();
+  }catch(e){
+    if(e.message==="ALREADY_VOTED") msg($("voteStatus"),"You have already voted.");
+    else {console.error(e);msg($("voteStatus"),"Vote could not be saved. Check Firestore Rules.");}
+  }
+}
+async function renderResults(){
+  const show=proposal && (proposal.showResults===true || proposal.showResults==="true");
+  if(!show) return;
+  try{
+    const snap=await getDocs(collection(db,"voting","votes","users"));
+    const counts={};
+    snap.forEach(d=>{const c=d.data().choice;counts[c]=(counts[c]||0)+1});
+    const total=Object.values(counts).reduce((a,b)=>a+b,0);
+    const opts=Array.isArray(proposal.options)?proposal.options:[];
+    $("results").innerHTML=opts.map(o=>{
+      const n=counts[o]||0, pct=total?Math.round(n*100/total):0;
+      return `<div style="margin:10px 0"><b>${esc(o)}</b> — ${n} vote(s) (${pct}%)</div>`;
+    }).join("") || "No votes yet.";
+    $("resultCard").classList.remove("hidden");
+  }catch(e){console.warn(e)}
+}
+async function initUser(user){
+  currentUser=user;
+  if(!user){
+    msg($("loginStatus"),"Please login first. Voting requires a Firebase account.");
+    return;
+  }
+  const roleData=await getRole(user.uid);
+  const role=String(roleData.role||roleData.userRole||"").toLowerCase().replace(/[\s-]/g,"_");
+  msg($("loginStatus"),"Logged in as "+(user.displayName||user.email||user.phoneNumber||"User")+(role==="admin"?" • Admin":""));
+  if(role==="admin"){
+    $("adminCard").classList.remove("hidden");
+    if(proposal){
+      $("adminTitle").value=proposal.title||"";
+      $("adminDesc").value=proposal.description||"";
+      $("adminOptions").value=Array.isArray(proposal.options)?proposal.options.join(", "):"";
+      $("adminOpen").value=String(proposal.open??false);
+      $("adminResults").value=String(proposal.showResults??false);
+    }
+  }
+  await loadProposal();
+  if(proposal && (proposal.open===true || proposal.open==="true")){
+    if(await alreadyVoted()){
+      $("voteCard").classList.remove("hidden");
+      document.querySelectorAll('input[name="vote"]').forEach(x=>x.disabled=true);
+      $("voteBtn").disabled=true;
+      msg($("voteStatus"),"You have already voted.");
+    }
+  }
+}
+$("voteBtn").addEventListener("click",submitVote);
+$("saveProposal").addEventListener("click",async()=>{
+  if(!currentUser) return;
+  try{
+    const data=await getRole(currentUser.uid);
+    const role=String(data.role||data.userRole||"").toLowerCase();
+    if(role!=="admin"){msg($("adminStatus"),"Admin access required.");return}
+    const options=$("adminOptions").value.split(",").map(x=>x.trim()).filter(Boolean);
+    await setDoc(doc(db,"settings","voting"),{
+      title:$("adminTitle").value.trim(),
+      description:$("adminDesc").value.trim(),
+      options,
+      open:bool($("adminOpen").value,false),
+      showResults:bool($("adminResults").value,false),
+      updatedAt:new Date().toISOString(),
+      updatedBy:currentUser.uid
+    },{merge:true});
+    msg($("adminStatus"),"Voting proposal saved.");
+    await loadProposal();
+  }catch(e){console.error(e);msg($("adminStatus"),"Save failed. Check Firestore Rules.")}
+});
+onAuthStateChanged(auth,initUser);
+</script>
+</body>
+</html>
