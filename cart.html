@@ -20,6 +20,7 @@ nav{display:flex;gap:22px}nav a{color:#91a2b5;font-size:12px}nav a:hover,nav .ac
 .summary{padding:25px;height:max-content;border:1px solid #344b62;border-radius:17px;background:#091622;position:sticky;top:95px}.summary h2{font-size:22px;margin-bottom:22px}.summary-row{display:flex;justify-content:space-between;gap:12px;padding:13px 0;border-bottom:1px solid #203449;color:#91a3b6;font-size:12px}.summary-row strong{color:#dbe4ed;text-align:right}.total{padding-top:20px;display:flex;justify-content:space-between;align-items:center}.total span{color:#9eafc1;font-size:13px}.total strong{font-size:25px;color:#4da3ff}.checkout-btn{width:100%;margin-top:22px;padding:15px;border-radius:10px;background:#4da3ff;color:#04101c;font-size:11px;font-weight:900;letter-spacing:1px;text-align:center;display:block}.checkout-btn.disabled{opacity:.4;pointer-events:none;cursor:not-allowed}.continue{display:block;margin-top:15px;text-align:center;color:#8498ab;font-size:11px}.continue:hover{color:#4da3ff}
 .info-box{margin-top:25px;padding:18px;border:1px solid #293f55;border-radius:12px;color:#7e91a5;background:#07111d;font-size:10px;line-height:1.7}
 footer{padding:35px 7%;background:#03080e;border-top:1px solid #263b50;color:#7d90a4;font-size:11px}
+.account-status{margin-top:16px;padding:11px;border:1px solid #293f55;border-radius:9px;background:#07111d;color:#8fa2b5;font-size:10px}
 @media(max-width:850px){header nav{display:none}.cart-layout{grid-template-columns:1fr}.summary{position:static}}
 @media(max-width:550px){.page{padding-left:5%;padding-right:5%}.page-title h1{font-size:36px}.cart-item{grid-template-columns:65px 1fr}.item-image{width:65px;height:65px;font-size:28px}.item-actions{grid-column:1/-1;justify-content:space-between}}
 </style>
@@ -32,10 +33,9 @@ footer{padding:35px 7%;background:#03080e;border-top:1px solid #263b50;color:#7d
   <a href="home.html">Home</a>
   <a href="catalog.html">Catalog</a>
   <a href="cart.html" class="active">Cart</a>
-  <a href="profile.html">My Portal</a>
-  <a href="admin.html">Administrative Desk</a>
+  <a href="Profile.html">My Portal</a>
 </nav>
-<a href="profile.html" class="profile-btn">MY PROFILE</a>
+<a href="Profile.html" class="profile-btn">MY PROFILE</a>
 </header>
 
 <main class="page">
@@ -43,15 +43,17 @@ footer{padding:35px 7%;background:#03080e;border-top:1px solid #263b50;color:#7d
 <div class="eyebrow">FHAMAR.ZAMOST</div>
 <h1>Shopping <span>Cart</span></h1>
 <p>Review your selected products before continuing to checkout.</p>
+<div id="accountStatus" class="account-status">Checking account...</div>
 </div>
 
 <div class="cart-layout">
 <div>
 <div id="cartItems" class="cart-items"></div>
+
 <div id="emptyCart" class="empty-cart">
 <div class="empty-cart-icon">🛒</div>
 <h2>Your Cart is Empty</h2>
-<p>Add some products from the FHAMAR.ZAMOST catalog.</p>
+<p>Add products from the FHAMAR.ZAMOST catalog.</p>
 <a href="catalog.html" class="shop-btn">EXPLORE PRODUCTS</a>
 </div>
 </div>
@@ -68,10 +70,9 @@ footer{padding:35px 7%;background:#03080e;border-top:1px solid #263b50;color:#7d
 </div>
 
 <div class="info-box">
-<b>NEXT PAGE:</b> Checkout Page<br><br>
-Checkout पर customer delivery address, mobile number, order information और payment option select करेगा।
-<br><br>
-<b>STATUS:</b> Cart LocalStorage के साथ काम करती है और logged-in customer के लिए Firebase Firestore sync support भी दिया गया है।
+<b>CART SYSTEM:</b> Product quantity, subtotal and total are calculated automatically.<br><br>
+<b>STORAGE:</b> LocalStorage is kept as an offline/browser fallback. When a customer is logged in, the same cart is synced to Firebase Firestore under that customer's UID.<br><br>
+<b>PRICE LIMIT:</b> Every cart item is limited to ₹1,500. The total is calculated from quantity × item price.
 </div>
 </main>
 
@@ -82,165 +83,249 @@ Checkout पर customer delivery address, mobile number, order information औ�
 
 <script type="module">
 import { app } from "./firebase-config.js";
-import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
-const db = getFirestore(app);
-const auth = getAuth(app);
-const CART_KEY = "fz_cart";
-let cart = [];
-let currentUser = null;
+const db=getFirestore(app);
+const auth=getAuth(app);
+const CART_KEY="fz_cart";
+
+let cart=[];
+let currentUser=null;
+let loadingCloud=false;
+let saveTimer=null;
 
 function normalise(items){
-  return (Array.isArray(items) ? items : []).map(item => ({
-    id: item.id || item.productId || ("item-" + Math.random().toString(36).slice(2,11)),
-    name: item.name || "Product",
-    price: Math.min(Math.max(Number(item.price) || 0, 0), 1500),
-    icon: item.icon || "📦",
-    image: item.image || null,
-    quantity: Math.min(Math.max(parseInt(item.quantity) || 1, 1), 10)
+  if(!Array.isArray(items)) return [];
+
+  return items.map((item,index)=>({
+    id:String(item.id||item.productId||("item-"+index)),
+    name:String(item.name||"Product"),
+    price:Math.min(Math.max(Number(item.price)||0,0),1500),
+    icon:String(item.icon||"📦"),
+    image:item.image?String(item.image):null,
+    quantity:Math.min(Math.max(parseInt(item.quantity)||1,1),10)
   }));
 }
 
 function money(value){
-  return "₹" + Number(value || 0).toLocaleString("en-IN");
+  return "₹"+Number(value||0).toLocaleString("en-IN");
 }
 
 function escapeHtml(value){
-  const div = document.createElement("div");
-  div.textContent = String(value);
+  const div=document.createElement("div");
+  div.textContent=String(value??"");
   return div.innerHTML;
 }
 
-async function loadLocalCart(){
-  try {
-    const saved = JSON.parse(localStorage.getItem(CART_KEY) || "[]");
-    cart = normalise(saved);
-  } catch(e) {
-    cart = [];
+function getLocalCart(){
+  try{
+    return normalise(JSON.parse(localStorage.getItem(CART_KEY)||"[]"));
+  }catch(e){
+    return [];
   }
-  renderCart();
 }
 
-async function saveCart(){
-  cart = normalise(cart);
-  localStorage.setItem(CART_KEY, JSON.stringify(cart));
+function saveLocal(){
+  localStorage.setItem(CART_KEY,JSON.stringify(cart));
+}
 
-  if(currentUser){
-    try {
-      await setDoc(
-        doc(db, "carts", currentUser.uid),
-        { items: cart, updatedAt: new Date() },
-        { merge: true }
-      );
-    } catch(e) {
-      console.log("Firebase cart sync error:", e);
-    }
+async function saveCloud(){
+  if(!currentUser || loadingCloud) return;
+
+  try{
+    await setDoc(
+      doc(db,"carts",currentUser.uid),
+      {
+        items:cart,
+        updatedAt:new Date()
+      },
+      {merge:true}
+    );
+  }catch(e){
+    console.warn("Firebase cart sync failed:",e);
   }
+}
+
+function saveCart(){
+  cart=normalise(cart);
+  saveLocal();
+
+  clearTimeout(saveTimer);
+  saveTimer=setTimeout(saveCloud,150);
 }
 
 function renderCart(){
-  const list = document.getElementById("cartItems");
-  const empty = document.getElementById("emptyCart");
-  const checkout = document.getElementById("checkoutButton");
+  const list=document.getElementById("cartItems");
+  const empty=document.getElementById("emptyCart");
+  const checkout=document.getElementById("checkoutButton");
 
   if(!cart.length){
-    list.innerHTML = "";
-    empty.style.display = "block";
+    list.innerHTML="";
+    empty.style.display="block";
     checkout.classList.add("disabled");
     checkout.removeAttribute("href");
     updateSummary();
     return;
   }
 
-  empty.style.display = "none";
+  empty.style.display="none";
   checkout.classList.remove("disabled");
-  checkout.href = "checkout.html";
+  checkout.href="checkout.html";
 
-  list.innerHTML = cart.map((item,index) => {
-    const media = item.image
+  list.innerHTML=cart.map((item,index)=>{
+    const media=item.image
       ? `<img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.name)}">`
       : escapeHtml(item.icon);
 
     return `
-      <div class="cart-item">
-        <div class="item-image">${media}</div>
-        <div>
-          <div class="item-category">FHAMAR.ZAMOST PRODUCT</div>
-          <div class="item-name">${escapeHtml(item.name)}</div>
-          <div class="item-price">${money(item.price)}</div>
+    <div class="cart-item">
+      <div class="item-image">${media}</div>
+
+      <div>
+        <div class="item-category">FHAMAR.ZAMOST PRODUCT</div>
+        <div class="item-name">${escapeHtml(item.name)}</div>
+        <div class="item-price">${money(item.price)}</div>
+      </div>
+
+      <div class="item-actions">
+        <div class="quantity">
+          <button type="button" data-action="decrease" data-index="${index}">−</button>
+          <span>${item.quantity}</span>
+          <button type="button" data-action="increase" data-index="${index}">+</button>
         </div>
-        <div class="item-actions">
-          <div class="quantity">
-            <button type="button" data-action="decrease" data-index="${index}">−</button>
-            <span>${item.quantity}</span>
-            <button type="button" data-action="increase" data-index="${index}">+</button>
-          </div>
-          <button type="button" class="remove" data-action="remove" data-index="${index}">REMOVE</button>
-        </div>
-      </div>`;
+
+        <button type="button" class="remove" data-action="remove" data-index="${index}">
+          REMOVE
+        </button>
+      </div>
+    </div>`;
   }).join("");
 
   updateSummary();
 }
 
+function updateSummary(){
+  let count=0;
+  let total=0;
+
+  cart.forEach(item=>{
+    count+=item.quantity;
+    total+=item.price*item.quantity;
+  });
+
+  document.getElementById("itemCount").textContent=count;
+  document.getElementById("subtotal").textContent=money(total);
+  document.getElementById("grandTotal").textContent=money(total);
+}
+
 function changeQuantity(index,change){
   if(!cart[index]) return;
-  cart[index].quantity = Math.min(Math.max(cart[index].quantity + change,1),10);
+
+  const next=cart[index].quantity+change;
+
+  if(next<1) return;
+
+  cart[index].quantity=Math.min(next,10);
+
   saveCart();
   renderCart();
 }
 
 function removeItem(index){
   if(!cart[index]) return;
+
   cart.splice(index,1);
+
   saveCart();
   renderCart();
 }
 
-function updateSummary(){
-  let count = 0, total = 0;
-  cart.forEach(item => {
-    count += item.quantity;
-    total += item.price * item.quantity;
-  });
-  document.getElementById("itemCount").textContent = count;
-  document.getElementById("subtotal").textContent = money(total);
-  document.getElementById("grandTotal").textContent = money(total);
-}
+async function loadCloudCart(){
+  if(!currentUser) return;
 
-document.addEventListener("click", e => {
-  const action = e.target.getAttribute("data-action");
-  const index = parseInt(e.target.getAttribute("data-index"));
-  if(action === "increase") changeQuantity(index,1);
-  if(action === "decrease") changeQuantity(index,-1);
-  if(action === "remove") removeItem(index);
-});
+  loadingCloud=true;
 
-onAuthStateChanged(auth, async user => {
-  currentUser = user;
+  try{
+    const snap=await getDoc(doc(db,"carts",currentUser.uid));
 
-  if(user){
-    try {
-      const snap = await getDoc(doc(db,"carts",user.uid));
-      if(snap.exists() && Array.isArray(snap.data().items)){
-        const cloudItems = normalise(snap.data().items);
-        if(cloudItems.length){
-          cart = cloudItems;
-          localStorage.setItem(CART_KEY,JSON.stringify(cart));
-        }
+    if(snap.exists() && Array.isArray(snap.data().items)){
+      const cloudCart=normalise(snap.data().items);
+      const localCart=getLocalCart();
+
+      /*
+       * If Firebase already has a cart, it is the account's main cart.
+       * If Firebase has no items, keep the local cart and upload it.
+       */
+      if(cloudCart.length){
+        cart=cloudCart;
+        saveLocal();
+      }else if(localCart.length){
+        cart=localCart;
+        await setDoc(
+          doc(db,"carts",currentUser.uid),
+          {items:cart,updatedAt:new Date()},
+          {merge:true}
+        );
+      }else{
+        cart=[];
+        saveLocal();
       }
-    } catch(e) {
-      console.log("Firebase cloud cart read error:",e);
+    }else{
+      cart=getLocalCart();
+
+      if(cart.length){
+        await setDoc(
+          doc(db,"carts",currentUser.uid),
+          {items:cart,updatedAt:new Date()},
+          {merge:true}
+        );
+      }
     }
+  }catch(e){
+    console.warn("Firebase cart read failed:",e);
+    cart=getLocalCart();
+  }finally{
+    loadingCloud=false;
   }
 
-  loadLocalCart();
+  renderCart();
+}
+
+document.addEventListener("click",event=>{
+  const button=event.target.closest("[data-action]");
+  if(!button) return;
+
+  const action=button.dataset.action;
+  const index=parseInt(button.dataset.index,10);
+
+  if(action==="increase") changeQuantity(index,1);
+  if(action==="decrease") changeQuantity(index,-1);
+  if(action==="remove") removeItem(index);
 });
 
-window.addEventListener("storage", e => {
-  if(e.key === CART_KEY) loadLocalCart();
+onAuthStateChanged(auth,async user=>{
+  currentUser=user;
+
+  const status=document.getElementById("accountStatus");
+
+  if(user){
+    status.textContent="✓ Logged in • Cart sync enabled";
+    await loadCloudCart();
+  }else{
+    status.textContent="Guest cart • Saved on this device";
+    cart=getLocalCart();
+    renderCart();
+  }
+});
+
+window.addEventListener("storage",event=>{
+  if(event.key===CART_KEY && !currentUser){
+    cart=getLocalCart();
+    renderCart();
+  }
 });
 </script>
+
 </body>
 </html>
