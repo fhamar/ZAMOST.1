@@ -26,7 +26,7 @@ footer{padding:35px 7%;background:#03080e;border-top:1px solid #263b50;color:#7d
 
 <header>
 <div class="brand-area"><div class="fz-logo">FZ</div><div class="brand"><span class="blue">FHAMAR</span><span class="silver">.ZAMOST</span></div></div>
-<div class="header-right"><div class="role-badge">NOTIFICATION CENTER</div><a href="profile.html" class="portal-btn">MY PORTAL</a></div>
+<div class="header-right"><div class="role-badge">NOTIFICATION CENTER</div><a href="Profile.html" class="portal-btn">MY PORTAL</a></div>
 </header>
 
 <main class="page">
@@ -38,14 +38,6 @@ footer{padding:35px 7%;background:#03080e;border-top:1px solid #263b50;color:#7d
 <div class="summary-card"><small>TOTAL NOTIFICATIONS</small><strong id="totalCount" class="blue-number">0</strong></div>
 <div class="summary-card"><small>UNREAD</small><strong id="unreadCount">0</strong></div>
 <div class="summary-card"><small>TODAY</small><strong id="todayCount">0</strong></div>
-</div>
-
-<div style="margin-top:20px;display:flex;gap:8px;flex-wrap:wrap">
-<a href="home.html" class="portal-btn">🏠 HOME</a>
-<a href="catalog.html" class="portal-btn">🛍️ CATALOG</a>
-<a href="cart.html" class="portal-btn">🛒 CART</a>
-<a href="track-order.html" class="portal-btn">📦 TRACK ORDER</a>
-<a href="help-support.html" class="portal-btn">❓ HELP</a>
 </div>
 
 <div class="toolbar">
@@ -60,62 +52,183 @@ footer{padding:35px 7%;background:#03080e;border-top:1px solid #263b50;color:#7d
 <div id="notificationList" class="notification-list"></div>
 <div id="emptyState" class="empty"><div class="empty-icon">🔔</div><h3>No Notifications</h3><p>You are all caught up.</p></div>
 
-<div class="api-note"><b>NOTIFICATION DATABASE / API CONNECTION</b><br><br>
-This page currently uses browser storage for demo notifications.<br>
-In the production version, Firebase can provide account-based notifications and real-time updates.<br>
-Customer को केवल उसके account की notifications, Team Member को permitted state की notifications और Admin को permitted system notifications मिलनी चाहिए।
+<div class="api-note">
+<b>FHAMAR.ZAMOST NOTIFICATION SERVICE</b><br><br>
+Your notifications are organized by account and activity.<br>
+Order, payment, voting, team and important account updates can appear here.
 </div>
 </main>
 
-<footer><div class="brand"><span class="blue">FHAMAR</span><span class="silver">.ZAMOST</span></div><p>Notifications • Orders • Team • System</p></footer>
+<footer><div class="brand"><span class="blue">FHAMAR</span><span class="silver">.ZAMOST</span></div><p>Notifications • Orders • Team • Account</p></footer>
 <div id="toast" class="toast"></div>
 
-<script>
-const STORAGE_KEY="fz_notifications";
+<script type="module">
+import { app } from "./firebase-config.js";
+import {
+    getAuth,
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+import {
+    getFirestore,
+    collection,
+    query,
+    where,
+    orderBy,
+    onSnapshot,
+    doc,
+    updateDoc,
+    deleteDoc,
+    writeBatch
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
-const defaultNotifications=[
-{id:1,type:"order",icon:"📦",title:"New Order Update",text:"Order FZ20001 has been confirmed and is ready for processing.",time:"Just now",createdAt:new Date().toISOString(),unread:true},
-{id:2,type:"payment",icon:"💳",title:"Payment Status Updated",text:"Payment information for order FZ20001 has been received.",time:"10 min ago",createdAt:new Date(Date.now()-10*60000).toISOString(),unread:true},
-{id:3,type:"order",icon:"🚚",title:"Order Shipped",text:"Your order FZ20004 has been shipped.",time:"1 hour ago",createdAt:new Date(Date.now()-60*60000).toISOString(),unread:false},
-{id:4,type:"team",icon:"👥",title:"Team Registration",text:"A new Team Member registration is waiting for Admin review.",time:"2 hours ago",createdAt:new Date(Date.now()-2*3600000).toISOString(),unread:true},
-{id:5,type:"voting",icon:"🗳️",title:"Voting Update",text:"A new member voting proposal is available in My Portal.",time:"Today",createdAt:new Date().toISOString(),unread:false},
-{id:6,type:"stock",icon:"⚠️",title:"Low Stock Alert",text:"Some products have stock below the configured minimum level.",time:"Today",createdAt:new Date().toISOString(),unread:true},
-{id:7,type:"system",icon:"⚙️",title:"System Notice",text:"Your FHAMAR.ZAMOST account information is ready to manage.",time:"Yesterday",createdAt:new Date(Date.now()-86400000).toISOString(),unread:false}
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+const STORAGE_KEY = "fz_notifications";
+let notifications = [];
+let currentUser = null;
+let unsubscribeNotifications = null;
+
+const fallbackNotifications = [
+    {
+        id:"demo-order-1",
+        type:"order",
+        icon:"📦",
+        title:"Order Update",
+        text:"Your order has been confirmed and is being prepared.",
+        time:"Just now",
+        createdAt:new Date().toISOString(),
+        unread:true,
+        link:"track-order.html"
+    },
+    {
+        id:"demo-payment-1",
+        type:"payment",
+        icon:"💳",
+        title:"Payment Update",
+        text:"Your payment information has been updated.",
+        time:"Today",
+        createdAt:new Date().toISOString(),
+        unread:true,
+        link:"track-order.html"
+    },
+    {
+        id:"demo-team-1",
+        type:"team",
+        icon:"👥",
+        title:"Team Registration Update",
+        text:"Your Team Member registration status has an update.",
+        time:"Today",
+        createdAt:new Date().toISOString(),
+        unread:false,
+        link:"Profile.html"
+    },
+    {
+        id:"demo-voting-1",
+        type:"voting",
+        icon:"🗳️",
+        title:"New Voting",
+        text:"A new member voting proposal is available.",
+        time:"Today",
+        createdAt:new Date().toISOString(),
+        unread:false,
+        link:"voting.html"
+    },
+    {
+        id:"demo-system-1",
+        type:"system",
+        icon:"⚙️",
+        title:"Account Update",
+        text:"Your FHAMAR.ZAMOST account is ready to manage.",
+        time:"Today",
+        createdAt:new Date().toISOString(),
+        unread:false,
+        link:"Profile.html"
+    }
 ];
 
-let notifications=loadNotifications();
+function $(id){ return document.getElementById(id); }
 
-function loadNotifications(){
-    try{
-        const saved=JSON.parse(localStorage.getItem(STORAGE_KEY));
-        return Array.isArray(saved)?saved:defaultNotifications;
-    }catch(e){return defaultNotifications;}
-}
-
-function saveNotifications(){
-    localStorage.setItem(STORAGE_KEY,JSON.stringify(notifications));
+function escapeHTML(value){
+    return String(value ?? "").replace(/[&<>"']/g, m => ({
+        "&":"&amp;",
+        "<":"&lt;",
+        ">":"&gt;",
+        '"':"&quot;",
+        "'":"&#039;"
+    }[m]));
 }
 
 function typeName(type){
-    return ({order:"ORDER",payment:"PAYMENT",team:"TEAM",voting:"VOTING",stock:"STOCK",system:"SYSTEM"})[type]||"SYSTEM";
+    return ({
+        order:"ORDER",
+        payment:"PAYMENT",
+        team:"TEAM",
+        voting:"VOTING",
+        stock:"STOCK",
+        system:"SYSTEM"
+    })[type] || "SYSTEM";
 }
 
-function escapeHTML(value){
-    return String(value??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
+function loadLocal(){
+    try{
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+        return Array.isArray(saved) ? saved : [];
+    }catch(e){
+        return [];
+    }
+}
+
+function saveLocal(){
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(notifications));
+}
+
+function formatTime(createdAt, fallback){
+    if(!createdAt) return fallback || "";
+    let date;
+    try{
+        date = typeof createdAt?.toDate === "function"
+            ? createdAt.toDate()
+            : new Date(createdAt);
+        if(Number.isNaN(date.getTime())) return fallback || "";
+    }catch(e){
+        return fallback || "";
+    }
+
+    const diff = Date.now() - date.getTime();
+    if(diff < 60000) return "Just now";
+    if(diff < 3600000) return Math.floor(diff/60000) + " min ago";
+    if(diff < 86400000) return Math.floor(diff/3600000) + " hour" + (Math.floor(diff/3600000) === 1 ? "" : "s") + " ago";
+    if(diff < 172800000) return "Yesterday";
+    return date.toLocaleDateString();
+}
+
+function normalizeNotification(data, id){
+    return {
+        id: id || data.id || crypto.randomUUID(),
+        type: data.type || "system",
+        icon: data.icon || "🔔",
+        title: data.title || "Notification",
+        text: data.text || data.message || "",
+        time: formatTime(data.createdAt, data.time || ""),
+        createdAt: data.createdAt || new Date().toISOString(),
+        unread: data.unread !== false && data.read !== true,
+        link: data.link || data.actionUrl || ""
+    };
 }
 
 function renderNotifications(){
-    const list=document.getElementById("notificationList");
-    const search=document.getElementById("searchInput").value.toLowerCase().trim();
-    const filter=document.getElementById("filterType").value;
+    const list = $("notificationList");
+    const search = $("searchInput").value.toLowerCase().trim();
+    const filter = $("filterType").value;
 
-    const filtered=notifications.filter(item=>{
-        const text=(item.title+" "+item.text+" "+typeName(item.type)).toLowerCase();
-        return text.includes(search)&&(filter==="all"||item.type===filter);
+    const filtered = notifications.filter(item => {
+        const text = (item.title + " " + item.text + " " + typeName(item.type)).toLowerCase();
+        return text.includes(search) && (filter === "all" || item.type === filter);
     });
 
-    list.innerHTML=filtered.map(item=>`
-        <div class="notification ${item.unread?"unread":""}">
+    list.innerHTML = filtered.map(item => `
+        <div class="notification ${item.unread ? "unread" : ""}">
             <div class="notification-icon">${escapeHTML(item.icon)}</div>
             <div class="notification-body">
                 <div class="notification-top">
@@ -125,70 +238,223 @@ function renderNotifications(){
                 <div class="notification-text">${escapeHTML(item.text)}</div>
                 <div class="notification-type">${typeName(item.type)}</div>
                 <div class="notification-actions">
+                    ${item.link ? `<button class="small-btn" onclick="openNotification('${escapeHTML(item.id)}')">OPEN</button>` : ""}
                     ${item.unread
-                    ?`<button class="small-btn" onclick="markRead(${item.id})">MARK AS READ</button>`
-                    :`<button class="small-btn" onclick="markUnread(${item.id})">MARK UNREAD</button>`}
-                    <button class="small-btn delete" onclick="deleteNotification(${item.id})">DELETE</button>
+                        ? `<button class="small-btn" onclick="markRead('${escapeHTML(item.id)}')">MARK AS READ</button>`
+                        : `<button class="small-btn" onclick="markUnread('${escapeHTML(item.id)}')">MARK UNREAD</button>`}
+                    <button class="small-btn delete" onclick="deleteNotification('${escapeHTML(item.id)}')">DELETE</button>
                 </div>
             </div>
-        </div>`).join("");
+        </div>
+    `).join("");
 
     updateCounts();
-    document.getElementById("emptyState").style.display=filtered.length?"none":"block";
+    $("emptyState").style.display = filtered.length ? "none" : "block";
 }
 
 function updateCounts(){
-    const todayKey=new Date().toDateString();
-    const today=notifications.filter(item=>{
-        const d=new Date(item.createdAt||Date.now());
-        return d.toDateString()===todayKey;
+    const todayKey = new Date().toDateString();
+
+    const today = notifications.filter(item => {
+        const d = item.createdAt?.toDate ? item.createdAt.toDate() : new Date(item.createdAt || Date.now());
+        return d.toDateString() === todayKey;
     }).length;
 
-    document.getElementById("totalCount").textContent=notifications.length;
-    document.getElementById("unreadCount").textContent=notifications.filter(item=>item.unread).length;
-    document.getElementById("todayCount").textContent=today;
-}
-
-function markRead(id){
-    const item=notifications.find(n=>n.id===id);
-    if(item){item.unread=false;saveNotifications();renderNotifications();showToast("Notification marked as read.");}
-}
-
-function markUnread(id){
-    const item=notifications.find(n=>n.id===id);
-    if(item){item.unread=true;saveNotifications();renderNotifications();showToast("Notification marked as unread.");}
-}
-
-function markAllRead(){
-    notifications.forEach(item=>item.unread=false);
-    saveNotifications();renderNotifications();showToast("All notifications marked as read.");
-}
-
-function deleteNotification(id){
-    const item=notifications.find(n=>n.id===id);
-    if(!item)return;
-    if(!confirm("Delete this notification?"))return;
-    notifications=notifications.filter(n=>n.id!==id);
-    saveNotifications();renderNotifications();showToast("Notification deleted.");
-}
-
-function clearAll(){
-    if(!notifications.length){showToast("There are no notifications to clear.");return;}
-    if(!confirm("Clear all notifications?"))return;
-    notifications=[];
-    saveNotifications();renderNotifications();showToast("All notifications cleared.");
+    $("totalCount").textContent = notifications.length;
+    $("unreadCount").textContent = notifications.filter(item => item.unread).length;
+    $("todayCount").textContent = today;
 }
 
 function showToast(text){
-    const toast=document.getElementById("toast");
-    toast.textContent=text;
+    const toast = $("toast");
+    toast.textContent = text;
     toast.classList.add("show");
     clearTimeout(window.toastTimer);
-    window.toastTimer=setTimeout(()=>toast.classList.remove("show"),2200);
+    window.toastTimer = setTimeout(() => toast.classList.remove("show"), 2200);
 }
 
-renderNotifications();
+function findNotification(id){
+    return notifications.find(n => String(n.id) === String(id));
+}
+
+async function markRead(id){
+    const item = findNotification(id);
+    if(!item) return;
+
+    item.unread = false;
+    saveLocal();
+    renderNotifications();
+
+    if(currentUser && !String(id).startsWith("demo-")){
+        try{
+            await updateDoc(doc(db, "notifications", String(id)), {
+                unread:false,
+                read:true
+            });
+        }catch(e){
+            console.warn("Could not sync read state:", e);
+        }
+    }
+    showToast("Notification marked as read.");
+}
+
+async function markUnread(id){
+    const item = findNotification(id);
+    if(!item) return;
+
+    item.unread = true;
+    saveLocal();
+    renderNotifications();
+
+    if(currentUser && !String(id).startsWith("demo-")){
+        try{
+            await updateDoc(doc(db, "notifications", String(id)), {
+                unread:true,
+                read:false
+            });
+        }catch(e){
+            console.warn("Could not sync unread state:", e);
+        }
+    }
+    showToast("Notification marked as unread.");
+}
+
+async function markAllRead(){
+    const realItems = notifications.filter(n => !String(n.id).startsWith("demo-"));
+    notifications.forEach(item => item.unread = false);
+    saveLocal();
+    renderNotifications();
+
+    if(currentUser && realItems.length){
+        try{
+            const batch = writeBatch(db);
+            realItems.forEach(item => {
+                batch.update(doc(db, "notifications", String(item.id)), {
+                    unread:false,
+                    read:true
+                });
+            });
+            await batch.commit();
+        }catch(e){
+            console.warn("Could not sync all-read state:", e);
+        }
+    }
+    showToast("All notifications marked as read.");
+}
+
+async function deleteNotification(id){
+    const item = findNotification(id);
+    if(!item) return;
+    if(!confirm("Delete this notification?")) return;
+
+    notifications = notifications.filter(n => String(n.id) !== String(id));
+    saveLocal();
+    renderNotifications();
+
+    if(currentUser && !String(id).startsWith("demo-")){
+        try{
+            await deleteDoc(doc(db, "notifications", String(id)));
+        }catch(e){
+            console.warn("Could not delete cloud notification:", e);
+        }
+    }
+    showToast("Notification deleted.");
+}
+
+async function clearAll(){
+    if(!notifications.length){
+        showToast("There are no notifications to clear.");
+        return;
+    }
+
+    if(!confirm("Clear all notifications?")) return;
+
+    const realItems = notifications.filter(n => !String(n.id).startsWith("demo-"));
+    notifications = [];
+    saveLocal();
+    renderNotifications();
+
+    if(currentUser && realItems.length){
+        try{
+            const batch = writeBatch(db);
+            realItems.forEach(item => {
+                batch.delete(doc(db, "notifications", String(item.id)));
+            });
+            await batch.commit();
+        }catch(e){
+            console.warn("Could not clear cloud notifications:", e);
+        }
+    }
+    showToast("All notifications cleared.");
+}
+
+function openNotification(id){
+    const item = findNotification(id);
+    if(!item) return;
+
+    if(item.unread) markRead(id);
+
+    if(item.link){
+        window.location.href = item.link;
+    }else{
+        showToast("No linked page is available for this notification.");
+    }
+}
+
+window.renderNotifications = renderNotifications;
+window.markRead = markRead;
+window.markUnread = markUnread;
+window.markAllRead = markAllRead;
+window.deleteNotification = deleteNotification;
+window.clearAll = clearAll;
+window.openNotification = openNotification;
+
+function startNotificationListener(user){
+    if(unsubscribeNotifications) unsubscribeNotifications();
+
+    // Load a local cache immediately while Firebase connects.
+    const local = loadLocal();
+    notifications = local.length ? local : fallbackNotifications;
+    renderNotifications();
+
+    const notificationsRef = collection(db, "notifications");
+
+    // Account-specific query. Recommended Firestore document fields:
+    // uid, type, title, text/message, icon, unread/read, createdAt, link/actionUrl.
+    const q = query(
+        notificationsRef,
+        where("uid", "==", user.uid),
+        orderBy("createdAt", "desc")
+    );
+
+    unsubscribeNotifications = onSnapshot(q, snapshot => {
+        notifications = snapshot.docs.map(d => normalizeNotification(d.data(), d.id));
+        saveLocal();
+        renderNotifications();
+    }, error => {
+        console.warn("Notification realtime connection error:", error);
+
+        // Keep cached notifications visible if Firestore rules/index are not ready.
+        const local = loadLocal();
+        notifications = local.length ? local : fallbackNotifications;
+        renderNotifications();
+        showToast("Showing saved notifications.");
+    });
+}
+
+onAuthStateChanged(auth, user => {
+    currentUser = user;
+
+    if(!user){
+        notifications = [];
+        renderNotifications();
+        showToast("Please sign in to view your notifications.");
+        setTimeout(() => window.location.replace("index.html"), 700);
+        return;
+    }
+
+    startNotificationListener(user);
+});
 </script>
 </body>
-  </html>
-  
+</html>
