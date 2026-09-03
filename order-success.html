@@ -23,13 +23,25 @@ nav{display:flex;gap:22px}nav a{color:#91a2b5;font-size:12px}nav a:hover{color:w
 footer{padding:35px 7%;background:#03080e;border-top:1px solid #263b50;color:#7d90a4;font-size:11px}
 .toast{position:fixed;left:50%;bottom:25px;transform:translateX(-50%) translateY(20px);padding:11px 15px;background:#0d2234;border:1px solid #4da3ff;border-radius:8px;color:#dce5ed;font-size:10px;opacity:0;transition:.25s;z-index:3000}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 @media(max-width:700px){nav{display:none}.details{grid-template-columns:1fr}.buttons{flex-direction:column}.btn{width:100%}.success-card{padding:35px 20px}.success-card h1{font-size:32px}.status-box{align-items:flex-start;flex-direction:column}}
+@media print{
+    body{background:#fff!important;color:#000!important}
+    header,footer,.buttons,.receipt-buttons,.toast,.note{display:none!important}
+    .page{padding:0!important;max-width:none!important}
+    .success-card{box-shadow:none!important;border:0!important;background:#fff!important;color:#000!important}
+    .success-card h1,.success-card h1 span,.success-message,.order-number strong,
+    .detail strong,.status,.products h2,.product-item strong{color:#000!important}
+    .eyebrow,.order-number small,.detail small,.status-label,.product-item{color:#333!important}
+    .details,.products,.status-box,.order-number{break-inside:avoid}
+}
+.receipt-buttons{margin-top:18px}
+.receipt-buttons .btn{cursor:pointer}
 </style>
 </head>
 <body>
 <header>
 <div class="brand-area"><div class="fz-logo">FZ</div><div class="brand"><span class="blue">FHAMAR</span><span class="silver">.ZAMOST</span></div></div>
-<nav><a href="home.html">Home</a><a href="catalog.html">Catalog</a><a href="profile.html">My Portal</a><a href="admin.html">Administrative Desk</a></nav>
-<a href="profile.html" class="profile-btn">MY PROFILE</a>
+<nav><a href="home.html">Home</a><a href="catalog.html">Catalog</a><a href="Profile.html">My Portal</a></nav>
+<a href="Profile.html" class="profile-btn">MY PROFILE</a>
 </header>
 
 <main class="page">
@@ -37,7 +49,7 @@ footer{padding:35px 7%;background:#03080e;border-top:1px solid #263b50;color:#7d
 <div class="success-icon">✓</div>
 <div class="eyebrow">FHAMAR.ZAMOST ORDER</div>
 <h1>Order <span>Confirmed</span></h1>
-<p class="success-message">🎉 Your order has been placed successfully! Thank you for shopping with FHAMAR.ZAMOST. Your order information has been received and is now ready for processing.</p>
+<p class="success-message">Thank you for your order. Your order information has been successfully received and is now ready for processing.</p>
 
 <div class="order-number"><small>ORDER NUMBER</small><strong id="orderNumber">FZ-000000</strong></div>
 
@@ -48,27 +60,25 @@ footer{padding:35px 7%;background:#03080e;border-top:1px solid #263b50;color:#7d
 </div>
 
 <div class="status-box"><span class="status-label">Current Order Status</span><span class="status" id="orderStatus">ORDER PLACED</span></div>
-<div style="margin-top:15px;color:#72b7ff;font-size:10px;font-weight:bold">✓ ORDER SUCCESSFULLY RECEIVED</div>
 
 <div class="products"><h2>Your Order</h2><div id="productList"></div></div>
 
-<div style="display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:20px">
-<a href="home.html" class="btn portal">🏠 HOME</a>
-<a href="cart.html" class="btn portal">🛒 CART</a>
-<a href="help-support.html" class="btn portal">❓ HELP</a>
+
+<div class="buttons receipt-buttons">
+<a href="#" class="btn shop" id="downloadReceiptButton">⬇ DOWNLOAD RECEIPT</a>
+<button type="button" class="btn portal" id="savePdfButton">📄 SAVE AS PDF</button>
 </div>
 
 <div class="buttons">
 <a href="track-order.html" class="btn track">TRACK ORDER →</a>
 <a href="catalog.html" class="btn shop">CONTINUE SHOPPING</a>
-<a href="profile.html" class="btn portal">MY PORTAL</a>
+<a href="Profile.html" class="btn portal">MY PORTAL</a>
 </div>
 
 <div id="noOrder" class="warning" style="display:none">No recent order was found in this browser. Please return to the catalog and place an order first.</div>
 
-<div class="note"><b>ORDER SYSTEM CONNECTION</b><br><br>
-This page currently reads the last order saved by checkout.html in browser storage. In the production version, order confirmation, payment verification, notifications and tracking should be connected to your secure backend/Firebase.
-<br><br><b>Important:</b> Payment verification must be performed on the server/backend; browser localStorage should not be treated as proof of payment.
+<div class="note"><b>ORDER RECEIPT</b><br><br>
+Your order details are available above. You can download a copy of this receipt or use the print option to save it as a PDF.
 </div>
 </section>
 </main>
@@ -76,78 +86,251 @@ This page currently reads the last order saved by checkout.html in browser stora
 <footer><div class="brand"><span class="blue">FHAMAR</span><span class="silver">.ZAMOST</span></div><p>Premium Digital Portal</p></footer>
 <div id="toast" class="toast"></div>
 
-<script>
-const ORDER_KEY="fz_last_order";
-let order=null;
+<script type="module">
+import { app } from "./firebase-config.js";
+import {
+    getAuth,
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+import {
+    getFirestore,
+    doc,
+    setDoc,
+    serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
-try{order=JSON.parse(localStorage.getItem(ORDER_KEY)||"null")}catch(e){order=null}
+const ORDER_KEY = "fz_last_order";
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+let order = null;
+let currentUser = null;
+let cloudSyncDone = false;
+
+try{
+    order = JSON.parse(localStorage.getItem(ORDER_KEY) || "null");
+}catch(e){
+    order = null;
+}
 
 function escapeHTML(value){
-    return String(value??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
+    return String(value ?? "").replace(/[&<>"']/g,m=>({
+        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+    }[m]));
 }
 
 function formatMoney(value){
-    const number=Number(value);
-    return Number.isFinite(number) ? "₹"+number.toLocaleString("en-IN") : "₹0";
+    const number = Number(value);
+    return Number.isFinite(number) ? "₹" + number.toLocaleString("en-IN") : "₹0";
 }
 
 function paymentLabel(method){
-    if(method==="upi") return "UPI";
-    if(method==="cod") return "Cash on Delivery";
+    if(method === "upi") return "UPI";
+    if(method === "cod") return "Cash on Delivery";
     return "Pending";
 }
 
 function showToast(text){
-    const toast=document.getElementById("toast");
-    toast.textContent=text;
+    const toast = document.getElementById("toast");
+    toast.textContent = text;
     toast.classList.add("show");
     clearTimeout(window.toastTimer);
-    window.toastTimer=setTimeout(()=>toast.classList.remove("show"),2200);
+    window.toastTimer = setTimeout(()=>toast.classList.remove("show"),2200);
+}
+
+function getItems(){
+    return Array.isArray(order?.items) ? order.items : [];
+}
+
+function getCalculatedTotal(){
+    return getItems().reduce((sum,item)=>{
+        const quantity = Math.max(1, Number(item.quantity) || 1);
+        const price = Math.min(1500, Math.max(0, Number(item.price) || 0));
+        return sum + price * quantity;
+    },0);
 }
 
 function renderOrder(){
     if(!order){
-        document.getElementById("noOrder").style.display="block";
-        document.getElementById("productList").innerHTML="<div class='product-item'><span>No order data available.</span><strong>—</strong></div>";
+        document.getElementById("noOrder").style.display = "block";
+        document.getElementById("productList").innerHTML =
+            "<div class='product-item'><span>No order data available.</span><strong>—</strong></div>";
         return;
     }
 
-    document.getElementById("orderNumber").textContent=order.orderNumber||"FZ-"+Date.now();
-    document.getElementById("customerName").textContent=order.customer?.name||"Customer";
-    document.getElementById("paymentMethod").textContent=paymentLabel(order.paymentMethod);
-    document.getElementById("orderStatus").textContent=String(order.status||"ORDER PLACED").toUpperCase();
+    document.getElementById("noOrder").style.display = "none";
+    document.getElementById("orderNumber").textContent = order.orderNumber || "FZ-" + Date.now();
+    document.getElementById("customerName").textContent = order.customer?.name || currentUser?.displayName || "Customer";
+    document.getElementById("paymentMethod").textContent = paymentLabel(order.paymentMethod);
+    document.getElementById("orderStatus").textContent = String(order.status || "ORDER PLACED").toUpperCase();
 
-    const items=Array.isArray(order.items)?order.items:[];
-    let total=0;
-
-    const productList=document.getElementById("productList");
+    const items = getItems();
+    const productList = document.getElementById("productList");
 
     if(!items.length){
-        productList.innerHTML="<div class='product-item'><span>No products found in this order.</span><strong>—</strong></div>";
+        productList.innerHTML =
+            "<div class='product-item'><span>No products found in this order.</span><strong>—</strong></div>";
     }else{
-        productList.innerHTML=items.map(item=>{
-            const quantity=Math.max(1,Number(item.quantity)||1);
-            const price=Math.max(0,Number(item.price)||0);
-            const itemTotal=price*quantity;
-            total+=itemTotal;
-            return `<div class="product-item"><span>${escapeHTML(item.name||"Product")} × ${quantity}</span><strong>${formatMoney(itemTotal)}</strong></div>`;
+        productList.innerHTML = items.map(item=>{
+            const quantity = Math.max(1, Number(item.quantity) || 1);
+            const price = Math.min(1500, Math.max(0, Number(item.price) || 0));
+            const itemTotal = price * quantity;
+            return `<div class="product-item">
+                <span>${escapeHTML(item.name || "Product")} × ${quantity}</span>
+                <strong>${formatMoney(itemTotal)}</strong>
+            </div>`;
         }).join("");
     }
 
-    // Prefer the checkout-calculated total when available and valid.
-    const storedTotal=Number(order.total);
-    const finalTotal=Number.isFinite(storedTotal)&&storedTotal>=0?storedTotal:total;
-    document.getElementById("orderTotal").textContent=formatMoney(finalTotal);
+    const storedTotal = Number(order.total);
+    const finalTotal = Number.isFinite(storedTotal) && storedTotal >= 0
+        ? storedTotal
+        : getCalculatedTotal();
+
+    document.getElementById("orderTotal").textContent = formatMoney(finalTotal);
 }
+
+function buildOrderForFirestore(){
+    if(!order || !currentUser) return null;
+
+    const orderNumber = String(order.orderNumber || ("FZ-" + Date.now()));
+    const items = getItems().map(item=>({
+        id: String(item.id || ""),
+        name: String(item.name || "Product"),
+        price: Math.min(1500, Math.max(0, Number(item.price) || 0)),
+        quantity: Math.max(1, Number(item.quantity) || 1),
+        image: String(item.image || "")
+    }));
+
+    const totalNumber = Number(order.total);
+    const total = Number.isFinite(totalNumber) && totalNumber >= 0
+        ? totalNumber
+        : getCalculatedTotal();
+
+    return {
+        orderNumber,
+        customerUid: currentUser.uid,
+        customer: {
+            name: String(order.customer?.name || currentUser.displayName || "Customer"),
+            email: String(order.customer?.email || currentUser.email || ""),
+            mobile: String(order.customer?.mobile || order.customer?.phone || "")
+        },
+        state: String(order.customer?.state || order.state || ""),
+        city: String(order.customer?.city || ""),
+        pincode: String(order.customer?.pincode || order.pincode || ""),
+        address: String(order.customer?.address || order.address || ""),
+        items,
+        total,
+        paymentMethod: String(order.paymentMethod || "pending"),
+        paymentStatus: String(order.paymentStatus || (order.paymentMethod === "cod" ? "pending" : "pending")),
+        status: String(order.status || "ORDER PLACED").toUpperCase(),
+        source: "checkout",
+        updatedAt: serverTimestamp()
+    };
+}
+
+async function syncOrderToFirebase(){
+    if(cloudSyncDone || !order || !currentUser) return;
+
+    const orderData = buildOrderForFirestore();
+    if(!orderData) return;
+
+    try{
+        // One stable document per order. This makes the order available to
+        // Team/Admin dashboards that are authorized to read the orders collection.
+        await setDoc(doc(db,"orders",orderData.orderNumber),orderData,{merge:true});
+        cloudSyncDone = true;
+
+        // Keep a local marker so the success page can be reopened safely.
+        order.orderNumber = orderData.orderNumber;
+        localStorage.setItem(ORDER_KEY,JSON.stringify(order));
+    }catch(error){
+        console.warn("Order Firebase sync failed:",error);
+        showToast("Order saved here. Cloud sync needs Firebase Rules/connection.");
+    }
+}
+
+function buildReceiptHTML(){
+    const orderNo = escapeHTML(order?.orderNumber || "FZ-000000");
+    const customer = escapeHTML(order?.customer?.name || currentUser?.displayName || "Customer");
+    const payment = escapeHTML(paymentLabel(order?.paymentMethod));
+    const status = escapeHTML(String(order?.status || "ORDER PLACED").toUpperCase());
+    const totalNumber = Number(order?.total);
+    const total = Number.isFinite(totalNumber) && totalNumber >= 0 ? totalNumber : getCalculatedTotal();
+
+    const rows = getItems().map(item=>{
+        const qty = Math.max(1,Number(item.quantity)||1);
+        const price = Math.min(1500,Math.max(0,Number(item.price)||0));
+        return `<tr><td>${escapeHTML(item.name||"Product")}</td><td>${qty}</td><td>${formatMoney(price*qty)}</td></tr>`;
+    }).join("");
+
+    return `<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Receipt ${orderNo} | FHAMAR.ZAMOST</title>
+<style>
+body{font-family:Arial,sans-serif;max-width:760px;margin:30px auto;padding:20px;color:#111}
+h1{margin-bottom:6px}p{color:#555}.box{border:1px solid #ccc;border-radius:10px;padding:15px;margin:15px 0}
+table{width:100%;border-collapse:collapse;margin-top:15px}th,td{padding:10px;border-bottom:1px solid #ddd;text-align:left}
+.total{text-align:right;font-size:18px;font-weight:bold;margin-top:15px}
+@media print{body{margin:0}}
+</style></head><body>
+<h1>FHAMAR.ZAMOST</h1><p>Order Receipt</p>
+<div class="box"><b>Order:</b> ${orderNo}<br><b>Customer:</b> ${customer}<br><b>Payment:</b> ${payment}<br><b>Status:</b> ${status}</div>
+<table><thead><tr><th>Product</th><th>Qty</th><th>Amount</th></tr></thead><tbody>${rows || "<tr><td colspan='3'>No products</td></tr>"}</tbody></table>
+<div class="total">Total: ${formatMoney(total)}</div>
+<p style="margin-top:30px">Thank you for shopping with FHAMAR.ZAMOST.</p>
+</body></html>`;
+}
+
+function downloadReceipt(){
+    if(!order){
+        showToast("No order found.");
+        return;
+    }
+
+    const blob = new Blob([buildReceiptHTML()],{type:"text/html;charset=utf-8"});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `${order.orderNumber || "FHAMAR-ZAMOST-Receipt"}.html`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(()=>URL.revokeObjectURL(url),1000);
+    showToast("Receipt file created.");
+}
+
+function saveAsPDF(){
+    if(!order){
+        showToast("No order found.");
+        return;
+    }
+    window.print();
+}
+
+document.getElementById("downloadReceiptButton").addEventListener("click",(e)=>{
+    e.preventDefault();
+    downloadReceipt();
+});
+
+document.getElementById("savePdfButton").addEventListener("click",saveAsPDF);
 
 renderOrder();
 
-/* Keep order-confirmation page safe if user opens it without an order. */
 window.addEventListener("storage",()=>{
     try{
-        order=JSON.parse(localStorage.getItem(ORDER_KEY)||"null");
+        order = JSON.parse(localStorage.getItem(ORDER_KEY) || "null");
         renderOrder();
+        if(currentUser) syncOrderToFirebase();
     }catch(e){}
+});
+
+onAuthStateChanged(auth,user=>{
+    currentUser = user;
+    if(user){
+        renderOrder();
+        syncOrderToFirebase();
+    }
 });
 </script>
 </body>
