@@ -24,6 +24,8 @@ header{
  color:#fff;font-weight:900;letter-spacing:1px;box-shadow:0 0 24px rgba(49,130,246,.15)
 }
 .brand-name{font-size:1.12rem;font-weight:800;letter-spacing:1.2px}
+.brand-name .brand-blue{color:#4da3ff}
+.brand-name .brand-silver{color:#c2cad5}
 .brand-name small{display:block;color:#748196;font-size:9px;letter-spacing:2px;margin-top:-2px}
 .header-actions{display:flex;align-items:center;gap:9px}
 .btn-team,.profile-btn{
@@ -57,16 +59,24 @@ header{
 .section-heading{margin-bottom:15px}
 .section-heading span{color:var(--blue2);font-size:.73rem;letter-spacing:1.7px;text-transform:uppercase;font-weight:800}
 .section-heading h2{font-size:1.55rem;margin-top:3px}
+
+/* ===== AD CAROUSEL (MULTIPLE ADS, AUTO ROTATE) ===== */
 .ad-banner-section{
  background:linear-gradient(145deg,#101b2a,#0b131f);border:1px solid #294261;border-radius:16px;
  padding:12px;text-align:center;margin-bottom:2.5rem;box-shadow:0 12px 30px rgba(0,0,0,.14)
 }
-.media-frame{
- width:100%;min-height:185px;max-height:420px;background:#080f19;border-radius:11px;
- display:flex;align-items:center;justify-content:center;overflow:hidden;color:var(--muted);font-size:.85rem
+.ad-carousel{position:relative;width:100%;min-height:185px;max-height:420px;border-radius:11px;overflow:hidden;background:#080f19}
+.ad-slide{
+ position:absolute;inset:0;display:none;align-items:center;justify-content:center;
+ color:var(--muted);font-size:.85rem;flex-direction:column;gap:6px
 }
-.media-frame img,.media-frame video{width:100%;height:auto;max-height:420px;object-fit:cover;display:block}
+.ad-slide.active{display:flex}
+.ad-slide img,.ad-slide video{width:100%;height:100%;object-fit:cover;display:block}
+.ad-dots{display:flex;justify-content:center;gap:6px;padding:9px 0 2px}
+.ad-dot{width:7px;height:7px;border-radius:50%;background:#2a3a50;cursor:pointer;border:none;padding:0}
+.ad-dot.active{background:#4da3ff}
 .media-help{padding:8px 4px 2px;color:#69778a;font-size:.7rem}
+
 .products-section{margin-bottom:3rem}
 .product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
 .product-card{
@@ -103,7 +113,16 @@ footer{border-top:1px solid var(--border);background:#050911;margin-top:0}
 .footer-col h3{font-size:1rem;margin-bottom:8px;color:#edf2f8}
 .footer-col p,.footer-col a{font-size:.76rem;color:var(--muted);line-height:1.7}
 .footer-col a{display:block}.footer-col a:hover{color:#fff}
-.footer-brand{color:#68adff!important;font-weight:800;letter-spacing:1px}
+.footer-brand{font-weight:800;letter-spacing:1px}
+.footer-brand .brand-blue{color:#4da3ff}
+.footer-brand .brand-silver-dark{color:#8b97a8}
+.state-item{position:relative;padding-left:15px}
+.state-item.active-team:before{
+ content:"";position:absolute;left:0;top:50%;transform:translateY(-50%);
+ width:7px;height:7px;border-radius:50%;background:#3ddc84;box-shadow:0 0 7px #3ddc84;
+ animation:statePulse 1.4s infinite
+}
+@keyframes statePulse{0%,100%{opacity:1}50%{opacity:.3}}
 .footer-badge{display:inline-block;margin-top:8px;border:1px solid #31516f;border-radius:20px;padding:5px 9px;color:#a9c6e4!important;font-size:.68rem!important}
 .footer-bottom{
  border-top:1px solid var(--border);margin-top:20px;padding-top:11px;
@@ -137,7 +156,7 @@ footer{border-top:1px solid var(--border);background:#050911;margin-top:0}
 <header>
   <div class="logo-container">
     <div class="logo-badge">FZ</div>
-    <div class="brand-name">FHAMAR.ZAMOST<small>PREMIUM SMART PORTAL</small></div>
+    <div class="brand-name"><span class="brand-blue">FHAMAR</span><span class="brand-silver">.ZAMOST</span><small>PREMIUM SMART PORTAL</small></div>
   </div>
   <div class="header-actions">
     <a href="team.html" class="btn-team role-only" id="teamMembersBtn">TEAM MEMBERS</a>
@@ -178,26 +197,68 @@ footer{border-top:1px solid var(--border);background:#050911;margin-top:0}
   <p>A modern digital platform connecting products, members, state teams, customer services and profile management in one place.</p>
   <div class="hero-btns">
     <a href="catalog.html" class="btn-primary">EXPLORE COLLECTION</a>
-    <a href="team.html" class="btn-secondary">JOIN OUR TEAM</a>
+    <a href="Profile.html" class="btn-secondary">JOIN OUR TEAM</a>
   </div>
 </section>
 
+<!--
+=====================================================================
+AD CAROUSEL — MULTIPLE ADS, AUTO ROTATE ONE AFTER ANOTHER
+=====================================================================
+Naya ad add karna ho to bas ek naya <div class="ad-slide"> block
+copy-paste kar dijiye (neeche jitne chahein utne slide add kar sakte
+hain), aur is HTML jaisa ek naya button neeche "ad-dots" mein add
+kar dijiye. JS khud-ba-khud sabko rotate karega — kuch aur badalna
+nahi padega.
+
+Photo lagani ho: <img src="promo1.jpg" alt="Ad 1">
+Video lagana ho: <video autoplay muted loop playsinline src="promo1.mp4"></video>
+=====================================================================
+-->
 <section class="ad-banner-section">
   <div class="section-heading" style="text-align:left;margin:2px 4px 9px">
     <span>PROMO • MEDIA</span><h2>Featured Advertisement</h2>
   </div>
-  <div class="media-frame">
-    <!-- PHOTO लगानी हो:
-    <img src="promo.jpg" alt="FHAMAR.ZAMOST Promo">
-    -->
-    <!-- VIDEO लगाना हो:
-    <video controls muted playsinline src="promo.mp4"></video>
-    -->
-    📢 PROMO / ADVERTISEMENT PHOTO OR VIDEO
+
+  <div class="ad-carousel" id="adCarousel">
+
+    <div class="ad-slide active">
+      📢 PROMO / ADVERTISEMENT PHOTO OR VIDEO — SLIDE 1
+    </div>
+
+    <div class="ad-slide">
+      📢 PROMO / ADVERTISEMENT PHOTO OR VIDEO — SLIDE 2
+    </div>
+
+    <div class="ad-slide">
+      📢 PROMO / ADVERTISEMENT PHOTO OR VIDEO — SLIDE 3
+    </div>
+
+    <!-- Naya slide add karna ho to yahan neeche ek aur
+         <div class="ad-slide">...</div> copy karke daal dijiye -->
+
   </div>
-  <div class="media-help">इस जगह पर आप अपनी promotional photo या video लगा सकते हैं।</div>
+
+  <div class="ad-dots" id="adDots">
+    <button class="ad-dot active" data-slide="0" aria-label="Ad 1"></button>
+    <button class="ad-dot" data-slide="1" aria-label="Ad 2"></button>
+    <button class="ad-dot" data-slide="2" aria-label="Ad 3"></button>
+    <!-- Naya dot bhi upar wale slide ke saath yahan add kar dijiye -->
+  </div>
+
+  <div class="media-help">इस जगह पर आप अपनी promotional photo या video लगा सकते हैं — जितने चाहें उतने slide जोड़ सकते हैं, ये अपने आप एक के बाद एक बदलते रहेंगे।</div>
 </section>
 
+<!--
+=====================================================================
+FEATURED PRODUCTS — UNLIMITED PRODUCTS SUPPORTED
+=====================================================================
+Grid apne aap adjust ho jata hai — 4, 6, 10, 20, jitne bhi
+".product-card" block add karenge, woh apne aap agli line mein
+fit ho jayenge. Naya product add karne ke liye bas neeche ek
+".product-card" block copy-paste karke naam/price/link badal dijiye.
+=====================================================================
+-->
 <section class="products-section" id="featured-products">
   <div class="section-heading">
     <span>SHOP • SELECT • DISCOVER</span>
@@ -232,6 +293,22 @@ footer{border-top:1px solid var(--border);background:#050911;margin-top:0}
       <div class="price">₹699</div>
       <a href="product-details.html?id=shoes" class="btn-view">VIEW PRODUCT</a>
     </div>
+    <div class="product-card">
+      <div class="product-image">PRODUCT PHOTO</div>
+      <h3>Luxury Perfume</h3>
+      <p>Long-lasting premium attar with a rich, elegant fragrance.</p>
+      <div class="price">₹1099</div>
+      <a href="product-details.html?id=perfume" class="btn-view">VIEW PRODUCT</a>
+    </div>
+    <div class="product-card">
+      <div class="product-image">PRODUCT PHOTO</div>
+      <h3>Skin Care Kit</h3>
+      <p>Complete daily skin care essentials for a healthy glow.</p>
+      <div class="price">₹799</div>
+      <a href="product-details.html?id=skincare" class="btn-view">VIEW PRODUCT</a>
+    </div>
+    <!-- Aur product add karna ho to yahan neeche ek aur
+         .product-card block copy karke daal dijiye -->
   </div>
 </section>
 
@@ -243,7 +320,7 @@ footer{border-top:1px solid var(--border);background:#050911;margin-top:0}
       <span>✓ State-wise Network</span><span>✓ Admin Verified</span><span>✓ Order Support</span><span>✓ Customer Service</span>
     </div>
   </div>
-  <a href="team.html" class="btn-primary">TEAM REGISTRATION</a>
+  <a href="Profile.html" class="btn-primary">TEAM REGISTRATION</a>
 </section>
 
 
@@ -276,7 +353,7 @@ footer{border-top:1px solid var(--border);background:#050911;margin-top:0}
 <div class="footer-inner">
   <div class="footer-grid">
     <div class="footer-col">
-      <h3 class="footer-brand">FHAMAR.ZAMOST</h3>
+      <h3 class="footer-brand"><span class="brand-blue">FHAMAR</span><span class="brand-silver-dark">.ZAMOST</span></h3>
       <p>A luxury, decentralized e-commerce ecosystem empowering local state partners to coordinate fast deliveries with premium retail standards.</p>
       <span class="footer-badge">✓ Verified Role-Based Portal</span>
     </div>
@@ -289,8 +366,13 @@ footer{border-top:1px solid var(--border);background:#050911;margin-top:0}
     </div>
     <div class="footer-col">
       <h3>ACTIVE STATES</h3>
-      <p>Bihar</p><p>Delhi</p><p>Maharashtra</p><p>Telangana</p><p>West Bengal</p>
+      <p class="state-item" data-state="Bihar">Bihar</p>
+      <p class="state-item" data-state="Delhi">Delhi</p>
+      <p class="state-item" data-state="Maharashtra">Maharashtra</p>
+      <p class="state-item" data-state="Telangana">Telangana</p>
+      <p class="state-item" data-state="West Bengal">West Bengal</p>
       <p style="margin-top:5px;color:#6e7d90">*Future states opening soon</p>
+      <p style="margin-top:5px;color:#4a5a6e;font-size:.65rem">🟢 Glowing dot = state mein active team member hai</p>
     </div>
     <div class="footer-col">
       <h3>SUPPORT &amp; CONTACT</h3>
@@ -303,7 +385,46 @@ footer{border-top:1px solid var(--border);background:#050911;margin-top:0}
 </div>
 </footer>
 
+
 <div class="toast" id="toast"></div>
+
+<script>
+/* ===== AD CAROUSEL AUTO-ROTATE ===== */
+(function(){
+  const slides = document.querySelectorAll("#adCarousel .ad-slide");
+  const dots = document.querySelectorAll("#adDots .ad-dot");
+  let current = 0;
+  let timer = null;
+
+  function showSlide(index){
+    slides.forEach(s => s.classList.remove("active"));
+    dots.forEach(d => d.classList.remove("active"));
+    slides[index].classList.add("active");
+    if(dots[index]) dots[index].classList.add("active");
+    current = index;
+  }
+
+  function nextSlide(){
+    showSlide((current + 1) % slides.length);
+  }
+
+  function startAutoRotate(){
+    if(timer) clearInterval(timer);
+    timer = setInterval(nextSlide, 4000);
+  }
+
+  dots.forEach(dot=>{
+    dot.addEventListener("click", function(){
+      showSlide(Number(this.dataset.slide));
+      startAutoRotate();
+    });
+  });
+
+  if(slides.length > 1){
+    startAutoRotate();
+  }
+})();
+</script>
 
 <script type="module">
 import { app } from "./firebase-config.js";
@@ -311,11 +432,49 @@ import {
   getAuth, onAuthStateChanged, signOut
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 import {
-  getFirestore, doc, getDoc
+  getFirestore, doc, getDoc, collection, getDocs
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 const auth = getAuth(app);
 const db = getFirestore(app);
+
+/*
+=====================================================================
+ACTIVE STATE GLOW — lights up a state if it has an approved team member
+ASSUMPTION: team members are stored in a Firestore collection called
+"team" (or "users") with fields: state (e.g. "Bihar") and either
+approved:true / status:"approved". Agar aapke project mein collection
+ya field ka naam alag hai, to yahan neeche "team" aur field names
+badal dijiye taaki yeh sahi se match kare.
+=====================================================================
+*/
+async function lightUpActiveStates(){
+  try{
+    const snap = await getDocs(collection(db, "team"));
+    const activeStates = new Set();
+
+    snap.forEach(docSnap=>{
+      const data = docSnap.data();
+      const state = data.state || data.userState;
+      const status = String(data.status || data.approvalStatus || "").toLowerCase();
+      const approved = data.approved === true || data.verified === true ||
+                       ["approved","active"].includes(status);
+      if(state && approved){
+        activeStates.add(String(state).trim().toLowerCase());
+      }
+    });
+
+    document.querySelectorAll(".state-item[data-state]").forEach(el=>{
+      const stateName = el.dataset.state.trim().toLowerCase();
+      if(activeStates.has(stateName)){
+        el.classList.add("active-team");
+      }
+    });
+  }catch(err){
+    console.warn("Active state check failed:", err);
+  }
+}
+lightUpActiveStates();
 
 const profileBtn = document.getElementById("profileBtn");
 const profilePanel = document.getElementById("profilePanel");
@@ -420,3 +579,5 @@ onAuthStateChanged(auth, async user=>{
 </script>
 </body>
 </html>
+
+
