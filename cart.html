@@ -6,23 +6,110 @@
 <title>Cart | FHAMAR.ZAMOST</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
-body{background:#050b12;color:#fff}a{text-decoration:none;color:inherit}
-header{height:75px;padding:0 6%;display:flex;align-items:center;justify-content:space-between;background:#07111d;border-bottom:1px solid #30465d;position:sticky;top:0;z-index:1000}
-.brand-area{display:flex;align-items:center;gap:10px}.fz-logo{width:45px;height:45px;display:flex;align-items:center;justify-content:center;border-radius:12px;border:1px solid #8298ad;background:linear-gradient(145deg,#173b5b,#050b12);color:#4da3ff;font-size:17px;font-weight:900}.brand{font-size:18px;font-weight:900;letter-spacing:2px}.blue{color:#4da3ff}.silver{color:#aeb9c5}
-nav{display:flex;gap:22px}nav a{color:#91a2b5;font-size:12px}nav a:hover,nav .active{color:#4da3ff}.profile-btn{padding:9px 13px;border:1px solid #60768c;border-radius:8px;color:#dce5ee;font-size:11px}
-.page{max-width:1150px;margin:auto;padding:55px 6% 90px}.eyebrow{color:#71869c;font-size:10px;letter-spacing:3px;font-weight:bold}.page-title h1{margin-top:12px;font-size:45px}.page-title h1 span{color:#4da3ff}.page-title p{margin-top:10px;color:#8396a9;font-size:13px}
-.cart-layout{margin-top:35px;display:grid;grid-template-columns:1fr 350px;gap:22px}.cart-items{display:flex;flex-direction:column;gap:12px}
-.cart-item{padding:18px;background:#0a1725;border:1px solid #293e53;border-radius:15px;display:grid;grid-template-columns:85px 1fr auto;gap:17px;align-items:center}
-.item-image{width:85px;height:85px;border-radius:12px;background:linear-gradient(145deg,#17324d,#07111d);border:1px solid #3a526a;display:flex;align-items:center;justify-content:center;font-size:38px;overflow:hidden}.item-image img{width:100%;height:100%;object-fit:cover}
-.item-category{color:#7189a0;font-size:9px;letter-spacing:1px}.item-name{margin-top:7px;font-size:15px;font-weight:bold}.item-price{margin-top:8px;color:#dce5ee;font-size:14px;font-weight:bold}
-.item-actions{display:flex;align-items:center;gap:10px}.quantity{display:flex;align-items:center;border:1px solid #3b536a;border-radius:8px;overflow:hidden;background:#07111d}.quantity button{width:32px;height:32px;border:none;background:#0e1d2d;color:#fff;cursor:pointer;font-size:16px}.quantity button:hover{background:#173957}.quantity span{width:32px;text-align:center;font-size:12px;font-weight:bold}.remove{border:none;background:transparent;color:#8193a6;cursor:pointer;font-size:10px}.remove:hover{color:#ff7d7d}
-.empty-cart{padding:70px 25px;text-align:center;border:1px dashed #3b5269;border-radius:16px;background:#08131f;display:none}.empty-cart-icon{font-size:45px}.empty-cart h2{margin-top:18px;font-size:24px}.empty-cart p{margin-top:8px;color:#7f92a6;font-size:12px}.shop-btn{display:inline-flex;margin-top:22px;padding:12px 18px;border-radius:9px;background:#4da3ff;color:#04101c;font-size:11px;font-weight:bold}
-.summary{padding:25px;height:max-content;border:1px solid #344b62;border-radius:17px;background:#091622;position:sticky;top:95px}.summary h2{font-size:22px;margin-bottom:22px}.summary-row{display:flex;justify-content:space-between;gap:12px;padding:13px 0;border-bottom:1px solid #203449;color:#91a3b6;font-size:12px}.summary-row strong{color:#dbe4ed;text-align:right}.total{padding-top:20px;display:flex;justify-content:space-between;align-items:center}.total span{color:#9eafc1;font-size:13px}.total strong{font-size:25px;color:#4da3ff}.checkout-btn{width:100%;margin-top:22px;padding:15px;border-radius:10px;background:#4da3ff;color:#04101c;font-size:11px;font-weight:900;letter-spacing:1px;text-align:center;display:block}.checkout-btn.disabled{opacity:.4;pointer-events:none;cursor:not-allowed}.continue{display:block;margin-top:15px;text-align:center;color:#8498ab;font-size:11px}.continue:hover{color:#4da3ff}
-.info-box{margin-top:25px;padding:18px;border:1px solid #293f55;border-radius:12px;color:#7e91a5;background:#07111d;font-size:10px;line-height:1.7}
-footer{padding:35px 7%;background:#03080e;border-top:1px solid #263b50;color:#7d90a4;font-size:11px}
-.account-status{margin-top:16px;padding:11px;border:1px solid #293f55;border-radius:9px;background:#07111d;color:#8fa2b5;font-size:10px}
-@media(max-width:850px){header nav{display:none}.cart-layout{grid-template-columns:1fr}.summary{position:static}}
-@media(max-width:550px){.page{padding-left:5%;padding-right:5%}.page-title h1{font-size:36px}.cart-item{grid-template-columns:65px 1fr}.item-image{width:65px;height:65px;font-size:28px}.item-actions{grid-column:1/-1;justify-content:space-between}}
+html{min-height:100%;background:#050b12}
+body{min-height:100vh;background:#050b12;color:#fff}
+a{text-decoration:none;color:inherit}
+button,input{font:inherit}
+header{min-height:78px;padding:0 4.5%;display:flex;align-items:center;justify-content:space-between;gap:28px;background:#07111d;border-bottom:1px solid #30465d;position:sticky;top:0;z-index:1000}
+.brand-area{display:flex;align-items:center;gap:10px;flex:0 0 auto}
+.fz-logo{width:46px;height:46px;display:flex;align-items:center;justify-content:center;border-radius:12px;border:1px solid #8298ad;background:linear-gradient(145deg,#173b5b,#050b12);color:#4da3ff;font-size:17px;font-weight:900}
+.brand{font-size:18px;font-weight:900;letter-spacing:2px}.blue{color:#4da3ff}.silver{color:#aeb9c5}
+nav{display:flex;align-items:center;justify-content:center;gap:26px;flex:1}
+nav a{color:#91a2b5;font-size:13px;white-space:nowrap}
+nav a:hover,nav .active{color:#4da3ff}
+.profile-btn{display:none}
+
+.page{width:min(1380px,91%);min-height:calc(100vh - 150px);margin:auto;padding:58px 0 100px}
+.eyebrow{color:#71869c;font-size:11px;letter-spacing:3px;font-weight:bold}
+.page-title h1{margin-top:12px;font-size:clamp(40px,4vw,56px);line-height:1.05}
+.page-title h1 span{color:#4da3ff}
+.page-title p{margin-top:12px;color:#9aacbd;font-size:15px;line-height:1.6}
+.account-status{margin-top:18px;padding:13px 15px;border:1px solid #293f55;border-radius:9px;background:#07111d;color:#a4b5c6;font-size:12px;line-height:1.5}
+
+.cart-layout{margin-top:38px;display:grid;grid-template-columns:minmax(0,1fr) 410px;gap:30px;align-items:start}
+.cart-items{display:flex;flex-direction:column;gap:14px}
+.cart-item{padding:22px;background:#0a1725;border:1px solid #293e53;border-radius:15px;display:grid;grid-template-columns:105px minmax(0,1fr) auto;gap:22px;align-items:center}
+.item-image{width:105px;height:105px;border-radius:12px;background:linear-gradient(145deg,#17324d,#07111d);border:1px solid #3a526a;display:flex;align-items:center;justify-content:center;font-size:44px;overflow:hidden}
+.item-image img{width:100%;height:100%;object-fit:cover}
+.item-category{color:#7189a0;font-size:10px;letter-spacing:1px}
+.item-name{margin-top:8px;font-size:18px;font-weight:bold;line-height:1.35}
+.item-price{margin-top:9px;color:#dce5ee;font-size:16px;font-weight:bold}
+.item-actions{display:flex;align-items:center;gap:14px}
+.quantity{display:flex;align-items:center;border:1px solid #3b536a;border-radius:8px;overflow:hidden;background:#07111d}
+.quantity button{width:36px;height:36px;border:none;background:#0e1d2d;color:#fff;cursor:pointer;font-size:18px}
+.quantity button:hover{background:#173957}
+.quantity span{width:38px;text-align:center;font-size:13px;font-weight:bold}
+.remove{border:none;background:transparent;color:#8193a6;cursor:pointer;font-size:11px}
+.remove:hover{color:#ff7d7d}
+
+.empty-cart{padding:85px 30px;text-align:center;border:1px dashed #3b5269;border-radius:16px;background:#08131f;display:none}
+.empty-cart-icon{font-size:50px}.empty-cart h2{margin-top:20px;font-size:26px}
+.empty-cart p{margin-top:9px;color:#8b9daf;font-size:13px}
+.shop-btn{display:inline-flex;margin-top:24px;padding:13px 20px;border-radius:9px;background:#4da3ff;color:#04101c;font-size:12px;font-weight:bold}
+
+.summary{padding:30px;height:max-content;border:1px solid #344b62;border-radius:17px;background:#091622;position:sticky;top:102px}
+.summary h2{font-size:25px;margin-bottom:24px}
+.summary-row{display:flex;justify-content:space-between;gap:15px;padding:15px 0;border-bottom:1px solid #203449;color:#9badbe;font-size:13px}
+.summary-row strong{color:#dbe4ed;text-align:right}
+.total{padding-top:22px;display:flex;justify-content:space-between;align-items:center}
+.total span{color:#a6b5c4;font-size:14px}.total strong{font-size:30px;color:#4da3ff}
+.checkout-btn{width:100%;margin-top:24px;padding:17px;border-radius:10px;background:#4da3ff;color:#04101c;font-size:12px;font-weight:900;letter-spacing:1px;text-align:center;display:block}
+.checkout-btn.disabled{opacity:.4;pointer-events:none;cursor:not-allowed}
+.continue{display:block;margin-top:16px;text-align:center;color:#8498ab;font-size:12px}.continue:hover{color:#4da3ff}
+
+.info-box{margin-top:28px;padding:22px;border:1px solid #293f55;border-radius:12px;color:#9aabba;background:#07111d;font-size:12px;line-height:1.85}
+.info-box b{color:#dce5ee}
+footer{min-height:90px;padding:28px 4.5%;background:#03080e;border-top:1px solid #263b50;color:#7d90a4;font-size:12px}
+footer .brand{font-size:17px}
+
+@media(max-width:1000px){
+  header{padding:0 4%}
+  nav{gap:17px}
+  nav a{font-size:12px}
+  .cart-layout{grid-template-columns:minmax(0,1fr) 330px;gap:20px}
+  .cart-item{grid-template-columns:85px minmax(0,1fr) auto;gap:17px;padding:18px}
+  .item-image{width:85px;height:85px;font-size:36px}
+  .item-name{font-size:16px}
+  .item-price{font-size:14px}
+}
+
+@media(max-width:800px){
+  header{min-height:68px}
+  nav{gap:14px}
+  nav a{font-size:11px}
+  .page{width:92%;padding:44px 0 75px}
+  .page-title p{font-size:13px}
+  .cart-layout{grid-template-columns:1fr;gap:18px}
+  .summary{position:static}
+}
+
+@media(max-width:600px){
+  header{padding:0 4%;gap:10px}
+  .fz-logo{width:40px;height:40px}
+  .brand{font-size:14px;letter-spacing:1px}
+  nav{gap:10px}
+  nav a{font-size:10px}
+  nav a:nth-child(4){display:none}
+  .page{width:91%;padding-top:38px}
+  .page-title h1{font-size:35px}
+  .page-title p{font-size:12px}
+  .account-status{font-size:10px}
+  .cart-item{grid-template-columns:68px minmax(0,1fr);gap:13px;padding:14px}
+  .item-image{width:68px;height:68px;font-size:28px}
+  .item-name{font-size:14px}
+  .item-price{font-size:13px}
+  .item-actions{grid-column:1/-1;justify-content:space-between;padding-top:3px}
+  .quantity button{width:36px;height:36px}.quantity span{width:36px}
+  .summary{padding:20px}.summary h2{font-size:20px}
+  .summary-row{font-size:11px;padding:12px 0}
+  .total strong{font-size:24px}.checkout-btn{padding:14px;font-size:10px}
+  .info-box{font-size:10px;line-height:1.8}
+}
+
+@media(max-width:370px){
+  .brand{font-size:12px}.page-title h1{font-size:31px}
+  nav{gap:7px}nav a{font-size:9px}
+}
 </style>
 </head>
 <body>
@@ -35,7 +122,6 @@ footer{padding:35px 7%;background:#03080e;border-top:1px solid #263b50;color:#7d
   <a href="cart.html" class="active">Cart</a>
   <a href="Profile.html">My Portal</a>
 </nav>
-<a href="Profile.html" class="profile-btn">MY PROFILE</a>
 </header>
 
 <main class="page">
@@ -49,7 +135,6 @@ footer{padding:35px 7%;background:#03080e;border-top:1px solid #263b50;color:#7d
 <div class="cart-layout">
 <div>
 <div id="cartItems" class="cart-items"></div>
-
 <div id="emptyCart" class="empty-cart">
 <div class="empty-cart-icon">🛒</div>
 <h2>Your Cart is Empty</h2>
@@ -71,8 +156,9 @@ footer{padding:35px 7%;background:#03080e;border-top:1px solid #263b50;color:#7d
 
 <div class="info-box">
 <b>CART SYSTEM:</b> Product quantity, subtotal and total are calculated automatically.<br><br>
-<b>STORAGE:</b> LocalStorage is kept as an offline/browser fallback. When a customer is logged in, the same cart is synced to Firebase Firestore under that customer's UID.<br><br>
-<b>PRICE LIMIT:</b> Every cart item is limited to ₹1,500. The total is calculated from quantity × item price.
+<b>STORAGE:</b> LocalStorage is an offline/browser fallback. When a customer is logged in, the cart is synced to Firestore under that customer's UID.<br><br>
+<b>PRICE LIMIT:</b> Every cart item is limited to ₹1,500. Quantity × item price is calculated automatically.<br><br>
+<b>SECURITY:</b> Browser data can be changed by the user. Final price, stock and payment amount must be re-checked on the secure server before a Razorpay order is created.
 </div>
 </main>
 
@@ -83,249 +169,87 @@ footer{padding:35px 7%;background:#03080e;border-top:1px solid #263b50;color:#7d
 
 <script type="module">
 import { app } from "./firebase-config.js";
-import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+import { getFirestore, doc, getDoc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
 const db=getFirestore(app);
 const auth=getAuth(app);
 const CART_KEY="fz_cart";
-
-let cart=[];
-let currentUser=null;
-let loadingCloud=false;
-let saveTimer=null;
+let cart=[], currentUser=null, loadingCloud=false, saveTimer=null;
 
 function normalise(items){
-  if(!Array.isArray(items)) return [];
-
-  return items.map((item,index)=>({
-    id:String(item.id||item.productId||("item-"+index)),
-    name:String(item.name||"Product"),
-    price:Math.min(Math.max(Number(item.price)||0,0),1500),
-    icon:String(item.icon||"📦"),
-    image:item.image?String(item.image):null,
-    quantity:Math.min(Math.max(parseInt(item.quantity)||1,1),10)
-  }));
+ if(!Array.isArray(items)) return [];
+ return items.map((item,index)=>({
+   id:String(item.id||item.productId||("item-"+index)),
+   name:String(item.name||"Product"),
+   price:Math.min(Math.max(Number(item.price)||0,0),1500),
+   icon:String(item.icon||"📦"),
+   image:item.image?String(item.image):null,
+   quantity:Math.min(Math.max(parseInt(item.quantity)||1,1),10)
+ }));
 }
-
-function money(value){
-  return "₹"+Number(value||0).toLocaleString("en-IN");
-}
-
-function escapeHtml(value){
-  const div=document.createElement("div");
-  div.textContent=String(value??"");
-  return div.innerHTML;
-}
-
-function getLocalCart(){
-  try{
-    return normalise(JSON.parse(localStorage.getItem(CART_KEY)||"[]"));
-  }catch(e){
-    return [];
-  }
-}
-
-function saveLocal(){
-  localStorage.setItem(CART_KEY,JSON.stringify(cart));
-}
-
+function money(v){return "₹"+Number(v||0).toLocaleString("en-IN")}
+function escapeHtml(v){const d=document.createElement("div");d.textContent=String(v??"");return d.innerHTML}
+function getLocalCart(){try{return normalise(JSON.parse(localStorage.getItem(CART_KEY)||"[]"))}catch(e){return []}}
+function saveLocal(){localStorage.setItem(CART_KEY,JSON.stringify(cart))}
 async function saveCloud(){
-  if(!currentUser || loadingCloud) return;
-
-  try{
-    await setDoc(
-      doc(db,"carts",currentUser.uid),
-      {
-        items:cart,
-        updatedAt:new Date()
-      },
-      {merge:true}
-    );
-  }catch(e){
-    console.warn("Firebase cart sync failed:",e);
-  }
+ if(!currentUser||loadingCloud)return;
+ try{await setDoc(doc(db,"carts",currentUser.uid),{items:cart,updatedAt:serverTimestamp()},{merge:true})}
+ catch(e){console.warn("Firebase cart sync failed:",e)}
 }
-
 function saveCart(){
-  cart=normalise(cart);
-  saveLocal();
-
-  clearTimeout(saveTimer);
-  saveTimer=setTimeout(saveCloud,150);
+ cart=normalise(cart);saveLocal();clearTimeout(saveTimer);saveTimer=setTimeout(saveCloud,250)
 }
-
-function renderCart(){
-  const list=document.getElementById("cartItems");
-  const empty=document.getElementById("emptyCart");
-  const checkout=document.getElementById("checkoutButton");
-
-  if(!cart.length){
-    list.innerHTML="";
-    empty.style.display="block";
-    checkout.classList.add("disabled");
-    checkout.removeAttribute("href");
-    updateSummary();
-    return;
-  }
-
-  empty.style.display="none";
-  checkout.classList.remove("disabled");
-  checkout.href="checkout.html";
-
-  list.innerHTML=cart.map((item,index)=>{
-    const media=item.image
-      ? `<img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.name)}">`
-      : escapeHtml(item.icon);
-
-    return `
-    <div class="cart-item">
-      <div class="item-image">${media}</div>
-
-      <div>
-        <div class="item-category">FHAMAR.ZAMOST PRODUCT</div>
-        <div class="item-name">${escapeHtml(item.name)}</div>
-        <div class="item-price">${money(item.price)}</div>
-      </div>
-
-      <div class="item-actions">
-        <div class="quantity">
-          <button type="button" data-action="decrease" data-index="${index}">−</button>
-          <span>${item.quantity}</span>
-          <button type="button" data-action="increase" data-index="${index}">+</button>
-        </div>
-
-        <button type="button" class="remove" data-action="remove" data-index="${index}">
-          REMOVE
-        </button>
-      </div>
-    </div>`;
-  }).join("");
-
-  updateSummary();
-}
-
 function updateSummary(){
-  let count=0;
-  let total=0;
-
-  cart.forEach(item=>{
-    count+=item.quantity;
-    total+=item.price*item.quantity;
-  });
-
-  document.getElementById("itemCount").textContent=count;
-  document.getElementById("subtotal").textContent=money(total);
-  document.getElementById("grandTotal").textContent=money(total);
+ let count=0,total=0;cart.forEach(i=>{count+=i.quantity;total+=i.price*i.quantity});
+ document.getElementById("itemCount").textContent=count;
+ document.getElementById("subtotal").textContent=money(total);
+ document.getElementById("grandTotal").textContent=money(total);
 }
-
+function renderCart(){
+ const list=document.getElementById("cartItems"),empty=document.getElementById("emptyCart"),checkout=document.getElementById("checkoutButton");
+ if(!cart.length){list.innerHTML="";empty.style.display="block";checkout.classList.add("disabled");checkout.removeAttribute("href");updateSummary();return}
+ empty.style.display="none";checkout.classList.remove("disabled");checkout.href="checkout.html";
+ list.innerHTML=cart.map((item,index)=>{
+  const media=item.image?`<img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.name)}">`:escapeHtml(item.icon);
+  return `<div class="cart-item">
+    <div class="item-image">${media}</div>
+    <div><div class="item-category">FHAMAR.ZAMOST PRODUCT</div><div class="item-name">${escapeHtml(item.name)}</div><div class="item-price">${money(item.price)}</div></div>
+    <div class="item-actions">
+      <div class="quantity"><button type="button" data-action="decrease" data-index="${index}">−</button><span>${item.quantity}</span><button type="button" data-action="increase" data-index="${index}">+</button></div>
+      <button type="button" class="remove" data-action="remove" data-index="${index}">REMOVE</button>
+    </div>
+  </div>`
+ }).join("");updateSummary();
+}
 function changeQuantity(index,change){
-  if(!cart[index]) return;
-
-  const next=cart[index].quantity+change;
-
-  if(next<1) return;
-
-  cart[index].quantity=Math.min(next,10);
-
-  saveCart();
-  renderCart();
+ if(!cart[index])return;const next=cart[index].quantity+change;if(next<1)return;
+ cart[index].quantity=Math.min(next,10);saveCart();renderCart()
 }
-
-function removeItem(index){
-  if(!cart[index]) return;
-
-  cart.splice(index,1);
-
-  saveCart();
-  renderCart();
-}
-
+function removeItem(index){if(!cart[index])return;cart.splice(index,1);saveCart();renderCart()}
+document.addEventListener("click",e=>{
+ const b=e.target.closest("[data-action]");if(!b)return;
+ const i=parseInt(b.dataset.index,10),a=b.dataset.action;
+ if(a==="increase")changeQuantity(i,1);if(a==="decrease")changeQuantity(i,-1);if(a==="remove")removeItem(i)
+});
 async function loadCloudCart(){
-  if(!currentUser) return;
-
-  loadingCloud=true;
-
-  try{
-    const snap=await getDoc(doc(db,"carts",currentUser.uid));
-
-    if(snap.exists() && Array.isArray(snap.data().items)){
-      const cloudCart=normalise(snap.data().items);
-      const localCart=getLocalCart();
-
-      /*
-       * If Firebase already has a cart, it is the account's main cart.
-       * If Firebase has no items, keep the local cart and upload it.
-       */
-      if(cloudCart.length){
-        cart=cloudCart;
-        saveLocal();
-      }else if(localCart.length){
-        cart=localCart;
-        await setDoc(
-          doc(db,"carts",currentUser.uid),
-          {items:cart,updatedAt:new Date()},
-          {merge:true}
-        );
-      }else{
-        cart=[];
-        saveLocal();
-      }
-    }else{
-      cart=getLocalCart();
-
-      if(cart.length){
-        await setDoc(
-          doc(db,"carts",currentUser.uid),
-          {items:cart,updatedAt:new Date()},
-          {merge:true}
-        );
-      }
-    }
-  }catch(e){
-    console.warn("Firebase cart read failed:",e);
-    cart=getLocalCart();
-  }finally{
-    loadingCloud=false;
-  }
-
-  renderCart();
+ if(!currentUser)return;loadingCloud=true;
+ try{
+  const snap=await getDoc(doc(db,"carts",currentUser.uid));const local=getLocalCart();
+  if(snap.exists()&&Array.isArray(snap.data().items)){
+   const cloud=normalise(snap.data().items);
+   if(cloud.length){cart=cloud;saveLocal()}
+   else {cart=local;if(cart.length)await saveCloud()}
+  }else{cart=local;if(cart.length)await saveCloud()}
+ }catch(e){console.warn("Firebase cart read failed:",e);cart=getLocalCart()}
+ finally{loadingCloud=false}renderCart();
 }
-
-document.addEventListener("click",event=>{
-  const button=event.target.closest("[data-action]");
-  if(!button) return;
-
-  const action=button.dataset.action;
-  const index=parseInt(button.dataset.index,10);
-
-  if(action==="increase") changeQuantity(index,1);
-  if(action==="decrease") changeQuantity(index,-1);
-  if(action==="remove") removeItem(index);
-});
-
 onAuthStateChanged(auth,async user=>{
-  currentUser=user;
-
-  const status=document.getElementById("accountStatus");
-
-  if(user){
-    status.textContent="✓ Logged in • Cart sync enabled";
-    await loadCloudCart();
-  }else{
-    status.textContent="Guest cart • Saved on this device";
-    cart=getLocalCart();
-    renderCart();
-  }
+ currentUser=user;const s=document.getElementById("accountStatus");
+ if(user){s.textContent="✓ Logged in • Cart sync enabled";await loadCloudCart()}
+ else{s.textContent="Guest cart • Saved on this device";cart=getLocalCart();renderCart()}
 });
-
-window.addEventListener("storage",event=>{
-  if(event.key===CART_KEY && !currentUser){
-    cart=getLocalCart();
-    renderCart();
-  }
-});
+window.addEventListener("storage",e=>{if(e.key===CART_KEY&&!currentUser){cart=getLocalCart();renderCart()}});
 </script>
-
 </body>
 </html>
