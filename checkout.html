@@ -24,6 +24,49 @@ input,select,textarea{width:100%;border:1px solid #30465c;background:#050c14;col
 footer{padding:35px 7%;background:#03080e;border-top:1px solid #263b50;color:#7d90a4;font-size:11px}
 @media(max-width:850px){header nav{display:none}.checkout-grid{grid-template-columns:1fr}.summary{position:static}}
 @media(max-width:550px){.page{padding-left:5%;padding-right:5%}.page-title h1{font-size:36px}.form-grid{grid-template-columns:1fr}.form-group.full{grid-column:auto}}
+
+/* Desktop/tablet: keep the same mobile design, but make the checkout comfortably large on computers */
+@media (min-width:851px){
+  header{height:84px;padding:0 4%;}
+  .fz-logo{width:52px;height:52px;font-size:19px}
+  .brand{font-size:21px}
+  nav{gap:30px}
+  nav a{font-size:14px}
+  .page{width:100%;max-width:1500px;padding:64px 4% 100px;min-height:calc(100vh - 150px)}
+  .back{font-size:14px}
+  .page-title{margin-top:32px}
+  .eyebrow{font-size:11px}
+  .page-title h1{font-size:56px;line-height:1.08}
+  .page-title p{font-size:16px;line-height:1.65}
+  .checkout-grid{grid-template-columns:minmax(0,1fr) 450px;gap:32px;margin-top:42px}
+  .card{padding:34px;border-radius:19px}
+  .card h2{font-size:26px;margin-bottom:24px}
+  .form-grid{gap:18px}
+  label{font-size:12px;margin-bottom:8px}
+  input,select,textarea{padding:15px;font-size:14px;border-radius:10px}
+  input,select{height:52px}
+  textarea{min-height:110px}
+  .payment-section{margin-top:30px}
+  .payment-option{padding:18px;gap:14px}
+  .payment-name{font-size:15px}
+  .payment-description{font-size:11px}
+  .upi-box{padding:20px;font-size:11px}
+  .summary{top:104px}
+  .summary h2{font-size:26px}
+  .order-item{font-size:13px;padding:13px 0}
+  .summary-row{font-size:13px;padding:15px 0}
+  .total strong{font-size:30px}
+  .place-order{padding:17px;font-size:13px}
+  .status,.api-note{font-size:11px}
+  footer{font-size:12px}
+}
+
+@media (min-width:1200px){
+  .page-title h1{font-size:60px}
+  .checkout-grid{grid-template-columns:minmax(0,1fr) 480px}
+  .card{padding:38px}
+}
+
 </style>
 </head>
 <body>
@@ -31,9 +74,9 @@ footer{padding:35px 7%;background:#03080e;border-top:1px solid #263b50;color:#7d
 <header>
 <div class="brand-area"><div class="fz-logo">FZ</div><div class="brand"><span class="blue">FHAMAR</span><span class="silver">.ZAMOST</span></div></div>
 <nav>
-<a href="home.html">Home</a><a href="catalog.html">Catalog</a><a href="profile.html">My Portal</a><a href="admin.html">Administrative Desk</a>
+<a href="home.html">Home</a><a href="catalog.html">Catalog</a><a href="cart.html">Cart</a><a href="Profile.html">My Portal</a>
 </nav>
-<a href="cart.html" class="profile-btn">🛒 CART <span id="headerCartCount">0</span></a>
+
 </header>
 
 <main class="page">
@@ -76,7 +119,7 @@ footer{padding:35px 7%;background:#03080e;border-top:1px solid #263b50;color:#7d
 <div id="status" class="status"></div>
 </form>
 
-<div class="api-note"><b>ORDER SYSTEM</b><br><br>Order details are saved locally for this demo. For production, connect Firebase/your backend and create the order server-side. Payment verification must also happen on the server.</div>
+<div class="api-note"><b>ORDER SYSTEM</b><br><br>Order details are saved locally for this demo. For production, connect Firebase/your backend and create the order server-side. Payment verification must also happen on the server. The Razorpay Key Secret must never be placed in this HTML.</div>
 </section>
 
 <section class="card summary">
@@ -102,7 +145,7 @@ const MAX_PRICE = 1500;
 
 /* Razorpay: only PUBLIC Key ID goes in frontend.
    NEVER put Key Secret in HTML/JavaScript. */
-const RAZORPAY_KEY_ID = "";
+const RAZORPAY_KEY_ID = ""; // Optional: if your backend exposes a public key, put rzp_test_... here.
 
 let cart = loadCart();
 let currentUserUid = null;
@@ -252,27 +295,69 @@ function loadRazorpay(){
 /* NOTE: Production Razorpay requires a secure backend:
    backend creates Razorpay Order with Key Secret and verifies signature.
    The secret must NOT be exposed in this page. */
+async function createRazorpayOrder(order){
+  const response=await fetch("/api/razorpay/create-order",{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({
+      amount:Math.round(order.total*100),
+      receipt:order.orderNumber
+    })
+  });
+  const data=await response.json().catch(()=>({}));
+  if(!response.ok || !data.id) throw new Error(data.error||"Could not create Razorpay order.");
+  return data;
+}
+
+async function verifyRazorpayPayment(response){
+  const r=await fetch("/api/razorpay/verify-payment",{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({
+      razorpay_order_id:response?.razorpay_order_id||"",
+      razorpay_payment_id:response?.razorpay_payment_id||"",
+      razorpay_signature:response?.razorpay_signature||""
+    })
+  });
+  const data=await r.json().catch(()=>({}));
+  if(!r.ok || !data.verified) throw new Error(data.error||"Payment verification failed.");
+  return data;
+}
+
 async function startRazorpay(order,customer){
-  if(!RAZORPAY_KEY_ID){
-    alert("Razorpay online payment is not configured yet. Add the PUBLIC Key ID and connect the secure backend. COD is ready.");
-    return false;
-  }
   try{
     await loadRazorpay();
+    const serverOrder=await createRazorpayOrder(order);
+    const publicKey=RAZORPAY_KEY_ID;
+    if(!publicKey){
+      throw new Error("Razorpay public Key ID is not configured in checkout.html.");
+    }
+
     const options={
-      key:RAZORPAY_KEY_ID,
-      amount:Math.round(order.total*100),
-      currency:"INR",
+      key:publicKey,
+      order_id:serverOrder.id,
+      amount:serverOrder.amount,
+      currency:serverOrder.currency||"INR",
       name:"FHAMAR.ZAMOST",
       description:"Order "+order.orderNumber,
       prefill:{name:customer.name,email:customer.email,contact:customer.mobile},
       theme:{color:"#4da3ff"},
       handler:async response=>{
-        order.paymentStatus="Payment Received";
-        order.paymentId=response?.razorpay_payment_id||"";
-        order.razorpayOrderId=response?.razorpay_order_id||"";
-        await saveOrder(order);
-        finishOrder(order);
+        try{
+          const verified=await verifyRazorpayPayment(response);
+          order.paymentStatus="Payment Captured";
+          order.paymentId=verified.razorpay_payment_id;
+          order.razorpayOrderId=verified.razorpay_order_id;
+          order.paymentVerifiedAt=new Date().toISOString();
+          await saveOrder(order);
+          finishOrder(order);
+        }catch(err){
+          console.error(err);
+          const st=document.getElementById("status");
+          st.style.display="block";
+          st.textContent="Payment response received, but server verification failed. The order was NOT marked as paid.";
+          const b=document.getElementById("placeOrderButton");b.disabled=false;b.textContent="TRY PAYMENT AGAIN";
+        }
       },
       modal:{ondismiss:()=>{
         const b=document.getElementById("placeOrderButton");
@@ -280,13 +365,22 @@ async function startRazorpay(order,customer){
       }}
     };
     const rz=new window.Razorpay(options);
-    rz.on("payment.failed",()=>{
+    rz.on("payment.failed",response=>{
       const st=document.getElementById("status");
-      st.style.display="block";st.textContent="Payment was not completed. Please try again.";
+      st.style.display="block";
+      st.textContent="Payment was not completed. Please try again.";
+      console.warn("Razorpay payment failed:",response?.error);
       const b=document.getElementById("placeOrderButton");b.disabled=false;b.textContent="PLACE ORDER";
     });
-    rz.open(); return true;
-  }catch(e){console.error(e);alert("Online payment could not be opened.");return false;}
+    rz.open();
+    return true;
+  }catch(e){
+    console.error("Razorpay:",e);
+    const st=document.getElementById("status");
+    st.style.display="block";
+    st.textContent=e.message||"Online payment could not be opened.";
+    return false;
+  }
 }
 
 document.getElementById("checkoutForm").addEventListener("submit",async event=>{
