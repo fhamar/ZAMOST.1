@@ -10,7 +10,7 @@ html,body{height:100%}
 body{background:#050b12;color:#fff;display:flex;flex-direction:column;min-height:100vh}
 a{text-decoration:none;color:inherit}
 header{height:75px;padding:0 6%;display:flex;align-items:center;justify-content:space-between;background:#07111d;border-bottom:1px solid #30465d;position:sticky;top:0;z-index:1000;flex-shrink:0}
-.brand-area{display:flex;align-items:center;gap:10px}.fz-logo{width:45px;height:45px;display:flex;align-items:center;justify-content:center;border-radius:12px;border:1px solid #8298ad;background:linear-gradient(145deg,#173b5b,#050b12);color:#4da3ff;font-size:17px;font-weight:900}.brand{font-size:18px;font-weight:900;letter-spacing:2px}.blue{color:#4da3ff}.silver{color:#aeb9c5}
+.brand-area{display:flex;align-items:center;gap:10px}.fz-logo{width:45px;height:45px;display:flex;align-items:center;justify-content:center;border-radius:12px;border:1px solid #8298ad;background:linear-gradient(145deg,#173b5b,#050b12);color:#fff;font-size:17px;font-weight:900}.brand{font-size:18px;font-weight:900;letter-spacing:2px}.blue{color:#4da3ff}.silver{color:#aeb9c5}
 nav{display:flex;gap:22px}nav a{color:#91a2b5;font-size:12px}nav a:hover,nav .active{color:#4da3ff}.profile-btn{padding:9px 13px;border:1px solid #60768c;border-radius:8px;color:#dce5ee;font-size:11px}
 .page{max-width:1250px;margin:auto;padding:55px 6% 80px;flex:1 0 auto;width:100%}.eyebrow{color:#6f879e;font-size:10px;letter-spacing:3px;font-weight:bold}.page-title{margin-bottom:30px}.page-title h1{margin-top:12px;font-size:46px}.page-title h1 span{color:#4da3ff}.page-title p{margin-top:12px;color:#8295a9;line-height:1.7;font-size:13px}
 .back-btn{display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border:1px solid #30465c;border-radius:9px;background:#08131f;color:#cbd6e0;font-size:11px;font-weight:700;cursor:pointer;margin-bottom:22px}
@@ -56,8 +56,13 @@ footer{padding:35px 7%;background:#03080e;border-top:1px solid #263b50;color:#7d
 
 <footer><div class="brand"><span class="blue">FHAMAR</span><span class="silver">.ZAMOST</span></div><p>Premium Digital Catalog • Products • Categories • Shopping</p></footer>
 
-<script>
-const products=[
+<script type="module">
+import { app } from "./firebase-config.js";
+import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+const db = getFirestore(app);
+
+const demoProducts=[
 ["backpack","fashion","🎒","Classic Backpack","Stylish everyday backpack.",799],
 ["watch","electronics","⌚","Smart Watch","Modern smart watch design.",1299],
 ["sunglasses","accessories","🕶️","Premium Sunglasses","Clean and stylish sunglasses.",699],
@@ -85,17 +90,64 @@ const products=[
 ["phonecase","accessories","📱","Premium Phone Case","Stylish protective phone case.",499]
 ];
 
+/*
+=====================================================================
+Category names used in Product-upload.html (Shoes, Electronics, etc.)
+are mapped here to this page's 4 filter categories (fashion,
+electronics, accessories, personal) so uploaded products slot into
+the existing filters correctly.
+=====================================================================
+*/
+const CATEGORY_MAP={
+  "shoes":"fashion","slippers":"fashion","t-shirt":"fashion","hair":"personal",
+  "sunglasses":"accessories","accessories":"accessories","electronics":"electronics",
+  "earphone":"electronics","charger":"electronics","perfume":"personal"
+};
+
+let products = demoProducts.slice();
+
+function escapeHtml(value){
+  return String(value ?? "").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
+}
+
+function mergeFirestoreProducts(liveProducts){
+  const uploaded = liveProducts
+    .filter(p => p.status === "Active")
+    .map(p => [
+      p.id,
+      CATEGORY_MAP[String(p.category||"").toLowerCase()] || "accessories",
+      "",
+      p.name || "Product",
+      p.description || "",
+      Number(p.price) || 0,
+      p.image || ""
+    ]);
+  products = [...uploaded, ...demoProducts];
+  renderProducts();
+}
+
+try{
+  onSnapshot(collection(db,"products"), (snapshot)=>{
+    const liveProducts = snapshot.docs.map(d=>({id:d.id, ...d.data()}));
+    mergeFirestoreProducts(liveProducts);
+  }, (error)=>{
+    console.warn("Catalog Firestore listener:", error);
+  });
+}catch(error){
+  console.error(error);
+}
+
 function renderProducts(){
  const search=document.getElementById("searchBox").value.toLowerCase().trim();
  const category=document.getElementById("categorySelect").value;
  const filtered=products.filter(p=>(p[3]+" "+p[4]).toLowerCase().includes(search)&&(category==="all"||p[1]===category));
  document.getElementById("productGrid").innerHTML=filtered.map(p=>`
  <article class="product">
- <div class="product-image">${p[2]}</div>
+ <div class="product-image">${p[6]?`<img src="${escapeHtml(p[6])}" alt="${escapeHtml(p[3])}" style="width:100%;height:100%;object-fit:cover">`:p[2]}</div>
  <div class="product-info">
  <span class="product-category">${p[1].toUpperCase()}</span>
- <h3>${p[3]}</h3><p class="product-description">${p[4]}</p>
- <div class="product-bottom"><div class="price">₹${p[5].toLocaleString("en-IN")}</div>
+ <h3>${escapeHtml(p[3])}</h3><p class="product-description">${escapeHtml(p[4])}</p>
+ <div class="product-bottom"><div class="price">₹${Number(p[5]).toLocaleString("en-IN")}</div>
  <a href="product-details.html?id=${encodeURIComponent(p[0])}" class="view-btn">VIEW</a></div>
  </div></article>`).join("");
  document.getElementById("noResults").style.display=filtered.length?"none":"block";
