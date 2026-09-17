@@ -160,7 +160,6 @@ footer{border-top:1px solid var(--border);background:#050911;margin-top:0}
   </div>
   <div class="header-actions">
     <a href="team.html" class="btn-team role-only" id="teamMembersBtn">TEAM MEMBERS</a>
-    <a href="admin.html" class="btn-team role-only" id="adminBtn">ADMIN</a>
     <button class="profile-btn" id="profileBtn" type="button">
       <img class="profile-avatar" id="headerAvatar" alt="">
       <span id="headerName">Profile</span>
@@ -203,15 +202,10 @@ footer{border-top:1px solid var(--border);background:#050911;margin-top:0}
 <!--
 =====================================================================
 AD CAROUSEL — MULTIPLE ADS, AUTO ROTATE ONE AFTER ANOTHER
-=====================================================================
-Naya ad add karna ho to bas ek naya <div class="ad-slide"> block
-copy-paste kar dijiye (neeche jitne chahein utne slide add kar sakte
-hain), aur is HTML jaisa ek naya button neeche "ad-dots" mein add
-kar dijiye. JS khud-ba-khud sabko rotate karega — kuch aur badalna
-nahi padega.
 
-Photo lagani ho: <img src="promo1.jpg" alt="Ad 1">
-Video lagana ho: <video autoplay muted loop playsinline src="promo1.mp4"></video>
+Ads are now managed from team.html ("Manage Ads" section) by any
+team member — this section reads them live from Firestore, so
+nothing needs to be edited in this file to add/remove an ad.
 =====================================================================
 -->
 <section class="ad-banner-section">
@@ -220,32 +214,12 @@ Video lagana ho: <video autoplay muted loop playsinline src="promo1.mp4"></video
   </div>
 
   <div class="ad-carousel" id="adCarousel">
-
-    <div class="ad-slide active">
-      📢 PROMO / ADVERTISEMENT PHOTO OR VIDEO — SLIDE 1
-    </div>
-
-    <div class="ad-slide">
-      📢 PROMO / ADVERTISEMENT PHOTO OR VIDEO — SLIDE 2
-    </div>
-
-    <div class="ad-slide">
-      📢 PROMO / ADVERTISEMENT PHOTO OR VIDEO — SLIDE 3
-    </div>
-
-    <!-- Naya slide add karna ho to yahan neeche ek aur
-         <div class="ad-slide">...</div> copy karke daal dijiye -->
-
+    <div class="ad-slide active">📢 No ads added yet.</div>
   </div>
 
-  <div class="ad-dots" id="adDots">
-    <button class="ad-dot active" data-slide="0" aria-label="Ad 1"></button>
-    <button class="ad-dot" data-slide="1" aria-label="Ad 2"></button>
-    <button class="ad-dot" data-slide="2" aria-label="Ad 3"></button>
-    <!-- Naya dot bhi upar wale slide ke saath yahan add kar dijiye -->
-  </div>
+  <div class="ad-dots" id="adDots"></div>
 
-  <div class="media-help">इस जगह पर आप अपनी promotional photo या video लगा सकते हैं — जितने चाहें उतने slide जोड़ सकते हैं, ये अपने आप एक के बाद एक बदलते रहेंगे।</div>
+  <div class="media-help">इस जगह पर promotional content Team Dashboard ("Manage Ads") से जोड़ी जाती है।</div>
 </section>
 
 <!--
@@ -263,51 +237,10 @@ fit ho jayenge. Naya product add karne ke liye bas neeche ek
     <span>SHOP • SELECT • DISCOVER</span>
     <h2>Featured Products</h2>
   </div>
-  <div class="product-grid">
-    <div class="product-card">
-      <div class="product-image">PRODUCT PHOTO</div>
-      <h3>Premium Fragrance</h3>
-      <p>Elegant everyday fragrance selected for a premium experience.</p>
-      <div class="price">₹899</div>
-      <a href="product-details.html?id=backpack" class="btn-view">VIEW PRODUCT</a>
-    </div>
-    <div class="product-card">
-      <div class="product-image">PRODUCT PHOTO</div>
-      <h3>Essential Oils</h3>
-      <p>Selected aromatic essentials for everyday use.</p>
-      <div class="price">₹499</div>
-      <a href="product-details.html?id=watch" class="btn-view">VIEW PRODUCT</a>
-    </div>
-    <div class="product-card">
-      <div class="product-image">PRODUCT PHOTO</div>
-      <h3>Special Edition</h3>
-      <p>Exclusive collection with a distinctive premium identity.</p>
-      <div class="price">₹1299</div>
-      <a href="product-details.html?id=sunglasses" class="btn-view">VIEW PRODUCT</a>
-    </div>
-    <div class="product-card">
-      <div class="product-image">PRODUCT PHOTO</div>
-      <h3>Daily Essentials</h3>
-      <p>Useful products selected for regular customer needs.</p>
-      <div class="price">₹699</div>
-      <a href="product-details.html?id=shoes" class="btn-view">VIEW PRODUCT</a>
-    </div>
-    <div class="product-card">
-      <div class="product-image">PRODUCT PHOTO</div>
-      <h3>Luxury Perfume</h3>
-      <p>Long-lasting premium attar with a rich, elegant fragrance.</p>
-      <div class="price">₹1099</div>
-      <a href="product-details.html?id=perfume" class="btn-view">VIEW PRODUCT</a>
-    </div>
-    <div class="product-card">
-      <div class="product-image">PRODUCT PHOTO</div>
-      <h3>Skin Care Kit</h3>
-      <p>Complete daily skin care essentials for a healthy glow.</p>
-      <div class="price">₹799</div>
-      <a href="product-details.html?id=skincare" class="btn-view">VIEW PRODUCT</a>
-    </div>
-    <!-- Aur product add karna ho to yahan neeche ek aur
-         .product-card block copy karke daal dijiye -->
+  <div class="product-grid" id="featuredProductGrid">
+    <!-- Filled automatically: newest uploaded products first (from Team
+         Dashboard → Product Upload), falling back to sample products
+         below if fewer than 6 are live yet. -->
   </div>
 </section>
 
@@ -401,13 +334,66 @@ fit ho jayenge. Naya product add karne ke liye bas neeche ek
 
 <div class="toast" id="toast"></div>
 
-<script>
-/* ===== AD CAROUSEL AUTO-ROTATE ===== */
-(function(){
+<script type="module">
+import { app } from "./firebase-config.js";
+import {
+  getAuth, onAuthStateChanged, signOut
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+import {
+  getFirestore, doc, getDoc, collection, getDocs, onSnapshot, query, orderBy
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+/*
+=====================================================================
+AD CAROUSEL — loads live from Firestore "ads" collection (managed
+from team.html's "Manage Ads" section). Rebuilds and restarts the
+carousel automatically whenever an ad is added or deleted.
+=====================================================================
+*/
+function escapeHTML(value){
+  return String(value ?? "").replace(/[&<>"']/g, m => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+  }[m]));
+}
+
+let adRotateTimer = null;
+
+function renderAdSlides(ads){
+  const carousel = document.getElementById("adCarousel");
+  const dotsWrap = document.getElementById("adDots");
+
+  if(!ads.length){
+    carousel.innerHTML = '<div class="ad-slide active">📢 No ads added yet.</div>';
+    dotsWrap.innerHTML = "";
+    return;
+  }
+
+  carousel.innerHTML = ads.map((ad, i) => {
+    let inner = "";
+    if(ad.type === "image"){
+      inner = `<img src="${escapeHTML(ad.content)}" alt="Ad">`;
+    }else if(ad.type === "video"){
+      inner = `<video autoplay muted loop playsinline src="${escapeHTML(ad.content)}"></video>`;
+    }else{
+      inner = `📢 ${escapeHTML(ad.content)}`;
+    }
+    return `<div class="ad-slide${i === 0 ? " active" : ""}">${inner}</div>`;
+  }).join("");
+
+  dotsWrap.innerHTML = ads.map((ad, i) =>
+    `<button class="ad-dot${i === 0 ? " active" : ""}" data-slide="${i}" aria-label="Ad ${i + 1}"></button>`
+  ).join("");
+
+  startAdCarousel();
+}
+
+function startAdCarousel(){
   const slides = document.querySelectorAll("#adCarousel .ad-slide");
   const dots = document.querySelectorAll("#adDots .ad-dot");
   let current = 0;
-  let timer = null;
 
   function showSlide(index){
     slides.forEach(s => s.classList.remove("active"));
@@ -421,35 +407,82 @@ fit ho jayenge. Naya product add karne ke liye bas neeche ek
     showSlide((current + 1) % slides.length);
   }
 
-  function startAutoRotate(){
-    if(timer) clearInterval(timer);
-    timer = setInterval(nextSlide, 4000);
-  }
+  if(adRotateTimer) clearInterval(adRotateTimer);
 
-  dots.forEach(dot=>{
+  dots.forEach(dot => {
     dot.addEventListener("click", function(){
       showSlide(Number(this.dataset.slide));
-      startAutoRotate();
+      if(adRotateTimer) clearInterval(adRotateTimer);
+      adRotateTimer = setInterval(nextSlide, 4000);
     });
   });
 
   if(slides.length > 1){
-    startAutoRotate();
+    adRotateTimer = setInterval(nextSlide, 4000);
   }
-})();
-</script>
+}
 
-<script type="module">
-import { app } from "./firebase-config.js";
-import {
-  getAuth, onAuthStateChanged, signOut
-} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
-import {
-  getFirestore, doc, getDoc, collection, getDocs
-} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+try{
+  const adsQuery = query(collection(db, "ads"), orderBy("createdAt", "asc"));
+  onSnapshot(adsQuery, (snapshot) => {
+    const ads = snapshot.docs.map(d => d.data());
+    renderAdSlides(ads);
+  }, (error) => {
+    console.warn("Ads load failed:", error);
+  });
+}catch(error){
+  console.error(error);
+}
 
-const auth = getAuth(app);
-const db = getFirestore(app);
+/*
+=====================================================================
+FEATURED PRODUCTS — newest uploaded products (from Team Dashboard →
+Product Upload) show first; remaining slots (up to 6 total) are
+filled with fallback sample products so the section never looks empty.
+=====================================================================
+*/
+const fallbackFeatured = [
+  {id:"perfume", name:"Premium Fragrance", description:"Elegant everyday fragrance selected for a premium experience.", price:899},
+  {id:"watch", name:"Essential Oils", description:"Selected aromatic essentials for everyday use.", price:499},
+  {id:"sunglasses", name:"Special Edition", description:"Exclusive collection with a distinctive premium identity.", price:1299},
+  {id:"shoes", name:"Daily Essentials", description:"Useful products selected for regular customer needs.", price:699},
+  {id:"perfume", name:"Luxury Perfume", description:"Long-lasting premium attar with a rich, elegant fragrance.", price:1099},
+  {id:"facewash", name:"Skin Care Kit", description:"Complete daily skin care essentials for a healthy glow.", price:799}
+];
+
+function renderFeaturedProducts(liveProducts){
+  const grid = document.getElementById("featuredProductGrid");
+
+  const uploaded = liveProducts
+    .filter(p => p.status === "Active")
+    .slice(0, 6)
+    .map(p => ({ id: p.id, name: p.name, description: p.description, price: p.price, image: p.image }));
+
+  const combined = [...uploaded, ...fallbackFeatured].slice(0, 6);
+
+  grid.innerHTML = combined.map(p => `
+    <div class="product-card">
+      <div class="product-image">${p.image ? `<img src="${escapeHTML(p.image)}" alt="${escapeHTML(p.name)}" style="width:100%;height:100%;object-fit:cover">` : "PRODUCT PHOTO"}</div>
+      <h3>${escapeHTML(p.name)}</h3>
+      <p>${escapeHTML(p.description || "")}</p>
+      <div class="price">₹${Number(p.price || 0).toLocaleString("en-IN")}</div>
+      <a href="product-details.html?id=${encodeURIComponent(p.id)}" class="btn-view">VIEW PRODUCT</a>
+    </div>
+  `).join("");
+}
+
+try{
+  onSnapshot(collection(db, "products"), (snapshot) => {
+    const liveProducts = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+    renderFeaturedProducts(liveProducts);
+  }, (error) => {
+    console.warn("Featured products load failed:", error);
+    renderFeaturedProducts([]);
+  });
+}catch(error){
+  console.error(error);
+  renderFeaturedProducts([]);
+}
 
 /*
 =====================================================================
