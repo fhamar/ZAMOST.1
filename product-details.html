@@ -10,12 +10,13 @@ body{background:#050b12;color:#fff}
 a{text-decoration:none;color:inherit}
 button{font-family:inherit}
 header{height:75px;padding:0 6%;display:flex;align-items:center;justify-content:space-between;background:#07111d;border-bottom:1px solid #30465d;position:sticky;top:0;z-index:1000}
-.brand-area{display:flex;align-items:center;gap:10px}.fz-logo{width:45px;height:45px;display:flex;align-items:center;justify-content:center;border-radius:12px;border:1px solid #8298ad;background:linear-gradient(145deg,#173b5b,#050b12);color:#4da3ff;font-size:17px;font-weight:900}.brand{font-size:18px;font-weight:900;letter-spacing:2px}.blue{color:#4da3ff}.silver{color:#aeb9c5}
+.brand-area{display:flex;align-items:center;gap:10px}.fz-logo{width:45px;height:45px;display:flex;align-items:center;justify-content:center;border-radius:12px;border:1px solid #8298ad;background:linear-gradient(145deg,#173b5b,#050b12);color:#fff;font-size:17px;font-weight:900}.brand{font-size:18px;font-weight:900;letter-spacing:2px}.blue{color:#4da3ff}.silver{color:#aeb9c5}
 nav{display:flex;gap:22px}nav a{color:#91a2b5;font-size:12px}nav a:hover,nav a.active{color:#4da3ff}
 .cart-btn{padding:9px 13px;border:1px solid #60768c;border-radius:8px;color:#dce5ee;font-size:11px;background:transparent}
 .page{max-width:1200px;margin:auto;padding:55px 6% 80px}.back{color:#91a3b5;font-size:12px}.back:hover{color:#4da3ff}
 .product-area{margin-top:30px;display:grid;grid-template-columns:1fr 1fr;gap:45px;align-items:center}
 .product-image{min-height:480px;border-radius:25px;border:1px solid #344d64;background:radial-gradient(circle,#1b3d5e,#07111d 68%);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45)}
+.product-image img{width:100%;height:100%;object-fit:cover;border-radius:25px}
 .product-icon{width:250px;height:250px;border-radius:40px;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#294d6e,#0a1420);border:1px solid #8196aa;font-size:100px;box-shadow:0 0 70px rgba(77,163,255,.12)}
 .product-category{display:inline-block;padding:6px 10px;border:1px solid #3c536a;border-radius:20px;color:#7f96ab;font-size:9px;letter-spacing:1px}
 .product-info h1{margin-top:15px;font-size:42px;line-height:1.1}.description{margin-top:18px;color:#8fa1b4;line-height:1.8;font-size:14px}
@@ -40,8 +41,7 @@ footer{padding:35px 7%;background:#03080e;border-top:1px solid #263b50;color:#7d
 <nav>
 <a href="home.html">Home</a>
 <a href="catalog.html" class="active">Catalog</a>
-<a href="profile.html">My Portal</a>
-<a href="admin.html">Administrative Desk</a>
+<a href="Profile.html">My Portal</a>
 </nav>
 <a href="cart.html" class="cart-btn">🛒 CART <span id="headerCartCount">0</span></a>
 </header>
@@ -85,7 +85,7 @@ footer{padding:35px 7%;background:#03080e;border-top:1px solid #263b50;color:#7d
 <div class="api-note">
 <b>PRODUCT DATABASE CONNECTION</b><br><br>
 Connected directly via <b>firebase-config.js</b>.<br><br>
-If Firestore contains a matching <b>products/{productId}</b> document, its name, category, price, icon, description and stock will sync automatically.
+If Firestore contains a matching <b>products/{productId}</b> document (added from Team Dashboard → Product Upload), its name, category, price, image, description and stock will be shown here automatically.
 </div>
 </main>
 
@@ -94,159 +94,182 @@ If Firestore contains a matching <b>products/{productId}</b> document, its name,
 <p>Premium Digital Collection</p>
 </footer>
 
-<!-- Centralized Firebase Integration -->
 <script type="module">
-import { db } from "./firebase-config.js";
-import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import { app } from "./firebase-config.js";
+import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
-const products={
-backpack:{name:"Classic Backpack",category:"FASHION",price:799,icon:"🎒",description:"Stylish and practical everyday backpack designed for comfortable daily use."},
-watch:{name:"Smart Watch",category:"ELECTRONICS",price:1299,icon:"⌚",description:"Modern smart watch design for everyday use."},
-sunglasses:{name:"Premium Sunglasses",category:"ACCESSORIES",price:699,icon:"🕶️",description:"Clean and stylish sunglasses for everyday wear."},
-shoes:{name:"Running Shoes",category:"FASHION",price:1499,icon:"👟",description:"Comfortable everyday shoes with a modern design."},
-earphones:{name:"Wireless Earphones",category:"ELECTRONICS",price:999,icon:"🎧",description:"Compact wireless audio experience for everyday listening."},
-charger:{name:"Fast Charger",category:"ELECTRONICS",price:499,icon:"🔌",description:"Compact charging accessory for everyday use."},
-perfume:{name:"Signature Perfume",category:"PERSONAL CARE",price:899,icon:"🧴",description:"Premium fragrance collection with a clean modern presentation."},
-tshirt:{name:"Classic T-Shirt",category:"FASHION",price:599,icon:"👕",description:"Simple everyday T-shirt with a clean stylish look."},
-slippers:{name:"Comfort Slippers",category:"FASHION",price:399,icon:"🩴",description:"Comfortable everyday slippers for casual use."},
-cap:{name:"Classic Cap",category:"FASHION",price:299,icon:"🧢",description:"Simple everyday cap with a clean design."},
-hoodie:{name:"Premium Hoodie",category:"FASHION",price:1299,icon:"🧥",description:"Comfortable casual hoodie for everyday wear."},
-wallet:{name:"Classic Wallet",category:"ACCESSORIES",price:499,icon:"👛",description:"Compact everyday wallet with a practical design."},
-belt:{name:"Classic Belt",category:"ACCESSORIES",price:449,icon:"👔",description:"Simple everyday belt with a smart finish."},
-watchstrap:{name:"Watch Strap",category:"ACCESSORIES",price:349,icon:"⌚",description:"Replacement strap for compatible watches."},
-powerbank:{name:"Power Bank",category:"ELECTRONICS",price:1199,icon:"🔋",description:"Portable charging accessory for everyday use."},
-bluetoothspeaker:{name:"Bluetooth Speaker",category:"ELECTRONICS",price:999,icon:"🔊",description:"Compact wireless speaker for everyday listening."},
-usbdrive:{name:"USB Flash Drive",category:"ELECTRONICS",price:549,icon:"💾",description:"Portable storage accessory for everyday files."},
-mouse:{name:"Wireless Mouse",category:"ELECTRONICS",price:699,icon:"🖱️",description:"Compact wireless mouse for everyday computer use."},
-keyboard:{name:"Wireless Keyboard",category:"ELECTRONICS",price:999,icon:"⌨️",description:"Compact keyboard for everyday typing."},
-phoneholder:{name:"Mobile Phone Holder",category:"ACCESSORIES",price:349,icon:"📱",description:"Simple stand for keeping a phone securely positioned."},
-haircomb:{name:"Premium Hair Comb",category:"PERSONAL CARE",price:199,icon:"🪮",description:"Simple personal-care comb for everyday use."},
-groomingkit:{name:"Grooming Kit",category:"PERSONAL CARE",price:899,icon:"🧴",description:"Compact personal grooming essentials in one set."},
-waterbottle:{name:"Steel Water Bottle",category:"ACCESSORIES",price:699,icon:"🥤",description:"Reusable bottle for everyday use."},
-backpackmini:{name:"Mini Backpack",category:"FASHION",price:699,icon:"🎒",description:"Compact backpack for light everyday carrying."},
-notebook:{name:"Premium Notebook",category:"ACCESSORIES",price:299,icon:"📓",description:"Clean notebook for everyday notes and planning."}
+const db = getFirestore(app);
+
+/*
+=====================================================================
+DEMO PRODUCTS — this list must stay IDENTICAL to the one in
+catalog.html (same ids, same data). This was previously a separate,
+mismatched list here, which caused product pages to show the wrong
+item. Keep both files in sync if you edit this list.
+=====================================================================
+*/
+const demoProducts={
+backpack:{name:"Classic Backpack",category:"FASHION",icon:"🎒",description:"Stylish everyday backpack.",price:799},
+watch:{name:"Smart Watch",category:"ELECTRONICS",icon:"⌚",description:"Modern smart watch design.",price:1299},
+sunglasses:{name:"Premium Sunglasses",category:"ACCESSORIES",icon:"🕶️",description:"Clean and stylish sunglasses.",price:699},
+shoes:{name:"Running Shoes",category:"FASHION",icon:"👟",description:"Comfortable everyday shoes.",price:1499},
+earphones:{name:"Wireless Earphones",category:"ELECTRONICS",icon:"🎧",description:"Compact wireless audio.",price:999},
+charger:{name:"Fast Charger",category:"ELECTRONICS",icon:"🔌",description:"Compact charging accessory.",price:499},
+perfume:{name:"Signature Perfume",category:"PERSONAL",icon:"🧴",description:"Premium fragrance collection.",price:899},
+tshirt:{name:"Classic T-Shirt",category:"FASHION",icon:"👕",description:"Simple everyday casual wear.",price:599},
+cap:{name:"Premium Cap",category:"FASHION",icon:"🧢",description:"Comfortable everyday cap.",price:399},
+slippers:{name:"Comfort Slippers",category:"FASHION",icon:"🩴",description:"Lightweight daily slippers.",price:449},
+hoodie:{name:"Classic Hoodie",category:"FASHION",icon:"🧥",description:"Warm casual hoodie design.",price:1199},
+wallet:{name:"Classic Wallet",category:"ACCESSORIES",icon:"👛",description:"Compact everyday wallet.",price:599},
+belt:{name:"Classic Belt",category:"ACCESSORIES",icon:"🧷",description:"Simple durable belt.",price:499},
+watchstrap:{name:"Watch Strap",category:"ACCESSORIES",icon:"⌚",description:"Replacement smart watch strap.",price:299},
+powerbank:{name:"Power Bank",category:"ELECTRONICS",icon:"🔋",description:"Portable charging power bank.",price:1299},
+speaker:{name:"Mini Bluetooth Speaker",category:"ELECTRONICS",icon:"🔊",description:"Compact wireless speaker.",price:1099},
+keyboard:{name:"Wireless Keyboard",category:"ELECTRONICS",icon:"⌨️",description:"Clean compact keyboard.",price:999},
+mouse:{name:"Wireless Mouse",category:"ELECTRONICS",icon:"🖱️",description:"Comfortable wireless mouse.",price:599},
+usb:{name:"USB Drive",category:"ELECTRONICS",icon:"💾",description:"Compact storage accessory.",price:499},
+haircare:{name:"Hair Care Kit",category:"PERSONAL",icon:"💇",description:"Everyday personal care kit.",price:799},
+comb:{name:"Premium Comb",category:"PERSONAL",icon:"🪮",description:"Simple personal care accessory.",price:249},
+facewash:{name:"Daily Face Wash",category:"PERSONAL",icon:"🧼",description:"Gentle everyday cleansing product.",price:399},
+grooming:{name:"Grooming Kit",category:"PERSONAL",icon:"🧴",description:"Useful everyday grooming kit.",price:999},
+sunglasscase:{name:"Sunglasses Case",category:"ACCESSORIES",icon:"🕶️",description:"Protective compact case.",price:299},
+phonecase:{name:"Premium Phone Case",category:"ACCESSORIES",icon:"📱",description:"Stylish protective phone case.",price:499}
 };
 
 const params=new URLSearchParams(location.search);
 const productId=params.get("id")||"backpack";
-let product=products[productId]||products.backpack;
+let product=demoProducts[productId] || null;
+let usingImage=false;
 let stock=99;
 let quantity=1;
 
 const $=id=>document.getElementById(id);
 
-function safeProduct(data){
-const p={
-name:String(data.name||product.name),
-category:String(data.category||product.category).toUpperCase(),
-price:Number(data.price),
-icon:String(data.icon||product.icon),
-description:String(data.description||product.description)
-};
-if(!Number.isFinite(p.price)||p.price<0||p.price>1500) return null;
-return p;
+function safeFirestoreProduct(data){
+  const price=Number(data.price);
+  if(!Number.isFinite(price)||price<0||price>1500) return null;
+  return {
+    name:String(data.name||"Product"),
+    category:String(data.category||"General").toUpperCase(),
+    icon:"🛍️",
+    image:String(data.image||""),
+    description:String(data.description||""),
+    price
+  };
 }
 
-async function loadFirestoreProduct(){
-if (!db) {
-    renderProduct();
-    return;
-}
-try{
-const snap=await getDoc(doc(db,"products",productId));
-if(snap.exists()){
-const data=snap.data();
-const loaded=safeProduct(data);
-if(loaded){
-product=loaded;
-stock=Number(data.stock);
-if(!Number.isFinite(stock)||stock<0) stock=99;
-}
-}
-}catch(error){
-console.warn("Product Firestore read skipped:",error);
-}
-renderProduct();
+async function loadProduct(){
+  try{
+    const snap=await getDoc(doc(db,"products",productId));
+    if(snap.exists()){
+      const data=snap.data();
+      const loaded=safeFirestoreProduct(data);
+      if(loaded){
+        product=loaded;
+        usingImage=!!loaded.image;
+        stock=Number(data.stock);
+        if(!Number.isFinite(stock)||stock<0) stock=99;
+      }
+    }
+  }catch(error){
+    console.warn("Product Firestore read skipped:",error);
+  }
+
+  if(!product){
+    // Neither a known demo id nor a Firestore product with this id.
+    product=demoProducts.backpack;
+    $("message").innerHTML="This product could not be found. Showing a sample product instead.";
+    $("message").style.display="block";
+  }
+
+  renderProduct();
 }
 
 function renderProduct(){
-$("productName").textContent=product.name;
-$("productCategory").textContent=product.category;
-$("productPrice").textContent="₹"+product.price.toLocaleString("en-IN");
-$("productIcon").textContent=product.icon;
-$("productDescription").textContent=product.description;
-$("quantity").textContent=quantity;
+  $("productName").textContent=product.name;
+  $("productCategory").textContent=product.category;
+  $("productPrice").textContent="₹"+product.price.toLocaleString("en-IN");
+  $("productDescription").textContent=product.description;
+  $("quantity").textContent=quantity;
 
-const disabled=stock<=0;
-$("addCartButton").disabled=disabled;
-$("buyNowButton").disabled=disabled;
-if(disabled) showMessage("This product is currently out of stock.");
+  const imageBox=document.querySelector(".product-image");
+  if(usingImage && product.image){
+    imageBox.innerHTML=`<img src="${product.image}" alt="${product.name}">`;
+  }else{
+    imageBox.innerHTML=`<div class="product-icon" id="productIcon">${product.icon||"🛍️"}</div>`;
+  }
+
+  const disabled=stock<=0;
+  $("addCartButton").disabled=disabled;
+  $("buyNowButton").disabled=disabled;
+  if(disabled) showMessage("This product is currently out of stock.");
 }
 
 function changeQuantity(value){
-quantity+=value;
-const max=Math.min(10,Math.max(1,Number.isFinite(stock)?stock:10));
-if(quantity<1) quantity=1;
-if(quantity>max) quantity=max;
-$("quantity").textContent=quantity;
+  quantity+=value;
+  const max=Math.min(10,Math.max(1,Number.isFinite(stock)?stock:10));
+  if(quantity<1) quantity=1;
+  if(quantity>max) quantity=max;
+  $("quantity").textContent=quantity;
 }
 
 function getCart(){
-try{
-const cart=JSON.parse(localStorage.getItem("fz_cart")||"[]");
-return Array.isArray(cart)?cart:[];
-}catch{return []}
+  try{
+    const cart=JSON.parse(localStorage.getItem("fz_cart")||"[]");
+    return Array.isArray(cart)?cart:[];
+  }catch{return []}
 }
 
 function saveCart(cart){
-localStorage.setItem("fz_cart",JSON.stringify(cart));
-updateHeaderCart();
+  localStorage.setItem("fz_cart",JSON.stringify(cart));
+  updateHeaderCart();
 }
 
 function addProductToCart(){
-if(product.price>1500){
-showMessage("This product cannot be added because its price is above ₹1,500.");
-return;
-}
-if(stock<=0){
-showMessage("This product is currently out of stock.");
-return;
-}
+  if(product.price>1500){
+    showMessage("This product cannot be added because its price is above ₹1,500.");
+    return;
+  }
+  if(stock<=0){
+    showMessage("This product is currently out of stock.");
+    return;
+  }
 
-const cart=getCart();
-const existing=cart.find(item=>item.id===productId);
+  const cart=getCart();
+  const existing=cart.find(item=>item.id===productId);
 
-if(existing){
-existing.quantity=Math.min(10,(Number(existing.quantity)||1)+quantity);
-}else{
-cart.push({
-id:productId,
-name:product.name,
-price:product.price,
-icon:product.icon,
-quantity:quantity
-});
-}
-saveCart(cart);
-showMessage("✓ "+product.name+" added to your cart. Go to <a href='cart.html' style='color:#4da3ff;text-decoration:underline;'>Cart →</a>");
+  if(existing){
+    existing.quantity=Math.min(10,(Number(existing.quantity)||1)+quantity);
+  }else{
+    cart.push({
+      id:productId,
+      name:product.name,
+      price:product.price,
+      icon:product.icon||"🛍️",
+      image:usingImage?product.image:"",
+      quantity:quantity
+    });
+  }
+  saveCart(cart);
+  showMessage("✓ "+product.name+" added to your cart. Go to <a href='cart.html' style='color:#4da3ff;text-decoration:underline;'>Cart →</a>");
 }
 
 function buyNow(){
-addProductToCart();
-setTimeout(()=>{
-location.href="checkout.html";
-},250);
+  addProductToCart();
+  setTimeout(()=>{
+    location.href="checkout.html";
+  },250);
 }
 
 function showMessage(text){
-const box=$("message");
-box.innerHTML=text;
-box.style.display="block";
+  const box=$("message");
+  box.innerHTML=text;
+  box.style.display="block";
 }
 
 function updateHeaderCart(){
-const count=getCart().reduce((sum,item)=>sum+(Number(item.quantity)||1),0);
-$("headerCartCount").textContent=count;
+  const count=getCart().reduce((sum,item)=>sum+(Number(item.quantity)||1),0);
+  $("headerCartCount").textContent=count;
 }
 
 $("minusButton").addEventListener("click",()=>changeQuantity(-1));
@@ -254,9 +277,8 @@ $("plusButton").addEventListener("click",()=>changeQuantity(1));
 $("addCartButton").addEventListener("click",addProductToCart);
 $("buyNowButton").addEventListener("click",buyNow);
 
-renderProduct();
 updateHeaderCart();
-loadFirestoreProduct();
+loadProduct();
 </script>
 </body>
 </html>
