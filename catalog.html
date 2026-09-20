@@ -14,8 +14,12 @@ header{height:75px;padding:0 6%;display:flex;align-items:center;justify-content:
 .fz-logo{width:45px;height:45px;display:flex;align-items:center;justify-content:center;border-radius:12px;border:1px solid #8298ad;background:linear-gradient(145deg,#173b5b,#050b12);color:#fff;font-size:17px;font-weight:900}
 .brand{font-size:18px;font-weight:900;letter-spacing:2px}
 .blue{color:#4da3ff}.silver{color:#aeb9c5}
-nav{display:flex;gap:22px}nav a{color:#91a2b5;font-size:12px}nav a:hover,nav .active{color:#4da3ff}
-.profile-btn{padding:9px 13px;border:1px solid #60768c;border-radius:8px;color:#dce5ee;font-size:11px}
+.header-right{display:flex;align-items:center;gap:10px}
+.profile-btn{
+  padding:8px 14px;border:1px solid #60768c;border-radius:8px;
+  color:#dce5ee;font-size:11px;font-weight:600;
+}
+.profile-btn:hover{border-color:#4da3ff;color:#4da3ff}
 .page{max-width:1250px;margin:auto;padding:55px 6% 80px;flex:1 0 auto;width:100%}
 .eyebrow{color:#6f879e;font-size:10px;letter-spacing:3px;font-weight:bold}
 .page-title{margin-bottom:30px}
@@ -25,7 +29,7 @@ nav{display:flex;gap:22px}nav a{color:#91a2b5;font-size:12px}nav a:hover,nav .ac
 .back-btn{display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border:1px solid #30465c;border-radius:9px;background:#08131f;color:#cbd6e0;font-size:11px;font-weight:700;cursor:pointer;margin-bottom:22px}
 .back-btn:hover{border-color:#4da3ff;color:#4da3ff}
 
-/* ===== SEARCH BOX (bada + icon) ===== */
+/* Search box */
 .search-area{position:relative;margin-bottom:18px}
 .search-box{
   width:100%;height:54px;padding:0 16px 0 48px;
@@ -69,7 +73,7 @@ nav{display:flex;gap:22px}nav a{color:#91a2b5;font-size:12px}nav a:hover,nav .ac
 .info-box p{margin-top:10px;color:#8194a8;font-size:13px;line-height:1.7}
 footer{padding:35px 7%;background:#03080e;border-top:1px solid #263b50;color:#7d90a4;font-size:11px;flex-shrink:0}
 @media(max-width:950px){.product-grid{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:750px){header nav{display:none}.product-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:750px){.product-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:480px){.product-grid{grid-template-columns:1fr}.page-title h1{font-size:38px}.btn-row{width:100%;justify-content:stretch}.add-btn,.buy-btn{flex:1;text-align:center}}
 </style>
 </head>
@@ -79,12 +83,10 @@ footer{padding:35px 7%;background:#03080e;border-top:1px solid #263b50;color:#7d
     <div class="fz-logo">FZ</div>
     <div class="brand"><span class="blue">FHAMAR</span><span class="silver">.ZAMOST</span></div>
   </div>
-  <nav>
-    <a href="home.html">Home</a>
-    <a href="catalog.html" class="active">Catalog</a>
-    <a href="Profile.html">My Portal</a>
-  </nav>
-  <a href="Profile.html" class="profile-btn">MY PROFILE</a>
+  <div class="header-right">
+    <a href="home.html" class="profile-btn">HOME</a>
+    <a href="Profile.html" class="profile-btn">MY PROFILE</a>
+  </div>
 </header>
 
 <main class="page">
@@ -96,7 +98,6 @@ footer{padding:35px 7%;background:#03080e;border-top:1px solid #263b50;color:#7d
     <p>Explore our selected collection of stylish and useful products uploaded by the team.</p>
   </div>
 
-  <!-- Search box with icon -->
   <div class="search-area">
     <span class="search-icon">🔍</span>
     <input id="searchBox" class="search-box" type="text" placeholder="Search products...">
