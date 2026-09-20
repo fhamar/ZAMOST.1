@@ -28,11 +28,11 @@ header{
 .brand-name .brand-silver{color:#c2cad5}
 .brand-name small{display:block;color:#748196;font-size:9px;letter-spacing:2px;margin-top:-2px}
 .header-actions{display:flex;align-items:center;gap:9px}
-.btn-team,.profile-btn{
- background:linear-gradient(135deg,#2563eb,#3b82f6);color:#fff;padding:9px 14px;border-radius:10px;
- border:1px solid rgba(255,255,255,.1);font-size:.8rem;font-weight:700;cursor:pointer
+.profile-btn{
+ background:#101b2a;color:#fff;padding:9px 14px;border-radius:10px;
+ border:1px solid rgba(255,255,255,.1);font-size:.8rem;font-weight:700;cursor:pointer;
+ display:flex;align-items:center;gap:8px
 }
-.role-only{display:none!important}.role-only.show-role{display:flex!important}.profile-btn{display:flex;align-items:center;gap:8px;background:#101b2a}
 .profile-avatar{width:28px;height:28px;border-radius:50%;object-fit:cover;background:#1d2b3d;border:1px solid #516176}
 .top-quick-nav{
  display:flex;justify-content:center;align-items:center;gap:10px;padding:11px 1rem;
@@ -60,7 +60,7 @@ header{
 .section-heading span{color:var(--blue2);font-size:.73rem;letter-spacing:1.7px;text-transform:uppercase;font-weight:800}
 .section-heading h2{font-size:1.55rem;margin-top:3px}
 
-/* ===== AD CAROUSEL (MULTIPLE ADS, AUTO ROTATE) ===== */
+/* ===== AD CAROUSEL ===== */
 .ad-banner-section{
  background:linear-gradient(145deg,#101b2a,#0b131f);border:1px solid #294261;border-radius:16px;
  padding:12px;text-align:center;margin-bottom:2.5rem;box-shadow:0 12px 30px rgba(0,0,0,.14)
@@ -142,14 +142,15 @@ footer{border-top:1px solid var(--border);background:#050911;margin-top:0}
 .toast.show{display:block}
 @media(max-width:900px){.product-grid{grid-template-columns:repeat(2,1fr)}.trust-strip{grid-template-columns:repeat(4,1fr)}.footer-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:600px){
- header{padding:10px 12px}.brand-name{font-size:.95rem}.brand-name small{font-size:7px}.btn-team{display:none}
+ header{padding:10px 12px}.brand-name{font-size:.95rem}.brand-name small{font-size:7px}
  .container{padding:15px 10px}.hero{padding:2.6rem .9rem}.hero h1{font-size:2rem}
  .product-grid{grid-template-columns:repeat(2,1fr);gap:9px}.product-card{padding:9px}.product-image{height:125px}
  .team-box{display:block;padding:17px}.team-box .btn-primary{display:inline-block;margin-top:14px}
  .trust-strip{grid-template-columns:repeat(2,1fr)}.footer-grid{grid-template-columns:1fr}
  .footer-bottom{text-align:left;font-size:.62rem}
 }
-.blue{color:#4da3ff}.silver{color:#aeb9c5}</style>
+.blue{color:#4da3ff}.silver{color:#aeb9c5}
+</style>
 </head>
 <body>
 
@@ -159,7 +160,7 @@ footer{border-top:1px solid var(--border);background:#050911;margin-top:0}
     <div class="brand-name"><span class="brand-blue">FHAMAR</span><span class="brand-silver">.ZAMOST</span><small>PREMIUM SMART PORTAL</small></div>
   </div>
   <div class="header-actions">
-    <a href="team.html" class="btn-team role-only" id="teamMembersBtn">TEAM MEMBERS</a>
+    <!-- TEAM MEMBERS button removed -->
     <button class="profile-btn" id="profileBtn" type="button">
       <img class="profile-avatar" id="headerAvatar" alt="">
       <span id="headerName">Profile</span>
@@ -175,7 +176,7 @@ footer{border-top:1px solid var(--border);background:#050911;margin-top:0}
   <a href="notifications.html" class="nav-item-btn">Notifications</a>
   <a href="help.html" class="nav-item-btn">Help</a>
   <a href="Profile.html" class="nav-item-btn">Profile</a>
-  <a href="voting.html" class="nav-item-btn">Voting</a>
+  <!-- Voting button removed from nav -->
 </nav>
 
 <div class="profile-panel" id="profilePanel">
@@ -199,48 +200,26 @@ footer{border-top:1px solid var(--border);background:#050911;margin-top:0}
   </div>
 </section>
 
-<!--
-=====================================================================
-AD CAROUSEL — MULTIPLE ADS, AUTO ROTATE ONE AFTER ANOTHER
-
-Ads are now managed from team.html ("Manage Ads" section) by any
-team member — this section reads them live from Firestore, so
-nothing needs to be edited in this file to add/remove an ad.
-=====================================================================
--->
+<!-- AD CAROUSEL -->
 <section class="ad-banner-section">
   <div class="section-heading" style="text-align:left;margin:2px 4px 9px">
     <span>PROMO • MEDIA</span><h2>Featured Advertisement</h2>
   </div>
-
   <div class="ad-carousel" id="adCarousel">
     <div class="ad-slide active">📢 No ads added yet.</div>
   </div>
-
   <div class="ad-dots" id="adDots"></div>
-
   <div class="media-help">इस जगह पर promotional content Team Dashboard ("Manage Ads") से जोड़ी जाती है।</div>
 </section>
 
-<!--
-=====================================================================
-FEATURED PRODUCTS — UNLIMITED PRODUCTS SUPPORTED
-=====================================================================
-Grid apne aap adjust ho jata hai — 4, 6, 10, 20, jitne bhi
-".product-card" block add karenge, woh apne aap agli line mein
-fit ho jayenge. Naya product add karne ke liye bas neeche ek
-".product-card" block copy-paste karke naam/price/link badal dijiye.
-=====================================================================
--->
+<!-- FEATURED PRODUCTS (only real uploaded products) -->
 <section class="products-section" id="featured-products">
   <div class="section-heading">
     <span>SHOP • SELECT • DISCOVER</span>
     <h2>Featured Products</h2>
   </div>
   <div class="product-grid" id="featuredProductGrid">
-    <!-- Filled automatically: newest uploaded products first (from Team
-         Dashboard → Product Upload), falling back to sample products
-         below if fewer than 6 are live yet. -->
+    <!-- Only real products from Firestore will appear here -->
   </div>
 </section>
 
@@ -255,17 +234,7 @@ fit ho jayenge. Naya product add karne ke liye bas neeche ek
   <a href="Profile.html" class="btn-primary">TEAM REGISTRATION</a>
 </section>
 
-
-<section class="team-box" id="voting">
-  <div class="team-copy">
-    <h2>Community Voting</h2>
-    <p>Login करके available proposal पर अपना vote दें. Voting system one-user-one-vote structure के साथ Firebase में सुरक्षित तरीके से record किया जाएगा.</p>
-    <div class="team-points">
-      <span>✓ Login Required</span><span>✓ One User • One Vote</span><span>✓ Firebase Record</span><span>✓ Results Controlled</span>
-    </div>
-  </div>
-  <a href="voting.html" class="btn-primary">OPEN VOTING</a>
-</section>
+<!-- Community Voting section completely removed -->
 
 <section class="trust-section">
   <div class="trust-strip">
@@ -346,13 +315,6 @@ import {
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-/*
-=====================================================================
-AD CAROUSEL — loads live from Firestore "ads" collection (managed
-from team.html's "Manage Ads" section). Rebuilds and restarts the
-carousel automatically whenever an ad is added or deleted.
-=====================================================================
-*/
 function escapeHTML(value){
   return String(value ?? "").replace(/[&<>"']/g, m => ({
     "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
@@ -380,11 +342,11 @@ function renderAdSlides(ads){
     }else{
       inner = `📢 ${escapeHTML(ad.content)}`;
     }
-    return `<div class="ad-slide${i === 0 ? " active" : ""}">${inner}</div>`;
+    return `<div class="ad-slide\( {i === 0 ? " active" : ""}"> \){inner}</div>`;
   }).join("");
 
   dotsWrap.innerHTML = ads.map((ad, i) =>
-    `<button class="ad-dot${i === 0 ? " active" : ""}" data-slide="${i}" aria-label="Ad ${i + 1}"></button>`
+    `<button class="ad-dot\( {i === 0 ? " active" : ""}" data-slide=" \){i}" aria-label="Ad ${i + 1}"></button>`
   ).join("");
 
   startAdCarousel();
@@ -436,33 +398,37 @@ try{
 
 /*
 =====================================================================
-FEATURED PRODUCTS — newest uploaded products (from Team Dashboard →
-Product Upload) show first; remaining slots (up to 6 total) are
-filled with fallback sample products so the section never looks empty.
+FEATURED PRODUCTS — Only real uploaded products (no demo/fallback)
 =====================================================================
 */
-const fallbackFeatured = [
-  {id:"perfume", name:"Premium Fragrance", description:"Elegant everyday fragrance selected for a premium experience.", price:899},
-  {id:"watch", name:"Essential Oils", description:"Selected aromatic essentials for everyday use.", price:499},
-  {id:"sunglasses", name:"Special Edition", description:"Exclusive collection with a distinctive premium identity.", price:1299},
-  {id:"shoes", name:"Daily Essentials", description:"Useful products selected for regular customer needs.", price:699},
-  {id:"perfume", name:"Luxury Perfume", description:"Long-lasting premium attar with a rich, elegant fragrance.", price:1099},
-  {id:"facewash", name:"Skin Care Kit", description:"Complete daily skin care essentials for a healthy glow.", price:799}
-];
-
 function renderFeaturedProducts(liveProducts){
   const grid = document.getElementById("featuredProductGrid");
 
   const uploaded = liveProducts
-    .filter(p => p.status === "Active")
-    .slice(0, 6)
-    .map(p => ({ id: p.id, name: p.name, description: p.description, price: p.price, image: p.image }));
+    .filter(p => p.status === "Active" || !p.status)   // Active or no status field
+    .slice(0, 12)   // show up to 12 products
+    .map(p => ({
+      id: p.id,
+      name: p.name,
+      description: p.description,
+      price: p.price,
+      image: p.image || (p.images && p.images[0]) || ""
+    }));
 
-  const combined = [...uploaded, ...fallbackFeatured].slice(0, 6);
+    if(!uploaded.length){
+    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:40px 20px;color:#8e9bad;font-size:14px;">
+      No products uploaded yet.<br>Team members can add products from the Product Upload page.
+    </div>`;
+    return;
+  }
 
-  grid.innerHTML = combined.map(p => `
+  grid.innerHTML = uploaded.map(p => `
     <div class="product-card">
-      <div class="product-image">${p.image ? `<img src="${escapeHTML(p.image)}" alt="${escapeHTML(p.name)}" style="width:100%;height:100%;object-fit:cover">` : "PRODUCT PHOTO"}</div>
+      <div class="product-image">
+        ${p.image
+          ? `<img src="\( {escapeHTML(p.image)}" alt=" \){escapeHTML(p.name)}" style="width:100%;height:100%;object-fit:cover">`
+          : "PRODUCT PHOTO"}
+      </div>
       <h3>${escapeHTML(p.name)}</h3>
       <p>${escapeHTML(p.description || "")}</p>
       <div class="price">₹${Number(p.price || 0).toLocaleString("en-IN")}</div>
@@ -486,25 +452,22 @@ try{
 
 /*
 =====================================================================
-ACTIVE STATE GLOW — lights up a state if it has an approved team member
-ASSUMPTION: team members are stored in a Firestore collection called
-"team" (or "users") with fields: state (e.g. "Bihar") and either
-approved:true / status:"approved". Agar aapke project mein collection
-ya field ka naam alag hai, to yahan neeche "team" aur field names
-badal dijiye taaki yeh sahi se match kare.
+ACTIVE STATE GLOW
 =====================================================================
 */
 async function lightUpActiveStates(){
   try{
-    const snap = await getDocs(collection(db, "team"));
+    // Try users collection first (most common in your project)
+    const snap = await getDocs(collection(db, "users"));
     const activeStates = new Set();
 
     snap.forEach(docSnap=>{
       const data = docSnap.data();
-      const state = data.state || data.userState;
-      const status = String(data.status || data.approvalStatus || "").toLowerCase();
-      const approved = data.approved === true || data.verified === true ||
-                       ["approved","active"].includes(status);
+      const state = data.state || data.userState || data.memberState;
+      const role = String(data.role || "").toLowerCase();
+      const status = String(data.status || "").toLowerCase();
+      const approved = (role === "team_member" || role === "admin") &&
+                       (status === "approved" || status === "active" || role === "admin");
       if(state && approved){
         activeStates.add(String(state).trim().toLowerCase());
       }
@@ -532,8 +495,6 @@ const panelContact = document.getElementById("panelContact");
 const panelAvatar = document.getElementById("panelAvatar");
 const profileStatus = document.getElementById("profileStatus");
 const toast = document.getElementById("toast");
-const teamMembersBtn = document.getElementById("teamMembersBtn");
-const adminBtn = document.getElementById("adminBtn");
 const footerTeamLink = document.getElementById("footerTeamLink");
 
 function fallbackAvatar(letter="U"){
@@ -543,30 +504,6 @@ function showToast(text){
   toast.textContent=text; toast.classList.add("show");
   setTimeout(()=>toast.classList.remove("show"),2500);
 }
-function hideRoleButtons(){
-  teamMembersBtn?.classList.remove("show-role");
-  adminBtn?.classList.remove("show-role");
-  if (footerTeamLink) footerTeamLink.style.display = "none";
-}
-function showTeamButton(){
-  teamMembersBtn?.classList.add("show-role");
-  if (footerTeamLink) footerTeamLink.style.display = "block";
-}
-function showAdminButton(){
-  adminBtn?.classList.add("show-role");
-  showTeamButton();
-}
-function isApprovedTeam(data){
-  const role = String(data?.role || data?.userRole || "").toLowerCase().replace(/[\s-]/g,"_");
-  if (role === "admin") return true;
-  const teamRole = ["team_member","teammember","team"].includes(role);
-  const status = String(data?.status || data?.approvalStatus || data?.verificationStatus || "").toLowerCase();
-  const approved = data?.approved === true || data?.verified === true || data?.isVerified === true ||
-                   ["approved","verified","active"].includes(status);
-  return teamRole && approved;
-}
-
-hideRoleButtons();
 
 profileBtn.addEventListener("click",()=>profilePanel.classList.toggle("show"));
 document.addEventListener("click",e=>{
@@ -581,8 +518,6 @@ logoutBtn.addEventListener("click",async()=>{
 });
 
 onAuthStateChanged(auth, async user=>{
-  hideRoleButtons();
-
   if(!user){
     headerName.textContent="Login";
     panelName.textContent="Not logged in";
@@ -591,6 +526,7 @@ onAuthStateChanged(auth, async user=>{
     const av=fallbackAvatar("U");
     headerAvatar.src=av; panelAvatar.src=av;
     logoutBtn.style.display="none";
+    if(footerTeamLink) footerTeamLink.style.display = "none";
     return;
   }
 
@@ -610,16 +546,19 @@ onAuthStateChanged(auth, async user=>{
     const data = snap.exists() ? snap.data() : {};
     const role = String(data.role || data.userRole || "").toLowerCase().replace(/[\s-]/g,"_");
 
-    if(role === "admin"){
-      showAdminButton();
+    if(role === "admin" || data.adminAccess === true){
       profileStatus.textContent="Signed in • Admin";
-    }else if(isApprovedTeam(data)){
-      showTeamButton();
+      if(footerTeamLink) footerTeamLink.style.display = "block";
+    }else if(["team_member","teammember","team"].includes(role) && 
+              ["approved","active"].includes(String(data.status||"").toLowerCase())){
       profileStatus.textContent="Signed in • Verified Team Member";
+      if(footerTeamLink) footerTeamLink.style.display = "block";
+    }else{
+      if(footerTeamLink) footerTeamLink.style.display = "none";
     }
   }catch(err){
     console.warn("Role lookup failed:", err);
-    // Security-first default: keep Team/Admin buttons hidden.
+    if(footerTeamLink) footerTeamLink.style.display = "none";
   }
 });
 </script>
