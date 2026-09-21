@@ -6,31 +6,137 @@
 <title>Product Management | FHAMAR ZAMOST</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
-body{background:#050b12;color:#fff}button,input,select,textarea{font-family:inherit}button{cursor:pointer}a{text-decoration:none;color:inherit}
-header{height:75px;padding:0 5%;display:flex;align-items:center;justify-content:space-between;background:#07111d;border-bottom:1px solid #30465d}
-.brand-area{display:flex;align-items:center;gap:10px}.fz-logo{width:45px;height:45px;display:flex;align-items:center;justify-content:center;border-radius:12px;border:1px solid #8298ad;background:linear-gradient(145deg,#173b5b,#050b12);color:#fff;font-size:17px;font-weight:900}.brand{font-size:18px;font-weight:900;letter-spacing:2px}.blue{color:#4da3ff}.silver{color:#aeb9c5}.header-right{display:flex;align-items:center;gap:10px}.admin-badge{padding:8px 12px;border:1px solid #3c5870;border-radius:20px;color:#4da3ff;font-size:9px;font-weight:bold}.home-btn{padding:9px 13px;border:1px solid #526b82;border-radius:8px;color:#dce5ed;font-size:10px}
-.layout{display:grid;grid-template-columns:220px 1fr;min-height:calc(100vh - 75px)}.sidebar{padding:25px 15px;background:#06101a;border-right:1px solid #253a4e}.sidebar-title{margin:5px 10px 15px;color:#657b91;font-size:9px;letter-spacing:2px}.menu-btn{display:block;width:100%;padding:13px 12px;margin-bottom:7px;text-align:left;border:1px solid transparent;border-radius:9px;background:transparent;color:#8fa1b4;font-size:11px}.menu-btn:hover,.menu-btn.active{background:#102b42;border-color:#315574;color:#4da3ff}
-.content{padding:35px 4% 80px;overflow:hidden}.eyebrow{color:#71869c;font-size:9px;letter-spacing:3px;font-weight:bold}.page-title{margin-top:10px;font-size:35px}.page-title span{color:#4da3ff}.subtitle{margin-top:8px;color:#8194a8;font-size:12px;line-height:1.7}
-.stats{margin-top:25px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.stat{padding:18px;border:1px solid #293f55;border-radius:13px;background:#081421}.stat small{color:#71869c;font-size:9px}.stat strong{display:block;margin-top:8px;font-size:23px}.blue-stat strong{color:#4da3ff}
-.toolbar{margin-top:25px;padding:18px;border:1px solid #293f55;border-radius:14px;background:#081421;display:flex;gap:10px;flex-wrap:wrap}.search{flex:1;min-width:190px;height:43px;padding:0 12px;background:#050c14;border:1px solid #30465c;border-radius:8px;color:white;outline:none;font-size:11px}.select{height:43px;padding:0 12px;background:#050c14;border:1px solid #30465c;border-radius:8px;color:#dce5ed;outline:none;font-size:11px}.primary-btn{height:43px;padding:0 16px;border:none;border-radius:8px;background:#4da3ff;color:#04101c;font-size:10px;font-weight:900}
-.product-grid{margin-top:18px;display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.product-card{overflow:hidden;border:1px solid #293f55;border-radius:14px;background:#081421}.product-image{height:190px;background:#050c14;display:flex;align-items:center;justify-content:center;overflow:hidden}.product-image img{width:100%;height:100%;object-fit:cover}.placeholder{color:#536a80;font-size:11px}.product-body{padding:17px}.category{color:#4da3ff;font-size:8px;letter-spacing:1px;font-weight:bold}.product-name{margin-top:7px;font-size:15px;font-weight:bold}.product-description{margin-top:7px;color:#71869c;font-size:9px;line-height:1.6;min-height:29px}.product-info{margin-top:13px;display:flex;justify-content:space-between;gap:8px}.price{color:#dce5ed;font-size:16px;font-weight:bold}.stock{color:#8194a8;font-size:9px}.active-status{margin-top:10px;color:#4da3ff;font-size:8px;font-weight:bold}.inactive-status{margin-top:10px;color:#87909a;font-size:8px;font-weight:bold}.product-actions{margin-top:14px;display:flex;gap:7px}.action{flex:1;padding:9px 5px;border-radius:7px;border:1px solid #40586f;background:#0a1725;color:#b9c7d4;font-size:8px;font-weight:bold}.action:hover{border-color:#4da3ff;color:#4da3ff}.action.delete:hover{border-color:#a85c5c;color:#ff9999}
-.empty{grid-column:1/-1;padding:50px;text-align:center;border:1px dashed #40586f;border-radius:14px;color:#74899d;background:#081421}
-.modal{display:none;position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.75);align-items:center;justify-content:center;padding:20px}.modal.show{display:flex}.modal-box{width:100%;max-width:600px;max-height:92vh;overflow:auto;padding:25px;border:1px solid #3b566e;border-radius:17px;background:#081421}.modal-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}.modal-top h2{font-size:21px}.close{background:transparent;border:none;color:#91a3b6;font-size:24px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}.form-group.full{grid-column:1/-1}label{display:block;margin-bottom:6px;color:#9aabbb;font-size:9px;font-weight:bold}input,select,textarea{width:100%;padding:11px;border-radius:8px;border:1px solid #30465c;background:#050c14;color:white;outline:none;font-size:11px}input,select{height:43px}textarea{min-height:90px;resize:vertical}input:focus,select:focus,textarea:focus{border-color:#4da3ff}.price-warning{margin-top:7px;color:#8093a7;font-size:8px}.price-warning b{color:#4da3ff}.image-preview{margin-top:10px;width:100%;height:150px;display:flex;align-items:center;justify-content:center;overflow:hidden;border:1px dashed #40586f;border-radius:10px;background:#050c14}.image-preview img{width:100%;height:100%;object-fit:contain}.save-btn{width:100%;margin-top:20px;height:45px;border:none;border-radius:9px;background:#4da3ff;color:#04101c;font-size:10px;font-weight:900}.save-btn:disabled{opacity:.5;cursor:not-allowed}.form-error{display:none;margin-top:12px;padding:10px;border:1px solid #704c4c;border-radius:8px;color:#ffaaa0;background:#241214;font-size:10px}
-.api-note{margin-top:20px;padding:16px;border:1px dashed #405a72;border-radius:10px;background:#06101a;color:#74899d;font-size:9px;line-height:1.8;text-align:center}footer{padding:35px 7%;background:#03080e;border-top:1px solid #263b50;color:#7d90a4;font-size:11px}
-.access-blocked{max-width:500px;margin:80px auto;padding:35px;border:1px solid #344d64;border-radius:18px;background:#091622;text-align:center;display:none}
-.access-blocked h2{font-size:22px}.access-blocked p{margin-top:12px;color:#8194a8;font-size:13px;line-height:1.7}.access-blocked a{display:inline-block;margin-top:20px;padding:12px 20px;background:#4da3ff;color:#04101c;border-radius:9px;font-weight:900;font-size:11px}
-@media(max-width:1000px){.layout{grid-template-columns:1fr}.sidebar{display:flex;overflow-x:auto;gap:5px;border-right:none;border-bottom:1px solid #253a4e;padding:10px}.sidebar-title{display:none}.menu-btn{width:auto;min-width:max-content;margin:0}.product-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:700px){header{padding:0 4%}.header-right .home-btn{display:none}.content{padding:25px 5% 70px}.page-title{font-size:29px}.stats{grid-template-columns:1fr 1fr}.product-grid{grid-template-columns:1fr}.form-grid{grid-template-columns:1fr}.form-group.full{grid-column:auto}}
+body{background:#050b12;color:#fff}
+button,input,select,textarea{font-family:inherit}
+button{cursor:pointer}
+a{text-decoration:none;color:inherit}
+
+header{height:64px;padding:0 4%;display:flex;align-items:center;justify-content:space-between;background:#07111d;border-bottom:1px solid #30465d;position:sticky;top:0;z-index:100}
+.brand-area{display:flex;align-items:center;gap:9px}
+.fz-logo{width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:10px;border:1px solid #8298ad;background:linear-gradient(145deg,#173b5b,#050b12);color:#fff;font-size:15px;font-weight:900}
+.brand{font-size:16px;font-weight:900;letter-spacing:1.5px}
+.blue{color:#4da3ff}.silver{color:#aeb9c5}
+.header-right{display:flex;align-items:center;gap:8px}
+.admin-badge{padding:6px 10px;border:1px solid #3c5870;border-radius:16px;color:#4da3ff;font-size:9px;font-weight:bold}
+.home-btn{padding:7px 12px;border:1px solid #526b82;border-radius:7px;color:#dce5ed;font-size:11px;font-weight:600}
+.home-btn:hover{border-color:#4da3ff;color:#4da3ff}
+
+.layout{display:grid;grid-template-columns:200px 1fr;min-height:calc(100vh - 64px)}
+.sidebar{padding:18px 12px;background:#06101a;border-right:1px solid #253a4e}
+.sidebar-title{margin:4px 6px 12px;color:#657b91;font-size:9px;letter-spacing:1.5px}
+.menu-btn{display:block;width:100%;padding:11px 10px;margin-bottom:5px;text-align:left;border:1px solid transparent;border-radius:8px;background:transparent;color:#8fa1b4;font-size:12px}
+.menu-btn:hover,.menu-btn.active{background:#102b42;border-color:#315574;color:#4da3ff}
+.menu-btn.back{margin-top:14px;border-color:#3d5870;color:#a8bdd0;font-size:11px}
+
+.content{padding:28px 4% 70px;overflow-x:hidden}
+.eyebrow{color:#71869c;font-size:9px;letter-spacing:2.5px;font-weight:bold}
+.page-title{margin-top:6px;font-size:28px}
+.page-title span{color:#4da3ff}
+.subtitle{margin-top:6px;color:#8194a8;font-size:13px;line-height:1.5}
+
+.stats{margin-top:20px;display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.stat{padding:14px;border:1px solid #293f55;border-radius:11px;background:#081421}
+.stat small{color:#71869c;font-size:9px}
+.stat strong{display:block;margin-top:6px;font-size:20px}
+.blue-stat strong{color:#4da3ff}
+
+.toolbar{margin-top:18px;padding:14px;border:1px solid #293f55;border-radius:12px;background:#081421;display:flex;gap:8px;flex-wrap:wrap}
+.search{flex:1;min-width:160px;height:40px;padding:0 12px;background:#050c14;border:1px solid #30465c;border-radius:8px;color:white;outline:none;font-size:12px}
+.select{height:40px;padding:0 10px;background:#050c14;border:1px solid #30465c;border-radius:8px;color:#dce5ed;outline:none;font-size:12px}
+.primary-btn{height:40px;padding:0 14px;border:none;border-radius:8px;background:#4da3ff;color:#04101c;font-size:11px;font-weight:900}
+
+.product-grid{margin-top:16px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.product-card{overflow:hidden;border:1px solid #293f55;border-radius:12px;background:#081421}
+.product-image{height:170px;background:#050c14;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}
+.product-image img{width:100%;height:100%;object-fit:cover}
+.placeholder{color:#536a80;font-size:11px}
+.product-body{padding:14px}
+.category{color:#4da3ff;font-size:9px;letter-spacing:.8px;font-weight:bold}
+.product-name{margin-top:5px;font-size:14px;font-weight:bold}
+.product-description{margin-top:5px;color:#71869c;font-size:11px;line-height:1.5;min-height:32px}
+.product-info{margin-top:10px;display:flex;justify-content:space-between;gap:6px}
+.price{color:#dce5ed;font-size:15px;font-weight:bold}
+.stock{color:#8194a8;font-size:10px}
+.active-status{margin-top:8px;color:#4da3ff;font-size:9px;font-weight:bold}
+.inactive-status{margin-top:8px;color:#87909a;font-size:9px;font-weight:bold}
+.product-actions{margin-top:11px;display:flex;gap:6px}
+.action{flex:1;padding:8px 4px;border-radius:6px;border:1px solid #40586f;background:#0a1725;color:#b9c7d4;font-size:9px;font-weight:bold}
+.action:hover{border-color:#4da3ff;color:#4da3ff}
+.action.delete:hover{border-color:#a85c5c;color:#ff9999}
+
+.empty{grid-column:1/-1;padding:40px;text-align:center;border:1px dashed #40586f;border-radius:12px;color:#74899d;background:#081421}
+
+/* Modal */
+.modal{display:none;position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.78);align-items:center;justify-content:center;padding:16px}
+.modal.show{display:flex}
+.modal-box{width:100%;max-width:580px;max-height:92vh;overflow:auto;padding:22px;border:1px solid #3b566e;border-radius:14px;background:#081421}
+.modal-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.modal-top h2{font-size:18px}
+.close{background:transparent;border:none;color:#91a3b6;font-size:22px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form-group.full{grid-column:1/-1}
+label{display:block;margin-bottom:5px;color:#9aabbb;font-size:10px;font-weight:bold}
+input,select,textarea{width:100%;padding:10px;border-radius:7px;border:1px solid #30465c;background:#050c14;color:white;outline:none;font-size:12px}
+input,select{height:40px}
+textarea{min-height:80px;resize:vertical}
+input:focus,select:focus,textarea:focus{border-color:#4da3ff}
+.price-warning{margin-top:5px;color:#8093a7;font-size:9px}
+.price-warning b{color:#4da3ff}
+
+/* 4 Photos */
+.photos-area{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:8px}
+.photo-slot{height:90px;border:1px dashed #40586f;border-radius:8px;background:#050c14;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}
+.photo-slot img{width:100%;height:100%;object-fit:cover}
+.photo-slot .remove-photo{position:absolute;top:3px;right:3px;width:20px;height:20px;border-radius:50%;border:none;background:#a11;color:#fff;font-size:11px;display:none}
+.photo-slot.has-image .remove-photo{display:flex;align-items:center;justify-content:center}
+.photo-slot .placeholder-text{color:#536a80;font-size:10px;text-align:center;padding:4px}
+.photo-url-row{display:flex;gap:6px;margin-top:8px}
+.photo-url-row input{flex:1;height:36px}
+.photo-url-row button{padding:0 12px;border:none;border-radius:7px;background:#1e3a5f;color:#9ec5fe;font-size:11px;font-weight:700}
+
+.save-btn{width:100%;margin-top:16px;height:42px;border:none;border-radius:8px;background:#4da3ff;color:#04101c;font-size:11px;font-weight:900}
+.save-btn:disabled{opacity:.5;cursor:not-allowed}
+.form-error{display:none;margin-top:10px;padding:9px;border:1px solid #704c4c;border-radius:7px;color:#ffaaa0;background:#241214;font-size:11px}
+
+.api-note{margin-top:18px;padding:13px;border:1px dashed #405a72;border-radius:9px;background:#06101a;color:#74899d;font-size:11px;line-height:1.6;text-align:center}
+footer{padding:24px 4%;background:#03080e;border-top:1px solid #263b50;color:#7d90a4;font-size:11px}
+
+.access-blocked{max-width:460px;margin:70px auto;padding:28px;border:1px solid #344d64;border-radius:14px;background:#091622;text-align:center;display:none}
+.access-blocked h2{font-size:18px}
+.access-blocked p{margin-top:10px;color:#8194a8;font-size:13px;line-height:1.5}
+.access-blocked a{display:inline-block;margin-top:14px;padding:10px 16px;background:#4da3ff;color:#04101c;border-radius:8px;font-weight:900;font-size:12px}
+
+@media(max-width:950px){
+  .layout{grid-template-columns:1fr}
+  .sidebar{display:flex;overflow-x:auto;gap:5px;border-right:none;border-bottom:1px solid #253a4e;padding:10px}
+  .sidebar-title{display:none}
+  .menu-btn{width:auto;min-width:max-content;margin:0}
+  .product-grid{grid-template-columns:repeat(2,1fr)}
+  .photos-area{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:600px){
+  .stats{grid-template-columns:1fr 1fr}
+  .product-grid{grid-template-columns:1fr}
+  .form-grid{grid-template-columns:1fr}
+  .form-group.full{grid-column:auto}
+  .page-title{font-size:24px}
+  .content{padding:20px 4% 60px}
+}
 </style>
 </head>
 <body>
 
 <header>
-<div class="brand-area"><div class="fz-logo">FZ</div><div class="brand"><span class="blue">FHAMAR</span><span class="silver">.ZAMOST</span></div></div>
-<div class="header-right"><div class="admin-badge" id="roleBadge">TEAM MEMBER</div><a href="home.html" class="home-btn">HOME</a></div>
+  <div class="brand-area">
+    <div class="fz-logo">FZ</div>
+    <div class="brand"><span class="blue">FHAMAR</span><span class="silver">.ZAMOST</span></div>
+  </div>
+  <div class="header-right">
+    <div class="admin-badge" id="roleBadge">TEAM MEMBER</div>
+    <a href="home.html" class="home-btn">HOME</a>
+  </div>
 </header>
 
-<!-- Shown only if the signed-in user is NOT an approved team member -->
 <div class="access-blocked" id="accessBlocked">
   <h2>Access Not Available</h2>
   <p>Product management is only available to approved FHAMAR.ZAMOST team members.</p>
@@ -38,111 +144,151 @@ header{height:75px;padding:0 5%;display:flex;align-items:center;justify-content:
 </div>
 
 <div class="layout" id="mainLayout" style="display:none">
-<aside class="sidebar">
-<div class="sidebar-title">PRODUCT CONTROL</div>
-<button class="menu-btn active" onclick="showProducts()">🛍️ Products</button>
-<button class="menu-btn" onclick="openProductModal()">➕ Add Product</button>
-<a href="catalog.html" class="menu-btn">👁️ View Catalog</a>
-<a href="team.html" class="menu-btn">⬅️ Back to Team Dashboard</a>
-</aside>
+  <aside class="sidebar">
+    <div class="sidebar-title">PRODUCT CONTROL</div>
+    <button class="menu-btn active" onclick="showProducts()">🛍️ Products</button>
+    <button class="menu-btn" onclick="openProductModal()">➕ Add Product</button>
+    <a href="catalog.html" class="menu-btn">👁️ Catalog</a>
+    <a href="team.html" class="menu-btn back">⬅️ Dashboard</a>
+  </aside>
 
-<main class="content">
-<div class="eyebrow">FHAMAR.ZAMOST PRODUCT DESK</div>
-<h1 class="page-title">Product <span>Management</span></h1>
-<p class="subtitle">Add, edit, remove and manage products. Changes here update the live Catalog and Home page automatically.</p>
+  <main class="content">
+    <div class="eyebrow">FHAMAR.ZAMOST PRODUCT DESK</div>
+    <h1 class="page-title">Product <span>Management</span></h1>
+    <p class="subtitle">Add, edit, remove and manage products. Changes update Catalog & Home automatically.</p>
 
-<div class="stats">
-<div class="stat blue-stat"><small>TOTAL PRODUCTS</small><strong id="totalProducts">0</strong></div>
-<div class="stat"><small>ACTIVE</small><strong id="activeProducts">0</strong></div>
-<div class="stat"><small>LOW STOCK</small><strong id="lowStock">0</strong></div>
-<div class="stat"><small>MAX PRICE</small><strong>₹1500</strong></div>
+    <div class="stats">
+      <div class="stat blue-stat"><small>TOTAL PRODUCTS</small><strong id="totalProducts">0</strong></div>
+      <div class="stat"><small>ACTIVE</small><strong id="activeProducts">0</strong></div>
+      <div class="stat"><small>LOW STOCK</small><strong id="lowStock">0</strong></div>
+      <div class="stat"><small>MAX PRICE</small><strong>₹1500</strong></div>
+    </div>
+
+    <div class="toolbar">
+      <input id="search" class="search" placeholder="Search product..." oninput="renderProducts()">
+      <select id="categoryFilter" class="select" onchange="renderProducts()">
+        <option value="all">All Categories</option>
+        <option>Shoes</option><option>Slippers</option><option>Sunglasses</option>
+        <option>Electronics</option><option>Perfume</option><option>T-Shirt</option>
+        <option>Hair</option><option>Earphone</option><option>Charger</option><option>Accessories</option>
+      </select>
+      <button class="primary-btn" onclick="openProductModal()">+ ADD PRODUCT</button>
+    </div>
+
+    <div id="productGrid" class="product-grid"></div>
+
+    <div class="api-note">
+      <b>LIVE PRODUCT DATABASE</b><br><br>
+      Products save to Firestore + Firebase Storage. Max 4 photos per product. Team Members have full add/edit/delete control.
+    </div>
+  </main>
 </div>
 
-<div class="toolbar">
-<input id="search" class="search" placeholder="Search product..." oninput="renderProducts()">
-<select id="categoryFilter" class="select" onchange="renderProducts()">
-<option value="all">All Categories</option><option>Shoes</option><option>Slippers</option><option>Sunglasses</option><option>Electronics</option><option>Perfume</option><option>T-Shirt</option><option>Hair</option><option>Earphone</option><option>Charger</option><option>Accessories</option>
-</select>
-<button class="primary-btn" onclick="openProductModal()">+ ADD PRODUCT</button>
-</div>
+<footer>
+  <div class="brand"><span class="blue">FHAMAR</span><span class="silver">.ZAMOST</span></div>
+  <p>Product Management • FHAMAR.ZAMOST</p>
+</footer>
 
-<div id="productGrid" class="product-grid"></div>
-
-<div class="api-note"><b>LIVE PRODUCT DATABASE</b><br><br>Products are saved directly to Firestore ("products" collection) and Firebase Storage (for images). Any change here appears on Catalog and Home for every visitor within moments.</div>
-</main>
-</div>
-
-<footer><div class="brand"><span class="blue">FHAMAR</span><span class="silver">.ZAMOST</span></div><p>Product Management • FHAMAR.ZAMOST</p></footer>
-
+<!-- Modal -->
 <div id="productModal" class="modal">
-<div class="modal-box">
-<div class="modal-top"><h2 id="modalTitle">Add Product</h2><button class="close" onclick="closeProductModal()">×</button></div>
+  <div class="modal-box">
+    <div class="modal-top">
+      <h2 id="modalTitle">Add Product</h2>
+      <button class="close" onclick="closeProductModal()">×</button>
+    </div>
 
-<div class="form-grid">
-<div class="form-group full"><label>PRODUCT NAME *</label><input id="productName" maxlength="80" placeholder="Enter product name"></div>
-<div class="form-group"><label>CATEGORY *</label><select id="productCategory"><option>Shoes</option><option>Slippers</option><option>Sunglasses</option><option>Electronics</option><option>Perfume</option><option>T-Shirt</option><option>Hair</option><option>Earphone</option><option>Charger</option><option>Accessories</option></select></div>
-<div class="form-group"><label>PRICE *</label><input id="productPrice" type="number" min="1" max="1500" step="1" placeholder="Maximum ₹1500"><div class="price-warning">Maximum allowed: <b>₹1500</b></div></div>
-<div class="form-group"><label>STOCK *</label><input id="productStock" type="number" min="0" max="999999" step="1" placeholder="Available quantity"></div>
-<div class="form-group"><label>STATUS</label><select id="productStatus"><option value="Active">Active</option><option value="Inactive">Inactive</option></select></div>
-<div class="form-group full"><label>PRODUCT IMAGE</label><input id="productImage" type="file" accept="image/*"><div id="imagePreview" class="image-preview"><span class="placeholder">Product image preview</span></div></div>
-<div class="form-group full"><label>DESCRIPTION</label><textarea id="productDescription" maxlength="300" placeholder="Write a short product description..."></textarea></div>
-</div>
-<div id="formError" class="form-error"></div>
-<button class="save-btn" id="saveButton" onclick="saveProduct()">SAVE PRODUCT</button>
-</div>
+    <div class="form-grid">
+      <div class="form-group full">
+        <label>PRODUCT NAME *</label>
+        <input id="productName" maxlength="80" placeholder="Enter product name">
+      </div>
+      <div class="form-group">
+        <label>CATEGORY *</label>
+        <select id="productCategory">
+          <option>Shoes</option><option>Slippers</option><option>Sunglasses</option>
+          <option>Electronics</option><option>Perfume</option><option>T-Shirt</option>
+          <option>Hair</option><option>Earphone</option><option>Charger</option><option>Accessories</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>PRICE *</label>
+        <input id="productPrice" type="number" min="1" max="1500" step="1" placeholder="Max ₹1500">
+        <div class="price-warning">Maximum: <b>₹1500</b></div>
+      </div>
+      <div class="form-group">
+        <label>STOCK *</label>
+        <input id="productStock" type="number" min="0" max="999999" step="1" placeholder="Quantity">
+      </div>
+      <div class="form-group">
+        <label>STATUS</label>
+        <select id="productStatus">
+          <option value="Active">Active</option>
+          <option value="Inactive">Inactive</option>
+        </select>
+      </div>
+         <!-- 4 Photos -->
+      <div class="form-group full">
+        <label>PRODUCT PHOTOS (Max 4)</label>
+        <div class="photos-area" id="photosArea">
+          <div class="photo-slot" data-index="0"><span class="placeholder-text">Photo 1</span><button type="button" class="remove-photo" onclick="removePhoto(0)">×</button></div>
+          <div class="photo-slot" data-index="1"><span class="placeholder-text">Photo 2</span><button type="button" class="remove-photo" onclick="removePhoto(1)">×</button></div>
+          <div class="photo-slot" data-index="2"><span class="placeholder-text">Photo 3</span><button type="button" class="remove-photo" onclick="removePhoto(2)">×</button></div>
+          <div class="photo-slot" data-index="3"><span class="placeholder-text">Photo 4</span><button type="button" class="remove-photo" onclick="removePhoto(3)">×</button></div>
+        </div>
+        <input type="file" id="photoFileInput" accept="image/*" multiple style="margin-top:8px;width:100%">
+        <div class="photo-url-row">
+          <input id="photoUrlInput" placeholder="Or paste image URL and click Add">
+          <button type="button" onclick="addPhotoFromUrl()">Add URL</button>
+        </div>
+      </div>
+
+      <div class="form-group full">
+        <label>DESCRIPTION</label>
+        <textarea id="productDescription" maxlength="300" placeholder="Short product description..."></textarea>
+      </div>
+    </div>
+
+    <div id="formError" class="form-error"></div>
+    <button class="save-btn" id="saveButton" onclick="saveProduct()">SAVE PRODUCT</button>
+  </div>
 </div>
 
 <script type="module">
 import { app } from "./firebase-config.js";
-import {
-  getAuth, onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 import {
   getFirestore, collection, doc, addDoc, setDoc, deleteDoc, onSnapshot, getDoc, serverTimestamp
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
-import {
-  getStorage, ref, uploadBytes, getDownloadURL
-} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-storage.js";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-storage.js";
 
 const auth = getAuth(app);
 const db = getFirestore(app);
 const storage = getStorage(app);
 
 const MAX_PRICE = 1500;
+const MAX_PHOTOS = 4;
+
 let products = [];
 let editingId = null;
-let selectedImageFile = null;
-let selectedImagePreviewURL = "";
 let currentUid = "";
+let photoSlots = ["", "", "", ""];   // URLs or empty
+let photoFiles = [null, null, null, null]; // File objects for new uploads
 
 function isApprovedTeam(data){
   const role = String(data?.role || "").toLowerCase().replace(/[\s-]/g,"_");
   const status = String(data?.status || "").toLowerCase();
-  const teamRole = ["team_member","teammember","team","admin"].includes(role);
-  const approved = ["approved","active"].includes(status) || role === "admin";
-  return teamRole && approved;
+  return (["team_member","teammember","team","admin"].includes(role)) &&
+         (["approved","active"].includes(status) || role === "admin");
 }
 
-/*
-=====================================================================
-ACCESS CONTROL — same rule as team.html: only approved team members
-or admin may open this page at all. Real enforcement must also exist
-in Firestore/Storage Security Rules.
-=====================================================================
-*/
 onAuthStateChanged(auth, async (user) => {
-  if(!user){
-    window.location.replace("index.html");
-    return;
-  }
+  if(!user){ window.location.replace("index.html"); return; }
 
   let data = {};
   try{
     const snap = await getDoc(doc(db, "users", user.uid));
     if(snap.exists()) data = snap.data();
-  }catch(error){
-    console.warn("Profile read failed:", error);
-  }
+  }catch(e){ console.warn(e); }
 
   if(!isApprovedTeam(data)){
     document.getElementById("accessBlocked").style.display = "block";
@@ -153,28 +299,20 @@ onAuthStateChanged(auth, async (user) => {
   document.getElementById("mainLayout").style.display = "grid";
   document.getElementById("accessBlocked").style.display = "none";
   currentUid = user.uid;
-  if(data.role === "admin"){
-    document.getElementById("roleBadge").textContent = "ADMIN";
-  }
+  if(data.role === "admin") document.getElementById("roleBadge").textContent = "ADMIN";
 
   listenToProducts();
 });
 
-function escapeHtml(value){
-  return String(value ?? "").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
+function escapeHtml(v){
+  return String(v ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
 }
 
 function listenToProducts(){
-  try{
-    onSnapshot(collection(db, "products"), (snapshot) => {
-      products = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
-      renderProducts();
-    }, (error) => {
-      console.warn("Products listener failed:", error);
-    });
-  }catch(error){
-    console.error(error);
-  }
+  onSnapshot(collection(db, "products"), (snap) => {
+    products = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    renderProducts();
+  }, (err) => console.warn(err));
 }
 
 window.renderProducts = function(){
@@ -183,45 +321,103 @@ window.renderProducts = function(){
   const category = document.getElementById("categoryFilter").value;
 
   const filtered = products.filter(p => {
-    const matchSearch = (String(p.name||"")+" "+String(p.category||"")+" "+String(p.description||"")).toLowerCase().includes(search);
-    const matchCategory = category === "all" || p.category === category;
-    return matchSearch && matchCategory;
+    const text = (p.name||"") + " " + (p.category||"") + " " + (p.description||"");
+    return text.toLowerCase().includes(search) && (category === "all" || p.category === category);
   });
 
-  grid.innerHTML = filtered.length ? filtered.map(product => `
+  grid.innerHTML = filtered.length ? filtered.map(p => {
+    const mainImg = p.image || (Array.isArray(p.images) && p.images[0]) || "";
+    return `
     <div class="product-card">
       <div class="product-image">
-        ${product.image ? `<img src="${escapeHtml(product.image)}" alt="${escapeHtml(product.name)}">` : `<span class="placeholder">NO IMAGE</span>`}
+        \( {mainImg ? `<img src=" \){escapeHtml(mainImg)}" alt="">` : `<span class="placeholder">NO IMAGE</span>`}
       </div>
       <div class="product-body">
-        <div class="category">${escapeHtml(product.category)}</div>
-        <div class="product-name">${escapeHtml(product.name)}</div>
-        <div class="product-description">${escapeHtml(product.description)}</div>
-        <div class="product-info"><div class="price">₹${Number(product.price||0).toLocaleString("en-IN")}</div><div class="stock">Stock: ${Number(product.stock||0)}</div></div>
-        <div class="${product.status==="Active"?"active-status":"inactive-status"}">● ${String(product.status||"Active").toUpperCase()}</div>
+        <div class="category">${escapeHtml(p.category||"")}</div>
+        <div class="product-name">${escapeHtml(p.name||"")}</div>
+        <div class="product-description">${escapeHtml(p.description||"")}</div>
+        <div class="product-info">
+          <div class="price">₹${Number(p.price||0).toLocaleString("en-IN")}</div>
+          <div class="stock">Stock: ${Number(p.stock||0)}</div>
+        </div>
+        <div class="${p.status==="Active"?"active-status":"inactive-status"}">● ${String(p.status||"Active").toUpperCase()}</div>
         <div class="product-actions">
-          <button class="action" onclick="editProduct('${product.id}')">EDIT</button>
-          <button class="action" onclick="toggleProduct('${product.id}')">${product.status==="Active"?"DEACTIVATE":"ACTIVATE"}</button>
-          <button class="action delete" onclick="deleteProduct('${product.id}')">DELETE</button>
+          <button class="action" onclick="editProduct('${p.id}')">EDIT</button>
+          <button class="action" onclick="toggleProduct('\( {p.id}')"> \){p.status==="Active"?"DEACTIVATE":"ACTIVATE"}</button>
+          <button class="action delete" onclick="deleteProduct('${p.id}')">DELETE</button>
         </div>
       </div>
-    </div>`).join("") : `<div class="empty">No products found.</div>`;
+    </div>`;
+  }).join("") : `<div class="empty">No products found.</div>`;
 
   updateStats();
 };
 
 function updateStats(){
   document.getElementById("totalProducts").textContent = products.length;
-  document.getElementById("activeProducts").textContent = products.filter(p=>p.status==="Active").length;
-  document.getElementById("lowStock").textContent = products.filter(p=>Number(p.stock||0)<=10).length;
+  document.getElementById("activeProducts").textContent = products.filter(p => p.status === "Active").length;
+  document.getElementById("lowStock").textContent = products.filter(p => Number(p.stock||0) <= 10).length;
 }
 
 window.showProducts = function(){ renderProducts(); };
 
+function renderPhotoSlots(){
+  document.querySelectorAll(".photo-slot").forEach((slot, i) => {
+    const url = photoSlots[i];
+    if(url){
+      slot.classList.add("has-image");
+      slot.innerHTML = `<img src="\( {escapeHtml(url)}" alt=""><button type="button" class="remove-photo" onclick="removePhoto( \){i})">×</button>`;
+    }else{
+      slot.classList.remove("has-image");
+      slot.innerHTML = `<span class="placeholder-text">Photo \( {i+1}</span><button type="button" class="remove-photo" onclick="removePhoto( \){i})">×</button>`;
+    }
+  });
+}
+
+window.removePhoto = function(index){
+  photoSlots[index] = "";
+  photoFiles[index] = null;
+  renderPhotoSlots();
+};
+
+function addPhotoToNextSlot(url, file = null){
+  const emptyIndex = photoSlots.findIndex(s => !s);
+  if(emptyIndex === -1){
+    showError("Maximum 4 photos allowed.");
+    return false;
+  }
+  photoSlots[emptyIndex] = url;
+  photoFiles[emptyIndex] = file;
+  renderPhotoSlots();
+  return true;
+}
+
+window.addPhotoFromUrl = function(){
+  const input = document.getElementById("photoUrlInput");
+  const url = input.value.trim();
+  if(!url) return;
+  if(addPhotoToNextSlot(url)) input.value = "";
+};
+
+document.getElementById("photoFileInput").addEventListener("change", function(e){
+  const files = Array.from(e.target.files || []);
+  files.forEach(file => {
+    if(!file.type.startsWith("image/")) return;
+    if(file.size > 2 * 1024 * 1024){
+      showError("Each image must be under 2 MB.");
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = ev => addPhotoToNextSlot(ev.target.result, file);
+    reader.readAsDataURL(file);
+  });
+  e.target.value = "";
+});
+
 function resetForm(){
   editingId = null;
-  selectedImageFile = null;
-  selectedImagePreviewURL = "";
+  photoSlots = ["", "", "", ""];
+  photoFiles = [null, null, null, null];
   document.getElementById("modalTitle").textContent = "Add Product";
   document.getElementById("productName").value = "";
   document.getElementById("productCategory").value = "Shoes";
@@ -229,15 +425,14 @@ function resetForm(){
   document.getElementById("productStock").value = "";
   document.getElementById("productStatus").value = "Active";
   document.getElementById("productDescription").value = "";
-  document.getElementById("productImage").value = "";
-  document.getElementById("imagePreview").innerHTML = '<span class="placeholder">Product image preview</span>';
+  document.getElementById("photoUrlInput").value = "";
+  renderPhotoSlots();
   showError("");
 }
 
 window.openProductModal = function(){
   resetForm();
   document.getElementById("productModal").classList.add("show");
-  document.getElementById("productName").focus();
 };
 
 window.closeProductModal = function(){
@@ -251,27 +446,6 @@ function showError(text){
   box.style.display = text ? "block" : "none";
 }
 
-document.getElementById("productImage").addEventListener("change", function(event){
-  const file = event.target.files[0];
-  if(!file){ selectedImageFile = null; return; }
-  if(!file.type.startsWith("image/")){ showError("Please select an image file."); event.target.value=""; return; }
-  if(file.size > 2*1024*1024){ showError("Image is too large. Please choose an image under 2 MB."); event.target.value=""; return; }
-
-  selectedImageFile = file;
-  const reader = new FileReader();
-  reader.onload = e => {
-    selectedImagePreviewURL = e.target.result;
-    document.getElementById("imagePreview").innerHTML = `<img src="${selectedImagePreviewURL}" alt="Preview">`;
-    showError("");
-  };
-  reader.readAsDataURL(file);
-});
-
-document.getElementById("productPrice").addEventListener("input", function(){
-  if(Number(this.value) > MAX_PRICE) showError("Price cannot be more than ₹1500.");
-  else showError("");
-});
-
 window.saveProduct = async function(){
   const name = document.getElementById("productName").value.trim();
   const category = document.getElementById("productCategory").value;
@@ -281,26 +455,35 @@ window.saveProduct = async function(){
   const description = document.getElementById("productDescription").value.trim();
 
   if(name.length < 2){ showError("Please enter a valid product name."); return; }
-  if(!Number.isInteger(price) || price < 1 || price > MAX_PRICE){ showError("Product price must be between ₹1 and ₹1500."); return; }
+  if(!Number.isInteger(price) || price < 1 || price > MAX_PRICE){ showError("Price must be ₹1 – ₹1500."); return; }
   if(!Number.isInteger(stock) || stock < 0){ showError("Stock must be 0 or more."); return; }
 
-  const saveButton = document.getElementById("saveButton");
-  saveButton.disabled = true;
-  saveButton.textContent = "SAVING...";
+  const saveBtn = document.getElementById("saveButton");
+  saveBtn.disabled = true;
+  saveBtn.textContent = "SAVING...";
 
   try{
-    let imageURL = editingId ? (products.find(p=>p.id===editingId)?.image || "") : "";
-
-    if(selectedImageFile){
-      const extension = (selectedImageFile.name.split(".").pop() || "jpg").toLowerCase();
-      const imageRef = ref(storage, `productPhotos/${editingId || Date.now()}.${extension}`);
-      await uploadBytes(imageRef, selectedImageFile, { contentType: selectedImageFile.type });
-      imageURL = await getDownloadURL(imageRef);
+    // Upload any new File objects
+    const finalImages = [];
+    for(let i = 0; i < MAX_PHOTOS; i++){
+      if(photoFiles[i]){
+        const ext = (photoFiles[i].name.split(".").pop() || "jpg").toLowerCase();
+        const imageRef = ref(storage, `productPhotos/\( {Date.now()}_ \){i}.${ext}`);
+        await uploadBytes(imageRef, photoFiles[i], { contentType: photoFiles[i].type });
+        finalImages.push(await getDownloadURL(imageRef));
+      }else if(photoSlots[i] && !photoSlots[i].startsWith("data:")){
+        // already a remote URL
+        finalImages.push(photoSlots[i]);
+      }else if(photoSlots[i] && photoSlots[i].startsWith("data:")){
+        // data URL from previous load (shouldn't happen often)
+        finalImages.push(photoSlots[i]);
+      }
     }
 
     const productData = {
       name, category, price, stock, status, description,
-      image: imageURL,
+      image: finalImages[0] || "",
+      images: finalImages,
       updatedAt: serverTimestamp(),
       updatedBy: currentUid
     };
@@ -314,56 +497,56 @@ window.saveProduct = async function(){
     }
 
     closeProductModal();
-  }catch(error){
-    console.error("Save product failed:", error);
+  }catch(err){
+    console.error(err);
     showError("Could not save product. Please try again.");
   }finally{
-    saveButton.disabled = false;
-    saveButton.textContent = "SAVE PRODUCT";
+    saveBtn.disabled = false;
+    saveBtn.textContent = "SAVE PRODUCT";
   }
 };
 
 window.editProduct = function(id){
-  const product = products.find(p => p.id === id);
-  if(!product) return;
+  const p = products.find(x => x.id === id);
+  if(!p) return;
 
   editingId = id;
-  selectedImageFile = null;
   document.getElementById("modalTitle").textContent = "Edit Product";
-  document.getElementById("productName").value = product.name || "";
-  document.getElementById("productCategory").value = product.category || "Shoes";
-  document.getElementById("productPrice").value = product.price || "";
-  document.getElementById("productStock").value = product.stock || "";
-  document.getElementById("productStatus").value = product.status || "Active";
-  document.getElementById("productDescription").value = product.description || "";
-  document.getElementById("productImage").value = "";
-  document.getElementById("imagePreview").innerHTML = product.image ? `<img src="${escapeHtml(product.image)}" alt="Current image">` : '<span class="placeholder">No image</span>';
+  document.getElementById("productName").value = p.name || "";
+  document.getElementById("productCategory").value = p.category || "Shoes";
+  document.getElementById("productPrice").value = p.price || "";
+  document.getElementById("productStock").value = p.stock || "";
+  document.getElementById("productStatus").value = p.status || "Active";
+  document.getElementById("productDescription").value = p.description || "";
+
+  const imgs = Array.isArray(p.images) && p.images.length ? p.images : (p.image ? [p.image] : []);
+  photoSlots = ["", "", "", ""];
+  photoFiles = [null, null, null, null];
+  imgs.slice(0, 4).forEach((url, i) => photoSlots[i] = url);
+  renderPhotoSlots();
   showError("");
   document.getElementById("productModal").classList.add("show");
 };
 
 window.toggleProduct = async function(id){
-  const product = products.find(p => p.id === id);
-  if(!product) return;
-  const newStatus = product.status === "Active" ? "Inactive" : "Active";
+  const p = products.find(x => x.id === id);
+  if(!p) return;
+  const newStatus = p.status === "Active" ? "Inactive" : "Active";
   try{
     await setDoc(doc(db, "products", id), { status: newStatus, updatedAt: serverTimestamp() }, { merge: true });
-  }catch(error){
-    console.error("Toggle status failed:", error);
-    alert("Could not update status. Please try again.");
+  }catch(e){
+    alert("Could not update status.");
   }
 };
 
 window.deleteProduct = async function(id){
-  const product = products.find(p => p.id === id);
-  if(!product) return;
-  if(!confirm(`Delete "${product.name}"?`)) return;
-
+  const p = products.find(x => x.id === id);
+  if(!p) return;
+  if(!confirm(`Delete "${p.name}"?`)) return;
   try{
     await deleteDoc(doc(db, "products", id));
-  }catch(error){
-    console.error("Delete product failed:", error);
-    alert("Could not delete product. Please try again.");
+  }catch(e){
+    alert("Could not delete product.");
   }
 };
 </script>
