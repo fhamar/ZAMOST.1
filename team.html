@@ -21,14 +21,12 @@ header{height:64px;padding:0 4%;display:flex;align-items:center;justify-content:
 .home-btn{padding:8px 12px;border:1px solid #526b82;border-radius:8px;color:#dce5ed;font-size:11px;font-weight:600}
 .home-btn:hover{border-color:#4da3ff;color:#4da3ff}
 
-/* Hamburger */
 .hamburger{width:40px;height:40px;border:1px solid #3d5870;border-radius:9px;background:#0a1624;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;cursor:pointer}
 .hamburger span{display:block;width:18px;height:2px;background:#8fa3b8;border-radius:2px;transition:.25s}
 .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
 .hamburger.open span:nth-child(2){opacity:0}
 .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 
-/* Side Drawer */
 .drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:2000;opacity:0;visibility:hidden;transition:.25s}
 .drawer-overlay.show{opacity:1;visibility:visible}
 .drawer{position:fixed;top:0;right:0;width:min(300px,85vw);height:100%;background:#07111d;border-left:1px solid #2a4058;z-index:2001;transform:translateX(100%);transition:.28s;padding:20px 16px;overflow-y:auto}
@@ -100,10 +98,10 @@ header{height:64px;padding:0 4%;display:flex;align-items:center;justify-content:
 
 .member-list{display:grid;grid-template-columns:repeat(3,1fr);gap:11px}
 .member-card{padding:15px;border:1px solid #293f55;border-radius:11px;background:#07111d}
-.member-card-top{display:flex;justify-content:space-between;gap:8px}
-.member-card h3{font-size:13px}
-.member-card p{margin-top:5px;color:#73879b;font-size:10px;line-height:1.5}
-.member-status{font-size:9px;color:#4da3ff}
+.member-card-top{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
+.member-card h3{font-size:13px;word-break:break-word}
+.member-card p{margin-top:5px;color:#73879b;font-size:10px;line-height:1.5;word-break:break-all}
+.member-status{font-size:9px;color:#4da3ff;flex-shrink:0}
 
 .api-note{margin-top:16px;padding:13px;border:1px dashed #405a72;border-radius:9px;background:#06101a;color:#74899d;font-size:11px;line-height:1.6;text-align:center}
 .empty{padding:28px;text-align:center;border:1px dashed #354d64;border-radius:10px;color:#71869c;font-size:12px;display:none}
@@ -119,12 +117,11 @@ header{height:64px;padding:0 4%;display:flex;align-items:center;justify-content:
 .ads-form select,.ads-form input{height:42px;padding:0 11px;background:#050c14;border:1px solid #30465c;border-radius:8px;color:#fff;outline:none;font-size:12px}
 .ads-form button{padding:0 16px;border:none;border-radius:8px;background:#4da3ff;color:#04101c;font-weight:900;font-size:11px}
 .ads-list{margin-top:14px;display:grid;gap:9px}
-.ad-item{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px;border:1px solid #293f55;border-radius:10px;background:#07111d}
-.ad-item-text{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px;color:#dce5ed}
+.ad-item{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;padding:12px;border:1px solid #293f55;border-radius:10px;background:#07111d;overflow:hidden}
+.ad-item-text{min-width:0;flex:1;overflow:hidden;text-overflow:ellipsis;font-size:12px;color:#dce5ed;word-break:break-all;max-width:100%}
 .ad-item-meta{color:#71869c;font-size:10px;margin-top:3px}
 .ad-delete{padding:7px 11px;border:1px solid #6d4d4d;border-radius:7px;background:#1b1111;color:#ffb1b1;font-size:10px;font-weight:bold;flex-shrink:0}
 
-/* Hidden label for PDF/JPG */
 #labelPrintArea{position:fixed;left:-9999px;top:0;width:400px;background:#fff;color:#111;padding:24px;font-family:Arial,sans-serif}
 .label-header{display:flex;align-items:center;gap:12px;border-bottom:2px solid #1a1a1a;padding-bottom:12px;margin-bottom:14px}
 .label-logo{width:42px;height:42px;background:#0b1b2a;color:#4da3ff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:16px;border-radius:8px}
@@ -143,11 +140,11 @@ footer{padding:28px 5%;background:#03080e;border-top:1px solid #263b50;color:#7d
   .stats{grid-template-columns:repeat(3,1fr)}
   .order-grid{grid-template-columns:1fr}
   .member-list{grid-template-columns:repeat(2,1fr)}
+  .ads-form{grid-template-columns:1fr}
 }
 @media(max-width:600px){
   .stats{grid-template-columns:repeat(2,1fr)}
   .member-list{grid-template-columns:1fr}
-  .ads-form{grid-template-columns:1fr}
   .page-title{font-size:26px}
   .content{padding:20px 4% 70px}
   .partner-row{flex-direction:column}
@@ -155,8 +152,7 @@ footer{padding:28px 5%;background:#03080e;border-top:1px solid #263b50;color:#7d
 </style>
 </head>
 <body>
-
-<header>
+  <header>
   <div class="brand-area">
     <div class="fz-logo">FZ</div>
     <div class="brand"><span class="blue">FHAMAR</span><span class="silver">.ZAMOST</span></div>
@@ -170,7 +166,6 @@ footer{padding:28px 5%;background:#03080e;border-top:1px solid #263b50;color:#7d
   </div>
 </header>
 
-<!-- Drawer -->
 <div class="drawer-overlay" id="drawerOverlay"></div>
 <aside class="drawer" id="drawer">
   <div class="drawer-header">
@@ -224,7 +219,7 @@ footer{padding:28px 5%;background:#03080e;border-top:1px solid #263b50;color:#7d
 
   <section id="dashboard" class="section active">
     <div class="section-header"><h2>Operations Overview</h2></div>
-    <div class="api-note"><b>TEAM MEMBER ACCESS</b><br><br>You are viewing orders for: <b id="dashboardState">—</b><br><br>You can only see and update orders of your own state.</div>
+    <div class="api-note"><b>TEAM MEMBER ACCESS</b><br><br>You are viewing orders for: <b id="dashboardState">—</b></div>
   </section>
 
   <section id="orders" class="section">
@@ -292,8 +287,6 @@ footer{padding:28px 5%;background:#03080e;border-top:1px solid #263b50;color:#7d
   <p>Team Operations • State-wise Order Management</p>
 </footer>
 <div id="toast" class="toast"></div>
-
-<!-- Hidden label area for PDF / JPG -->
 <div id="labelPrintArea"></div>
 
 <script type="module">
@@ -325,7 +318,6 @@ function denyAccess(){
   document.getElementById("accessBlocked").style.display = "block";
 }
 
-/* ===== Hamburger ===== */
 const hamburgerBtn = document.getElementById("hamburgerBtn");
 const drawer = document.getElementById("drawer");
 const drawerOverlay = document.getElementById("drawerOverlay");
@@ -413,7 +405,6 @@ function initRealtimeOrders(){
   }
 }
 
-/* ===== Helper: normalize order fields (old demo + new real structure) ===== */
 function getCustomerName(o){
   return o.customer?.name || o.customerName || o.customer || "—";
 }
@@ -436,7 +427,6 @@ function getOrderItems(o){
       price: Number(it.price || it.rate || 0)
     }));
   }
-  // fallback old structure
   return [{
     name: o.product || o.productName || "Product",
     qty: 1,
@@ -468,11 +458,10 @@ window.renderOrders = function(){
     updateStats();
     return;
   }
-
   empty.style.display = "none";
   grid.innerHTML = filtered.map(order => {
     const items = getOrderItems(order);
-    const itemsText = items.map(i => `${escapeHTML(i.name)} × ${i.qty}`).join(", ");
+    const itemsText = items.map(i => escapeHTML(i.name) + " × " + i.qty).join(", ");
     return `
     <article class="order-card">
       <div class="order-top">
@@ -525,7 +514,7 @@ window.setOrderStatus = async function(id, status){
   if(!order) return;
   order.status = status;
   renderOrders();
-  showToast(`${id} → ${status}`);
+  showToast(id + " → " + status);
   try{
     await setDoc(doc(db,"orders",id),{ status, updatedAt: new Date().toISOString() },{merge:true});
   }catch(error){
@@ -546,7 +535,6 @@ window.advanceOrder = function(id){
   setOrderStatus(id, flow[i+1]);
 };
 
-/* ===== DOWNLOAD LABEL (PDF + JPG) ===== */
 window.downloadLabel = async function(orderId){
   const order = orders.find(o => o.id === orderId);
   if(!order) return;
@@ -564,7 +552,7 @@ window.downloadLabel = async function(orderId){
     </div>
     <div class="label-section">
       <b>ORDER</b>
-      ${escapeHTML(order.orderNumber || order.id)} &nbsp;|&nbsp; Status: ${escapeHTML(order.status || "—")}
+      ${escapeHTML(order.orderNumber || order.id)} | Status: ${escapeHTML(order.status || "—")}
     </div>
     <div class="label-section">
       <b>CUSTOMER</b>
@@ -591,17 +579,15 @@ window.downloadLabel = async function(orderId){
     </div>
     <div class="label-total">Total: ₹${getOrderTotal(order).toLocaleString("en-IN")}</div>
   `;
-  
-  // JPG
+
   try{
     const canvas = await html2canvas(area, {scale:2, backgroundColor:"#ffffff"});
     const link = document.createElement("a");
-    link.download = `FZ-Label-${order.orderNumber || order.id}.jpg`;
+    link.download = "FZ-Label-" + (order.orderNumber || order.id) + ".jpg";
     link.href = canvas.toDataURL("image/jpeg", 0.92);
     link.click();
   }catch(e){ console.warn("JPG failed", e); }
 
-  // PDF
   try{
     const { jsPDF } = window.jspdf;
     const pdf = new jsPDF({ unit:"pt", format:"a4" });
@@ -611,7 +597,7 @@ window.downloadLabel = async function(orderId){
     const imgWidth = pageWidth - 40;
     const imgHeight = (canvas.height * imgWidth) / canvas.width;
     pdf.addImage(img, "JPEG", 20, 20, imgWidth, imgHeight);
-    pdf.save(`FZ-Label-${order.orderNumber || order.id}.pdf`);
+    pdf.save("FZ-Label-" + (order.orderNumber || order.id) + ".pdf");
   }catch(e){ console.warn("PDF failed", e); }
 
   showToast("Label downloaded (PDF + JPG)");
@@ -644,7 +630,7 @@ async function loadTeamMembers(){
     const q = query(collection(db,"users"), where("role","in",["team_member","admin"]));
     const snap = await getDocs(q);
     const members = [];
-    snap.forEach(docSnap=>{
+    snap.forEach(docSnap => {
       const d = docSnap.data();
       if(!isApprovedTeam(d)) return;
       members.push({
@@ -656,21 +642,24 @@ async function loadTeamMembers(){
         isMe: docSnap.id === TEAM_MEMBER_ID
       });
     });
+
     if(!members.length){
       list.innerHTML = "";
       empty.style.display = "block";
       return;
     }
+
     empty.style.display = "none";
-    list.innerHTML = members.map(m => `
-      <article class="member-card">
-        <div class="member-card-top">
-          <h3>\( {escapeHTML(m.name)} \){m.isMe ? " (You)" : ""}</h3>
-          <span class="member-status">${escapeHTML(m.state)}</span>
-        </div>
-        <p>Mobile: ${escapeHTML(m.mobile)}<br>Email: ${escapeHTML(m.email)}</p>
-      </article>
-    `).join("");
+    list.innerHTML = members.map(function(m){
+      return '<article class="member-card">' +
+        '<div class="member-card-top">' +
+          '<h3>' + escapeHTML(m.name) + (m.isMe ? ' (You)' : '') + '</h3>' +
+          '<span class="member-status">' + escapeHTML(m.state) + '</span>' +
+        '</div>' +
+        '<p>Mobile: ' + escapeHTML(m.mobile) + '<br>Email: ' + escapeHTML(m.email) + '</p>' +
+      '</article>';
+    }).join("");
+
   }catch(error){
     console.warn("Team directory read failed:", error);
     list.innerHTML = "";
@@ -697,15 +686,15 @@ function renderAdsList(ads){
     return;
   }
   empty.style.display = "none";
-  list.innerHTML = ads.map(ad => `
-    <div class="ad-item">
-      <div>
-        <div class="ad-item-text">[${escapeHTML((ad.type||"text").toUpperCase())}] ${escapeHTML(ad.content||"")}</div>
-        <div class="ad-item-meta">Added by ${escapeHTML(ad.createdByName||"Team Member")}</div>
-      </div>
-      <button class="ad-delete" onclick="deleteAd('${escapeHTML(ad.id)}')">DELETE</button>
-    </div>
-  `).join("");
+  list.innerHTML = ads.map(function(ad){
+    return '<div class="ad-item">' +
+      '<div style="min-width:0;flex:1;overflow:hidden">' +
+        '<div class="ad-item-text">[' + escapeHTML((ad.type||"text").toUpperCase()) + '] ' + escapeHTML(ad.content||"") + '</div>' +
+        '<div class="ad-item-meta">Added by ' + escapeHTML(ad.createdByName||"Team Member") + '</div>' +
+      '</div>' +
+      '<button class="ad-delete" onclick="deleteAd(\'' + escapeHTML(ad.id) + '\')">DELETE</button>' +
+    '</div>';
+  }).join("");
 }
 
 window.addAd = async function(){
@@ -743,12 +732,14 @@ window.assignDelivery = function(){
   const data = {partner, memberId:TEAM_MEMBER_ID, state:TEAM_STATE, assignedAt:new Date().toISOString()};
   localStorage.setItem("fz_delivery_assignment", JSON.stringify(data));
   document.getElementById("deliveryResult").innerHTML =
-    `<b>ASSIGNED:</b> ${escapeHTML(partner)}<br>State: ${escapeHTML(TEAM_STATE)}`;
+    "<b>ASSIGNED:</b> " + escapeHTML(partner) + "<br>State: " + escapeHTML(TEAM_STATE);
   showToast("Delivery partner assigned.");
 };
 
 function escapeHTML(value){
-  return String(value??"").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
+  return String(value??"").replace(/[&<>"']/g, function(c){
+    return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c];
+  });
 }
 
 window.showToast = function(text){
@@ -756,8 +747,10 @@ window.showToast = function(text){
   t.textContent = text;
   t.classList.add("show");
   clearTimeout(window.toastTimer);
-  window.toastTimer = setTimeout(() => t.classList.remove("show"), 2200);
+  window.toastTimer = setTimeout(function(){ t.classList.remove("show"); }, 2200);
 };
 </script>
 </body>
 </html>
+  
+  
