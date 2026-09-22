@@ -59,7 +59,6 @@ header{
 .section-heading{margin-bottom:15px}
 .section-heading span{color:var(--blue2);font-size:.73rem;letter-spacing:1.7px;text-transform:uppercase;font-weight:800}
 .section-heading h2{font-size:1.55rem;margin-top:3px}
-
 .ad-banner-section{
  background:linear-gradient(145deg,#101b2a,#0b131f);border:1px solid #294261;border-radius:16px;
  padding:12px;text-align:center;margin-bottom:2.5rem;box-shadow:0 12px 30px rgba(0,0,0,.14)
@@ -67,7 +66,7 @@ header{
 .ad-carousel{position:relative;width:100%;min-height:185px;max-height:420px;border-radius:11px;overflow:hidden;background:#080f19}
 .ad-slide{
  position:absolute;inset:0;display:none;align-items:center;justify-content:center;
- color:var(--muted);font-size:.85rem;flex-direction:column;gap:6px
+ color:var(--muted);font-size:.85rem;flex-direction:column;gap:6px;padding:12px;text-align:center
 }
 .ad-slide.active{display:flex}
 .ad-slide img,.ad-slide video{width:100%;height:100%;object-fit:cover;display:block}
@@ -75,7 +74,6 @@ header{
 .ad-dot{width:7px;height:7px;border-radius:50%;background:#2a3a50;cursor:pointer;border:none;padding:0}
 .ad-dot.active{background:#4da3ff}
 .media-help{padding:8px 4px 2px;color:#69778a;font-size:.7rem}
-
 .products-section{margin-bottom:3rem}
 .product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
 .product-card{
@@ -148,12 +146,10 @@ footer{border-top:1px solid var(--border);background:#050911;margin-top:0}
  .trust-strip{grid-template-columns:repeat(2,1fr)}.footer-grid{grid-template-columns:1fr}
  .footer-bottom{text-align:left;font-size:.62rem}
 }
-.blue{color:#4da3ff}.silver{color:#aeb9c5}
 </style>
 </head>
 <body>
-
-<header>
+  <header>
   <div class="logo-container">
     <div class="logo-badge">FZ</div>
     <div class="brand-name"><span class="brand-blue">FHAMAR</span><span class="brand-silver">.ZAMOST</span><small>PREMIUM SMART PORTAL</small></div>
@@ -202,7 +198,7 @@ footer{border-top:1px solid var(--border);background:#050911;margin-top:0}
     <span>PROMO • MEDIA</span><h2>Featured Advertisement</h2>
   </div>
   <div class="ad-carousel" id="adCarousel">
-    <div class="ad-slide active">📢 No ads added yet.</div>
+    <div class="ad-slide active">📢 Loading ads...</div>
   </div>
   <div class="ad-dots" id="adDots"></div>
   <div class="media-help">इस जगह पर promotional content Team Dashboard ("Manage Ads") से जोड़ी जाती है।</div>
@@ -296,61 +292,67 @@ footer{border-top:1px solid var(--border);background:#050911;margin-top:0}
 
 <script type="module">
 import { app } from "./firebase-config.js";
-import {
-  getAuth, onAuthStateChanged, signOut
-} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
-import {
-  getFirestore, doc, getDoc, collection, getDocs, onSnapshot, query, orderBy
-} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+import { getFirestore, doc, getDoc, collection, getDocs, onSnapshot } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 const auth = getAuth(app);
 const db = getFirestore(app);
 
 function escapeHTML(value){
-  return String(value ?? "").replace(/[&<>"']/g, m => ({
-    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
-  }[m]));
+  return String(value ?? "").replace(/[&<>"']/g, function(m){
+    return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m];
+  });
 }
 
-let adRotateTimer = null;
+var adRotateTimer = null;
 
 function renderAdSlides(ads){
-  const carousel = document.getElementById("adCarousel");
-  const dotsWrap = document.getElementById("adDots");
+  var carousel = document.getElementById("adCarousel");
+  var dotsWrap = document.getElementById("adDots");
 
-  if(!ads.length){
+  if(!ads || !ads.length){
     carousel.innerHTML = '<div class="ad-slide active">📢 No ads added yet.</div>';
     dotsWrap.innerHTML = "";
     return;
   }
 
-  carousel.innerHTML = ads.map((ad, i) => {
-    let inner = "";
+  var slidesHtml = "";
+  var dotsHtml = "";
+
+  for(var i = 0; i < ads.length; i++){
+    var ad = ads[i];
+    var inner = "";
+
     if(ad.type === "image"){
-      inner = `<img src="${escapeHTML(ad.content)}" alt="Ad">`;
-    }else if(ad.type === "video"){
-      inner = `<video autoplay muted loop playsinline src="${escapeHTML(ad.content)}"></video>`;
-    }else{
-      inner = `📢 ${escapeHTML(ad.content)}`;
+      inner = '<img src="' + escapeHTML(ad.content) + '" alt="Ad">';
+    } else if(ad.type === "video"){
+      inner = '<video autoplay muted loop playsinline src="' + escapeHTML(ad.content) + '"></video>';
+    } else {
+      inner = "📢 " + escapeHTML(ad.content || "");
     }
-    return `<div class="ad-slide\( {i === 0 ? " active" : ""}"> \){inner}</div>`;
-  }).join("");
 
-  dotsWrap.innerHTML = ads.map((ad, i) =>
-    `<button class="ad-dot\( {i === 0 ? " active" : ""}" data-slide=" \){i}" aria-label="Ad ${i + 1}"></button>`
-  ).join("");
+    var activeClass = (i === 0) ? " active" : "";
+    slidesHtml += '<div class="ad-slide' + activeClass + '">' + inner + '</div>';
+    dotsHtml += '<button class="ad-dot' + activeClass + '" data-slide="' + i + '"></button>';
+  }
 
+  carousel.innerHTML = slidesHtml;
+  dotsWrap.innerHTML = dotsHtml;
   startAdCarousel();
 }
 
 function startAdCarousel(){
-  const slides = document.querySelectorAll("#adCarousel .ad-slide");
-  const dots = document.querySelectorAll("#adDots .ad-dot");
-  let current = 0;
+  var slides = document.querySelectorAll("#adCarousel .ad-slide");
+  var dots = document.querySelectorAll("#adDots .ad-dot");
+  var current = 0;
 
   function showSlide(index){
-    slides.forEach(s => s.classList.remove("active"));
-    dots.forEach(d => d.classList.remove("active"));
+    for(var i = 0; i < slides.length; i++){
+      slides[i].classList.remove("active");
+    }
+    for(var j = 0; j < dots.length; j++){
+      dots[j].classList.remove("active");
+    }
     if(slides[index]) slides[index].classList.add("active");
     if(dots[index]) dots[index].classList.add("active");
     current = index;
@@ -362,178 +364,201 @@ function startAdCarousel(){
 
   if(adRotateTimer) clearInterval(adRotateTimer);
 
-  dots.forEach(dot => {
-    dot.addEventListener("click", function(){
-      showSlide(Number(this.dataset.slide));
+  for(var k = 0; k < dots.length; k++){
+    dots[k].addEventListener("click", function(){
+      showSlide(Number(this.getAttribute("data-slide")));
       if(adRotateTimer) clearInterval(adRotateTimer);
       adRotateTimer = setInterval(nextSlide, 4000);
     });
-  });
+  }
 
   if(slides.length > 1){
     adRotateTimer = setInterval(nextSlide, 4000);
   }
 }
 
-try{
-  const adsQuery = query(collection(db, "ads"), orderBy("createdAt", "asc"));
-  onSnapshot(adsQuery, (snapshot) => {
-    const ads = snapshot.docs.map(d => d.data());
-    renderAdSlides(ads);
-  }, (error) => {
-    console.warn("Ads load failed:", error);
+/* ===== ADS ===== */
+onSnapshot(collection(db, "ads"), function(snapshot){
+  var ads = [];
+  snapshot.forEach(function(d){
+    var data = d.data();
+    data.id = d.id;
+    ads.push(data);
   });
-}catch(error){
-  console.error(error);
-}
+  ads.sort(function(a, b){
+    var ta = (a.createdAt && a.createdAt.seconds) ? a.createdAt.seconds : 0;
+    var tb = (b.createdAt && b.createdAt.seconds) ? b.createdAt.seconds : 0;
+    return ta - tb;
+  });
+  console.log("Ads loaded:", ads.length);
+  renderAdSlides(ads);
+}, function(error){
+  console.error("Ads error:", error);
+  document.getElementById("adCarousel").innerHTML = '<div class="ad-slide active">📢 Ads load nahi hue</div>';
+});
 
+/* ===== FEATURED PRODUCTS ===== */
 function renderFeaturedProducts(liveProducts){
-  const grid = document.getElementById("featuredProductGrid");
+  var grid = document.getElementById("featuredProductGrid");
+  var uploaded = [];
 
-  const uploaded = liveProducts
-    .filter(p => p.status === "Active" || !p.status)
-    .slice(0, 12)
-    .map(p => ({
-      id: p.id,
-      name: p.name,
-      description: p.description,
-      price: p.price,
-      image: p.image || (p.images && p.images[0]) || ""
-    }));
+  for(var i = 0; i < liveProducts.length; i++){
+    var p = liveProducts[i];
+    if(p.status === "Active" || !p.status){
+      uploaded.push({
+        id: p.id,
+        name: p.name || "",
+        description: p.description || "",
+        price: p.price || 0,
+        image: p.image || (p.images && p.images[0]) || ""
+      });
+    }
+    if(uploaded.length >= 12) break;
+  }
 
   if(!uploaded.length){
-    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:40px 20px;color:#8e9bad;font-size:14px;">
-      No products uploaded yet.<br>Team members can add products from the Product Upload page.
-    </div>`;
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px 20px;color:#8e9bad;font-size:14px;">No products uploaded yet.<br>Team members can add products from the Product Upload page.</div>';
     return;
   }
 
-  grid.innerHTML = uploaded.map(p => `
-    <div class="product-card">
-      <div class="product-image">
-        ${p.image
-          ? `<img src="\( {escapeHTML(p.image)}" alt=" \){escapeHTML(p.name)}" style="width:100%;height:100%;object-fit:cover">`
-          : "PRODUCT PHOTO"}
-      </div>
-      <h3>${escapeHTML(p.name)}</h3>
-      <p>${escapeHTML(p.description || "")}</p>
-      <div class="price">₹${Number(p.price || 0).toLocaleString("en-IN")}</div>
-      <a href="product-details.html?id=${encodeURIComponent(p.id)}" class="btn-view">VIEW PRODUCT</a>
-    </div>
-  `).join("");
+  var html = "";
+  for(var j = 0; j < uploaded.length; j++){
+    var prod = uploaded[j];
+    var imgHtml = prod.image
+      ? '<img src="' + escapeHTML(prod.image) + '" alt="' + escapeHTML(prod.name) + '" style="width:100%;height:100%;object-fit:cover">'
+      : "PRODUCT PHOTO";
+    html += '<div class="product-card">' +
+      '<div class="product-image">' + imgHtml + '</div>' +
+      '<h3>' + escapeHTML(prod.name) + '</h3>' +
+      '<p>' + escapeHTML(prod.description) + '</p>' +
+      '<div class="price">₹' + Number(prod.price).toLocaleString("en-IN") + '</div>' +
+      '<a href="product-details.html?id=' + encodeURIComponent(prod.id) + '" class="btn-view">VIEW PRODUCT</a>' +
+    '</div>';
+  }
+  grid.innerHTML = html;
 }
 
-try{
-  onSnapshot(collection(db, "products"), (snapshot) => {
-    const liveProducts = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
-    renderFeaturedProducts(liveProducts);
-  }, (error) => {
-    console.warn("Featured products load failed:", error);
-    renderFeaturedProducts([]);
+onSnapshot(collection(db, "products"), function(snapshot){
+  var liveProducts = [];
+  snapshot.forEach(function(d){
+    var data = d.data();
+    data.id = d.id;
+    liveProducts.push(data);
   });
-}catch(error){
-  console.error(error);
+  renderFeaturedProducts(liveProducts);
+}, function(error){
+  console.warn("Featured products load failed:", error);
   renderFeaturedProducts([]);
-}
+});
 
+/* ===== ACTIVE STATES ===== */
 async function lightUpActiveStates(){
   try{
-    const snap = await getDocs(collection(db, "users"));
-    const activeStates = new Set();
-
-    snap.forEach(docSnap=>{
-      const data = docSnap.data();
-      const state = data.state || data.userState || data.memberState;
-      const role = String(data.role || "").toLowerCase();
-      const status = String(data.status || "").toLowerCase();
-      const approved = (role === "team_member" || role === "admin") &&
-                       (status === "approved" || status === "active" || role === "admin");
+    var snap = await getDocs(collection(db, "users"));
+    var activeStates = {};
+    snap.forEach(function(docSnap){
+      var data = docSnap.data();
+      var state = data.state || data.userState || data.memberState;
+      var role = String(data.role || "").toLowerCase();
+      var status = String(data.status || "").toLowerCase();
+      var approved = (role === "team_member" || role === "admin") &&
+                     (status === "approved" || status === "active" || role === "admin");
       if(state && approved){
-        activeStates.add(String(state).trim().toLowerCase());
+        activeStates[String(state).trim().toLowerCase()] = true;
       }
     });
-
-    document.querySelectorAll(".state-item[data-state]").forEach(el=>{
-      const stateName = el.dataset.state.trim().toLowerCase();
-      if(activeStates.has(stateName)){
-        el.classList.add("active-team");
+    var items = document.querySelectorAll(".state-item[data-state]");
+    for(var i = 0; i < items.length; i++){
+      var stateName = items[i].getAttribute("data-state").trim().toLowerCase();
+      if(activeStates[stateName]){
+        items[i].classList.add("active-team");
       }
-    });
+    }
   }catch(err){
     console.warn("Active state check failed:", err);
   }
 }
 lightUpActiveStates();
+  /* ===== PROFILE ===== */
+var profileBtn = document.getElementById("profileBtn");
+var profilePanel = document.getElementById("profilePanel");
+var logoutBtn = document.getElementById("logoutBtn");
+var headerName = document.getElementById("headerName");
+var headerAvatar = document.getElementById("headerAvatar");
+var panelName = document.getElementById("panelName");
+var panelContact = document.getElementById("panelContact");
+var panelAvatar = document.getElementById("panelAvatar");
+var profileStatus = document.getElementById("profileStatus");
+var toast = document.getElementById("toast");
+var footerTeamLink = document.getElementById("footerTeamLink");
 
-const profileBtn = document.getElementById("profileBtn");
-const profilePanel = document.getElementById("profilePanel");
-const logoutBtn = document.getElementById("logoutBtn");
-const headerName = document.getElementById("headerName");
-const headerAvatar = document.getElementById("headerAvatar");
-const panelName = document.getElementById("panelName");
-const panelContact = document.getElementById("panelContact");
-const panelAvatar = document.getElementById("panelAvatar");
-const profileStatus = document.getElementById("profileStatus");
-const toast = document.getElementById("toast");
-const footerTeamLink = document.getElementById("footerTeamLink");
-
-function fallbackAvatar(letter="U"){
-  return "https://ui-avatars.com/api/?name="+encodeURIComponent(letter)+"&background=172537&color=ffffff&size=100";
+function fallbackAvatar(letter){
+  return "https://ui-avatars.com/api/?name=" + encodeURIComponent(letter || "U") + "&background=172537&color=ffffff&size=100";
 }
 function showToast(text){
-  toast.textContent=text; toast.classList.add("show");
-  setTimeout(()=>toast.classList.remove("show"),2500);
+  toast.textContent = text;
+  toast.classList.add("show");
+  setTimeout(function(){ toast.classList.remove("show"); }, 2500);
 }
 
-profileBtn.addEventListener("click",()=>profilePanel.classList.toggle("show"));
-document.addEventListener("click",e=>{
-  if(!profilePanel.contains(e.target) && !profileBtn.contains(e.target)) profilePanel.classList.remove("show");
+profileBtn.addEventListener("click", function(){
+  profilePanel.classList.toggle("show");
 });
-logoutBtn.addEventListener("click",async()=>{
+document.addEventListener("click", function(e){
+  if(!profilePanel.contains(e.target) && !profileBtn.contains(e.target)){
+    profilePanel.classList.remove("show");
+  }
+});
+logoutBtn.addEventListener("click", async function(){
   try{
     await signOut(auth);
     showToast("Logout successful");
-    setTimeout(()=>location.href="index.html",600);
-  }catch(err){ console.error(err); showToast("Logout failed"); }
+    setTimeout(function(){ location.href = "index.html"; }, 600);
+  }catch(err){
+    console.error(err);
+    showToast("Logout failed");
+  }
 });
 
-onAuthStateChanged(auth, async user=>{
+onAuthStateChanged(auth, async function(user){
   if(!user){
-    headerName.textContent="Login";
-    panelName.textContent="Not logged in";
-    panelContact.textContent="Please login to continue";
-    profileStatus.textContent="No Firebase session found";
-    const av=fallbackAvatar("U");
-    headerAvatar.src=av; panelAvatar.src=av;
-    logoutBtn.style.display="none";
+    headerName.textContent = "Login";
+    panelName.textContent = "Not logged in";
+    panelContact.textContent = "Please login to continue";
+    profileStatus.textContent = "No Firebase session found";
+    var av = fallbackAvatar("U");
+    headerAvatar.src = av;
+    panelAvatar.src = av;
+    logoutBtn.style.display = "none";
     if(footerTeamLink) footerTeamLink.style.display = "none";
     return;
   }
 
-  const name=user.displayName || (user.email ? user.email.split("@")[0] : "Customer");
-  const contact=user.email || user.phoneNumber || "Firebase customer";
-  const av=user.photoURL || fallbackAvatar(name.charAt(0).toUpperCase());
+  var name = user.displayName || (user.email ? user.email.split("@")[0] : "Customer");
+  var contact = user.email || user.phoneNumber || "Firebase customer";
+  var av2 = user.photoURL || fallbackAvatar(name.charAt(0).toUpperCase());
 
-  headerName.textContent=name;
-  panelName.textContent=name;
-  panelContact.textContent=contact;
-  profileStatus.textContent="Signed in • Firebase Authentication";
-  headerAvatar.src=av; panelAvatar.src=av;
-  logoutBtn.style.display="block";
+  headerName.textContent = name;
+  panelName.textContent = name;
+  panelContact.textContent = contact;
+  profileStatus.textContent = "Signed in • Firebase Authentication";
+  headerAvatar.src = av2;
+  panelAvatar.src = av2;
+  logoutBtn.style.display = "block";
 
   try{
-    const snap = await getDoc(doc(db,"users",user.uid));
-    const data = snap.exists() ? snap.data() : {};
-    const role = String(data.role || data.userRole || "").toLowerCase().replace(/[\s-]/g,"_");
+    var snap = await getDoc(doc(db, "users", user.uid));
+    var data = snap.exists() ? snap.data() : {};
+    var role = String(data.role || data.userRole || "").toLowerCase().replace(/[\s-]/g, "_");
 
     if(role === "admin" || data.adminAccess === true){
-      profileStatus.textContent="Signed in • Admin";
+      profileStatus.textContent = "Signed in • Admin";
       if(footerTeamLink) footerTeamLink.style.display = "block";
-    }else if(["team_member","teammember","team"].includes(role) &&
-              ["approved","active"].includes(String(data.status||"").toLowerCase())){
-      profileStatus.textContent="Signed in • Verified Team Member";
+    } else if(["team_member","teammember","team"].indexOf(role) !== -1 &&
+              ["approved","active"].indexOf(String(data.status || "").toLowerCase()) !== -1){
+      profileStatus.textContent = "Signed in • Verified Team Member";
       if(footerTeamLink) footerTeamLink.style.display = "block";
-    }else{
+    } else {
       if(footerTeamLink) footerTeamLink.style.display = "none";
     }
   }catch(err){
