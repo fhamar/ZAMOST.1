@@ -60,7 +60,6 @@ header{
 .section-heading span{color:var(--blue2);font-size:.73rem;letter-spacing:1.7px;text-transform:uppercase;font-weight:800}
 .section-heading h2{font-size:1.55rem;margin-top:3px}
 
-/* ===== AD CAROUSEL ===== */
 .ad-banner-section{
  background:linear-gradient(145deg,#101b2a,#0b131f);border:1px solid #294261;border-radius:16px;
  padding:12px;text-align:center;margin-bottom:2.5rem;box-shadow:0 12px 30px rgba(0,0,0,.14)
@@ -160,7 +159,6 @@ footer{border-top:1px solid var(--border);background:#050911;margin-top:0}
     <div class="brand-name"><span class="brand-blue">FHAMAR</span><span class="brand-silver">.ZAMOST</span><small>PREMIUM SMART PORTAL</small></div>
   </div>
   <div class="header-actions">
-    <!-- TEAM MEMBERS button removed -->
     <button class="profile-btn" id="profileBtn" type="button">
       <img class="profile-avatar" id="headerAvatar" alt="">
       <span id="headerName">Profile</span>
@@ -176,7 +174,6 @@ footer{border-top:1px solid var(--border);background:#050911;margin-top:0}
   <a href="notifications.html" class="nav-item-btn">Notifications</a>
   <a href="help.html" class="nav-item-btn">Help</a>
   <a href="Profile.html" class="nav-item-btn">Profile</a>
-  <!-- Voting button removed from nav -->
 </nav>
 
 <div class="profile-panel" id="profilePanel">
@@ -200,7 +197,6 @@ footer{border-top:1px solid var(--border);background:#050911;margin-top:0}
   </div>
 </section>
 
-<!-- AD CAROUSEL -->
 <section class="ad-banner-section">
   <div class="section-heading" style="text-align:left;margin:2px 4px 9px">
     <span>PROMO • MEDIA</span><h2>Featured Advertisement</h2>
@@ -212,29 +208,24 @@ footer{border-top:1px solid var(--border);background:#050911;margin-top:0}
   <div class="media-help">इस जगह पर promotional content Team Dashboard ("Manage Ads") से जोड़ी जाती है।</div>
 </section>
 
-<!-- FEATURED PRODUCTS (only real uploaded products) -->
 <section class="products-section" id="featured-products">
   <div class="section-heading">
     <span>SHOP • SELECT • DISCOVER</span>
     <h2>Featured Products</h2>
   </div>
-  <div class="product-grid" id="featuredProductGrid">
-    <!-- Only real products from Firestore will appear here -->
-  </div>
+  <div class="product-grid" id="featuredProductGrid"></div>
 </section>
 
 <section class="team-box" id="team">
   <div class="team-copy">
     <h2>Become a FHAMAR.ZAMOST Team Member</h2>
-    <p>Join our state-wise network and help customers with local operations, order coordination, packaging, dispatch support and delivery coordination. Team applications are reviewed by Admin before activation. Customers can use the portal to discover products, follow order updates and contact support through the available service channels.</p>
+    <p>Join our state-wise network and help customers with local operations, order coordination, packaging, dispatch support and delivery coordination. Team applications are reviewed by Admin before activation.</p>
     <div class="team-points">
       <span>✓ State-wise Network</span><span>✓ Admin Verified</span><span>✓ Order Support</span><span>✓ Customer Service</span>
     </div>
   </div>
   <a href="Profile.html" class="btn-primary">TEAM REGISTRATION</a>
 </section>
-
-<!-- Community Voting section completely removed -->
 
 <section class="trust-section">
   <div class="trust-strip">
@@ -360,7 +351,7 @@ function startAdCarousel(){
   function showSlide(index){
     slides.forEach(s => s.classList.remove("active"));
     dots.forEach(d => d.classList.remove("active"));
-    slides[index].classList.add("active");
+    if(slides[index]) slides[index].classList.add("active");
     if(dots[index]) dots[index].classList.add("active");
     current = index;
   }
@@ -396,17 +387,12 @@ try{
   console.error(error);
 }
 
-/*
-=====================================================================
-FEATURED PRODUCTS — Only real uploaded products (no demo/fallback)
-=====================================================================
-*/
 function renderFeaturedProducts(liveProducts){
   const grid = document.getElementById("featuredProductGrid");
 
   const uploaded = liveProducts
-    .filter(p => p.status === "Active" || !p.status)   // Active or no status field
-    .slice(0, 12)   // show up to 12 products
+    .filter(p => p.status === "Active" || !p.status)
+    .slice(0, 12)
     .map(p => ({
       id: p.id,
       name: p.name,
@@ -415,7 +401,7 @@ function renderFeaturedProducts(liveProducts){
       image: p.image || (p.images && p.images[0]) || ""
     }));
 
-    if(!uploaded.length){
+  if(!uploaded.length){
     grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:40px 20px;color:#8e9bad;font-size:14px;">
       No products uploaded yet.<br>Team members can add products from the Product Upload page.
     </div>`;
@@ -450,14 +436,8 @@ try{
   renderFeaturedProducts([]);
 }
 
-/*
-=====================================================================
-ACTIVE STATE GLOW
-=====================================================================
-*/
 async function lightUpActiveStates(){
   try{
-    // Try users collection first (most common in your project)
     const snap = await getDocs(collection(db, "users"));
     const activeStates = new Set();
 
@@ -549,7 +529,7 @@ onAuthStateChanged(auth, async user=>{
     if(role === "admin" || data.adminAccess === true){
       profileStatus.textContent="Signed in • Admin";
       if(footerTeamLink) footerTeamLink.style.display = "block";
-    }else if(["team_member","teammember","team"].includes(role) && 
+    }else if(["team_member","teammember","team"].includes(role) &&
               ["approved","active"].includes(String(data.status||"").toLowerCase())){
       profileStatus.textContent="Signed in • Verified Team Member";
       if(footerTeamLink) footerTeamLink.style.display = "block";
