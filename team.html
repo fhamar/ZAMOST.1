@@ -4,294 +4,159 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Team Dashboard | FHAMAR ZAMOST</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
 body{background:#050b12;color:#fff}button,input,select{font-family:inherit}button{cursor:pointer}a{text-decoration:none;color:inherit}
-
-header{height:64px;padding:0 4%;display:flex;align-items:center;justify-content:space-between;background:#07111d;border-bottom:1px solid #30465d;position:sticky;top:0;z-index:1000}
-.brand-area{display:flex;align-items:center;gap:10px}
-.fz-logo{width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:11px;border:1px solid #8298ad;background:linear-gradient(145deg,#173b5b,#050b12);color:#fff;font-size:15px;font-weight:900}
-.brand{font-size:16px;font-weight:900;letter-spacing:1.5px}
-.blue{color:#4da3ff}.silver{color:#aeb9c5}
-
-.header-right{display:flex;align-items:center;gap:8px}
-.role{padding:6px 10px;border:1px solid #3d5870;border-radius:16px;color:#4da3ff;font-size:9px;font-weight:bold}
-.home-btn{padding:8px 12px;border:1px solid #526b82;border-radius:8px;color:#dce5ed;font-size:11px;font-weight:600}
-.home-btn:hover{border-color:#4da3ff;color:#4da3ff}
-
-.hamburger{width:40px;height:40px;border:1px solid #3d5870;border-radius:9px;background:#0a1624;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;cursor:pointer}
-.hamburger span{display:block;width:18px;height:2px;background:#8fa3b8;border-radius:2px;transition:.25s}
-.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
-.hamburger.open span:nth-child(2){opacity:0}
-.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-
-.drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:2000;opacity:0;visibility:hidden;transition:.25s}
-.drawer-overlay.show{opacity:1;visibility:visible}
-.drawer{position:fixed;top:0;right:0;width:min(300px,85vw);height:100%;background:#07111d;border-left:1px solid #2a4058;z-index:2001;transform:translateX(100%);transition:.28s;padding:20px 16px;overflow-y:auto}
-.drawer.show{transform:translateX(0)}
-.drawer-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px}
-.drawer-title{font-size:13px;font-weight:800;letter-spacing:1px;color:#8fa3b8}
-.drawer-close{width:34px;height:34px;border:1px solid #3d5870;border-radius:8px;background:transparent;color:#c5d2de;font-size:16px}
-.drawer-menu{display:flex;flex-direction:column;gap:6px}
-.drawer-btn{display:block;width:100%;padding:13px 14px;text-align:left;border:1px solid transparent;border-radius:10px;background:transparent;color:#9eb0c2;font-size:13px}
-.drawer-btn:hover,.drawer-btn.active{background:#102b42;border-color:#315574;color:#4da3ff}
-.drawer-divider{margin:12px 4px;border-top:1px solid #1e2f42;padding-top:10px;color:#4a5d70;font-size:9px;letter-spacing:1.5px}
-.drawer-btn.admin-link{display:none;border-color:#3d607d;color:#4da3ff}
-.drawer-btn.admin-link.show{display:block}
-
-.layout{min-height:calc(100vh - 64px)}
-.content{padding:28px 4% 80px}
-.eyebrow{color:#71869c;font-size:9px;letter-spacing:2.5px;font-weight:bold}
-.page-title{margin-top:8px;font-size:30px}
-.page-title span{color:#4da3ff}
-.subtitle{margin-top:6px;color:#8194a8;font-size:13px;line-height:1.6}
-
-.member-profile{margin-top:20px;padding:18px;border:1px solid #344d64;border-radius:14px;background:#091622;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
-.member-left{display:flex;align-items:center;gap:14px}
-.avatar{width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#173b5b,#07111d);border:1px solid #6b8399;color:#4da3ff;font-size:20px;font-weight:900}
-.member-name{font-size:18px;font-weight:bold}
-.member-info{margin-top:4px;color:#7f92a6;font-size:11px;line-height:1.5}
-.state-badge{padding:9px 13px;border-radius:9px;background:#102a40;border:1px solid #3d607d;color:#4da3ff;font-size:10px;font-weight:bold}
-
-.stats{margin-top:16px;display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
-.stat{padding:14px;border:1px solid #293f55;border-radius:11px;background:#081421}
-.stat small{color:#71869c;font-size:9px}
-.stat strong{display:block;margin-top:6px;font-size:20px}
-.stat.active-stat strong{color:#4da3ff}
-
-.section{margin-top:20px;padding:18px;border:1px solid #293f55;border-radius:13px;background:#081421;display:none}
-.section.active{display:block}
-.section-header{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px;flex-wrap:wrap}
-.section-header h2{font-size:18px}
-
-.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
-.search{flex:1;min-width:160px;height:42px;padding:0 12px;background:#050c14;border:1px solid #30465c;border-radius:8px;color:white;outline:none;font-size:12px}
-.select{height:42px;padding:0 11px;background:#050c14;border:1px solid #30465c;border-radius:8px;color:#dce5ed;outline:none;font-size:12px}
-
-.order-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-.order-card{padding:16px;border:1px solid #293f55;border-radius:12px;background:#07111d}
-.order-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
-.order-id{color:#dce5ed;font-size:13px;font-weight:bold}
-.status{padding:5px 9px;border-radius:12px;background:#102a40;border:1px solid #385b77;color:#4da3ff;font-size:9px;font-weight:bold}
-.order-info{margin-top:11px;color:#7f93a7;font-size:11px;line-height:1.7}
-.order-info strong{color:#dce5ed}
-.order-actions{margin-top:12px;display:flex;gap:6px;flex-wrap:wrap}
-.action{padding:8px 10px;border-radius:7px;border:1px solid #40586f;background:#0a1725;color:#b9c7d4;font-size:9px;font-weight:bold}
-.action:hover{border-color:#4da3ff;color:#4da3ff}
-.action.primary{background:#4da3ff;border-color:#4da3ff;color:#04101c}
-.action.label-btn{border-color:#2d6a4f;color:#95d5b2}
-.action.label-btn:hover{background:#1b4332;color:#fff}
-
-.packaging{margin-top:11px;padding-top:11px;border-top:1px solid #22364a}
-.packaging-title{color:#9badbd;font-size:10px;font-weight:bold;margin-bottom:8px}
-.packaging-steps{display:flex;gap:5px;flex-wrap:wrap}
-.step{padding:5px 8px;border-radius:6px;border:1px solid #30465c;color:#71869c;background:#08131f;font-size:8px}
-.step.done{border-color:#3f6b8b;color:#4da3ff;background:#0c2438}
-
-.partner-box{margin-top:12px;padding:14px;border:1px solid #293f55;border-radius:10px;background:#081421}
-.partner-box h3{font-size:13px;margin-bottom:10px}
-.partner-row{display:flex;gap:8px}
-.partner-row select{flex:1;height:42px;padding:0 10px;background:#050c14;border:1px solid #30465c;border-radius:8px;color:#fff}
-.partner-row button{padding:0 14px;border:none;border-radius:7px;background:#4da3ff;color:#04101c;font-size:10px;font-weight:900}
-
-.member-list{display:grid;grid-template-columns:repeat(3,1fr);gap:11px}
-.member-card{padding:15px;border:1px solid #293f55;border-radius:11px;background:#07111d}
-.member-card-top{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
-.member-card h3{font-size:13px;word-break:break-word}
-.member-card p{margin-top:5px;color:#73879b;font-size:10px;line-height:1.5;word-break:break-all}
-.member-status{font-size:9px;color:#4da3ff;flex-shrink:0}
-
-.api-note{margin-top:16px;padding:13px;border:1px dashed #405a72;border-radius:9px;background:#06101a;color:#74899d;font-size:11px;line-height:1.6;text-align:center}
-.empty{padding:28px;text-align:center;border:1px dashed #354d64;border-radius:10px;color:#71869c;font-size:12px;display:none}
-.toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,20px);padding:11px 15px;border:1px solid #4da3ff;border-radius:8px;background:#0b2032;color:#dce5ed;font-size:11px;opacity:0;pointer-events:none;transition:.25s;z-index:4000}
-.toast.show{opacity:1;transform:translate(-50%,0)}
-
-.access-blocked{max-width:480px;margin:70px auto;padding:30px;border:1px solid #344d64;border-radius:16px;background:#091622;text-align:center;display:none}
-.access-blocked h2{font-size:20px}
-.access-blocked p{margin-top:10px;color:#8194a8;font-size:13px;line-height:1.6}
-.access-blocked a{display:inline-block;margin-top:16px;padding:11px 18px;background:#4da3ff;color:#04101c;border-radius:8px;font-weight:900;font-size:12px}
-
-.ads-form{display:grid;grid-template-columns:120px 1fr auto;gap:8px}
-.ads-form select,.ads-form input{height:42px;padding:0 11px;background:#050c14;border:1px solid #30465c;border-radius:8px;color:#fff;outline:none;font-size:12px}
-.ads-form button{padding:0 16px;border:none;border-radius:8px;background:#4da3ff;color:#04101c;font-weight:900;font-size:11px}
-.ads-list{margin-top:14px;display:grid;gap:9px}
-.ad-item{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;padding:12px;border:1px solid #293f55;border-radius:10px;background:#07111d;overflow:hidden}
-.ad-item-text{min-width:0;flex:1;overflow:hidden;text-overflow:ellipsis;font-size:12px;color:#dce5ed;word-break:break-all;max-width:100%}
-.ad-item-meta{color:#71869c;font-size:10px;margin-top:3px}
-.ad-delete{padding:7px 11px;border:1px solid #6d4d4d;border-radius:7px;background:#1b1111;color:#ffb1b1;font-size:10px;font-weight:bold;flex-shrink:0}
-
-#labelPrintArea{position:fixed;left:-9999px;top:0;width:400px;background:#fff;color:#111;padding:24px;font-family:Arial,sans-serif}
-.label-header{display:flex;align-items:center;gap:12px;border-bottom:2px solid #1a1a1a;padding-bottom:12px;margin-bottom:14px}
-.label-logo{width:42px;height:42px;background:#0b1b2a;color:#4da3ff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:16px;border-radius:8px}
-.label-brand{font-size:16px;font-weight:900;letter-spacing:1px}
-.label-brand span{color:#2563eb}
-.label-section{margin-bottom:12px;font-size:12px;line-height:1.55}
-.label-section b{display:block;margin-bottom:3px;font-size:11px;color:#333}
-.label-table{width:100%;border-collapse:collapse;font-size:11px;margin-top:6px}
-.label-table th,.label-table td{border:1px solid #ccc;padding:6px 8px;text-align:left}
-.label-table th{background:#f0f0f0}
-.label-total{margin-top:10px;font-size:13px;font-weight:bold;text-align:right}
-
-footer{padding:28px 5%;background:#03080e;border-top:1px solid #263b50;color:#7d90a4;font-size:11px}
-
-@media(max-width:900px){
-  .stats{grid-template-columns:repeat(3,1fr)}
-  .order-grid{grid-template-columns:1fr}
-  .member-list{grid-template-columns:repeat(2,1fr)}
-  .ads-form{grid-template-columns:1fr}
-}
-@media(max-width:600px){
-  .stats{grid-template-columns:repeat(2,1fr)}
-  .member-list{grid-template-columns:1fr}
-  .page-title{font-size:26px}
-  .content{padding:20px 4% 70px}
-  .partner-row{flex-direction:column}
-}
+header{height:75px;padding:0 5%;display:flex;align-items:center;justify-content:space-between;background:#07111d;border-bottom:1px solid #30465d;position:sticky;top:0;z-index:1000}
+.brand-area{display:flex;align-items:center;gap:10px}.fz-logo{width:45px;height:45px;display:flex;align-items:center;justify-content:center;border-radius:12px;border:1px solid #8298ad;background:linear-gradient(145deg,#173b5b,#050b12);color:#fff;font-size:17px;font-weight:900}.brand{font-size:18px;font-weight:900;letter-spacing:2px}.blue{color:#4da3ff}.silver{color:#aeb9c5}
+.header-right{display:flex;align-items:center;gap:10px}.home-btn{padding:9px 13px;border:1px solid #526b82;border-radius:8px;color:#dce5ed;font-size:10px}
+.hamburger-btn{width:40px;height:40px;border:1px solid #526b82;border-radius:8px;background:transparent;color:#dce5ed;font-size:17px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
+.hamburger-btn:hover{border-color:#4da3ff;color:#4da3ff}
+.drawer-overlay{position:fixed;inset:0;background:rgba(3,7,13,.65);backdrop-filter:blur(2px);z-index:1500;opacity:0;pointer-events:none;transition:opacity .25s ease}
+.drawer-overlay.show{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:-300px;width:280px;max-width:82vw;height:100vh;background:linear-gradient(180deg,#0a1420,#06101a);border-left:1px solid #253a4e;z-index:1600;transition:right .28s cubic-bezier(.4,0,.2,1);padding:22px 0;overflow-y:auto;box-shadow:-20px 0 50px rgba(0,0,0,.5)}
+.drawer.show{right:0}
+.drawer-header{padding:0 20px 16px;border-bottom:1px solid #1c2c3c;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center}
+.drawer-header span{font-size:10px;letter-spacing:2px;color:#657b91;font-weight:900}
+.drawer-close{background:transparent;border:1px solid #2c4256;border-radius:7px;color:#8fa1b4;font-size:16px;cursor:pointer;width:30px;height:30px;display:flex;align-items:center;justify-content:center}
+.drawer-close:hover{border-color:#4da3ff;color:#4da3ff}
+.drawer-item{display:flex;align-items:center;gap:10px;width:100%;padding:14px 20px;text-align:left;border:none;background:transparent;color:#8fa1b4;font-size:12px;border-left:3px solid transparent;cursor:pointer;transition:.15s}
+.drawer-item:hover{background:#0b1b2a;color:white}
+.drawer-item.active{background:#102b42;border-left-color:#4da3ff;color:#4da3ff;font-weight:700}
+.drawer-divider{margin:14px 20px 6px;color:#4a5d70;font-size:8px;letter-spacing:2px;border-top:1px solid #1c2c3c;padding-top:14px;font-weight:900}
+.drawer-item.admin-link{display:none;color:#4da3ff}
+.drawer-item.admin-link.show{display:flex}
+.content{padding:35px 4% 80px;overflow:hidden}.eyebrow{color:#71869c;font-size:9px;letter-spacing:3px;font-weight:bold}.page-title{margin-top:10px;font-size:35px}.page-title span{color:#4da3ff}.subtitle{margin-top:8px;color:#8194a8;font-size:12px;line-height:1.7}
+.member-profile{margin-top:25px;padding:22px;border:1px solid #344d64;border-radius:16px;background:#091622;display:flex;justify-content:space-between;align-items:center;gap:20px}.member-left{display:flex;align-items:center;gap:15px}.avatar{width:65px;height:65px;border-radius:17px;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#173b5b,#07111d);border:1px solid #6b8399;color:#4da3ff;font-size:23px;font-weight:900}.member-name{font-size:20px;font-weight:bold}.member-info{margin-top:6px;color:#7f92a6;font-size:10px;line-height:1.6}.state-badge{padding:11px 15px;border-radius:10px;background:#102a40;border:1px solid #3d607d;color:#4da3ff;font-size:10px;font-weight:bold}
+.stats{margin-top:18px;display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.stat{padding:17px;border:1px solid #293f55;border-radius:12px;background:#081421}.stat small{color:#71869c;font-size:8px}.stat strong{display:block;margin-top:8px;font-size:22px}.stat.active-stat strong{color:#4da3ff}
+.section{margin-top:24px;padding:20px;border:1px solid #293f55;border-radius:15px;background:#081421}.section-header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:15px}.section-header h2{font-size:20px}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:15px}.search{flex:1;min-width:190px;height:43px;padding:0 12px;background:#050c14;border:1px solid #30465c;border-radius:8px;color:white;outline:none;font-size:11px}.select{height:43px;padding:0 12px;background:#050c14;border:1px solid #30465c;border-radius:8px;color:#dce5ed;outline:none;font-size:11px}
+.order-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.order-card{padding:18px;border:1px solid #293f55;border-radius:13px;background:#07111d}.order-top{display:flex;justify-content:space-between;align-items:center;gap:10px}.order-id{color:#dce5ed;font-size:13px;font-weight:bold}.status{padding:6px 9px;border-radius:15px;background:#102a40;border:1px solid #385b77;color:#4da3ff;font-size:8px;font-weight:bold}.order-info{margin-top:13px;color:#7f93a7;font-size:10px;line-height:1.8}.order-info strong{color:#dce5ed}.order-actions{margin-top:15px;display:flex;gap:7px;flex-wrap:wrap}.action{padding:9px 11px;border-radius:7px;border:1px solid #40586f;background:#0a1725;color:#b9c7d4;font-size:8px;font-weight:bold}.action:hover{border-color:#4da3ff;color:#4da3ff}.action.primary{background:#4da3ff;border-color:#4da3ff;color:#04101c}
+.packaging{margin-top:12px;padding:15px;border-top:1px solid #22364a}.packaging-title{color:#9badbd;font-size:10px;font-weight:bold;margin-bottom:10px}.packaging-steps{display:flex;gap:6px;flex-wrap:wrap}.step{padding:7px 9px;border-radius:7px;border:1px solid #30465c;color:#71869c;background:#08131f;font-size:8px}.step.done{border-color:#3f6b8b;color:#4da3ff;background:#0c2438}
+.partner-box{margin-top:15px;padding:15px;border:1px solid #293f55;border-radius:10px;background:#081421}.partner-box h3{font-size:13px;margin-bottom:10px}.partner-row{display:flex;gap:8px}.partner-row select{flex:1;height:43px;padding:0 10px;background:#050c14;border:1px solid #30465c;border-radius:8px;color:#fff}.partner-row button{padding:0 12px;border:none;border-radius:7px;background:#4da3ff;color:#04101c;font-size:9px;font-weight:900}
+.member-list{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.member-card{padding:17px;border:1px solid #293f55;border-radius:12px;background:#07111d}.member-card-top{display:flex;justify-content:space-between;gap:10px}.member-card h3{font-size:13px}.member-card p{margin-top:5px;color:#73879b;font-size:9px;line-height:1.6}.member-status{font-size:8px;color:#4da3ff}
+.api-note{margin-top:20px;padding:15px;border:1px dashed #405a72;border-radius:10px;background:#06101a;color:#74899d;font-size:9px;line-height:1.8;text-align:center}.empty{padding:30px;text-align:center;border:1px dashed #354d64;border-radius:10px;color:#71869c;font-size:10px;display:none}.toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,20px);padding:11px 15px;border:1px solid #4da3ff;border-radius:8px;background:#0b2032;color:#dce5ed;font-size:10px;opacity:0;pointer-events:none;transition:.25s;z-index:3000}.toast.show{opacity:1;transform:translate(-50%,0)}
+.access-blocked{max-width:500px;margin:80px auto;padding:35px;border:1px solid #344d64;border-radius:18px;background:#091622;text-align:center;display:none}
+.access-blocked h2{font-size:22px}.access-blocked p{margin-top:12px;color:#8194a8;font-size:13px;line-height:1.7}.access-blocked a{display:inline-block;margin-top:20px;padding:12px 20px;background:#4da3ff;color:#04101c;border-radius:9px;font-weight:900;font-size:11px}
+.ads-form{display:grid;grid-template-columns:130px 1fr auto;gap:8px}
+.ads-form select,.ads-form input{height:44px;padding:0 12px;background:#050c14;border:1px solid #30465c;border-radius:8px;color:#fff;outline:none;font-size:11px}
+.ads-form button{padding:0 18px;border:none;border-radius:8px;background:#4da3ff;color:#04101c;font-weight:900;font-size:10px}
+.ads-list{margin-top:16px;display:grid;gap:10px}
+.ad-item{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:14px;border:1px solid #293f55;border-radius:11px;background:#07111d}
+.ad-item-text{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11px;color:#dce5ed}
+.ad-item-meta{color:#71869c;font-size:9px;margin-top:4px}
+.ad-delete{padding:8px 12px;border:1px solid #6d4d4d;border-radius:7px;background:#1b1111;color:#ffb1b1;font-size:9px;font-weight:bold;flex-shrink:0}
+.ad-delete:hover{background:#2a1616}
+@media(max-width:600px){.ads-form{grid-template-columns:1fr}}
+footer{padding:35px 7%;background:#03080e;border-top:1px solid #263b50;color:#7d90a4;font-size:11px}
+@media(max-width:1000px){.stats{grid-template-columns:repeat(3,1fr)}.member-list{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:700px){.content{padding:25px 5% 70px}.page-title{font-size:29px}.member-profile{flex-direction:column;align-items:flex-start}.stats{grid-template-columns:repeat(2,1fr)}.order-grid{grid-template-columns:1fr}.member-list{grid-template-columns:1fr}.partner-row{flex-direction:column}.partner-row select,.partner-row button{height:43px}}
 </style>
 </head>
 <body>
-  <header>
-  <div class="brand-area">
-    <div class="fz-logo">FZ</div>
-    <div class="brand"><span class="blue">FHAMAR</span><span class="silver">.ZAMOST</span></div>
-  </div>
-  <div class="header-right">
-    <div class="role" id="roleBadge">TEAM MEMBER</div>
-    <a href="home.html" class="home-btn">HOME</a>
-    <button class="hamburger" id="hamburgerBtn" type="button" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-</header>
+<header><div class="brand-area"><div class="fz-logo">FZ</div><div class="brand"><span class="blue">FHAMAR</span><span class="silver">.ZAMOST</span></div></div><div class="header-right"><a href="home.html" class="home-btn">HOME</a><button type="button" class="hamburger-btn" id="hamburgerBtn" title="Menu" style="display:none">☰</button></div></header>
 
 <div class="drawer-overlay" id="drawerOverlay"></div>
 <aside class="drawer" id="drawer">
-  <div class="drawer-header">
-    <div class="drawer-title">TEAM MENU</div>
-    <button class="drawer-close" id="drawerClose" type="button">✕</button>
-  </div>
-  <div class="drawer-menu">
-    <button class="drawer-btn active" onclick="showSection('dashboard',this)">📊 Dashboard</button>
-    <button class="drawer-btn" onclick="showSection('orders',this)">📦 My State Orders</button>
-    <button class="drawer-btn" onclick="showSection('members',this)">👥 Team Members</button>
-    <button class="drawer-btn" onclick="showSection('delivery',this)">🚚 Delivery</button>
-    <button class="drawer-btn" onclick="showSection('ads',this)">🖼️ Manage Ads</button>
-    <div class="drawer-divider">PRODUCTS</div>
-    <a href="Product-upload.html" class="drawer-btn">🆕 Upload Product</a>
-    <a href="catalog.html" class="drawer-btn">📄 View Catalog</a>
-    <div class="drawer-divider">ADMIN</div>
-    <a href="admin.html" class="drawer-btn admin-link" id="adminLink">🛠️ Admin Panel</a>
-  </div>
+  <div class="drawer-header"><span>TEAM CONTROL</span><button type="button" class="drawer-close" id="drawerClose">×</button></div>
+  <button class="drawer-item active" onclick="showSection('dashboard',this)">📊 Dashboard</button>
+  <button class="drawer-item" onclick="showSection('orders',this)">📦 My State Orders</button>
+  <button class="drawer-item" onclick="showSection('members',this)">👥 Team Members</button>
+  <button class="drawer-item" onclick="showSection('delivery',this)">🚚 Delivery</button>
+  <button class="drawer-item" onclick="showSection('ads',this)">🖼️ Manage Ads</button>
+  <div class="drawer-divider">PRODUCTS</div>
+  <a href="Product-upload.html" class="drawer-item">🆕 Upload Product</a>
+  <a href="product-details.html" class="drawer-item">📄 Product Details</a>
+  <div class="drawer-divider">ADMIN</div>
+  <a href="admin.html" class="drawer-item admin-link" id="adminLink">🛠️ Admin Panel</a>
 </aside>
 
+<!-- Shown only if the signed-in user is NOT an approved team member -->
 <div class="access-blocked" id="accessBlocked">
   <h2>Access Not Available</h2>
-  <p>This dashboard is only available to approved FHAMAR.ZAMOST team members.</p>
+  <p>This dashboard is only available to approved FHAMAR.ZAMOST team members. If you have applied for team membership, please wait for Admin approval.</p>
   <a href="Profile.html">Go to My Profile</a>
 </div>
 
-<div class="layout" id="mainLayout" style="display:none">
+<div id="mainLayout" style="display:none">
 <main class="content">
-  <div class="eyebrow">FHAMAR.ZAMOST TEAM OPERATIONS</div>
-  <h1 class="page-title">Team <span>Dashboard</span></h1>
-  <p class="subtitle">Manage assigned state orders, packaging, dispatch and delivery operations.</p>
+<div class="eyebrow">FHAMAR.ZAMOST TEAM OPERATIONS</div>
+<h1 class="page-title">Team <span>Dashboard</span></h1>
+<p class="subtitle">Manage assigned state orders, packaging, dispatch and delivery operations.</p>
 
-  <section class="member-profile">
-    <div class="member-left">
-      <div class="avatar" id="avatar">FZ</div>
-      <div>
-        <div class="member-name" id="memberName">Loading...</div>
-        <div class="member-info" id="memberInfo">Checking account...</div>
-      </div>
-    </div>
-    <div class="state-badge" id="assignedState">ASSIGNED STATE: —</div>
-  </section>
+<section class="member-profile">
+<div class="member-left"><div class="avatar" id="avatar">FZ</div><div><div class="member-name" id="memberName">Loading...</div><div class="member-info" id="memberInfo">Checking account...</div></div></div>
+<div class="state-badge" id="assignedState">ASSIGNED STATE: —</div>
+</section>
 
-  <div class="stats">
-    <div class="stat active-stat"><small>TODAY ORDERS</small><strong id="todayOrders">0</strong></div>
-    <div class="stat"><small>PENDING</small><strong id="pendingOrders">0</strong></div>
-    <div class="stat"><small>PACKAGING</small><strong id="packagingOrders">0</strong></div>
-    <div class="stat"><small>SHIPPED</small><strong id="shippedOrders">0</strong></div>
-    <div class="stat"><small>DELIVERED</small><strong id="deliveredOrders">0</strong></div>
-  </div>
+<div class="stats">
+<div class="stat active-stat"><small>TODAY ORDERS</small><strong id="todayOrders">0</strong></div>
+<div class="stat"><small>PENDING</small><strong id="pendingOrders">0</strong></div>
+<div class="stat"><small>PACKAGING</small><strong id="packagingOrders">0</strong></div>
+<div class="stat"><small>SHIPPED</small><strong id="shippedOrders">0</strong></div>
+<div class="stat"><small>DELIVERED</small><strong id="deliveredOrders">0</strong></div>
+</div>
 
-  <section id="dashboard" class="section active">
-    <div class="section-header"><h2>Operations Overview</h2></div>
-    <div class="api-note"><b>TEAM MEMBER ACCESS</b><br><br>You are viewing orders for: <b id="dashboardState">—</b></div>
-  </section>
+<section id="dashboard" class="section">
+<div class="section-header"><h2>Operations Overview</h2></div>
+<div class="api-note"><b>TEAM MEMBER ACCESS</b><br><br>You are viewing orders for: <b id="dashboardState">—</b><br><br>You can only see and update orders assigned to your own state. Other team members' accounts cannot be edited from here.</div>
+</section>
 
-  <section id="orders" class="section">
-    <div class="section-header"><h2>My State Orders</h2></div>
-    <div class="toolbar">
-      <input id="orderSearch" class="search" placeholder="Search Order ID / Customer..." oninput="renderOrders()">
-      <select id="orderStatusFilter" class="select" onchange="renderOrders()">
-        <option value="all">All Status</option>
-        <option value="Confirmed">Confirmed</option>
-        <option value="Packaging">Packaging</option>
-        <option value="Ready to Ship">Ready to Ship</option>
-        <option value="Shipped">Shipped</option>
-        <option value="Out for Delivery">Out for Delivery</option>
-        <option value="Delivered">Delivered</option>
-      </select>
-    </div>
-    <div id="orderGrid" class="order-grid"></div>
-    <div id="orderEmpty" class="empty">No matching orders found.</div>
-  </section>
+<section id="orders" class="section" style="display:none">
+<div class="section-header"><h2>My State Orders</h2></div>
+<div class="toolbar">
+<input id="orderSearch" class="search" placeholder="Search Order ID / Customer..." oninput="renderOrders()">
+<select id="orderStatusFilter" class="select" onchange="renderOrders()">
+<option value="all">All Status</option><option value="Confirmed">Confirmed</option><option value="Packaging">Packaging</option><option value="Ready to Ship">Ready to Ship</option><option value="Shipped">Shipped</option><option value="Out for Delivery">Out for Delivery</option><option value="Delivered">Delivered</option>
+</select>
+</div>
+<div id="orderGrid" class="order-grid"></div><div id="orderEmpty" class="empty">No matching orders found.</div>
+</section>
 
-  <section id="members" class="section">
-    <div class="section-header"><h2>Team Members</h2></div>
-    <div id="memberList" class="member-list"></div>
-    <div id="memberEmpty" class="empty">No team members found.</div>
-    <div class="api-note"><b>VIEW-ONLY DIRECTORY</b><br><br>Only Admin can approve or edit team members.</div>
-  </section>
+<section id="members" class="section" style="display:none">
+<div class="section-header"><h2>Team Members</h2></div>
+<div id="memberList" class="member-list"></div>
+<div id="memberEmpty" class="empty">No team members found.</div>
+<div class="api-note"><b>VIEW-ONLY DIRECTORY</b><br><br>You can see each team member's name, mobile, email and assigned state — nothing here can be edited by a team member. Only Admin can approve, reject or edit team member accounts.</div>
+</section>
 
-  <section id="delivery" class="section">
-    <div class="section-header"><h2>Delivery Operations</h2></div>
-    <div class="partner-box">
-      <h3>Select Delivery Partner</h3>
-      <div class="partner-row">
-        <select id="deliveryPartner">
-          <option value="">Select Partner</option>
-          <option>FZ Delivery Network</option>
-          <option>Local Delivery Partner</option>
-          <option>Professional Courier Partner</option>
-        </select>
-        <button onclick="assignDelivery()">ASSIGN</button>
-      </div>
-    </div>
-    <div id="deliveryResult" class="api-note">No delivery partner assigned yet.</div>
-  </section>
+<section id="delivery" class="section" style="display:none">
+<div class="section-header"><h2>Delivery Operations</h2></div>
+<div class="partner-box"><h3>Select Delivery Partner</h3><div class="partner-row"><select id="deliveryPartner"><option value="">Select Partner</option><option>FZ Delivery Network</option><option>Local Delivery Partner</option><option>Professional Courier Partner</option></select><button onclick="assignDelivery()">ASSIGN</button></div></div>
+<div id="deliveryResult" class="api-note">No delivery partner assigned yet.</div>
+</section>
 
-  <section id="ads" class="section">
-    <div class="section-header"><h2>Manage Home Page Ads</h2></div>
-    <div class="api-note" style="margin-top:0;margin-bottom:12px">Ads appear automatically on the Home page banner.</div>
-    <div class="ads-form">
-      <select id="adType">
-        <option value="text">Text</option>
-        <option value="image">Image URL</option>
-        <option value="video">Video URL</option>
-      </select>
-      <input id="adContent" placeholder="Enter ad text or URL...">
-      <button type="button" onclick="addAd()">ADD AD</button>
-    </div>
-    <div id="adsList" class="ads-list"></div>
-    <div id="adsEmpty" class="empty">No ads added yet.</div>
-  </section>
+<section id="ads" class="section" style="display:none">
+<div class="section-header"><h2>Manage Home Page Ads</h2></div>
+<div class="api-note" style="margin-top:0;margin-bottom:15px">Ads added here appear automatically on the Home page's "Featured Advertisement" banner, rotating one after another. Any team member can add or delete an ad.</div>
+
+<div class="ads-form">
+  <select id="adType">
+    <option value="text">Text</option>
+    <option value="image">Image URL</option>
+    <option value="video">Video URL</option>
+  </select>
+  <input id="adContent" placeholder="Enter ad text, or paste an image/video URL...">
+  <button type="button" onclick="addAd()">ADD AD</button>
+</div>
+
+<div id="adsList" class="ads-list"></div>
+<div id="adsEmpty" class="empty">No ads added yet.</div>
+</section>
+
 </main>
 </div>
 
-<footer>
-  <div class="brand"><span class="blue">FHAMAR</span><span class="silver">.ZAMOST</span></div>
-  <p>Team Operations • State-wise Order Management</p>
-</footer>
+<footer><div class="brand"><span class="blue">FHAMAR</span><span class="silver">.ZAMOST</span></div><p>Team Operations • State-wise Order Management</p></footer>
 <div id="toast" class="toast"></div>
-<div id="labelPrintArea"></div>
 
 <script type="module">
 import { app } from "./firebase-config.js";
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+import {
+  getAuth, onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 import {
   getFirestore, collection, query, where, onSnapshot, doc, getDoc, setDoc, getDocs,
   addDoc, deleteDoc, orderBy, serverTimestamp
@@ -303,8 +168,28 @@ const db = getFirestore(app);
 let TEAM_STATE = "";
 let TEAM_MEMBER_ID = "";
 let orders = [];
-let currentUserName = "";
 
+/*
+=====================================================================
+ACCESS CONTROL
+=====================================================================
+Only signed-in users whose users/{uid} document has:
+  role: "team_member" (or "admin")
+  status: "approved"
+may open this dashboard at all.
+
+The "Admin Panel" link only appears for a user whose document also
+has adminAccess: true — being an approved team member is NOT enough
+by itself to reach admin.html. Admin sets this flag manually (or via
+admin.html later) for the specific person who should have it.
+
+IMPORTANT: This check happens in the browser for convenience only.
+Real protection must also exist in Firebase/Firestore Security Rules
+so a technical user cannot bypass this page and read/write data
+directly. Ask for the security rules text if you'd like it written
+out for your Firebase Console.
+=====================================================================
+*/
 function isApprovedTeam(data){
   const role = String(data?.role || "").toLowerCase().replace(/[\s-]/g,"_");
   const status = String(data?.status || "").toLowerCase();
@@ -316,28 +201,8 @@ function isApprovedTeam(data){
 function denyAccess(){
   document.getElementById("mainLayout").style.display = "none";
   document.getElementById("accessBlocked").style.display = "block";
+  document.getElementById("hamburgerBtn").style.display = "none";
 }
-
-const hamburgerBtn = document.getElementById("hamburgerBtn");
-const drawer = document.getElementById("drawer");
-const drawerOverlay = document.getElementById("drawerOverlay");
-const drawerClose = document.getElementById("drawerClose");
-
-function openDrawer(){
-  drawer.classList.add("show");
-  drawerOverlay.classList.add("show");
-  hamburgerBtn.classList.add("open");
-}
-function closeDrawer(){
-  drawer.classList.remove("show");
-  drawerOverlay.classList.remove("show");
-  hamburgerBtn.classList.remove("open");
-}
-hamburgerBtn.addEventListener("click", () => {
-  drawer.classList.contains("show") ? closeDrawer() : openDrawer();
-});
-drawerOverlay.addEventListener("click", closeDrawer);
-drawerClose.addEventListener("click", closeDrawer);
 
 onAuthStateChanged(auth, async (user) => {
   if(!user){
@@ -360,6 +225,7 @@ onAuthStateChanged(auth, async (user) => {
 
   document.getElementById("mainLayout").style.display = "block";
   document.getElementById("accessBlocked").style.display = "none";
+  document.getElementById("hamburgerBtn").style.display = "flex";
 
   TEAM_MEMBER_ID = user.uid;
   TEAM_STATE = data.state || data.memberState || "Unassigned";
@@ -376,7 +242,6 @@ onAuthStateChanged(auth, async (user) => {
   const isAdmin = data.role === "admin" || data.adminAccess === true;
   if(isAdmin){
     document.getElementById("adminLink").classList.add("show");
-    document.getElementById("roleBadge").textContent = data.role === "admin" ? "ADMIN" : "TEAM MEMBER (ADMIN ACCESS)";
   }
 
   initRealtimeOrders();
@@ -384,9 +249,11 @@ onAuthStateChanged(auth, async (user) => {
   initAdsListener();
 });
 
+let currentUserName = "";
+
 function initRealtimeOrders(){
   try{
-    const q = query(collection(db,"orders"), where("state","==",TEAM_STATE));
+    const q = query(collection(db,"orders"),where("state","==",TEAM_STATE));
     onSnapshot(q,(snapshot)=>{
       orders = snapshot.docs.map(d=>({id:d.id,...d.data()}));
       renderOrders();
@@ -396,6 +263,7 @@ function initRealtimeOrders(){
       orders = [];
       renderOrders();
       updateStats();
+      showToast("Could not load orders. Please check your connection.");
     });
   }catch(error){
     console.error(error);
@@ -404,233 +272,24 @@ function initRealtimeOrders(){
     updateStats();
   }
 }
-
-function getCustomerName(o){
-  return o.customer?.name || o.customerName || o.customer || "—";
-}
-function getCustomerMobile(o){
-  return o.customer?.mobile || o.mobile || o.phone || "—";
-}
-function getCustomerAddress(o){
-  const a = o.shippingAddress || o.address || o.customer?.address || {};
-  if(typeof a === "string") return a;
-  return [a.line1 || a.street, a.city, a.state, a.pincode || a.zip].filter(Boolean).join(", ") || "—";
-}
-function getOrderTotal(o){
-  return Number(o.total || o.amount || o.grandTotal || 0);
-}
-function getOrderItems(o){
-  if(Array.isArray(o.items) && o.items.length){
-    return o.items.map(it => ({
-      name: it.name || it.productName || "Product",
-      qty: Number(it.quantity || it.qty || 1),
-      price: Number(it.price || it.rate || 0)
-    }));
-  }
-  return [{
-    name: o.product || o.productName || "Product",
-    qty: 1,
-    price: Number(o.amount || o.price || 0)
-  }];
-}
-
-window.renderOrders = function(){
-  const grid = document.getElementById("orderGrid");
-  const empty = document.getElementById("orderEmpty");
-  const search = document.getElementById("orderSearch").value.toLowerCase().trim();
-  const filter = document.getElementById("orderStatusFilter").value;
-
-  const filtered = orders.filter(o=>{
-    if(o.state !== TEAM_STATE) return false;
-    const text = (
-      String(o.id||"") + " " +
-      getCustomerName(o) + " " +
-      getCustomerMobile(o) + " " +
-      getOrderItems(o).map(i=>i.name).join(" ")
-    ).toLowerCase();
-    return text.includes(search) && (filter === "all" || o.status === filter);
-  });
-
-  if(!filtered.length){
-    grid.innerHTML = "";
-    empty.style.display = "block";
-    empty.textContent = orders.length ? "No matching orders found." : "No orders for your state yet.";
-    updateStats();
-    return;
-  }
-  empty.style.display = "none";
-  grid.innerHTML = filtered.map(order => {
-    const items = getOrderItems(order);
-    const itemsText = items.map(i => escapeHTML(i.name) + " × " + i.qty).join(", ");
-    return `
-    <article class="order-card">
-      <div class="order-top">
-        <div class="order-id">${escapeHTML(order.orderNumber || order.id)}</div>
-        <div class="status">${escapeHTML(order.status || "—")}</div>
-      </div>
-      <div class="order-info">
-        Customer: <strong>${escapeHTML(getCustomerName(order))}</strong><br>
-        Mobile: <strong>${escapeHTML(getCustomerMobile(order))}</strong><br>
-        Address: <strong>${escapeHTML(getCustomerAddress(order))}</strong><br>
-        Products: <strong>${itemsText}</strong><br>
-        Total: <strong>₹${getOrderTotal(order).toLocaleString("en-IN")}</strong><br>
-        State: <strong>${escapeHTML(order.state || "—")}</strong>
-      </div>
-      <div class="order-actions">
-        ${nextAction(order)}
-        <button class="action" onclick="advanceOrder('${escapeHTML(order.id)}')">NEXT STATUS</button>
-        <button class="action label-btn" onclick="downloadLabel('${escapeHTML(order.id)}')">📄 Download Label</button>
-      </div>
-      <div class="packaging">
-        <div class="packaging-title">ORDER PROGRESS</div>
-        <div class="packaging-steps">${progressSteps(order.status)}</div>
-      </div>
-    </article>`;
-  }).join("");
-
-  updateStats();
-};
-
-function nextAction(order){
-  const id = escapeHTML(order.id);
-  const map = {
-    "Confirmed": `<button class="action primary" onclick="setOrderStatus('${id}','Packaging')">START PACKAGING</button>`,
-    "Packaging": `<button class="action primary" onclick="setOrderStatus('${id}','Ready to Ship')">READY TO SHIP</button>`,
-    "Ready to Ship": `<button class="action primary" onclick="setOrderStatus('${id}','Shipped')">DISPATCH ORDER</button>`,
-    "Shipped": `<button class="action primary" onclick="setOrderStatus('${id}','Out for Delivery')">OUT FOR DELIVERY</button>`,
-    "Out for Delivery": `<button class="action primary" onclick="setOrderStatus('${id}','Delivered')">MARK DELIVERED</button>`
-  };
-  return map[order.status] || `<button class="action" disabled>COMPLETED</button>`;
-}
-
-function progressSteps(status){
-  const all = ["Confirmed","Packaging","Ready to Ship","Shipped","Out for Delivery","Delivered"];
-  const index = all.indexOf(status);
-  return all.map((s,i)=>`<span class="step \( {i<=index?"done":""}"> \){i+1}. ${escapeHTML(s)}</span>`).join("");
-}
-
-window.setOrderStatus = async function(id, status){
-  const order = orders.find(o => o.id === id);
-  if(!order) return;
-  order.status = status;
-  renderOrders();
-  showToast(id + " → " + status);
-  try{
-    await setDoc(doc(db,"orders",id),{ status, updatedAt: new Date().toISOString() },{merge:true});
-  }catch(error){
-    console.error(error);
-    showToast("Firebase update nahi hua.");
-  }
-};
-
-window.advanceOrder = function(id){
-  const order = orders.find(o => o.id === id);
-  if(!order) return;
-  const flow = ["Confirmed","Packaging","Ready to Ship","Shipped","Out for Delivery","Delivered"];
-  const i = flow.indexOf(order.status);
-  if(i < 0 || i === flow.length-1){
-    showToast("Order is already completed.");
-    return;
-  }
-  setOrderStatus(id, flow[i+1]);
-};
-
-window.downloadLabel = async function(orderId){
-  const order = orders.find(o => o.id === orderId);
-  if(!order) return;
-
-  const items = getOrderItems(order);
-  const area = document.getElementById("labelPrintArea");
-
-  area.innerHTML = `
-    <div class="label-header">
-      <div class="label-logo">FZ</div>
-      <div>
-        <div class="label-brand"><span>FHAMAR</span>.ZAMOST</div>
-        <div style="font-size:10px;color:#555;">Shipping Label</div>
-      </div>
-    </div>
-    <div class="label-section">
-      <b>ORDER</b>
-      ${escapeHTML(order.orderNumber || order.id)} | Status: ${escapeHTML(order.status || "—")}
-    </div>
-    <div class="label-section">
-      <b>CUSTOMER</b>
-      ${escapeHTML(getCustomerName(order))}<br>
-      Mobile: ${escapeHTML(getCustomerMobile(order))}
-    </div>
-    <div class="label-section">
-      <b>DELIVERY ADDRESS</b>
-      ${escapeHTML(getCustomerAddress(order))}<br>
-      State: ${escapeHTML(order.state || "—")}
-    </div>
-    <div class="label-section">
-      <b>PRODUCTS</b>
-      <table class="label-table">
-        <thead><tr><th>Product</th><th>Qty</th><th>Rate</th></tr></thead>
-        <tbody>
-          ${items.map(i => `<tr>
-            <td>${escapeHTML(i.name)}</td>
-            <td>${i.qty}</td>
-            <td>₹${i.price.toLocaleString("en-IN")}</td>
-          </tr>`).join("")}
-        </tbody>
-      </table>
-    </div>
-    <div class="label-total">Total: ₹${getOrderTotal(order).toLocaleString("en-IN")}</div>
-  `;
-
-  try{
-    const canvas = await html2canvas(area, {scale:2, backgroundColor:"#ffffff"});
-    const link = document.createElement("a");
-    link.download = "FZ-Label-" + (order.orderNumber || order.id) + ".jpg";
-    link.href = canvas.toDataURL("image/jpeg", 0.92);
-    link.click();
-  }catch(e){ console.warn("JPG failed", e); }
-
-  try{
-    const { jsPDF } = window.jspdf;
-    const pdf = new jsPDF({ unit:"pt", format:"a4" });
-    const canvas = await html2canvas(area, {scale:2, backgroundColor:"#ffffff"});
-    const img = canvas.toDataURL("image/jpeg", 0.92);
-    const pageWidth = pdf.internal.pageSize.getWidth();
-    const imgWidth = pageWidth - 40;
-    const imgHeight = (canvas.height * imgWidth) / canvas.width;
-    pdf.addImage(img, "JPEG", 20, 20, imgWidth, imgHeight);
-    pdf.save("FZ-Label-" + (order.orderNumber || order.id) + ".pdf");
-  }catch(e){ console.warn("PDF failed", e); }
-
-  showToast("Label downloaded (PDF + JPG)");
-};
-
-window.updateStats = function(){
-  const mine = orders.filter(o => o.state === TEAM_STATE);
-  const count = s => mine.filter(o => o.status === s).length;
-  document.getElementById("todayOrders").textContent = mine.length;
-  document.getElementById("pendingOrders").textContent = count("Confirmed");
-  document.getElementById("packagingOrders").textContent = count("Packaging");
-  document.getElementById("shippedOrders").textContent = count("Shipped") + count("Ready to Ship") + count("Out for Delivery");
-  document.getElementById("deliveredOrders").textContent = count("Delivered");
-};
-
-window.showSection = function(id, button){
-  document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
-  document.querySelectorAll(".drawer-btn").forEach(b => b.classList.remove("active"));
-  const section = document.getElementById(id);
-  if(section) section.classList.add("active");
-  if(button) button.classList.add("active");
-  closeDrawer();
-  if(id === "orders") renderOrders();
-};
-
+  /*
+=====================================================================
+TEAM DIRECTORY — view-only.
+Shows every OTHER approved team member's name, mobile, email and
+state. No edit controls exist here at all — editing is Admin-only
+and happens in admin.html.
+=====================================================================
+*/
 async function loadTeamMembers(){
   const list = document.getElementById("memberList");
   const empty = document.getElementById("memberEmpty");
+
   try{
     const q = query(collection(db,"users"), where("role","in",["team_member","admin"]));
     const snap = await getDocs(q);
+
     const members = [];
-    snap.forEach(docSnap => {
+    snap.forEach(docSnap=>{
       const d = docSnap.data();
       if(!isApprovedTeam(d)) return;
       members.push({
@@ -650,60 +309,80 @@ async function loadTeamMembers(){
     }
 
     empty.style.display = "none";
-    list.innerHTML = members.map(function(m){
-      return '<article class="member-card">' +
-        '<div class="member-card-top">' +
-          '<h3>' + escapeHTML(m.name) + (m.isMe ? ' (You)' : '') + '</h3>' +
-          '<span class="member-status">' + escapeHTML(m.state) + '</span>' +
-        '</div>' +
-        '<p>Mobile: ' + escapeHTML(m.mobile) + '<br>Email: ' + escapeHTML(m.email) + '</p>' +
-      '</article>';
-    }).join("");
+    list.innerHTML = members.map(m => `
+      <article class="member-card">
+        <div class="member-card-top">
+          <h3>${escapeHTML(m.name)}${m.isMe ? " (You)" : ""}</h3>
+          <span class="member-status">${escapeHTML(m.state)}</span>
+        </div>
+        <p>Mobile: ${escapeHTML(m.mobile)}<br>Email: ${escapeHTML(m.email)}</p>
+      </article>
+    `).join("");
 
   }catch(error){
     console.warn("Team directory read failed:", error);
     list.innerHTML = "";
     empty.style.display = "block";
+    empty.textContent = "Could not load team members right now.";
   }
 }
 
+/*
+=====================================================================
+HOME PAGE ADS — any team member can add or delete. Stored in the
+"ads" Firestore collection; home.html reads this same collection to
+build its rotating "Featured Advertisement" banner automatically.
+=====================================================================
+*/
 function initAdsListener(){
   try{
     const q = query(collection(db,"ads"), orderBy("createdAt","asc"));
     onSnapshot(q, (snapshot)=>{
       const ads = snapshot.docs.map(d=>({id:d.id,...d.data()}));
       renderAdsList(ads);
+    }, (error)=>{
+      console.warn("Ads listener failed:", error);
     });
-  }catch(error){ console.error(error); }
+  }catch(error){
+    console.error(error);
+  }
 }
 
 function renderAdsList(ads){
   const list = document.getElementById("adsList");
   const empty = document.getElementById("adsEmpty");
+
   if(!ads.length){
     list.innerHTML = "";
     empty.style.display = "block";
     return;
   }
+
   empty.style.display = "none";
-  list.innerHTML = ads.map(function(ad){
-    return '<div class="ad-item">' +
-      '<div style="min-width:0;flex:1;overflow:hidden">' +
-        '<div class="ad-item-text">[' + escapeHTML((ad.type||"text").toUpperCase()) + '] ' + escapeHTML(ad.content||"") + '</div>' +
-        '<div class="ad-item-meta">Added by ' + escapeHTML(ad.createdByName||"Team Member") + '</div>' +
-      '</div>' +
-      '<button class="ad-delete" onclick="deleteAd(\'' + escapeHTML(ad.id) + '\')">DELETE</button>' +
-    '</div>';
-  }).join("");
+  list.innerHTML = ads.map(ad => `
+    <div class="ad-item">
+      <div>
+        <div class="ad-item-text">[${escapeHTML((ad.type||"text").toUpperCase())}] ${escapeHTML(ad.content||"")}</div>
+        <div class="ad-item-meta">Added by ${escapeHTML(ad.createdByName||"Team Member")}</div>
+      </div>
+      <button class="ad-delete" onclick="deleteAd('${escapeHTML(ad.id)}')">DELETE</button>
+    </div>
+  `).join("");
 }
 
 window.addAd = async function(){
   const type = document.getElementById("adType").value;
   const content = document.getElementById("adContent").value.trim();
-  if(!content){ showToast("Please enter ad text or a URL first."); return; }
+
+  if(!content){
+    showToast("Please enter ad text or a URL first.");
+    return;
+  }
+
   try{
     await addDoc(collection(db,"ads"), {
-      type, content,
+      type,
+      content,
       createdBy: TEAM_MEMBER_ID,
       createdByName: currentUserName,
       createdAt: serverTimestamp()
@@ -711,8 +390,8 @@ window.addAd = async function(){
     document.getElementById("adContent").value = "";
     showToast("Ad added to Home page.");
   }catch(error){
-    console.error(error);
-    showToast("Could not add ad.");
+    console.error("Add ad failed:", error);
+    showToast("Could not add ad. Please try again.");
   }
 };
 
@@ -721,36 +400,260 @@ window.deleteAd = async function(id){
     await deleteDoc(doc(db,"ads",id));
     showToast("Ad deleted.");
   }catch(error){
-    console.error(error);
-    showToast("Could not delete ad.");
+    console.error("Delete ad failed:", error);
+    showToast("Could not delete ad. Please try again.");
   }
 };
 
-window.assignDelivery = function(){
-  const partner = document.getElementById("deliveryPartner").value;
-  if(!partner){ showToast("Please select a delivery partner."); return; }
-  const data = {partner, memberId:TEAM_MEMBER_ID, state:TEAM_STATE, assignedAt:new Date().toISOString()};
-  localStorage.setItem("fz_delivery_assignment", JSON.stringify(data));
-  document.getElementById("deliveryResult").innerHTML =
-    "<b>ASSIGNED:</b> " + escapeHTML(partner) + "<br>State: " + escapeHTML(TEAM_STATE);
+window.setOrderStatus = async function(id,status){
+  const order = orders.find(o=>o.id===id);
+  if(!order) return;
+  order.status = status;
+  renderOrders();
+  showToast(`${id} → ${status}`);
+  try{
+    await setDoc(doc(db,"orders",id),{
+      status,
+      updatedAt:new Date().toISOString()
+    },{merge:true});
+  }catch(error){
+    console.error(error);
+    showToast("Firebase update nahi hua.");
+  }
+};
+
+window.advanceOrder = function(id){
+  const order = orders.find(o=>o.id===id);
+  if(!order) return;
+  const flow=["Confirmed","Packaging","Ready to Ship","Shipped","Out for Delivery","Delivered"];
+  const i=flow.indexOf(order.status);
+  if(i<0 || i===flow.length-1){
+    showToast("Order is already completed.");
+    return;
+  }
+  setOrderStatus(id,flow[i+1]);
+};
+
+window.renderOrders = function(){
+  const grid=document.getElementById("orderGrid");
+  const empty=document.getElementById("orderEmpty");
+  const search=document.getElementById("orderSearch").value.toLowerCase().trim();
+  const filter=document.getElementById("orderStatusFilter").value;
+
+  const filtered=orders.filter(o=>{
+    if(o.state!==TEAM_STATE) return false;
+    const text=(String(o.orderNumber||o.id||"")+" "+String(o.customer?.name||"")).toLowerCase();
+    return text.includes(search) && (filter==="all" || o.status===filter);
+  });
+
+  grid.innerHTML=filtered.map(order=>{
+    const itemsList = (order.items||[]).map(i => `${escapeHTML(i.name)} x${Number(i.quantity)||1}`).join(", ") || "—";
+    return `
+    <article class="order-card">
+      <div class="order-top">
+        <div class="order-id">${escapeHTML(order.orderNumber || order.id)}</div>
+        <div class="status">${escapeHTML(order.status)}</div>
+      </div>
+      <div class="order-info">
+        Customer: <strong>${escapeHTML(order.customer?.name || "—")}</strong><br>
+        Mobile: <strong>${escapeHTML(order.customer?.mobile || "—")}</strong><br>
+        Products: <strong>${itemsList}</strong><br>
+        Amount: <strong>₹${Number(order.total||0).toLocaleString("en-IN")}</strong><br>
+        State: <strong>${escapeHTML(order.state)}</strong>
+      </div>
+      <div class="order-actions">
+        ${nextAction(order)}
+        <button class="action" onclick="advanceOrder('${escapeHTML(order.id)}')">NEXT STATUS</button>
+      </div>
+      <div class="order-actions">
+        <button class="action" onclick="downloadLabel('${escapeHTML(order.id)}','pdf')">📄 PDF LABEL</button>
+        <button class="action" onclick="downloadLabel('${escapeHTML(order.id)}','jpg')">🖼️ JPG LABEL</button>
+      </div>
+      <div class="packaging">
+        <div class="packaging-title">ORDER PROGRESS</div>
+        <div class="packaging-steps">${progressSteps(order.status)}</div>
+      </div>
+    </article>`;
+  }).join("");
+
+  empty.style.display=filtered.length?"none":"block";
+  updateStats();
+};
+
+/*
+=====================================================================
+SHIPPING LABEL — downloadable as PDF or JPG, built from the same
+order data (address, product list, total) that checkout/order-success
+already saves to Firestore. No backend needed: html2canvas renders a
+hidden styled label to an image, then either downloads it directly
+(JPG) or wraps it into a PDF (jsPDF).
+=====================================================================
+*/
+function buildLabelHTML(order){
+  const items = (order.items||[]).map(i => `
+    <tr>
+      <td style="padding:6px 0">${escapeHTML(i.name)}</td>
+      <td style="padding:6px 0;text-align:center">${Number(i.quantity)||1}</td>
+      <td style="padding:6px 0;text-align:right">₹${Number(i.price||0).toLocaleString("en-IN")}</td>
+    </tr>`).join("");
+
+  return `
+    <div style="width:420px;padding:28px;background:#ffffff;color:#111;font-family:Arial,Helvetica,sans-serif;border:2px solid #111;">
+      <div style="text-align:center;border-bottom:2px solid #111;padding-bottom:12px;margin-bottom:16px">
+        <div style="font-size:20px;font-weight:900;letter-spacing:1px">FHAMAR.ZAMOST</div>
+        <div style="font-size:11px;letter-spacing:2px;color:#555">SHIPPING LABEL</div>
+      </div>
+
+      <div style="font-size:12px;color:#555">ORDER ID</div>
+      <div style="font-size:16px;font-weight:bold;margin-bottom:14px">${escapeHTML(order.orderNumber || order.id)}</div>
+
+      <div style="font-size:12px;color:#555">DELIVER TO</div>
+      <div style="font-size:15px;font-weight:bold;margin-top:2px">${escapeHTML(order.customer?.name || "Customer")}</div>
+      <div style="font-size:13px;margin-top:4px;line-height:1.6">
+        ${escapeHTML(order.address || "")}<br>
+        ${escapeHTML(order.city || "")}, ${escapeHTML(order.state || "")} - ${escapeHTML(order.pincode || "")}
+      </div>
+      <div style="font-size:13px;margin-top:6px">📞 ${escapeHTML(order.customer?.mobile || "—")}</div>
+
+      <table style="width:100%;margin-top:18px;border-top:1px solid #ccc;padding-top:10px;font-size:12px;border-collapse:collapse">
+        <thead>
+          <tr style="border-bottom:1px solid #ccc">
+            <th style="text-align:left;padding-bottom:6px">Item</th>
+            <th style="padding-bottom:6px">Qty</th>
+            <th style="text-align:right;padding-bottom:6px">Price</th>
+          </tr>
+        </thead>
+        <tbody>${items || "<tr><td colspan=3>No items</td></tr>"}</tbody>
+      </table>
+
+      <div style="text-align:right;font-size:15px;font-weight:900;margin-top:12px;border-top:2px solid #111;padding-top:10px">
+        TOTAL: ₹${Number(order.total||0).toLocaleString("en-IN")}
+      </div>
+      <div style="font-size:11px;color:#777;margin-top:14px;text-align:center">Payment: ${escapeHTML(String(order.paymentMethod||"pending").toUpperCase())}</div>
+    </div>
+  `;
+}
+
+window.downloadLabel = async function(orderId, format){
+  const order = orders.find(o => o.id === orderId);
+  if(!order){
+    showToast("Order not found.");
+    return;
+  }
+
+  const wrapper = document.createElement("div");
+  wrapper.style.position = "fixed";
+  wrapper.style.left = "-9999px";
+  wrapper.style.top = "0";
+  wrapper.innerHTML = buildLabelHTML(order);
+  document.body.appendChild(wrapper);
+
+  try{
+    const canvas = await html2canvas(wrapper.firstElementChild, { scale: 2, backgroundColor: "#ffffff" });
+    const fileName = `Label-${order.orderNumber || order.id}`;
+
+    if(format === "jpg"){
+      const link = document.createElement("a");
+      link.download = fileName + ".jpg";
+      link.href = canvas.toDataURL("image/jpeg", 0.95);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    }else{
+      const { jsPDF } = window.jspdf;
+      const imgData = canvas.toDataURL("image/jpeg", 0.95);
+      const pdf = new jsPDF({ orientation: "portrait", unit: "px", format: [canvas.width, canvas.height] });
+      pdf.addImage(imgData, "JPEG", 0, 0, canvas.width, canvas.height);
+      pdf.save(fileName + ".pdf");
+    }
+
+    showToast("Label downloaded.");
+  }catch(error){
+    console.error("Label generation failed:", error);
+    showToast("Could not generate label. Please try again.");
+  }finally{
+    document.body.removeChild(wrapper);
+  }
+};
+
+function nextAction(order){
+  const id=escapeHTML(order.id);
+  const map={
+    "Confirmed":`<button class="action primary" onclick="setOrderStatus('${id}','Packaging')">START PACKAGING</button>`,
+    "Packaging":`<button class="action primary" onclick="setOrderStatus('${id}','Ready to Ship')">READY TO SHIP</button>`,
+    "Ready to Ship":`<button class="action primary" onclick="setOrderStatus('${id}','Shipped')">DISPATCH ORDER</button>`,
+    "Shipped":`<button class="action primary" onclick="setOrderStatus('${id}','Out for Delivery')">OUT FOR DELIVERY</button>`,
+    "Out for Delivery":`<button class="action primary" onclick="setOrderStatus('${id}','Delivered')">MARK DELIVERED</button>`
+  };
+  return map[order.status] || `<button class="action" disabled>COMPLETED</button>`;
+}
+
+function progressSteps(status){
+  const all=["Confirmed","Packaging","Ready to Ship","Shipped","Out for Delivery","Delivered"];
+  const index=all.indexOf(status);
+  return all.map((s,i)=>`<span class="step ${i<=index?"done":""}">${i+1}. ${escapeHTML(s)}</span>`).join("");
+}
+
+window.assignDelivery=function(){
+  const partner=document.getElementById("deliveryPartner").value;
+  if(!partner){
+    showToast("Please select a delivery partner.");
+    return;
+  }
+  const data={partner,memberId:TEAM_MEMBER_ID,state:TEAM_STATE,assignedAt:new Date().toISOString()};
+  localStorage.setItem("fz_delivery_assignment",JSON.stringify(data));
+  document.getElementById("deliveryResult").innerHTML=
+    `<b>ASSIGNED:</b> ${escapeHTML(partner)}<br>State: ${escapeHTML(TEAM_STATE)}<br>Member: ${escapeHTML(TEAM_MEMBER_ID)}`;
   showToast("Delivery partner assigned.");
 };
 
-function escapeHTML(value){
-  return String(value??"").replace(/[&<>"']/g, function(c){
-    return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c];
-  });
+window.updateStats=function(){
+  const mine=orders.filter(o=>o.state===TEAM_STATE);
+  const count=s=>mine.filter(o=>o.status===s).length;
+  document.getElementById("todayOrders").textContent=mine.length;
+  document.getElementById("pendingOrders").textContent=count("Confirmed");
+  document.getElementById("packagingOrders").textContent=count("Packaging");
+  document.getElementById("shippedOrders").textContent=count("Shipped")+count("Ready to Ship")+count("Out for Delivery");
+  document.getElementById("deliveredOrders").textContent=count("Delivered");
+};
+
+window.showSection=function(id,button){
+  document.querySelectorAll(".section").forEach(s=>s.style.display="none");
+  document.querySelectorAll(".drawer-item").forEach(b=>b.classList.remove("active"));
+  const section=document.getElementById(id);
+  if(section) section.style.display="block";
+  if(button) button.classList.add("active");
+  if(id==="orders") renderOrders();
+  closeDrawer();
+};
+
+function openDrawer(){
+  document.getElementById("drawer").classList.add("show");
+  document.getElementById("drawerOverlay").classList.add("show");
 }
 
-window.showToast = function(text){
-  const t = document.getElementById("toast");
-  t.textContent = text;
+function closeDrawer(){
+  document.getElementById("drawer").classList.remove("show");
+  document.getElementById("drawerOverlay").classList.remove("show");
+}
+
+document.getElementById("hamburgerBtn").addEventListener("click", openDrawer);
+document.getElementById("drawerClose").addEventListener("click", closeDrawer);
+document.getElementById("drawerOverlay").addEventListener("click", closeDrawer);
+
+function escapeHTML(value){
+  return String(value??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
+}
+
+window.showToast=function(text){
+  const t=document.getElementById("toast");
+  t.textContent=text;
   t.classList.add("show");
   clearTimeout(window.toastTimer);
-  window.toastTimer = setTimeout(function(){ t.classList.remove("show"); }, 2200);
-};
+  window.toastTimer=setTimeout(()=>t.classList.remove("show"),2200);
+}
 </script>
 </body>
 </html>
-  
+
   
