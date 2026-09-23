@@ -59,21 +59,68 @@ header{
 .section-heading{margin-bottom:15px}
 .section-heading span{color:var(--blue2);font-size:.73rem;letter-spacing:1.7px;text-transform:uppercase;font-weight:800}
 .section-heading h2{font-size:1.55rem;margin-top:3px}
+
+/* ===== AD SECTION (bada screen) ===== */
 .ad-banner-section{
- background:linear-gradient(145deg,#101b2a,#0b131f);border:1px solid #294261;border-radius:16px;
- padding:12px;text-align:center;margin-bottom:2.5rem;box-shadow:0 12px 30px rgba(0,0,0,.14)
+  background:linear-gradient(145deg,#101b2a,#0b131f);
+  border:1px solid #294261;
+  border-radius:16px;
+  padding:12px 12px 10px;
+  margin-bottom:2.5rem;
+  box-shadow:0 12px 30px rgba(0,0,0,.14);
 }
-.ad-carousel{position:relative;width:100%;min-height:185px;max-height:420px;border-radius:11px;overflow:hidden;background:#080f19}
+.ad-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:10px;
+  padding:0 2px;
+}
+.ad-header h2{
+  font-size:1.15rem;
+  margin:0;
+  color:#fff;
+  font-weight:800;
+}
+.ad-header .promo-tag{
+  color:#60a5fa;
+  font-size:.8rem;
+  letter-spacing:1.6px;
+  text-transform:uppercase;
+  font-weight:800;
+  white-space:nowrap;
+}
+.ad-carousel{
+  position:relative;
+  width:100%;
+  height:380px;
+  min-height:380px;
+  border-radius:12px;
+  overflow:hidden;
+  background:#080f19;
+}
 .ad-slide{
- position:absolute;inset:0;display:none;align-items:center;justify-content:center;
- color:var(--muted);font-size:.85rem;flex-direction:column;gap:6px;padding:12px;text-align:center
+  position:absolute;inset:0;display:none;margin:0;padding:0;
+  align-items:center;justify-content:center;color:#8e9bad;font-size:.9rem;text-align:center
 }
 .ad-slide.active{display:flex}
-.ad-slide img,.ad-slide video{width:100%;height:100%;object-fit:cover;display:block}
-.ad-dots{display:flex;justify-content:center;gap:6px;padding:9px 0 2px}
-.ad-dot{width:7px;height:7px;border-radius:50%;background:#2a3a50;cursor:pointer;border:none;padding:0}
+.ad-slide img,.ad-slide video{
+  width:100%!important;height:100%!important;object-fit:cover!important;display:block;border:0
+}
+.ad-slide .ad-text{padding:20px;line-height:1.5}
+.ad-nav-btn{
+  position:absolute;top:50%;transform:translateY(-50%);width:38px;height:38px;border-radius:50%;
+  border:1px solid rgba(255,255,255,.25);background:rgba(0,0,0,.5);color:#fff;font-size:20px;
+  cursor:pointer;z-index:5;display:flex;align-items:center;justify-content:center
+}
+.ad-nav-btn:hover{background:rgba(49,130,246,.75)}
+.ad-nav-prev{left:12px}
+.ad-nav-next{right:12px}
+.ad-dots{display:flex;justify-content:center;gap:7px;padding:10px 0 0}
+.ad-dot{width:8px;height:8px;border-radius:50%;background:#2a3a50;cursor:pointer;border:none;padding:0}
 .ad-dot.active{background:#4da3ff}
-.media-help{padding:8px 4px 2px;color:#69778a;font-size:.7rem}
+
 .products-section{margin-bottom:3rem}
 .product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
 .product-card{
@@ -137,19 +184,29 @@ footer{border-top:1px solid var(--border);background:#050911;margin-top:0}
 .logout-btn{width:100%;padding:9px;border:1px solid #2b3b50;border-radius:9px;background:#111d2c;color:#fff;font-weight:700;cursor:pointer}
 .toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:#101d2c;border:1px solid #355676;color:#fff;padding:9px 13px;border-radius:9px;font-size:.75rem;display:none;z-index:300}
 .toast.show{display:block}
-@media(max-width:900px){.product-grid{grid-template-columns:repeat(2,1fr)}.trust-strip{grid-template-columns:repeat(4,1fr)}.footer-grid{grid-template-columns:repeat(2,1fr)}}
+
+@media(max-width:900px){
+  .product-grid{grid-template-columns:repeat(2,1fr)}
+  .trust-strip{grid-template-columns:repeat(4,1fr)}
+  .footer-grid{grid-template-columns:repeat(2,1fr)}
+}
 @media(max-width:600px){
- header{padding:10px 12px}.brand-name{font-size:.95rem}.brand-name small{font-size:7px}
- .container{padding:15px 10px}.hero{padding:2.6rem .9rem}.hero h1{font-size:2rem}
- .product-grid{grid-template-columns:repeat(2,1fr);gap:9px}.product-card{padding:9px}.product-image{height:125px}
- .team-box{display:block;padding:17px}.team-box .btn-primary{display:inline-block;margin-top:14px}
- .trust-strip{grid-template-columns:repeat(2,1fr)}.footer-grid{grid-template-columns:1fr}
- .footer-bottom{text-align:left;font-size:.62rem}
+  header{padding:10px 12px}.brand-name{font-size:.95rem}.brand-name small{font-size:7px}
+  .container{padding:15px 10px}.hero{padding:2.6rem .9rem}.hero h1{font-size:2rem}
+  .product-grid{grid-template-columns:repeat(2,1fr);gap:9px}.product-card{padding:9px}.product-image{height:125px}
+  .team-box{display:block;padding:17px}.team-box .btn-primary{display:inline-block;margin-top:14px}
+  .trust-strip{grid-template-columns:repeat(2,1fr)}.footer-grid{grid-template-columns:1fr}
+  .footer-bottom{text-align:left;font-size:.62rem}
+  .ad-carousel{height:260px;min-height:260px}
+  .ad-header h2{font-size:1.05rem}
+  .ad-header .promo-tag{font-size:.72rem;letter-spacing:1.2px}
+  .ad-nav-btn{width:34px;height:34px;font-size:17px}
 }
 </style>
 </head>
 <body>
-  <header>
+
+<header>
   <div class="logo-container">
     <div class="logo-badge">FZ</div>
     <div class="brand-name"><span class="brand-blue">FHAMAR</span><span class="brand-silver">.ZAMOST</span><small>PREMIUM SMART PORTAL</small></div>
@@ -193,15 +250,18 @@ footer{border-top:1px solid var(--border);background:#050911;margin-top:0}
   </div>
 </section>
 
+<!-- AD SECTION -->
 <section class="ad-banner-section">
-  <div class="section-heading" style="text-align:left;margin:2px 4px 9px">
-    <span>PROMO • MEDIA</span><h2>Featured Advertisement</h2>
+  <div class="ad-header">
+    <h2>Featured Advertisement</h2>
+    <span class="promo-tag">PROMO • MEDIA</span>
   </div>
   <div class="ad-carousel" id="adCarousel">
     <div class="ad-slide active">📢 Loading ads...</div>
+    <button class="ad-nav-btn ad-nav-prev" id="adPrev" type="button">‹</button>
+    <button class="ad-nav-btn ad-nav-next" id="adNext" type="button">›</button>
   </div>
   <div class="ad-dots" id="adDots"></div>
-  <div class="media-help">इस जगह पर promotional content Team Dashboard ("Manage Ads") से जोड़ी जाती है।</div>
 </section>
 
 <section class="products-section" id="featured-products">
@@ -286,9 +346,8 @@ footer{border-top:1px solid var(--border);background:#050911;margin-top:0}
   </div>
   <div class="footer-bottom">© 2026 FHAMAR.ZAMOST Retail Services Ltd. All rights reserved. &nbsp; Privacy Policy &nbsp; Terms of Service &nbsp; 100% Secure Checkout</div>
 </div>
-</footer>
-
-<div class="toast" id="toast"></div>
+  </footer>
+  <div class="toast" id="toast"></div>
 
 <script type="module">
 import { app } from "./firebase-config.js";
@@ -305,79 +364,102 @@ function escapeHTML(value){
 }
 
 var adRotateTimer = null;
+var adCurrent = 0;
+var adSlidesCount = 0;
 
 function renderAdSlides(ads){
   var carousel = document.getElementById("adCarousel");
   var dotsWrap = document.getElementById("adDots");
+  var prevBtn = document.getElementById("adPrev");
+
+  var oldSlides = carousel.querySelectorAll(".ad-slide");
+  for(var i = 0; i < oldSlides.length; i++) oldSlides[i].remove();
 
   if(!ads || !ads.length){
-    carousel.innerHTML = '<div class="ad-slide active">📢 No ads added yet.</div>';
+    var empty = document.createElement("div");
+    empty.className = "ad-slide active";
+    empty.textContent = "📢 No ads added yet.";
+    carousel.insertBefore(empty, prevBtn);
     dotsWrap.innerHTML = "";
+    adSlidesCount = 0;
     return;
   }
 
-  var slidesHtml = "";
   var dotsHtml = "";
-
   for(var i = 0; i < ads.length; i++){
     var ad = ads[i];
-    var inner = "";
+    var slide = document.createElement("div");
+    slide.className = "ad-slide" + (i === 0 ? " active" : "");
 
     if(ad.type === "image"){
-      inner = '<img src="' + escapeHTML(ad.content) + '" alt="Ad">';
+      slide.innerHTML = '<img src="' + escapeHTML(ad.content) + '" alt="Ad">';
     } else if(ad.type === "video"){
-      inner = '<video autoplay muted loop playsinline src="' + escapeHTML(ad.content) + '"></video>';
+      slide.innerHTML = '<video autoplay muted loop playsinline src="' + escapeHTML(ad.content || "") + '"></video>';
     } else {
-      inner = "📢 " + escapeHTML(ad.content || "");
+      slide.innerHTML = '<div class="ad-text">📢 ' + escapeHTML(ad.content || "") + '</div>';
     }
 
-    var activeClass = (i === 0) ? " active" : "";
-    slidesHtml += '<div class="ad-slide' + activeClass + '">' + inner + '</div>';
-    dotsHtml += '<button class="ad-dot' + activeClass + '" data-slide="' + i + '"></button>';
+    carousel.insertBefore(slide, prevBtn);
+    dotsHtml += '<button class="ad-dot' + (i === 0 ? " active" : "") + '" data-slide="' + i + '" type="button"></button>';
   }
 
-  carousel.innerHTML = slidesHtml;
   dotsWrap.innerHTML = dotsHtml;
+  adSlidesCount = ads.length;
+  adCurrent = 0;
   startAdCarousel();
 }
 
-function startAdCarousel(){
+function showAdSlide(index){
   var slides = document.querySelectorAll("#adCarousel .ad-slide");
   var dots = document.querySelectorAll("#adDots .ad-dot");
-  var current = 0;
+  if(!slides.length) return;
 
-  function showSlide(index){
-    for(var i = 0; i < slides.length; i++){
-      slides[i].classList.remove("active");
-    }
-    for(var j = 0; j < dots.length; j++){
-      dots[j].classList.remove("active");
-    }
-    if(slides[index]) slides[index].classList.add("active");
-    if(dots[index]) dots[index].classList.add("active");
-    current = index;
-  }
+  if(index < 0) index = slides.length - 1;
+  if(index >= slides.length) index = 0;
 
-  function nextSlide(){
-    showSlide((current + 1) % slides.length);
-  }
+  for(var i = 0; i < slides.length; i++) slides[i].classList.remove("active");
+  for(var j = 0; j < dots.length; j++) dots[j].classList.remove("active");
 
+  slides[index].classList.add("active");
+  if(dots[index]) dots[index].classList.add("active");
+  adCurrent = index;
+
+  var vid = slides[index].querySelector("video");
+  if(vid){ try{ vid.currentTime = 0; vid.play(); }catch(e){} }
+}
+
+function resetAdTimer(){
   if(adRotateTimer) clearInterval(adRotateTimer);
-
-  for(var k = 0; k < dots.length; k++){
-    dots[k].addEventListener("click", function(){
-      showSlide(Number(this.getAttribute("data-slide")));
-      if(adRotateTimer) clearInterval(adRotateTimer);
-      adRotateTimer = setInterval(nextSlide, 4000);
-    });
-  }
-
-  if(slides.length > 1){
-    adRotateTimer = setInterval(nextSlide, 4000);
+  if(adSlidesCount > 1){
+    adRotateTimer = setInterval(function(){ showAdSlide(adCurrent + 1); }, 4500);
   }
 }
 
-/* ===== ADS ===== */
+function startAdCarousel(){
+  if(adRotateTimer) clearInterval(adRotateTimer);
+
+  var dots = document.querySelectorAll("#adDots .ad-dot");
+  for(var i = 0; i < dots.length; i++){
+    dots[i].onclick = function(){
+      showAdSlide(Number(this.getAttribute("data-slide")));
+      resetAdTimer();
+    };
+  }
+
+  document.getElementById("adPrev").onclick = function(){
+    showAdSlide(adCurrent - 1);
+    resetAdTimer();
+  };
+  document.getElementById("adNext").onclick = function(){
+    showAdSlide(adCurrent + 1);
+    resetAdTimer();
+  };
+
+  if(adSlidesCount > 1){
+    adRotateTimer = setInterval(function(){ showAdSlide(adCurrent + 1); }, 4500);
+  }
+}
+
 onSnapshot(collection(db, "ads"), function(snapshot){
   var ads = [];
   snapshot.forEach(function(d){
@@ -390,14 +472,11 @@ onSnapshot(collection(db, "ads"), function(snapshot){
     var tb = (b.createdAt && b.createdAt.seconds) ? b.createdAt.seconds : 0;
     return ta - tb;
   });
-  console.log("Ads loaded:", ads.length);
   renderAdSlides(ads);
 }, function(error){
   console.error("Ads error:", error);
-  document.getElementById("adCarousel").innerHTML = '<div class="ad-slide active">📢 Ads load nahi hue</div>';
 });
 
-/* ===== FEATURED PRODUCTS ===== */
 function renderFeaturedProducts(liveProducts){
   var grid = document.getElementById("featuredProductGrid");
   var uploaded = [];
@@ -425,7 +504,7 @@ function renderFeaturedProducts(liveProducts){
   for(var j = 0; j < uploaded.length; j++){
     var prod = uploaded[j];
     var imgHtml = prod.image
-      ? '<img src="' + escapeHTML(prod.image) + '" alt="' + escapeHTML(prod.name) + '" style="width:100%;height:100%;object-fit:cover">'
+      ? '<img src="' + escapeHTML(prod.image) + '" alt="' + escapeHTML(prod.name) + '">'
       : "PRODUCT PHOTO";
     html += '<div class="product-card">' +
       '<div class="product-image">' + imgHtml + '</div>' +
@@ -447,11 +526,9 @@ onSnapshot(collection(db, "products"), function(snapshot){
   });
   renderFeaturedProducts(liveProducts);
 }, function(error){
-  console.warn("Featured products load failed:", error);
   renderFeaturedProducts([]);
 });
 
-/* ===== ACTIVE STATES ===== */
 async function lightUpActiveStates(){
   try{
     var snap = await getDocs(collection(db, "users"));
@@ -463,23 +540,18 @@ async function lightUpActiveStates(){
       var status = String(data.status || "").toLowerCase();
       var approved = (role === "team_member" || role === "admin") &&
                      (status === "approved" || status === "active" || role === "admin");
-      if(state && approved){
-        activeStates[String(state).trim().toLowerCase()] = true;
-      }
+      if(state && approved) activeStates[String(state).trim().toLowerCase()] = true;
     });
     var items = document.querySelectorAll(".state-item[data-state]");
     for(var i = 0; i < items.length; i++){
-      var stateName = items[i].getAttribute("data-state").trim().toLowerCase();
-      if(activeStates[stateName]){
+      if(activeStates[items[i].getAttribute("data-state").trim().toLowerCase()]){
         items[i].classList.add("active-team");
       }
     }
-  }catch(err){
-    console.warn("Active state check failed:", err);
-  }
+  }catch(err){}
 }
 lightUpActiveStates();
-  /* ===== PROFILE ===== */
+
 var profileBtn = document.getElementById("profileBtn");
 var profilePanel = document.getElementById("profilePanel");
 var logoutBtn = document.getElementById("logoutBtn");
@@ -501,23 +573,16 @@ function showToast(text){
   setTimeout(function(){ toast.classList.remove("show"); }, 2500);
 }
 
-profileBtn.addEventListener("click", function(){
-  profilePanel.classList.toggle("show");
-});
+profileBtn.addEventListener("click", function(){ profilePanel.classList.toggle("show"); });
 document.addEventListener("click", function(e){
-  if(!profilePanel.contains(e.target) && !profileBtn.contains(e.target)){
-    profilePanel.classList.remove("show");
-  }
+  if(!profilePanel.contains(e.target) && !profileBtn.contains(e.target)) profilePanel.classList.remove("show");
 });
 logoutBtn.addEventListener("click", async function(){
   try{
     await signOut(auth);
     showToast("Logout successful");
     setTimeout(function(){ location.href = "index.html"; }, 600);
-  }catch(err){
-    console.error(err);
-    showToast("Logout failed");
-  }
+  }catch(err){ showToast("Logout failed"); }
 });
 
 onAuthStateChanged(auth, async function(user){
@@ -527,8 +592,7 @@ onAuthStateChanged(auth, async function(user){
     panelContact.textContent = "Please login to continue";
     profileStatus.textContent = "No Firebase session found";
     var av = fallbackAvatar("U");
-    headerAvatar.src = av;
-    panelAvatar.src = av;
+    headerAvatar.src = av; panelAvatar.src = av;
     logoutBtn.style.display = "none";
     if(footerTeamLink) footerTeamLink.style.display = "none";
     return;
@@ -542,8 +606,7 @@ onAuthStateChanged(auth, async function(user){
   panelName.textContent = name;
   panelContact.textContent = contact;
   profileStatus.textContent = "Signed in • Firebase Authentication";
-  headerAvatar.src = av2;
-  panelAvatar.src = av2;
+  headerAvatar.src = av2; panelAvatar.src = av2;
   logoutBtn.style.display = "block";
 
   try{
@@ -562,7 +625,6 @@ onAuthStateChanged(auth, async function(user){
       if(footerTeamLink) footerTeamLink.style.display = "none";
     }
   }catch(err){
-    console.warn("Role lookup failed:", err);
     if(footerTeamLink) footerTeamLink.style.display = "none";
   }
 });
