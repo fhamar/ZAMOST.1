@@ -6,7 +6,7 @@
 <title>Product Management | FHAMAR ZAMOST</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
-body{background:#050b12;color:#fff}
+body{background:#050b12;color:#fff;min-height:100vh}
 button,input,select,textarea{font-family:inherit}
 button{cursor:pointer}
 a{text-decoration:none;color:inherit}
@@ -19,9 +19,15 @@ header{height:60px;padding:0 4%;display:flex;align-items:center;justify-content:
 .header-right{display:flex;align-items:center;gap:8px}
 .admin-badge{padding:5px 10px;border:1px solid #3c5870;border-radius:14px;color:#4da3ff;font-size:9px;font-weight:bold}
 .home-btn{padding:7px 11px;border:1px solid #526b82;border-radius:7px;color:#dce5ed;font-size:11px;font-weight:600}
-.home-btn:hover{border-color:#4da3ff;color:#4da3ff}
 
-.layout{display:grid;grid-template-columns:180px 1fr;min-height:calc(100vh - 60px)}
+.loading-box{max-width:400px;margin:80px auto;padding:30px;text-align:center;color:#8194a8;font-size:14px}
+.access-blocked{max-width:440px;margin:60px auto;padding:24px;border:1px solid #344d64;border-radius:12px;background:#091622;text-align:center;display:none}
+.access-blocked h2{font-size:17px}
+.access-blocked p{margin-top:8px;color:#8194a8;font-size:13px;line-height:1.5}
+.access-blocked a{display:inline-block;margin-top:12px;padding:9px 14px;background:#4da3ff;color:#04101c;border-radius:7px;font-weight:900;font-size:12px}
+
+.layout{display:none;grid-template-columns:180px 1fr;min-height:calc(100vh - 60px)}
+.layout.show{display:grid}
 .sidebar{padding:16px 10px;background:#06101a;border-right:1px solid #253a4e}
 .sidebar-title{margin:2px 6px 10px;color:#657b91;font-size:9px;letter-spacing:1.5px}
 .menu-btn{display:block;width:100%;padding:10px 9px;margin-bottom:4px;text-align:left;border:1px solid transparent;border-radius:8px;background:transparent;color:#8fa1b4;font-size:12px}
@@ -32,7 +38,7 @@ header{height:60px;padding:0 4%;display:flex;align-items:center;justify-content:
 .eyebrow{color:#71869c;font-size:9px;letter-spacing:2px;font-weight:bold}
 .page-title{margin-top:5px;font-size:26px}
 .page-title span{color:#4da3ff}
-.subtitle{margin-top:5px;color:#8194a8;font-size:13px;line-height:1.5}
+.subtitle{margin-top:5px;color:#8194a8;font-size:13px}
 
 .stats{margin-top:16px;display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
 .stat{padding:12px;border:1px solid #293f55;border-radius:10px;background:#081421}
@@ -51,7 +57,7 @@ header{height:60px;padding:0 4%;display:flex;align-items:center;justify-content:
 .product-image img{width:100%;height:100%;object-fit:cover}
 .placeholder{color:#536a80;font-size:11px}
 .product-body{padding:12px}
-.category{color:#4da3ff;font-size:9px;letter-spacing:.5px;font-weight:bold}
+.category{color:#4da3ff;font-size:9px;font-weight:bold}
 .product-name{margin-top:4px;font-size:14px;font-weight:bold}
 .product-description{margin-top:4px;color:#71869c;font-size:11px;line-height:1.4;min-height:28px}
 .product-info{margin-top:8px;display:flex;justify-content:space-between;align-items:flex-end;gap:6px}
@@ -65,7 +71,6 @@ header{height:60px;padding:0 4%;display:flex;align-items:center;justify-content:
 .action{flex:1;padding:7px 3px;border-radius:6px;border:1px solid #40586f;background:#0a1725;color:#b9c7d4;font-size:9px;font-weight:bold}
 .action:hover{border-color:#4da3ff;color:#4da3ff}
 .action.delete:hover{border-color:#a85c5c;color:#ff9999}
-
 .empty{grid-column:1/-1;padding:36px;text-align:center;border:1px dashed #40586f;border-radius:11px;color:#74899d;background:#081421}
 
 .modal{display:none;position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.8);align-items:center;justify-content:center;padding:12px}
@@ -88,10 +93,9 @@ input:focus,select:focus,textarea:focus{border-color:#4da3ff}
 .photo-slot .remove-photo{position:absolute;top:2px;right:2px;width:18px;height:18px;border-radius:50%;border:none;background:#a11;color:#fff;font-size:10px;display:none;align-items:center;justify-content:center}
 .photo-slot.has-image .remove-photo{display:flex}
 .photo-slot .placeholder-text{color:#536a80;font-size:10px;text-align:center}
-
 .photo-url-row{display:flex;gap:6px;margin-top:8px;width:100%;flex-wrap:wrap}
 .photo-url-row input{flex:1;min-width:0;height:34px}
-.photo-url-row button{padding:0 11px;border:none;border-radius:6px;background:#1e3a5f;color:#9ec5fe;font-size:11px;font-weight:700;white-space:nowrap;flex-shrink:0}
+.photo-url-row button{padding:0 11px;border:none;border-radius:6px;background:#1e3a5f;color:#9ec5fe;font-size:11px;font-weight:700;flex-shrink:0}
 
 .save-btn{width:100%;margin-top:14px;height:40px;border:none;border-radius:8px;background:#4da3ff;color:#04101c;font-size:11px;font-weight:900}
 .save-btn:disabled{opacity:.5;cursor:not-allowed}
@@ -100,13 +104,8 @@ input:focus,select:focus,textarea:focus{border-color:#4da3ff}
 .api-note{margin-top:16px;padding:12px;border:1px dashed #405a72;border-radius:8px;background:#06101a;color:#74899d;font-size:11px;line-height:1.5;text-align:center}
 footer{padding:20px 4%;background:#03080e;border-top:1px solid #263b50;color:#7d90a4;font-size:11px}
 
-.access-blocked{max-width:440px;margin:60px auto;padding:24px;border:1px solid #344d64;border-radius:12px;background:#091622;text-align:center;display:none}
-.access-blocked h2{font-size:17px}
-.access-blocked p{margin-top:8px;color:#8194a8;font-size:13px;line-height:1.5}
-.access-blocked a{display:inline-block;margin-top:12px;padding:9px 14px;background:#4da3ff;color:#04101c;border-radius:7px;font-weight:900;font-size:12px}
-
 @media(max-width:900px){
-  .layout{grid-template-columns:1fr}
+  .layout.show{grid-template-columns:1fr}
   .sidebar{display:flex;overflow-x:auto;gap:4px;border-right:none;border-bottom:1px solid #253a4e;padding:8px}
   .sidebar-title{display:none}
   .menu-btn{width:auto;min-width:max-content;margin:0}
@@ -117,9 +116,7 @@ footer{padding:20px 4%;background:#03080e;border-top:1px solid #263b50;color:#7d
   .stats{grid-template-columns:1fr 1fr}
   .product-grid{grid-template-columns:1fr}
   .form-grid{grid-template-columns:1fr}
-  .form-group.full{grid-column:auto}
   .page-title{font-size:22px}
-  .content{padding:16px 4% 50px}
   .photo-url-row{flex-direction:column}
   .photo-url-row button{width:100%;height:36px}
 }
@@ -133,18 +130,22 @@ footer{padding:20px 4%;background:#03080e;border-top:1px solid #263b50;color:#7d
     <div class="brand"><span class="blue">FHAMAR</span><span class="silver">.ZAMOST</span></div>
   </div>
   <div class="header-right">
-    <div class="admin-badge" id="roleBadge">TEAM MEMBER</div>
+    <div class="admin-badge" id="roleBadge">...</div>
     <a href="home.html" class="home-btn">HOME</a>
   </div>
 </header>
 
+<div class="loading-box" id="loadingBox">Loading Product Management...</div>
+
 <div class="access-blocked" id="accessBlocked">
   <h2>Access Not Available</h2>
-  <p>Product management is only available to approved FHAMAR.ZAMOST team members.</p>
+  <p id="accessMsg">Product management is only available to approved team members.</p>
   <a href="Profile.html">Go to My Profile</a>
+  <br><br>
+  <a href="team.html" style="background:#1e3a5f;color:#9ec5fe">Back to Team Dashboard</a>
 </div>
 
-<div class="layout" id="mainLayout" style="display:none">
+<div class="layout" id="mainLayout">
   <aside class="sidebar">
     <div class="sidebar-title">PRODUCT CONTROL</div>
     <button class="menu-btn active" onclick="showProducts()">🛍️ Products</button>
@@ -156,7 +157,7 @@ footer{padding:20px 4%;background:#03080e;border-top:1px solid #263b50;color:#7d
   <main class="content">
     <div class="eyebrow">FHAMAR.ZAMOST PRODUCT DESK</div>
     <h1 class="page-title">Product <span>Management</span></h1>
-    <p class="subtitle">Add, edit, remove and manage products. Changes update Catalog & Home automatically.</p>
+    <p class="subtitle">Add, edit, remove and manage products. MRP + Selling Price supported.</p>
 
     <div class="stats">
       <div class="stat blue-stat"><small>TOTAL PRODUCTS</small><strong id="totalProducts">0</strong></div>
@@ -179,7 +180,7 @@ footer{padding:20px 4%;background:#03080e;border-top:1px solid #263b50;color:#7d
 
     <div class="api-note">
       <b>LIVE PRODUCT DATABASE</b><br>
-      Products save to Firestore + Firebase Storage. Max 4 photos. MRP + Selling Price supported. Team Members have full control.
+      Max 4 photos. MRP + Selling Price. Team Members have full control.
     </div>
   </main>
 </div>
@@ -188,14 +189,12 @@ footer{padding:20px 4%;background:#03080e;border-top:1px solid #263b50;color:#7d
   <div class="brand"><span class="blue">FHAMAR</span><span class="silver">.ZAMOST</span></div>
   <p>Product Management • FHAMAR.ZAMOST</p>
 </footer>
-
 <div id="productModal" class="modal">
   <div class="modal-box">
     <div class="modal-top">
       <h2 id="modalTitle">Add Product</h2>
       <button class="close" onclick="closeProductModal()">×</button>
     </div>
-
     <div class="form-grid">
       <div class="form-group full">
         <label>PRODUCT NAME *</label>
@@ -228,7 +227,6 @@ footer{padding:20px 4%;background:#03080e;border-top:1px solid #263b50;color:#7d
           <option value="Inactive">Inactive</option>
         </select>
       </div>
-
       <div class="form-group full">
         <label>PRODUCT PHOTOS (Max 4)</label>
         <div class="photos-area" id="photosArea">
@@ -243,13 +241,11 @@ footer{padding:20px 4%;background:#03080e;border-top:1px solid #263b50;color:#7d
           <button type="button" onclick="addPhotoFromUrl()">Add URL</button>
         </div>
       </div>
-
       <div class="form-group full">
         <label>DESCRIPTION</label>
         <textarea id="productDescription" maxlength="300" placeholder="Short product description..."></textarea>
       </div>
     </div>
-
     <div id="formError" class="form-error"></div>
     <button class="save-btn" id="saveButton" onclick="saveProduct()">SAVE PRODUCT</button>
   </div>
@@ -275,32 +271,57 @@ let photoSlots = ["", "", "", ""];
 let photoFiles = [null, null, null, null];
 
 function isApprovedTeam(data){
-  const role = String(data?.role || "").toLowerCase().replace(/[\s-]/g,"_");
-  const status = String(data?.status || "").toLowerCase();
-  return (["team_member","teammember","team","admin"].includes(role)) &&
-         (["approved","active"].includes(status) || role === "admin");
+  if(!data) return false;
+  const role = String(data.role || data.userRole || "").toLowerCase().replace(/[\s-]/g,"_");
+  const status = String(data.status || "").toLowerCase();
+  if(role === "admin" || data.adminAccess === true) return true;
+  const teamRole = ["team_member","teammember","team"].includes(role);
+  const approved = ["approved","active","verified"].includes(status) || data.approved === true;
+  return teamRole && approved;
+}
+
+function showAccessBlocked(msg){
+  document.getElementById("loadingBox").style.display = "none";
+  document.getElementById("mainLayout").classList.remove("show");
+  document.getElementById("accessBlocked").style.display = "block";
+  if(msg) document.getElementById("accessMsg").textContent = msg;
+}
+
+function showMainLayout(){
+  document.getElementById("loadingBox").style.display = "none";
+  document.getElementById("accessBlocked").style.display = "none";
+  document.getElementById("mainLayout").classList.add("show");
 }
 
 onAuthStateChanged(auth, async (user) => {
-  if(!user){ window.location.replace("index.html"); return; }
+  try {
+    if(!user){
+      window.location.replace("index.html");
+      return;
+    }
 
-  let data = {};
-  try{
-    const snap = await getDoc(doc(db, "users", user.uid));
-    if(snap.exists()) data = snap.data();
-  }catch(e){ console.warn(e); }
+    let data = {};
+    try{
+      const snap = await getDoc(doc(db, "users", user.uid));
+      if(snap.exists()) data = snap.data();
+    }catch(e){
+      console.warn("Profile read error:", e);
+    }
 
-  if(!isApprovedTeam(data)){
-    document.getElementById("accessBlocked").style.display = "block";
-    document.getElementById("mainLayout").style.display = "none";
-    return;
+    if(!isApprovedTeam(data)){
+      showAccessBlocked("Aapka account approved team member nahi hai. Profile page pe status check karein.");
+      return;
+    }
+
+    currentUid = user.uid;
+    document.getElementById("roleBadge").textContent = (data.role === "admin" || data.adminAccess) ? "ADMIN" : "TEAM MEMBER";
+    showMainLayout();
+    listenToProducts();
+
+  } catch(err) {
+    console.error("Auth error:", err);
+    showAccessBlocked("Error: " + (err.message || "Something went wrong"));
   }
-
-  document.getElementById("mainLayout").style.display = "grid";
-  document.getElementById("accessBlocked").style.display = "none";
-  currentUid = user.uid;
-  if(data.role === "admin") document.getElementById("roleBadge").textContent = "ADMIN";
-  listenToProducts();
 });
 
 function escapeHtml(v){
@@ -316,7 +337,7 @@ function listenToProducts(){
 
 window.renderProducts = function(){
   const grid = document.getElementById("productGrid");
-  const search = document.getElementById("search").value.toLowerCase().trim();
+  const search = (document.getElementById("search").value || "").toLowerCase().trim();
   const category = document.getElementById("categoryFilter").value;
 
   const filtered = products.filter(p => {
@@ -325,17 +346,23 @@ window.renderProducts = function(){
   });
 
   if(!filtered.length){
-    grid.innerHTML = '<div class="empty">No products found.</div>';
+    grid.innerHTML = '<div class="empty">No products found. Click + ADD PRODUCT to create one.</div>';
   } else {
     grid.innerHTML = filtered.map(p => {
       const mainImg = p.image || (Array.isArray(p.images) && p.images[0]) || "";
-      const mrp = Number(p.mrp || p.price || 0);
+      const mrp = Number(p.mrp || 0);
       const selling = Number(p.price || 0);
       const showMrp = mrp > selling && mrp > 0;
+      const imageHtml = mainImg
+        ? `<img src="${escapeHtml(mainImg)}" alt="">`
+        : `<span class="placeholder">NO IMAGE</span>`;
+      const mrpHtml = showMrp
+        ? `<div class="mrp">₹${mrp.toLocaleString("en-IN")}</div>`
+        : "";
       return `
         <div class="product-card">
           <div class="product-image">
-            \( {mainImg ? `<img src=" \){escapeHtml(mainImg)}" alt="">` : `<span class="placeholder">NO IMAGE</span>`}
+            ${imageHtml}
           </div>
           <div class="product-body">
             <div class="category">${escapeHtml(p.category||"")}</div>
@@ -343,7 +370,7 @@ window.renderProducts = function(){
             <div class="product-description">${escapeHtml(p.description||"")}</div>
             <div class="product-info">
               <div class="price-box">
-                \( {showMrp ? `<div class="mrp">₹ \){mrp.toLocaleString("en-IN")}</div>` : ""}
+                ${mrpHtml}
                 <div class="selling">₹${selling.toLocaleString("en-IN")}</div>
               </div>
               <div class="stock">Stock: ${Number(p.stock||0)}</div>
@@ -351,7 +378,7 @@ window.renderProducts = function(){
             <div class="${p.status==="Active"?"active-status":"inactive-status"}">● ${String(p.status||"Active").toUpperCase()}</div>
             <div class="product-actions">
               <button class="action" onclick="editProduct('${p.id}')">EDIT</button>
-              <button class="action" onclick="toggleProduct('\( {p.id}')"> \){p.status==="Active"?"DEACTIVATE":"ACTIVATE"}</button>
+              <button class="action" onclick="toggleProduct('${p.id}')">${p.status==="Active"?"DEACTIVATE":"ACTIVATE"}</button>
               <button class="action delete" onclick="deleteProduct('${p.id}')">DELETE</button>
             </div>
           </div>
@@ -374,10 +401,10 @@ function renderPhotoSlots(){
     const url = photoSlots[i];
     if(url){
       slot.classList.add("has-image");
-      slot.innerHTML = `<img src="\( {escapeHtml(url)}" alt=""><button type="button" class="remove-photo" onclick="removePhoto( \){i})">×</button>`;
+      slot.innerHTML = `<img src="${escapeHtml(url)}" alt=""><button type="button" class="remove-photo" onclick="removePhoto(${i})">×</button>`;
     } else {
       slot.classList.remove("has-image");
-      slot.innerHTML = `<span class="placeholder-text">Photo \( {i+1}</span><button type="button" class="remove-photo" onclick="removePhoto( \){i})">×</button>`;
+      slot.innerHTML = `<span class="placeholder-text">Photo ${i+1}</span><button type="button" class="remove-photo" onclick="removePhoto(${i})">×</button>`;
     }
   });
 }
@@ -408,13 +435,9 @@ window.addPhotoFromUrl = function(){
 };
 
 document.getElementById("photoFileInput").addEventListener("change", function(e){
-  const files = Array.from(e.target.files || []);
-  files.forEach(file => {
+  Array.from(e.target.files || []).forEach(file => {
     if(!file.type.startsWith("image/")) return;
-    if(file.size > 2*1024*1024){
-      showError("Each image must be under 2 MB.");
-      return;
-    }
+    if(file.size > 2*1024*1024){ showError("Each image must be under 2 MB."); return; }
     const reader = new FileReader();
     reader.onload = ev => addPhotoToNextSlot(ev.target.result, file);
     reader.readAsDataURL(file);
@@ -502,11 +525,10 @@ window.saveProduct = async function(){
       productData.createdBy = currentUid;
       await addDoc(collection(db, "products"), productData);
     }
-
     closeProductModal();
   } catch(err){
     console.error(err);
-    showError("Could not save product. Please try again.");
+    showError("Could not save product. Check console for details.");
   } finally {
     saveBtn.disabled = false;
     saveBtn.textContent = "SAVE PRODUCT";
@@ -516,7 +538,6 @@ window.saveProduct = async function(){
 window.editProduct = function(id){
   const p = products.find(x => x.id === id);
   if(!p) return;
-
   editingId = id;
   document.getElementById("modalTitle").textContent = "Edit Product";
   document.getElementById("productName").value = p.name || "";
@@ -526,7 +547,6 @@ window.editProduct = function(id){
   document.getElementById("productStock").value = p.stock || "";
   document.getElementById("productStatus").value = p.status || "Active";
   document.getElementById("productDescription").value = p.description || "";
-
   const imgs = Array.isArray(p.images) && p.images.length ? p.images : (p.image ? [p.image] : []);
   photoSlots = ["", "", "", ""];
   photoFiles = [null, null, null, null];
@@ -539,25 +559,21 @@ window.editProduct = function(id){
 window.toggleProduct = async function(id){
   const p = products.find(x => x.id === id);
   if(!p) return;
-  const newStatus = p.status === "Active" ? "Inactive" : "Active";
   try{
-    await setDoc(doc(db, "products", id), { status: newStatus, updatedAt: serverTimestamp() }, { merge: true });
-  } catch(e){
-    alert("Could not update status.");
-  }
+    await setDoc(doc(db, "products", id), {
+      status: p.status === "Active" ? "Inactive" : "Active",
+      updatedAt: serverTimestamp()
+    }, { merge: true });
+  } catch(e){ alert("Could not update status."); }
 };
 
 window.deleteProduct = async function(id){
   const p = products.find(x => x.id === id);
   if(!p) return;
   if(!confirm('Delete "' + p.name + '"?')) return;
-  try{
-    await deleteDoc(doc(db, "products", id));
-  } catch(e){
-    alert("Could not delete product.");
-  }
+  try{ await deleteDoc(doc(db, "products", id)); }
+  catch(e){ alert("Could not delete product."); }
 };
 </script>
 </body>
 </html>
-                                                                                                
