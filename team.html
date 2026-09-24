@@ -26,16 +26,14 @@ header{
 .home-btn{padding:8px 12px;border:1px solid #526b82;border-radius:8px;color:#dce5ed;font-size:11px;font-weight:600}
 .home-btn:hover{border-color:#4da3ff;color:#4da3ff}
 
-/* Stylish hamburger */
 .hamburger-btn{
   width:42px;height:42px;border:1px solid #3d5870;border-radius:10px;
   background:linear-gradient(145deg,#122033,#0a1520);color:#dce5ed;font-size:18px;
   display:none;align-items:center;justify-content:center;flex-shrink:0;
   box-shadow:0 4px 12px rgba(0,0,0,.25)
 }
-.hamburger-btn:hover{border-color:#4da3ff;color:#4da3ff;box-shadow:0 0 14px rgba(77,163,255,.25)}
+.hamburger-btn:hover{border-color:#4da3ff;color:#4da3ff}
 
-/* Drawer overlay + panel */
 .drawer-overlay{
   position:fixed;inset:0;background:rgba(3,7,13,.7);backdrop-filter:blur(3px);
   z-index:1500;opacity:0;pointer-events:none;transition:opacity .25s ease
@@ -149,14 +147,86 @@ header{
 .access-blocked p{margin-top:10px;color:#8194a8;font-size:13px;line-height:1.6}
 .access-blocked a{display:inline-block;margin-top:16px;padding:11px 18px;background:#4da3ff;color:#04101c;border-radius:9px;font-weight:900;font-size:12px}
 
-.ads-form{display:grid;grid-template-columns:130px 1fr auto;gap:8px}
-.ads-form select,.ads-form input{height:42px;padding:0 12px;background:#050c14;border:1px solid #30465c;border-radius:8px;color:#fff;outline:none;font-size:12px}
-.ads-form button{padding:0 16px;border:none;border-radius:8px;background:#4da3ff;color:#04101c;font-weight:900;font-size:11px}
-.ads-list{margin-top:14px;display:grid;gap:10px}
-.ad-item{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:13px;border:1px solid #293f55;border-radius:11px;background:#07111d}
-.ad-item-text{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px;color:#dce5ed}
-.ad-item-meta{color:#71869c;font-size:10px;margin-top:3px}
-.ad-delete{padding:8px 12px;border:1px solid #6d4d4d;border-radius:7px;background:#1b1111;color:#ffb1b1;font-size:10px;font-weight:bold;flex-shrink:0}
+/* ===== ADS SECTION (fixed) ===== */
+.ads-form{
+  display:grid;
+  grid-template-columns:140px 1fr auto;
+  gap:10px;
+  align-items:stretch;
+}
+.ads-form select,
+.ads-form input{
+  height:44px;
+  padding:0 12px;
+  background:#050c14;
+  border:1px solid #30465c;
+  border-radius:8px;
+  color:#fff;
+  outline:none;
+  font-size:12px;
+  width:100%;
+  min-width:0;
+}
+.ads-form input:focus,
+.ads-form select:focus{border-color:#4da3ff}
+.ads-form button{
+  height:44px;
+  padding:0 18px;
+  border:none;
+  border-radius:8px;
+  background:#4da3ff;
+  color:#04101c;
+  font-weight:900;
+  font-size:11px;
+  white-space:nowrap;
+}
+.ads-list{
+  margin-top:16px;
+  display:grid;
+  gap:10px;
+}
+.ad-item{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:12px;
+  padding:14px;
+  border:1px solid #293f55;
+  border-radius:11px;
+  background:#07111d;
+  min-width:0;
+}
+.ad-item-body{flex:1;min-width:0;overflow:hidden}
+.ad-item-type{
+  display:inline-block;
+  padding:3px 8px;
+  border-radius:6px;
+  background:#102a40;
+  border:1px solid #385b77;
+  color:#4da3ff;
+  font-size:9px;
+  font-weight:bold;
+  margin-bottom:6px;
+}
+.ad-item-text{
+  font-size:12px;
+  color:#dce5ed;
+  word-break:break-all;
+  overflow-wrap:anywhere;
+  line-height:1.45;
+}
+.ad-item-meta{color:#71869c;font-size:10px;margin-top:6px}
+.ad-delete{
+  padding:8px 12px;
+  border:1px solid #6d4d4d;
+  border-radius:7px;
+  background:#1b1111;
+  color:#ffb1b1;
+  font-size:10px;
+  font-weight:bold;
+  flex-shrink:0;
+}
+.ad-delete:hover{background:#2a1616}
 
 footer{padding:28px 5%;background:#03080e;border-top:1px solid #263b50;color:#7d90a4;font-size:12px}
 
@@ -164,7 +234,7 @@ footer{padding:28px 5%;background:#03080e;border-top:1px solid #263b50;color:#7d
   .stats{grid-template-columns:repeat(3,1fr)}
   .member-list{grid-template-columns:repeat(2,1fr)}
 }
-  @media(max-width:700px){
+@media(max-width:700px){
   .content{padding:20px 4% 100px}
   .page-title{font-size:26px}
   .member-profile{flex-direction:column;align-items:flex-start}
@@ -174,7 +244,10 @@ footer{padding:28px 5%;background:#03080e;border-top:1px solid #263b50;color:#7d
   .partner-row{flex-direction:column}
   .partner-row select,.partner-row button{width:100%;height:44px}
   .ads-form{grid-template-columns:1fr}
+  .ads-form button{width:100%}
   .hamburger-btn{display:flex}
+  .ad-item{flex-direction:column}
+  .ad-delete{align-self:flex-end}
 }
 </style>
 </head>
@@ -211,7 +284,7 @@ footer{padding:28px 5%;background:#03080e;border-top:1px solid #263b50;color:#7d
 
 <div class="access-blocked" id="accessBlocked">
   <h2>Access Not Available</h2>
-  <p>This dashboard is only for approved FHAMAR.ZAMOST team members. Agar aapne apply kiya hai to Admin approval ka wait karein.</p>
+  <p>This dashboard is only for approved FHAMAR.ZAMOST team members.</p>
   <a href="Profile.html">Go to My Profile</a>
 </div>
 
@@ -295,22 +368,26 @@ footer{padding:28px 5%;background:#03080e;border-top:1px solid #263b50;color:#7d
     <div id="deliveryResult" class="api-note">No delivery partner assigned yet.</div>
   </section>
 
+  <!-- ADS SECTION -->
   <section id="ads" class="section" style="display:none">
     <div class="section-header"><h2>Manage Home Page Ads</h2></div>
     <div class="api-note" style="margin-top:0;margin-bottom:14px">
-      Ads Home page ke Featured Advertisement mein auto rotate hote hain.
+      Ads Home page ke <b>Featured Advertisement</b> mein auto rotate hote hain.<br>
+      Type: Text / Image URL / Video URL (direct .mp4 link best).
     </div>
+
     <div class="ads-form">
       <select id="adType">
         <option value="text">Text</option>
         <option value="image">Image URL</option>
         <option value="video">Video URL</option>
       </select>
-      <input id="adContent" placeholder="Ad text ya image/video URL...">
-      <button type="button" onclick="addAd()">ADD AD</button>
+      <input id="adContent" type="text" placeholder="Ad text ya image/video URL paste karein...">
+      <button type="button" id="addAdBtn" onclick="addAd()">ADD AD</button>
     </div>
+
     <div id="adsList" class="ads-list"></div>
-    <div id="adsEmpty" class="empty">No ads added yet.</div>
+    <div id="adsEmpty" class="empty">No ads added yet. Upar form se pehla ad add karein.</div>
   </section>
 </main>
 </div>
@@ -326,7 +403,7 @@ import { app } from "./firebase-config.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 import {
   getFirestore, collection, query, where, onSnapshot, doc, getDoc, setDoc, getDocs,
-  addDoc, deleteDoc, orderBy, serverTimestamp
+  addDoc, deleteDoc, serverTimestamp
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 const auth = getAuth(app);
@@ -336,8 +413,8 @@ let TEAM_STATE = "";
 let TEAM_MEMBER_ID = "";
 let currentUserName = "";
 let orders = [];
-
-function isApprovedTeam(data){
+let adsUnsubscribe = null;
+  function isApprovedTeam(data){
   const role = String(data?.role || "").toLowerCase().replace(/[\s-]/g,"_");
   const status = String(data?.status || "").toLowerCase();
   const teamRole = ["team_member","teammember","team","admin"].includes(role);
@@ -446,60 +523,143 @@ async function loadTeamMembers(){
   }
 }
 
+/* ===== ADS — stable, no orderBy, no overflow ===== */
 function initAdsListener(){
   try{
-    onSnapshot(collection(db,"ads"), (snapshot)=>{
-      const ads = snapshot.docs.map(d => ({id:d.id, ...d.data()}));
-      ads.sort(function(a,b){
+    if(adsUnsubscribe) adsUnsubscribe();
+
+    adsUnsubscribe = onSnapshot(collection(db, "ads"), function(snapshot){
+      var ads = [];
+      snapshot.forEach(function(d){
+        var data = d.data();
+        data.id = d.id;
+        ads.push(data);
+      });
+
+      ads.sort(function(a, b){
         var ta = (a.createdAt && a.createdAt.seconds) ? a.createdAt.seconds : 0;
         var tb = (b.createdAt && b.createdAt.seconds) ? b.createdAt.seconds : 0;
         return ta - tb;
       });
+
       renderAdsList(ads);
+    }, function(error){
+      console.error("Ads listener error:", error);
+      document.getElementById("adsEmpty").style.display = "block";
+      document.getElementById("adsEmpty").textContent = "Ads load nahi ho paye. Rules / connection check karein.";
+      document.getElementById("adsList").innerHTML = "";
     });
-  }catch(e){ console.error(e); }
+  }catch(e){
+    console.error(e);
+  }
 }
 
 function renderAdsList(ads){
-  const list = document.getElementById("adsList");
-  const empty = document.getElementById("adsEmpty");
-  if(!ads.length){
+  var list = document.getElementById("adsList");
+  var empty = document.getElementById("adsEmpty");
+
+  if(!ads || !ads.length){
     list.innerHTML = "";
     empty.style.display = "block";
+    empty.textContent = "No ads added yet. Upar form se pehla ad add karein.";
     return;
   }
+
   empty.style.display = "none";
-  list.innerHTML = ads.map(ad =>
-    '<div class="ad-item"><div><div class="ad-item-text">[' +
-    escapeHTML((ad.type||"text").toUpperCase()) + '] ' + escapeHTML(ad.content||"") +
-    '</div><div class="ad-item-meta">Added by ' + escapeHTML(ad.createdByName||"Team") +
-    '</div></div><button class="ad-delete" onclick="deleteAd(\'' + escapeHTML(ad.id) + '\')">DELETE</button></div>'
-  ).join("");
+
+  var html = "";
+  for(var i = 0; i < ads.length; i++){
+    var ad = ads[i];
+    var typeLabel = String(ad.type || "text").toUpperCase();
+    var content = ad.content || "";
+    var by = ad.createdByName || "Team Member";
+
+    html += '<div class="ad-item">' +
+      '<div class="ad-item-body">' +
+        '<span class="ad-item-type">' + escapeHTML(typeLabel) + '</span>' +
+        '<div class="ad-item-text">' + escapeHTML(content) + '</div>' +
+        '<div class="ad-item-meta">Added by ' + escapeHTML(by) + '</div>' +
+      '</div>' +
+      '<button type="button" class="ad-delete" data-ad-id="' + escapeHTML(ad.id) + '">DELETE</button>' +
+    '</div>';
+  }
+  list.innerHTML = html;
+
+  // attach delete handlers (safe, no inline onclick issues)
+  var btns = list.querySelectorAll(".ad-delete");
+  for(var j = 0; j < btns.length; j++){
+    btns[j].onclick = function(){
+      var id = this.getAttribute("data-ad-id");
+      if(id) deleteAd(id);
+    };
+  }
 }
 
 window.addAd = async function(){
-  const type = document.getElementById("adType").value;
-  const content = document.getElementById("adContent").value.trim();
-  if(!content){ showToast("Ad text / URL enter karein."); return; }
+  var typeEl = document.getElementById("adType");
+  var contentEl = document.getElementById("adContent");
+  var btn = document.getElementById("addAdBtn");
+
+  var type = typeEl.value || "text";
+  var content = (contentEl.value || "").trim();
+
+  if(!content){
+    showToast("Ad text ya URL enter karein.");
+    contentEl.focus();
+    return;
+  }
+
+  if((type === "image" || type === "video") && content.indexOf("http") !== 0){
+    showToast("Image/Video ke liye full URL lagao (https://...)");
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = "ADDING...";
+
   try{
-    await addDoc(collection(db,"ads"), {
-      type, content,
+    await addDoc(collection(db, "ads"), {
+      type: type,
+      content: content,
       createdBy: TEAM_MEMBER_ID,
-      createdByName: currentUserName,
+      createdByName: currentUserName || "Team Member",
       createdAt: serverTimestamp()
     });
-    document.getElementById("adContent").value = "";
+    contentEl.value = "";
     showToast("Ad Home page pe add ho gaya.");
-  }catch(e){ showToast("Ad add nahi hua."); }
+  }catch(e){
+    console.error("Add ad failed:", e);
+    showToast("Ad add nahi hua. Firestore rules check karein.");
+  }finally{
+    btn.disabled = false;
+    btn.textContent = "ADD AD";
+  }
 };
 
 window.deleteAd = async function(id){
+  if(!id) return;
+  if(!confirm("Yeh ad delete karein?")) return;
   try{
-    await deleteDoc(doc(db,"ads",id));
+    await deleteDoc(doc(db, "ads", id));
     showToast("Ad deleted.");
-  }catch(e){ showToast("Delete fail."); }
+  }catch(e){
+    console.error("Delete ad failed:", e);
+    showToast("Delete fail. Rules check karein.");
+  }
 };
-  window.advanceOrder = function(id){
+
+window.setOrderStatus = async function(id, status){
+  const order = orders.find(o => o.id === id);
+  if(!order) return;
+  order.status = status;
+  renderOrders();
+  showToast((order.orderNumber || id) + " → " + status);
+  try{
+    await setDoc(doc(db,"orders",id), { status, updatedAt: new Date().toISOString() }, { merge: true });
+  }catch(e){ showToast("Update fail."); }
+};
+
+window.advanceOrder = function(id){
   const order = orders.find(o => o.id === id);
   if(!order) return;
   const flow = ["Confirmed","Packaging","Ready to Ship","Shipped","Out for Delivery","Delivered"];
@@ -561,7 +721,6 @@ window.renderOrders = function(){
   updateStats();
 };
 
-/* ===== LABEL with FZ logo + full name on top ===== */
 function buildLabelHTML(order){
   const items = (order.items||[]).map(i =>
     '<tr><td style="padding:6px 0">' + escapeHTML(i.name) +
@@ -574,7 +733,7 @@ function buildLabelHTML(order){
       '<div style="display:inline-flex;align-items:center;justify-content:center;gap:10px;margin-bottom:6px">' +
         '<div style="width:42px;height:42px;border-radius:10px;border:2px solid #173b5b;background:linear-gradient(145deg,#173b5b,#050b12);color:#fff;font-size:16px;font-weight:900;display:flex;align-items:center;justify-content:center">FZ</div>' +
         '<div style="text-align:left">' +
-          '<div style="font-size:18px;font-weight:900;letter-spacing:1px;color:#111"><span style="color:#2563eb">FHAMAR</span><span style="color:#555">.ZAMOST</span></div>' +
+          '<div style="font-size:18px;font-weight:900;letter-spacing:1px"><span style="color:#2563eb">FHAMAR</span><span style="color:#555">.ZAMOST</span></div>' +
           '<div style="font-size:10px;letter-spacing:2px;color:#666">PREMIUM SMART PORTAL</div>' +
         '</div>' +
       '</div>' +
@@ -591,11 +750,8 @@ function buildLabelHTML(order){
     '<div style="font-size:12px;margin-top:6px">📞 ' + escapeHTML(order.customer?.mobile || "—") + '</div>' +
     '<table style="width:100%;margin-top:16px;border-top:1px solid #ccc;padding-top:8px;font-size:12px;border-collapse:collapse">' +
       '<thead><tr style="border-bottom:1px solid #ccc">' +
-        '<th style="text-align:left;padding-bottom:6px">Item</th>' +
-        '<th style="padding-bottom:6px">Qty</th>' +
-        '<th style="text-align:right;padding-bottom:6px">Price</th>' +
-      '</tr></thead><tbody>' + (items || '<tr><td colspan="3">No items</td></tr>') + '</tbody>' +
-    '</table>' +
+        '<th style="text-align:left;padding-bottom:6px">Item</th><th style="padding-bottom:6px">Qty</th><th style="text-align:right;padding-bottom:6px">Price</th>' +
+      '</tr></thead><tbody>' + (items || '<tr><td colspan="3">No items</td></tr>') + '</tbody></table>' +
     '<div style="text-align:right;font-size:15px;font-weight:900;margin-top:12px;border-top:2px solid #111;padding-top:10px">' +
       'TOTAL: ₹' + Number(order.total||0).toLocaleString("en-IN") +
     '</div>' +
@@ -645,12 +801,7 @@ window.downloadLabel = async function(orderId, format){
 window.assignDelivery = function(){
   const partner = document.getElementById("deliveryPartner").value;
   if(!partner){ showToast("Partner select karein."); return; }
-  const data = {
-    partner,
-    memberId: TEAM_MEMBER_ID,
-    state: TEAM_STATE,
-    assignedAt: new Date().toISOString()
-  };
+  const data = { partner, memberId: TEAM_MEMBER_ID, state: TEAM_STATE, assignedAt: new Date().toISOString() };
   localStorage.setItem("fz_delivery_assignment", JSON.stringify(data));
   document.getElementById("deliveryResult").innerHTML =
     "<b>ASSIGNED:</b> " + escapeHTML(partner) + "<br>State: " + escapeHTML(TEAM_STATE) +
@@ -668,7 +819,7 @@ window.addCustomPartner = function(){
   sel.appendChild(opt);
   sel.value = name;
   document.getElementById("customPartner").value = "";
-  showToast("Partner list mein add ho gaya. Ab ASSIGN dabayein.");
+  showToast("Partner list mein add. Ab ASSIGN dabayein.");
 };
 
 function loadSavedDelivery(){
@@ -679,8 +830,7 @@ function loadSavedDelivery(){
     if(data.state === TEAM_STATE){
       document.getElementById("deliveryResult").innerHTML =
         "<b>ASSIGNED:</b> " + escapeHTML(data.partner || "") +
-        "<br>State: " + escapeHTML(data.state || "") +
-        "<br>Saved earlier";
+        "<br>State: " + escapeHTML(data.state || "") + "<br>Saved earlier";
     }
   }catch(e){}
 }
