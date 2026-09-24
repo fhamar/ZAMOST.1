@@ -147,84 +147,31 @@ header{
 .access-blocked p{margin-top:10px;color:#8194a8;font-size:13px;line-height:1.6}
 .access-blocked a{display:inline-block;margin-top:16px;padding:11px 18px;background:#4da3ff;color:#04101c;border-radius:9px;font-weight:900;font-size:12px}
 
-/* ===== ADS SECTION (fixed) ===== */
-.ads-form{
-  display:grid;
-  grid-template-columns:140px 1fr auto;
-  gap:10px;
-  align-items:stretch;
+.ads-form{display:grid;grid-template-columns:140px 1fr auto;gap:10px;align-items:stretch}
+.ads-form select,.ads-form input{
+  height:44px;padding:0 12px;background:#050c14;border:1px solid #30465c;border-radius:8px;
+  color:#fff;outline:none;font-size:12px;width:100%;min-width:0
 }
-.ads-form select,
-.ads-form input{
-  height:44px;
-  padding:0 12px;
-  background:#050c14;
-  border:1px solid #30465c;
-  border-radius:8px;
-  color:#fff;
-  outline:none;
-  font-size:12px;
-  width:100%;
-  min-width:0;
-}
-.ads-form input:focus,
-.ads-form select:focus{border-color:#4da3ff}
+.ads-form input:focus,.ads-form select:focus{border-color:#4da3ff}
 .ads-form button{
-  height:44px;
-  padding:0 18px;
-  border:none;
-  border-radius:8px;
-  background:#4da3ff;
-  color:#04101c;
-  font-weight:900;
-  font-size:11px;
-  white-space:nowrap;
+  height:44px;padding:0 18px;border:none;border-radius:8px;background:#4da3ff;
+  color:#04101c;font-weight:900;font-size:11px;white-space:nowrap
 }
-.ads-list{
-  margin-top:16px;
-  display:grid;
-  gap:10px;
-}
+.ads-list{margin-top:16px;display:grid;gap:10px}
 .ad-item{
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-start;
-  gap:12px;
-  padding:14px;
-  border:1px solid #293f55;
-  border-radius:11px;
-  background:#07111d;
-  min-width:0;
+  display:flex;justify-content:space-between;align-items:flex-start;gap:12px;
+  padding:14px;border:1px solid #293f55;border-radius:11px;background:#07111d;min-width:0
 }
 .ad-item-body{flex:1;min-width:0;overflow:hidden}
 .ad-item-type{
-  display:inline-block;
-  padding:3px 8px;
-  border-radius:6px;
-  background:#102a40;
-  border:1px solid #385b77;
-  color:#4da3ff;
-  font-size:9px;
-  font-weight:bold;
-  margin-bottom:6px;
+  display:inline-block;padding:3px 8px;border-radius:6px;background:#102a40;
+  border:1px solid #385b77;color:#4da3ff;font-size:9px;font-weight:bold;margin-bottom:6px
 }
-.ad-item-text{
-  font-size:12px;
-  color:#dce5ed;
-  word-break:break-all;
-  overflow-wrap:anywhere;
-  line-height:1.45;
-}
+.ad-item-text{font-size:12px;color:#dce5ed;word-break:break-all;overflow-wrap:anywhere;line-height:1.45}
 .ad-item-meta{color:#71869c;font-size:10px;margin-top:6px}
 .ad-delete{
-  padding:8px 12px;
-  border:1px solid #6d4d4d;
-  border-radius:7px;
-  background:#1b1111;
-  color:#ffb1b1;
-  font-size:10px;
-  font-weight:bold;
-  flex-shrink:0;
+  padding:8px 12px;border:1px solid #6d4d4d;border-radius:7px;background:#1b1111;
+  color:#ffb1b1;font-size:10px;font-weight:bold;flex-shrink:0
 }
 .ad-delete:hover{background:#2a1616}
 
@@ -252,8 +199,7 @@ footer{padding:28px 5%;background:#03080e;border-top:1px solid #263b50;color:#7d
 </style>
 </head>
 <body>
-
-<header>
+  <header>
   <div class="brand-area">
     <div class="fz-logo">FZ</div>
     <div class="brand"><span class="blue">FHAMAR</span><span class="silver">.ZAMOST</span></div>
@@ -368,14 +314,12 @@ footer{padding:28px 5%;background:#03080e;border-top:1px solid #263b50;color:#7d
     <div id="deliveryResult" class="api-note">No delivery partner assigned yet.</div>
   </section>
 
-  <!-- ADS SECTION -->
   <section id="ads" class="section" style="display:none">
     <div class="section-header"><h2>Manage Home Page Ads</h2></div>
     <div class="api-note" style="margin-top:0;margin-bottom:14px">
       Ads Home page ke <b>Featured Advertisement</b> mein auto rotate hote hain.<br>
       Type: Text / Image URL / Video URL (direct .mp4 link best).
     </div>
-
     <div class="ads-form">
       <select id="adType">
         <option value="text">Text</option>
@@ -385,7 +329,6 @@ footer{padding:28px 5%;background:#03080e;border-top:1px solid #263b50;color:#7d
       <input id="adContent" type="text" placeholder="Ad text ya image/video URL paste karein...">
       <button type="button" id="addAdBtn" onclick="addAd()">ADD AD</button>
     </div>
-
     <div id="adsList" class="ads-list"></div>
     <div id="adsEmpty" class="empty">No ads added yet. Upar form se pehla ad add karein.</div>
   </section>
@@ -414,7 +357,8 @@ let TEAM_MEMBER_ID = "";
 let currentUserName = "";
 let orders = [];
 let adsUnsubscribe = null;
-  function isApprovedTeam(data){
+
+function isApprovedTeam(data){
   const role = String(data?.role || "").toLowerCase().replace(/[\s-]/g,"_");
   const status = String(data?.status || "").toLowerCase();
   const teamRole = ["team_member","teammember","team","admin"].includes(role);
@@ -522,12 +466,9 @@ async function loadTeamMembers(){
     empty.textContent = "Could not load team members.";
   }
 }
-
-/* ===== ADS — stable, no orderBy, no overflow ===== */
-function initAdsListener(){
+  function initAdsListener(){
   try{
     if(adsUnsubscribe) adsUnsubscribe();
-
     adsUnsubscribe = onSnapshot(collection(db, "ads"), function(snapshot){
       var ads = [];
       snapshot.forEach(function(d){
@@ -535,23 +476,19 @@ function initAdsListener(){
         data.id = d.id;
         ads.push(data);
       });
-
       ads.sort(function(a, b){
         var ta = (a.createdAt && a.createdAt.seconds) ? a.createdAt.seconds : 0;
         var tb = (b.createdAt && b.createdAt.seconds) ? b.createdAt.seconds : 0;
         return ta - tb;
       });
-
       renderAdsList(ads);
     }, function(error){
       console.error("Ads listener error:", error);
       document.getElementById("adsEmpty").style.display = "block";
-      document.getElementById("adsEmpty").textContent = "Ads load nahi ho paye. Rules / connection check karein.";
+      document.getElementById("adsEmpty").textContent = "Ads load nahi ho paye.";
       document.getElementById("adsList").innerHTML = "";
     });
-  }catch(e){
-    console.error(e);
-  }
+  }catch(e){ console.error(e); }
 }
 
 function renderAdsList(ads){
@@ -566,26 +503,20 @@ function renderAdsList(ads){
   }
 
   empty.style.display = "none";
-
   var html = "";
   for(var i = 0; i < ads.length; i++){
     var ad = ads[i];
-    var typeLabel = String(ad.type || "text").toUpperCase();
-    var content = ad.content || "";
-    var by = ad.createdByName || "Team Member";
-
     html += '<div class="ad-item">' +
       '<div class="ad-item-body">' +
-        '<span class="ad-item-type">' + escapeHTML(typeLabel) + '</span>' +
-        '<div class="ad-item-text">' + escapeHTML(content) + '</div>' +
-        '<div class="ad-item-meta">Added by ' + escapeHTML(by) + '</div>' +
+        '<span class="ad-item-type">' + escapeHTML(String(ad.type || "text").toUpperCase()) + '</span>' +
+        '<div class="ad-item-text">' + escapeHTML(ad.content || "") + '</div>' +
+        '<div class="ad-item-meta">Added by ' + escapeHTML(ad.createdByName || "Team Member") + '</div>' +
       '</div>' +
       '<button type="button" class="ad-delete" data-ad-id="' + escapeHTML(ad.id) + '">DELETE</button>' +
     '</div>';
   }
   list.innerHTML = html;
 
-  // attach delete handlers (safe, no inline onclick issues)
   var btns = list.querySelectorAll(".ad-delete");
   for(var j = 0; j < btns.length; j++){
     btns[j].onclick = function(){
@@ -599,16 +530,10 @@ window.addAd = async function(){
   var typeEl = document.getElementById("adType");
   var contentEl = document.getElementById("adContent");
   var btn = document.getElementById("addAdBtn");
-
   var type = typeEl.value || "text";
   var content = (contentEl.value || "").trim();
 
-  if(!content){
-    showToast("Ad text ya URL enter karein.");
-    contentEl.focus();
-    return;
-  }
-
+  if(!content){ showToast("Ad text ya URL enter karein."); contentEl.focus(); return; }
   if((type === "image" || type === "video") && content.indexOf("http") !== 0){
     showToast("Image/Video ke liye full URL lagao (https://...)");
     return;
@@ -616,7 +541,6 @@ window.addAd = async function(){
 
   btn.disabled = true;
   btn.textContent = "ADDING...";
-
   try{
     await addDoc(collection(db, "ads"), {
       type: type,
@@ -628,8 +552,8 @@ window.addAd = async function(){
     contentEl.value = "";
     showToast("Ad Home page pe add ho gaya.");
   }catch(e){
-    console.error("Add ad failed:", e);
-    showToast("Ad add nahi hua. Firestore rules check karein.");
+    console.error(e);
+    showToast("Ad add nahi hua.");
   }finally{
     btn.disabled = false;
     btn.textContent = "ADD AD";
@@ -643,8 +567,8 @@ window.deleteAd = async function(id){
     await deleteDoc(doc(db, "ads", id));
     showToast("Ad deleted.");
   }catch(e){
-    console.error("Delete ad failed:", e);
-    showToast("Delete fail. Rules check karein.");
+    console.error(e);
+    showToast("Delete fail.");
   }
 };
 
@@ -721,6 +645,16 @@ window.renderOrders = function(){
   updateStats();
 };
 
+/* ===== IMPROVED LABEL: FZ logo, pincode, date, from address ===== */
+function getOrderAddress(order){
+  // support multiple possible field shapes from checkout
+  const addr = order.address || order.shippingAddress || order.customer?.address || "";
+  const city = order.city || order.customer?.city || "";
+  const state = order.state || order.customer?.state || "";
+  const pin = order.pincode || order.pin || order.zip || order.customer?.pincode || order.customer?.pin || "";
+  return { addr, city, state, pin };
+}
+
 function buildLabelHTML(order){
   const items = (order.items||[]).map(i =>
     '<tr><td style="padding:6px 0">' + escapeHTML(i.name) +
@@ -728,8 +662,15 @@ function buildLabelHTML(order){
     '</td><td style="padding:6px 0;text-align:right">₹' + Number(i.price||0).toLocaleString("en-IN") + '</td></tr>'
   ).join("");
 
+  const loc = getOrderAddress(order);
+  const cityLine = [loc.city, loc.state].filter(Boolean).join(", ");
+  const pinPart = loc.pin ? (" - " + loc.pin) : "";
+  const dateStr = new Date().toLocaleDateString("en-IN", { day:"2-digit", month:"short", year:"numeric" });
+
   return '<div style="width:420px;padding:24px;background:#fff;color:#111;font-family:Arial,sans-serif;border:2px solid #111">' +
-    '<div style="text-align:center;border-bottom:2px solid #111;padding-bottom:14px;margin-bottom:16px">' +
+
+    /* Header with FZ logo + full brand */
+    '<div style="text-align:center;border-bottom:2px solid #111;padding-bottom:14px;margin-bottom:14px">' +
       '<div style="display:inline-flex;align-items:center;justify-content:center;gap:10px;margin-bottom:6px">' +
         '<div style="width:42px;height:42px;border-radius:10px;border:2px solid #173b5b;background:linear-gradient(145deg,#173b5b,#050b12);color:#fff;font-size:16px;font-weight:900;display:flex;align-items:center;justify-content:center">FZ</div>' +
         '<div style="text-align:left">' +
@@ -738,26 +679,44 @@ function buildLabelHTML(order){
         '</div>' +
       '</div>' +
       '<div style="font-size:11px;letter-spacing:2px;color:#555;margin-top:4px">SHIPPING LABEL</div>' +
+      '<div style="font-size:10px;color:#888;margin-top:4px">Date: ' + dateStr + '</div>' +
     '</div>' +
+
+    /* FROM */
+    '<div style="font-size:11px;color:#555;margin-bottom:2px">FROM</div>' +
+    '<div style="font-size:12px;margin-bottom:12px;line-height:1.45">' +
+      '<b>FHAMAR.ZAMOST</b><br>State Team: ' + escapeHTML(TEAM_STATE || "—") +
+    '</div>' +
+
+    /* ORDER ID */
     '<div style="font-size:11px;color:#555">ORDER ID</div>' +
     '<div style="font-size:15px;font-weight:bold;margin-bottom:12px">' + escapeHTML(order.orderNumber || order.id) + '</div>' +
+
+    /* DELIVER TO */
     '<div style="font-size:11px;color:#555">DELIVER TO</div>' +
     '<div style="font-size:14px;font-weight:bold;margin-top:2px">' + escapeHTML(order.customer?.name || "Customer") + '</div>' +
     '<div style="font-size:12px;margin-top:4px;line-height:1.5">' +
-      escapeHTML(order.address || "") + '<br>' +
-      escapeHTML(order.city || "") + ', ' + escapeHTML(order.state || "") + ' - ' + escapeHTML(order.pincode || "") +
+      escapeHTML(loc.addr) + (loc.addr ? "<br>" : "") +
+      escapeHTML(cityLine) + escapeHTML(pinPart) +
     '</div>' +
     '<div style="font-size:12px;margin-top:6px">📞 ' + escapeHTML(order.customer?.mobile || "—") + '</div>' +
+
+    /* Items table */
     '<table style="width:100%;margin-top:16px;border-top:1px solid #ccc;padding-top:8px;font-size:12px;border-collapse:collapse">' +
       '<thead><tr style="border-bottom:1px solid #ccc">' +
-        '<th style="text-align:left;padding-bottom:6px">Item</th><th style="padding-bottom:6px">Qty</th><th style="text-align:right;padding-bottom:6px">Price</th>' +
-      '</tr></thead><tbody>' + (items || '<tr><td colspan="3">No items</td></tr>') + '</tbody></table>' +
+        '<th style="text-align:left;padding-bottom:6px">Item</th>' +
+        '<th style="padding-bottom:6px">Qty</th>' +
+        '<th style="text-align:right;padding-bottom:6px">Price</th>' +
+      '</tr></thead><tbody>' + (items || '<tr><td colspan="3">No items</td></tr>') + '</tbody>' +
+    '</table>' +
+
     '<div style="text-align:right;font-size:15px;font-weight:900;margin-top:12px;border-top:2px solid #111;padding-top:10px">' +
       'TOTAL: ₹' + Number(order.total||0).toLocaleString("en-IN") +
     '</div>' +
     '<div style="font-size:11px;color:#777;margin-top:12px;text-align:center">Payment: ' +
-      escapeHTML(String(order.paymentMethod||"pending").toUpperCase()) +
-    '</div></div>';
+      escapeHTML(String(order.paymentMethod || order.payment || "pending").toUpperCase()) +
+    '</div>' +
+  '</div>';
 }
 
 window.downloadLabel = async function(orderId, format){
@@ -885,3 +844,4 @@ window.showToast = function(text){
 </script>
 </body>
 </html>
+  
