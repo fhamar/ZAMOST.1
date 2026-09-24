@@ -8,59 +8,195 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
-body{background:#050b12;color:#fff}button,input,select{font-family:inherit}button{cursor:pointer}a{text-decoration:none;color:inherit}
-header{height:75px;padding:0 5%;display:flex;align-items:center;justify-content:space-between;background:#07111d;border-bottom:1px solid #30465d;position:sticky;top:0;z-index:1000}
-.brand-area{display:flex;align-items:center;gap:10px}.fz-logo{width:45px;height:45px;display:flex;align-items:center;justify-content:center;border-radius:12px;border:1px solid #8298ad;background:linear-gradient(145deg,#173b5b,#050b12);color:#fff;font-size:17px;font-weight:900}.brand{font-size:18px;font-weight:900;letter-spacing:2px}.blue{color:#4da3ff}.silver{color:#aeb9c5}
-.header-right{display:flex;align-items:center;gap:10px}.home-btn{padding:9px 13px;border:1px solid #526b82;border-radius:8px;color:#dce5ed;font-size:10px}
-.hamburger-btn{width:40px;height:40px;border:1px solid #526b82;border-radius:8px;background:transparent;color:#dce5ed;font-size:17px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
-.hamburger-btn:hover{border-color:#4da3ff;color:#4da3ff}
-.drawer-overlay{position:fixed;inset:0;background:rgba(3,7,13,.65);backdrop-filter:blur(2px);z-index:1500;opacity:0;pointer-events:none;transition:opacity .25s ease}
+html,body{min-height:100%;background:#050b12;color:#fff}
+button,input,select{font-family:inherit}button{cursor:pointer}a{text-decoration:none;color:inherit}
+
+header{
+  height:64px;padding:0 4%;display:flex;align-items:center;justify-content:space-between;
+  background:#07111d;border-bottom:1px solid #30465d;position:sticky;top:0;z-index:1000
+}
+.brand-area{display:flex;align-items:center;gap:10px}
+.fz-logo{
+  width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:11px;
+  border:1px solid #8298ad;background:linear-gradient(145deg,#173b5b,#050b12);color:#fff;font-size:15px;font-weight:900
+}
+.brand{font-size:16px;font-weight:900;letter-spacing:1.5px}
+.blue{color:#4da3ff}.silver{color:#aeb9c5}
+.header-right{display:flex;align-items:center;gap:10px}
+.home-btn{padding:8px 12px;border:1px solid #526b82;border-radius:8px;color:#dce5ed;font-size:11px;font-weight:600}
+.home-btn:hover{border-color:#4da3ff;color:#4da3ff}
+
+/* Stylish hamburger */
+.hamburger-btn{
+  width:42px;height:42px;border:1px solid #3d5870;border-radius:10px;
+  background:linear-gradient(145deg,#122033,#0a1520);color:#dce5ed;font-size:18px;
+  display:none;align-items:center;justify-content:center;flex-shrink:0;
+  box-shadow:0 4px 12px rgba(0,0,0,.25)
+}
+.hamburger-btn:hover{border-color:#4da3ff;color:#4da3ff;box-shadow:0 0 14px rgba(77,163,255,.25)}
+
+/* Drawer overlay + panel */
+.drawer-overlay{
+  position:fixed;inset:0;background:rgba(3,7,13,.7);backdrop-filter:blur(3px);
+  z-index:1500;opacity:0;pointer-events:none;transition:opacity .25s ease
+}
 .drawer-overlay.show{opacity:1;pointer-events:auto}
-.drawer{position:fixed;top:0;right:-300px;width:280px;max-width:82vw;height:100vh;background:linear-gradient(180deg,#0a1420,#06101a);border-left:1px solid #253a4e;z-index:1600;transition:right .28s cubic-bezier(.4,0,.2,1);padding:22px 0;overflow-y:auto;box-shadow:-20px 0 50px rgba(0,0,0,.5)}
+.drawer{
+  position:fixed;top:0;right:-300px;width:280px;max-width:85vw;height:100vh;
+  background:linear-gradient(180deg,#0c1826 0%,#07111d 100%);
+  border-left:1px solid #2a4058;z-index:1600;
+  transition:right .28s cubic-bezier(.4,0,.2,1);padding:0;overflow-y:auto;
+  box-shadow:-16px 0 40px rgba(0,0,0,.55)
+}
 .drawer.show{right:0}
-.drawer-header{padding:0 20px 16px;border-bottom:1px solid #1c2c3c;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center}
-.drawer-header span{font-size:10px;letter-spacing:2px;color:#657b91;font-weight:900}
-.drawer-close{background:transparent;border:1px solid #2c4256;border-radius:7px;color:#8fa1b4;font-size:16px;cursor:pointer;width:30px;height:30px;display:flex;align-items:center;justify-content:center}
+.drawer-header{
+  padding:18px 18px 14px;border-bottom:1px solid #1e3044;
+  display:flex;justify-content:space-between;align-items:center;
+  background:rgba(10,20,32,.9);position:sticky;top:0;z-index:2
+}
+.drawer-header span{font-size:10px;letter-spacing:2.2px;color:#7e93a8;font-weight:900}
+.drawer-close{
+  width:32px;height:32px;border:1px solid #2c4256;border-radius:8px;
+  background:transparent;color:#8fa1b4;font-size:16px;
+  display:flex;align-items:center;justify-content:center
+}
 .drawer-close:hover{border-color:#4da3ff;color:#4da3ff}
-.drawer-item{display:flex;align-items:center;gap:10px;width:100%;padding:14px 20px;text-align:left;border:none;background:transparent;color:#8fa1b4;font-size:12px;border-left:3px solid transparent;cursor:pointer;transition:.15s}
-.drawer-item:hover{background:#0b1b2a;color:white}
+.drawer-item{
+  display:flex;align-items:center;gap:11px;width:100%;padding:14px 18px;
+  text-align:left;border:none;background:transparent;color:#8fa1b4;font-size:13px;
+  border-left:3px solid transparent;transition:.15s
+}
+.drawer-item:hover{background:#0d1c2c;color:#fff}
 .drawer-item.active{background:#102b42;border-left-color:#4da3ff;color:#4da3ff;font-weight:700}
-.drawer-divider{margin:14px 20px 6px;color:#4a5d70;font-size:8px;letter-spacing:2px;border-top:1px solid #1c2c3c;padding-top:14px;font-weight:900}
+.drawer-divider{
+  margin:12px 18px 6px;color:#4a5d70;font-size:9px;letter-spacing:2px;
+  border-top:1px solid #1c2c3c;padding-top:12px;font-weight:900
+}
 .drawer-item.admin-link{display:none;color:#4da3ff}
 .drawer-item.admin-link.show{display:flex}
-.content{padding:35px 4% 80px;overflow:hidden}.eyebrow{color:#71869c;font-size:9px;letter-spacing:3px;font-weight:bold}.page-title{margin-top:10px;font-size:35px}.page-title span{color:#4da3ff}.subtitle{margin-top:8px;color:#8194a8;font-size:12px;line-height:1.7}
-.member-profile{margin-top:25px;padding:22px;border:1px solid #344d64;border-radius:16px;background:#091622;display:flex;justify-content:space-between;align-items:center;gap:20px}.member-left{display:flex;align-items:center;gap:15px}.avatar{width:65px;height:65px;border-radius:17px;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#173b5b,#07111d);border:1px solid #6b8399;color:#4da3ff;font-size:23px;font-weight:900}.member-name{font-size:20px;font-weight:bold}.member-info{margin-top:6px;color:#7f92a6;font-size:10px;line-height:1.6}.state-badge{padding:11px 15px;border-radius:10px;background:#102a40;border:1px solid #3d607d;color:#4da3ff;font-size:10px;font-weight:bold}
-.stats{margin-top:18px;display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.stat{padding:17px;border:1px solid #293f55;border-radius:12px;background:#081421}.stat small{color:#71869c;font-size:8px}.stat strong{display:block;margin-top:8px;font-size:22px}.stat.active-stat strong{color:#4da3ff}
-.section{margin-top:24px;padding:20px;border:1px solid #293f55;border-radius:15px;background:#081421}.section-header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:15px}.section-header h2{font-size:20px}
-.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:15px}.search{flex:1;min-width:190px;height:43px;padding:0 12px;background:#050c14;border:1px solid #30465c;border-radius:8px;color:white;outline:none;font-size:11px}.select{height:43px;padding:0 12px;background:#050c14;border:1px solid #30465c;border-radius:8px;color:#dce5ed;outline:none;font-size:11px}
-.order-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.order-card{padding:18px;border:1px solid #293f55;border-radius:13px;background:#07111d}.order-top{display:flex;justify-content:space-between;align-items:center;gap:10px}.order-id{color:#dce5ed;font-size:13px;font-weight:bold}.status{padding:6px 9px;border-radius:15px;background:#102a40;border:1px solid #385b77;color:#4da3ff;font-size:8px;font-weight:bold}.order-info{margin-top:13px;color:#7f93a7;font-size:10px;line-height:1.8}.order-info strong{color:#dce5ed}.order-actions{margin-top:15px;display:flex;gap:7px;flex-wrap:wrap}.action{padding:9px 11px;border-radius:7px;border:1px solid #40586f;background:#0a1725;color:#b9c7d4;font-size:8px;font-weight:bold}.action:hover{border-color:#4da3ff;color:#4da3ff}.action.primary{background:#4da3ff;border-color:#4da3ff;color:#04101c}
-.packaging{margin-top:12px;padding:15px;border-top:1px solid #22364a}.packaging-title{color:#9badbd;font-size:10px;font-weight:bold;margin-bottom:10px}.packaging-steps{display:flex;gap:6px;flex-wrap:wrap}.step{padding:7px 9px;border-radius:7px;border:1px solid #30465c;color:#71869c;background:#08131f;font-size:8px}.step.done{border-color:#3f6b8b;color:#4da3ff;background:#0c2438}
-.partner-box{margin-top:15px;padding:15px;border:1px solid #293f55;border-radius:10px;background:#081421}.partner-box h3{font-size:13px;margin-bottom:10px}.partner-row{display:flex;gap:8px}.partner-row select{flex:1;height:43px;padding:0 10px;background:#050c14;border:1px solid #30465c;border-radius:8px;color:#fff}.partner-row button{padding:0 12px;border:none;border-radius:7px;background:#4da3ff;color:#04101c;font-size:9px;font-weight:900}
-.member-list{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.member-card{padding:17px;border:1px solid #293f55;border-radius:12px;background:#07111d}.member-card-top{display:flex;justify-content:space-between;gap:10px}.member-card h3{font-size:13px}.member-card p{margin-top:5px;color:#73879b;font-size:9px;line-height:1.6}.member-status{font-size:8px;color:#4da3ff}
-.api-note{margin-top:20px;padding:15px;border:1px dashed #405a72;border-radius:10px;background:#06101a;color:#74899d;font-size:9px;line-height:1.8;text-align:center}.empty{padding:30px;text-align:center;border:1px dashed #354d64;border-radius:10px;color:#71869c;font-size:10px;display:none}.toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,20px);padding:11px 15px;border:1px solid #4da3ff;border-radius:8px;background:#0b2032;color:#dce5ed;font-size:10px;opacity:0;pointer-events:none;transition:.25s;z-index:3000}.toast.show{opacity:1;transform:translate(-50%,0)}
-.access-blocked{max-width:500px;margin:80px auto;padding:35px;border:1px solid #344d64;border-radius:18px;background:#091622;text-align:center;display:none}
-.access-blocked h2{font-size:22px}.access-blocked p{margin-top:12px;color:#8194a8;font-size:13px;line-height:1.7}.access-blocked a{display:inline-block;margin-top:20px;padding:12px 20px;background:#4da3ff;color:#04101c;border-radius:9px;font-weight:900;font-size:11px}
+
+.content{padding:28px 4% 90px;min-height:calc(100vh - 64px)}
+.eyebrow{color:#71869c;font-size:9px;letter-spacing:2.5px;font-weight:bold}
+.page-title{margin-top:8px;font-size:30px}
+.page-title span{color:#4da3ff}
+.subtitle{margin-top:6px;color:#8194a8;font-size:13px;line-height:1.6}
+
+.member-profile{
+  margin-top:20px;padding:18px;border:1px solid #344d64;border-radius:14px;background:#091622;
+  display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap
+}
+.member-left{display:flex;align-items:center;gap:14px}
+.avatar{
+  width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(145deg,#173b5b,#07111d);border:1px solid #6b8399;color:#4da3ff;font-size:20px;font-weight:900
+}
+.member-name{font-size:18px;font-weight:bold}
+.member-info{margin-top:4px;color:#7f92a6;font-size:11px;line-height:1.5}
+.state-badge{padding:10px 14px;border-radius:10px;background:#102a40;border:1px solid #3d607d;color:#4da3ff;font-size:10px;font-weight:bold}
+
+.stats{margin-top:16px;display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.stat{padding:14px;border:1px solid #293f55;border-radius:12px;background:#081421}
+.stat small{color:#71869c;font-size:9px}
+.stat strong{display:block;margin-top:6px;font-size:20px}
+.stat.active-stat strong{color:#4da3ff}
+
+.section{margin-top:20px;padding:18px;border:1px solid #293f55;border-radius:14px;background:#081421}
+.section-header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+.section-header h2{font-size:18px}
+
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.search{flex:1;min-width:160px;height:42px;padding:0 12px;background:#050c14;border:1px solid #30465c;border-radius:8px;color:#fff;outline:none;font-size:12px}
+.select{height:42px;padding:0 12px;background:#050c14;border:1px solid #30465c;border-radius:8px;color:#dce5ed;outline:none;font-size:12px}
+
+.order-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.order-card{padding:16px;border:1px solid #293f55;border-radius:12px;background:#07111d}
+.order-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.order-id{color:#dce5ed;font-size:13px;font-weight:bold}
+.status{padding:5px 9px;border-radius:14px;background:#102a40;border:1px solid #385b77;color:#4da3ff;font-size:9px;font-weight:bold}
+.order-info{margin-top:12px;color:#7f93a7;font-size:11px;line-height:1.7}
+.order-info strong{color:#dce5ed}
+.order-actions{margin-top:12px;display:flex;gap:7px;flex-wrap:wrap}
+.action{padding:8px 11px;border-radius:7px;border:1px solid #40586f;background:#0a1725;color:#b9c7d4;font-size:10px;font-weight:bold}
+.action:hover{border-color:#4da3ff;color:#4da3ff}
+.action.primary{background:#4da3ff;border-color:#4da3ff;color:#04101c}
+
+.packaging{margin-top:12px;padding-top:12px;border-top:1px solid #22364a}
+.packaging-title{color:#9badbd;font-size:10px;font-weight:bold;margin-bottom:8px}
+.packaging-steps{display:flex;gap:6px;flex-wrap:wrap}
+.step{padding:6px 8px;border-radius:7px;border:1px solid #30465c;color:#71869c;background:#08131f;font-size:9px}
+.step.done{border-color:#3f6b8b;color:#4da3ff;background:#0c2438}
+
+.partner-box{margin-top:12px;padding:14px;border:1px solid #293f55;border-radius:10px;background:#07111d}
+.partner-box h3{font-size:13px;margin-bottom:10px}
+.partner-row{display:flex;gap:8px;flex-wrap:wrap}
+.partner-row select{flex:1;min-width:160px;height:42px;padding:0 10px;background:#050c14;border:1px solid #30465c;border-radius:8px;color:#fff}
+.partner-row button{padding:0 16px;height:42px;border:none;border-radius:8px;background:#4da3ff;color:#04101c;font-size:11px;font-weight:900}
+
+.member-list{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.member-card{padding:15px;border:1px solid #293f55;border-radius:12px;background:#07111d}
+.member-card-top{display:flex;justify-content:space-between;gap:10px}
+.member-card h3{font-size:13px}
+.member-card p{margin-top:5px;color:#73879b;font-size:11px;line-height:1.6}
+.member-status{font-size:9px;color:#4da3ff}
+
+.api-note{margin-top:16px;padding:14px;border:1px dashed #405a72;border-radius:10px;background:#06101a;color:#74899d;font-size:11px;line-height:1.7;text-align:center}
+.empty{padding:28px;text-align:center;border:1px dashed #354d64;border-radius:10px;color:#71869c;font-size:12px;display:none}
+.toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,20px);padding:11px 15px;border:1px solid #4da3ff;border-radius:8px;background:#0b2032;color:#dce5ed;font-size:12px;opacity:0;pointer-events:none;transition:.25s;z-index:3000}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+.access-blocked{max-width:480px;margin:70px auto;padding:30px;border:1px solid #344d64;border-radius:16px;background:#091622;text-align:center;display:none}
+.access-blocked h2{font-size:20px}
+.access-blocked p{margin-top:10px;color:#8194a8;font-size:13px;line-height:1.6}
+.access-blocked a{display:inline-block;margin-top:16px;padding:11px 18px;background:#4da3ff;color:#04101c;border-radius:9px;font-weight:900;font-size:12px}
+
 .ads-form{display:grid;grid-template-columns:130px 1fr auto;gap:8px}
-.ads-form select,.ads-form input{height:44px;padding:0 12px;background:#050c14;border:1px solid #30465c;border-radius:8px;color:#fff;outline:none;font-size:11px}
-.ads-form button{padding:0 18px;border:none;border-radius:8px;background:#4da3ff;color:#04101c;font-weight:900;font-size:10px}
-.ads-list{margin-top:16px;display:grid;gap:10px}
-.ad-item{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:14px;border:1px solid #293f55;border-radius:11px;background:#07111d}
-.ad-item-text{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11px;color:#dce5ed}
-.ad-item-meta{color:#71869c;font-size:9px;margin-top:4px}
-.ad-delete{padding:8px 12px;border:1px solid #6d4d4d;border-radius:7px;background:#1b1111;color:#ffb1b1;font-size:9px;font-weight:bold;flex-shrink:0}
-.ad-delete:hover{background:#2a1616}
-@media(max-width:600px){.ads-form{grid-template-columns:1fr}}
-footer{padding:35px 7%;background:#03080e;border-top:1px solid #263b50;color:#7d90a4;font-size:11px}
-@media(max-width:1000px){.stats{grid-template-columns:repeat(3,1fr)}.member-list{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:700px){.content{padding:25px 5% 70px}.page-title{font-size:29px}.member-profile{flex-direction:column;align-items:flex-start}.stats{grid-template-columns:repeat(2,1fr)}.order-grid{grid-template-columns:1fr}.member-list{grid-template-columns:1fr}.partner-row{flex-direction:column}.partner-row select,.partner-row button{height:43px}}
+.ads-form select,.ads-form input{height:42px;padding:0 12px;background:#050c14;border:1px solid #30465c;border-radius:8px;color:#fff;outline:none;font-size:12px}
+.ads-form button{padding:0 16px;border:none;border-radius:8px;background:#4da3ff;color:#04101c;font-weight:900;font-size:11px}
+.ads-list{margin-top:14px;display:grid;gap:10px}
+.ad-item{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:13px;border:1px solid #293f55;border-radius:11px;background:#07111d}
+.ad-item-text{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px;color:#dce5ed}
+.ad-item-meta{color:#71869c;font-size:10px;margin-top:3px}
+.ad-delete{padding:8px 12px;border:1px solid #6d4d4d;border-radius:7px;background:#1b1111;color:#ffb1b1;font-size:10px;font-weight:bold;flex-shrink:0}
+
+footer{padding:28px 5%;background:#03080e;border-top:1px solid #263b50;color:#7d90a4;font-size:12px}
+
+@media(max-width:1000px){
+  .stats{grid-template-columns:repeat(3,1fr)}
+  .member-list{grid-template-columns:repeat(2,1fr)}
+}
+  @media(max-width:700px){
+  .content{padding:20px 4% 100px}
+  .page-title{font-size:26px}
+  .member-profile{flex-direction:column;align-items:flex-start}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .order-grid{grid-template-columns:1fr}
+  .member-list{grid-template-columns:1fr}
+  .partner-row{flex-direction:column}
+  .partner-row select,.partner-row button{width:100%;height:44px}
+  .ads-form{grid-template-columns:1fr}
+  .hamburger-btn{display:flex}
+}
 </style>
 </head>
 <body>
-<header><div class="brand-area"><div class="fz-logo">FZ</div><div class="brand"><span class="blue">FHAMAR</span><span class="silver">.ZAMOST</span></div></div><div class="header-right"><a href="home.html" class="home-btn">HOME</a><button type="button" class="hamburger-btn" id="hamburgerBtn" title="Menu" style="display:none">☰</button></div></header>
+
+<header>
+  <div class="brand-area">
+    <div class="fz-logo">FZ</div>
+    <div class="brand"><span class="blue">FHAMAR</span><span class="silver">.ZAMOST</span></div>
+  </div>
+  <div class="header-right">
+    <a href="home.html" class="home-btn">HOME</a>
+    <button type="button" class="hamburger-btn" id="hamburgerBtn" title="Menu">☰</button>
+  </div>
+</header>
 
 <div class="drawer-overlay" id="drawerOverlay"></div>
 <aside class="drawer" id="drawer">
-  <div class="drawer-header"><span>TEAM CONTROL</span><button type="button" class="drawer-close" id="drawerClose">×</button></div>
+  <div class="drawer-header">
+    <span>TEAM CONTROL</span>
+    <button type="button" class="drawer-close" id="drawerClose">×</button>
+  </div>
   <button class="drawer-item active" onclick="showSection('dashboard',this)">📊 Dashboard</button>
   <button class="drawer-item" onclick="showSection('orders',this)">📦 My State Orders</button>
   <button class="drawer-item" onclick="showSection('members',this)">👥 Team Members</button>
@@ -68,95 +204,126 @@ footer{padding:35px 7%;background:#03080e;border-top:1px solid #263b50;color:#7d
   <button class="drawer-item" onclick="showSection('ads',this)">🖼️ Manage Ads</button>
   <div class="drawer-divider">PRODUCTS</div>
   <a href="Product-upload.html" class="drawer-item">🆕 Upload Product</a>
-  <a href="product-details.html" class="drawer-item">📄 Product Details</a>
+  <a href="catalog.html" class="drawer-item">📄 Catalog</a>
   <div class="drawer-divider">ADMIN</div>
   <a href="admin.html" class="drawer-item admin-link" id="adminLink">🛠️ Admin Panel</a>
 </aside>
 
-<!-- Shown only if the signed-in user is NOT an approved team member -->
 <div class="access-blocked" id="accessBlocked">
   <h2>Access Not Available</h2>
-  <p>This dashboard is only available to approved FHAMAR.ZAMOST team members. If you have applied for team membership, please wait for Admin approval.</p>
+  <p>This dashboard is only for approved FHAMAR.ZAMOST team members. Agar aapne apply kiya hai to Admin approval ka wait karein.</p>
   <a href="Profile.html">Go to My Profile</a>
 </div>
 
 <div id="mainLayout" style="display:none">
 <main class="content">
-<div class="eyebrow">FHAMAR.ZAMOST TEAM OPERATIONS</div>
-<h1 class="page-title">Team <span>Dashboard</span></h1>
-<p class="subtitle">Manage assigned state orders, packaging, dispatch and delivery operations.</p>
+  <div class="eyebrow">FHAMAR.ZAMOST TEAM OPERATIONS</div>
+  <h1 class="page-title">Team <span>Dashboard</span></h1>
+  <p class="subtitle">Manage assigned state orders, packaging, dispatch and delivery.</p>
 
-<section class="member-profile">
-<div class="member-left"><div class="avatar" id="avatar">FZ</div><div><div class="member-name" id="memberName">Loading...</div><div class="member-info" id="memberInfo">Checking account...</div></div></div>
-<div class="state-badge" id="assignedState">ASSIGNED STATE: —</div>
-</section>
+  <section class="member-profile">
+    <div class="member-left">
+      <div class="avatar" id="avatar">FZ</div>
+      <div>
+        <div class="member-name" id="memberName">Loading...</div>
+        <div class="member-info" id="memberInfo">Checking account...</div>
+      </div>
+    </div>
+    <div class="state-badge" id="assignedState">ASSIGNED STATE: —</div>
+  </section>
 
-<div class="stats">
-<div class="stat active-stat"><small>TODAY ORDERS</small><strong id="todayOrders">0</strong></div>
-<div class="stat"><small>PENDING</small><strong id="pendingOrders">0</strong></div>
-<div class="stat"><small>PACKAGING</small><strong id="packagingOrders">0</strong></div>
-<div class="stat"><small>SHIPPED</small><strong id="shippedOrders">0</strong></div>
-<div class="stat"><small>DELIVERED</small><strong id="deliveredOrders">0</strong></div>
-</div>
+  <div class="stats">
+    <div class="stat active-stat"><small>TODAY ORDERS</small><strong id="todayOrders">0</strong></div>
+    <div class="stat"><small>PENDING</small><strong id="pendingOrders">0</strong></div>
+    <div class="stat"><small>PACKAGING</small><strong id="packagingOrders">0</strong></div>
+    <div class="stat"><small>SHIPPED</small><strong id="shippedOrders">0</strong></div>
+    <div class="stat"><small>DELIVERED</small><strong id="deliveredOrders">0</strong></div>
+  </div>
 
-<section id="dashboard" class="section">
-<div class="section-header"><h2>Operations Overview</h2></div>
-<div class="api-note"><b>TEAM MEMBER ACCESS</b><br><br>You are viewing orders for: <b id="dashboardState">—</b><br><br>You can only see and update orders assigned to your own state. Other team members' accounts cannot be edited from here.</div>
-</section>
+  <section id="dashboard" class="section">
+    <div class="section-header"><h2>Operations Overview</h2></div>
+    <div class="api-note">
+      <b>TEAM MEMBER ACCESS</b><br><br>
+      Aap dekh rahe ho orders for: <b id="dashboardState">—</b><br><br>
+      Sirf apne state ke orders update kar sakte ho.
+    </div>
+  </section>
 
-<section id="orders" class="section" style="display:none">
-<div class="section-header"><h2>My State Orders</h2></div>
-<div class="toolbar">
-<input id="orderSearch" class="search" placeholder="Search Order ID / Customer..." oninput="renderOrders()">
-<select id="orderStatusFilter" class="select" onchange="renderOrders()">
-<option value="all">All Status</option><option value="Confirmed">Confirmed</option><option value="Packaging">Packaging</option><option value="Ready to Ship">Ready to Ship</option><option value="Shipped">Shipped</option><option value="Out for Delivery">Out for Delivery</option><option value="Delivered">Delivered</option>
-</select>
-</div>
-<div id="orderGrid" class="order-grid"></div><div id="orderEmpty" class="empty">No matching orders found.</div>
-</section>
+  <section id="orders" class="section" style="display:none">
+    <div class="section-header"><h2>My State Orders</h2></div>
+    <div class="toolbar">
+      <input id="orderSearch" class="search" placeholder="Search Order ID / Customer..." oninput="renderOrders()">
+      <select id="orderStatusFilter" class="select" onchange="renderOrders()">
+        <option value="all">All Status</option>
+        <option value="Confirmed">Confirmed</option>
+        <option value="Packaging">Packaging</option>
+        <option value="Ready to Ship">Ready to Ship</option>
+        <option value="Shipped">Shipped</option>
+        <option value="Out for Delivery">Out for Delivery</option>
+        <option value="Delivered">Delivered</option>
+      </select>
+    </div>
+    <div id="orderGrid" class="order-grid"></div>
+    <div id="orderEmpty" class="empty">No matching orders found.</div>
+  </section>
 
-<section id="members" class="section" style="display:none">
-<div class="section-header"><h2>Team Members</h2></div>
-<div id="memberList" class="member-list"></div>
-<div id="memberEmpty" class="empty">No team members found.</div>
-<div class="api-note"><b>VIEW-ONLY DIRECTORY</b><br><br>You can see each team member's name, mobile, email and assigned state — nothing here can be edited by a team member. Only Admin can approve, reject or edit team member accounts.</div>
-</section>
+  <section id="members" class="section" style="display:none">
+    <div class="section-header"><h2>Team Members</h2></div>
+    <div id="memberList" class="member-list"></div>
+    <div id="memberEmpty" class="empty">No team members found.</div>
+    <div class="api-note"><b>VIEW-ONLY</b><br>Name, mobile, email, state — edit sirf Admin kar sakta hai.</div>
+  </section>
 
-<section id="delivery" class="section" style="display:none">
-<div class="section-header"><h2>Delivery Operations</h2></div>
-<div class="partner-box"><h3>Select Delivery Partner</h3><div class="partner-row"><select id="deliveryPartner"><option value="">Select Partner</option><option>FZ Delivery Network</option><option>Local Delivery Partner</option><option>Professional Courier Partner</option></select><button onclick="assignDelivery()">ASSIGN</button></div></div>
-<div id="deliveryResult" class="api-note">No delivery partner assigned yet.</div>
-</section>
+  <section id="delivery" class="section" style="display:none">
+    <div class="section-header"><h2>Delivery Operations</h2></div>
+    <div class="partner-box">
+      <h3>Select / Add Delivery Partner</h3>
+      <div class="partner-row">
+        <select id="deliveryPartner">
+          <option value="">Select Partner</option>
+          <option>FZ Delivery Network</option>
+          <option>Local Delivery Partner</option>
+          <option>Professional Courier Partner</option>
+        </select>
+        <button type="button" onclick="assignDelivery()">ASSIGN</button>
+      </div>
+      <div class="partner-row" style="margin-top:10px">
+        <input id="customPartner" class="search" placeholder="Ya naya partner name type karein..." style="flex:1">
+        <button type="button" onclick="addCustomPartner()" style="padding:0 14px;height:42px;border:none;border-radius:8px;background:#1e3a5f;color:#9ec5fe;font-size:11px;font-weight:700">ADD</button>
+      </div>
+    </div>
+    <div id="deliveryResult" class="api-note">No delivery partner assigned yet.</div>
+  </section>
 
-<section id="ads" class="section" style="display:none">
-<div class="section-header"><h2>Manage Home Page Ads</h2></div>
-<div class="api-note" style="margin-top:0;margin-bottom:15px">Ads added here appear automatically on the Home page's "Featured Advertisement" banner, rotating one after another. Any team member can add or delete an ad.</div>
-
-<div class="ads-form">
-  <select id="adType">
-    <option value="text">Text</option>
-    <option value="image">Image URL</option>
-    <option value="video">Video URL</option>
-  </select>
-  <input id="adContent" placeholder="Enter ad text, or paste an image/video URL...">
-  <button type="button" onclick="addAd()">ADD AD</button>
-</div>
-
-<div id="adsList" class="ads-list"></div>
-<div id="adsEmpty" class="empty">No ads added yet.</div>
-</section>
-
+  <section id="ads" class="section" style="display:none">
+    <div class="section-header"><h2>Manage Home Page Ads</h2></div>
+    <div class="api-note" style="margin-top:0;margin-bottom:14px">
+      Ads Home page ke Featured Advertisement mein auto rotate hote hain.
+    </div>
+    <div class="ads-form">
+      <select id="adType">
+        <option value="text">Text</option>
+        <option value="image">Image URL</option>
+        <option value="video">Video URL</option>
+      </select>
+      <input id="adContent" placeholder="Ad text ya image/video URL...">
+      <button type="button" onclick="addAd()">ADD AD</button>
+    </div>
+    <div id="adsList" class="ads-list"></div>
+    <div id="adsEmpty" class="empty">No ads added yet.</div>
+  </section>
 </main>
 </div>
 
-<footer><div class="brand"><span class="blue">FHAMAR</span><span class="silver">.ZAMOST</span></div><p>Team Operations • State-wise Order Management</p></footer>
+<footer>
+  <div class="brand"><span class="blue">FHAMAR</span><span class="silver">.ZAMOST</span></div>
+  <p>Team Operations • State-wise Order Management</p>
+</footer>
 <div id="toast" class="toast"></div>
 
 <script type="module">
 import { app } from "./firebase-config.js";
-import {
-  getAuth, onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 import {
   getFirestore, collection, query, where, onSnapshot, doc, getDoc, setDoc, getDocs,
   addDoc, deleteDoc, orderBy, serverTimestamp
@@ -167,29 +334,9 @@ const db = getFirestore(app);
 
 let TEAM_STATE = "";
 let TEAM_MEMBER_ID = "";
+let currentUserName = "";
 let orders = [];
 
-/*
-=====================================================================
-ACCESS CONTROL
-=====================================================================
-Only signed-in users whose users/{uid} document has:
-  role: "team_member" (or "admin")
-  status: "approved"
-may open this dashboard at all.
-
-The "Admin Panel" link only appears for a user whose document also
-has adminAccess: true — being an approved team member is NOT enough
-by itself to reach admin.html. Admin sets this flag manually (or via
-admin.html later) for the specific person who should have it.
-
-IMPORTANT: This check happens in the browser for convenience only.
-Real protection must also exist in Firebase/Firestore Security Rules
-so a technical user cannot bypass this page and read/write data
-directly. Ask for the security rules text if you'd like it written
-out for your Firebase Console.
-=====================================================================
-*/
 function isApprovedTeam(data){
   const role = String(data?.role || "").toLowerCase().replace(/[\s-]/g,"_");
   const status = String(data?.status || "").toLowerCase();
@@ -205,23 +352,15 @@ function denyAccess(){
 }
 
 onAuthStateChanged(auth, async (user) => {
-  if(!user){
-    window.location.replace("index.html");
-    return;
-  }
+  if(!user){ window.location.replace("index.html"); return; }
 
   let data = {};
   try{
     const snap = await getDoc(doc(db, "users", user.uid));
     if(snap.exists()) data = snap.data();
-  }catch(error){
-    console.warn("Profile read failed:", error);
-  }
+  }catch(e){ console.warn(e); }
 
-  if(!isApprovedTeam(data)){
-    denyAccess();
-    return;
-  }
+  if(!isApprovedTeam(data)){ denyAccess(); return; }
 
   document.getElementById("mainLayout").style.display = "block";
   document.getElementById("accessBlocked").style.display = "none";
@@ -229,9 +368,9 @@ onAuthStateChanged(auth, async (user) => {
 
   TEAM_MEMBER_ID = user.uid;
   TEAM_STATE = data.state || data.memberState || "Unassigned";
-
   const name = data.name || user.displayName || (user.email ? user.email.split("@")[0] : "Team Member");
   currentUserName = name;
+
   document.getElementById("memberName").textContent = name;
   document.getElementById("avatar").textContent = (name.trim().charAt(0) || "F").toUpperCase();
   document.getElementById("memberInfo").innerHTML =
@@ -239,55 +378,42 @@ onAuthStateChanged(auth, async (user) => {
   document.getElementById("assignedState").textContent = "ASSIGNED STATE: " + TEAM_STATE.toUpperCase();
   document.getElementById("dashboardState").textContent = TEAM_STATE.toUpperCase();
 
-  const isAdmin = data.role === "admin" || data.adminAccess === true;
-  if(isAdmin){
+  if(data.role === "admin" || data.adminAccess === true){
     document.getElementById("adminLink").classList.add("show");
   }
 
   initRealtimeOrders();
   loadTeamMembers();
   initAdsListener();
+  loadSavedDelivery();
 });
-
-let currentUserName = "";
 
 function initRealtimeOrders(){
   try{
-    const q = query(collection(db,"orders"),where("state","==",TEAM_STATE));
-    onSnapshot(q,(snapshot)=>{
-      orders = snapshot.docs.map(d=>({id:d.id,...d.data()}));
+    const q = query(collection(db,"orders"), where("state","==",TEAM_STATE));
+    onSnapshot(q, (snapshot)=>{
+      orders = snapshot.docs.map(d => ({id:d.id, ...d.data()}));
       renderOrders();
       updateStats();
-    },(error)=>{
-      console.warn("Firestore listener:",error);
+    }, (error)=>{
+      console.warn(error);
       orders = [];
       renderOrders();
       updateStats();
-      showToast("Could not load orders. Please check your connection.");
     });
-  }catch(error){
-    console.error(error);
+  }catch(e){
     orders = [];
     renderOrders();
     updateStats();
   }
 }
-  /*
-=====================================================================
-TEAM DIRECTORY — view-only.
-Shows every OTHER approved team member's name, mobile, email and
-state. No edit controls exist here at all — editing is Admin-only
-and happens in admin.html.
-=====================================================================
-*/
+
 async function loadTeamMembers(){
   const list = document.getElementById("memberList");
   const empty = document.getElementById("memberEmpty");
-
   try{
     const q = query(collection(db,"users"), where("role","in",["team_member","admin"]));
     const snap = await getDocs(q);
-
     const members = [];
     snap.forEach(docSnap=>{
       const d = docSnap.data();
@@ -301,245 +427,186 @@ async function loadTeamMembers(){
         isMe: docSnap.id === TEAM_MEMBER_ID
       });
     });
-
     if(!members.length){
       list.innerHTML = "";
       empty.style.display = "block";
       return;
     }
-
     empty.style.display = "none";
-    list.innerHTML = members.map(m => `
-      <article class="member-card">
-        <div class="member-card-top">
-          <h3>${escapeHTML(m.name)}${m.isMe ? " (You)" : ""}</h3>
-          <span class="member-status">${escapeHTML(m.state)}</span>
-        </div>
-        <p>Mobile: ${escapeHTML(m.mobile)}<br>Email: ${escapeHTML(m.email)}</p>
-      </article>
-    `).join("");
-
-  }catch(error){
-    console.warn("Team directory read failed:", error);
+    list.innerHTML = members.map(m =>
+      '<article class="member-card"><div class="member-card-top"><h3>' +
+      escapeHTML(m.name) + (m.isMe ? " (You)" : "") +
+      '</h3><span class="member-status">' + escapeHTML(m.state) +
+      '</span></div><p>Mobile: ' + escapeHTML(m.mobile) + '<br>Email: ' + escapeHTML(m.email) + '</p></article>'
+    ).join("");
+  }catch(e){
     list.innerHTML = "";
     empty.style.display = "block";
-    empty.textContent = "Could not load team members right now.";
+    empty.textContent = "Could not load team members.";
   }
 }
 
-/*
-=====================================================================
-HOME PAGE ADS — any team member can add or delete. Stored in the
-"ads" Firestore collection; home.html reads this same collection to
-build its rotating "Featured Advertisement" banner automatically.
-=====================================================================
-*/
 function initAdsListener(){
   try{
-    const q = query(collection(db,"ads"), orderBy("createdAt","asc"));
-    onSnapshot(q, (snapshot)=>{
-      const ads = snapshot.docs.map(d=>({id:d.id,...d.data()}));
+    onSnapshot(collection(db,"ads"), (snapshot)=>{
+      const ads = snapshot.docs.map(d => ({id:d.id, ...d.data()}));
+      ads.sort(function(a,b){
+        var ta = (a.createdAt && a.createdAt.seconds) ? a.createdAt.seconds : 0;
+        var tb = (b.createdAt && b.createdAt.seconds) ? b.createdAt.seconds : 0;
+        return ta - tb;
+      });
       renderAdsList(ads);
-    }, (error)=>{
-      console.warn("Ads listener failed:", error);
     });
-  }catch(error){
-    console.error(error);
-  }
+  }catch(e){ console.error(e); }
 }
 
 function renderAdsList(ads){
   const list = document.getElementById("adsList");
   const empty = document.getElementById("adsEmpty");
-
   if(!ads.length){
     list.innerHTML = "";
     empty.style.display = "block";
     return;
   }
-
   empty.style.display = "none";
-  list.innerHTML = ads.map(ad => `
-    <div class="ad-item">
-      <div>
-        <div class="ad-item-text">[${escapeHTML((ad.type||"text").toUpperCase())}] ${escapeHTML(ad.content||"")}</div>
-        <div class="ad-item-meta">Added by ${escapeHTML(ad.createdByName||"Team Member")}</div>
-      </div>
-      <button class="ad-delete" onclick="deleteAd('${escapeHTML(ad.id)}')">DELETE</button>
-    </div>
-  `).join("");
+  list.innerHTML = ads.map(ad =>
+    '<div class="ad-item"><div><div class="ad-item-text">[' +
+    escapeHTML((ad.type||"text").toUpperCase()) + '] ' + escapeHTML(ad.content||"") +
+    '</div><div class="ad-item-meta">Added by ' + escapeHTML(ad.createdByName||"Team") +
+    '</div></div><button class="ad-delete" onclick="deleteAd(\'' + escapeHTML(ad.id) + '\')">DELETE</button></div>'
+  ).join("");
 }
 
 window.addAd = async function(){
   const type = document.getElementById("adType").value;
   const content = document.getElementById("adContent").value.trim();
-
-  if(!content){
-    showToast("Please enter ad text or a URL first.");
-    return;
-  }
-
+  if(!content){ showToast("Ad text / URL enter karein."); return; }
   try{
     await addDoc(collection(db,"ads"), {
-      type,
-      content,
+      type, content,
       createdBy: TEAM_MEMBER_ID,
       createdByName: currentUserName,
       createdAt: serverTimestamp()
     });
     document.getElementById("adContent").value = "";
-    showToast("Ad added to Home page.");
-  }catch(error){
-    console.error("Add ad failed:", error);
-    showToast("Could not add ad. Please try again.");
-  }
+    showToast("Ad Home page pe add ho gaya.");
+  }catch(e){ showToast("Ad add nahi hua."); }
 };
 
 window.deleteAd = async function(id){
   try{
     await deleteDoc(doc(db,"ads",id));
     showToast("Ad deleted.");
-  }catch(error){
-    console.error("Delete ad failed:", error);
-    showToast("Could not delete ad. Please try again.");
-  }
+  }catch(e){ showToast("Delete fail."); }
+};
+  window.advanceOrder = function(id){
+  const order = orders.find(o => o.id === id);
+  if(!order) return;
+  const flow = ["Confirmed","Packaging","Ready to Ship","Shipped","Out for Delivery","Delivered"];
+  const i = flow.indexOf(order.status);
+  if(i < 0 || i === flow.length - 1){ showToast("Order already completed."); return; }
+  setOrderStatus(id, flow[i+1]);
 };
 
-window.setOrderStatus = async function(id,status){
-  const order = orders.find(o=>o.id===id);
-  if(!order) return;
-  order.status = status;
-  renderOrders();
-  showToast(`${id} → ${status}`);
-  try{
-    await setDoc(doc(db,"orders",id),{
-      status,
-      updatedAt:new Date().toISOString()
-    },{merge:true});
-  }catch(error){
-    console.error(error);
-    showToast("Firebase update nahi hua.");
-  }
-};
+function nextAction(order){
+  const id = escapeHTML(order.id);
+  const map = {
+    "Confirmed": '<button class="action primary" onclick="setOrderStatus(\''+id+'\',\'Packaging\')">START PACKAGING</button>',
+    "Packaging": '<button class="action primary" onclick="setOrderStatus(\''+id+'\',\'Ready to Ship\')">READY TO SHIP</button>',
+    "Ready to Ship": '<button class="action primary" onclick="setOrderStatus(\''+id+'\',\'Shipped\')">DISPATCH</button>',
+    "Shipped": '<button class="action primary" onclick="setOrderStatus(\''+id+'\',\'Out for Delivery\')">OUT FOR DELIVERY</button>',
+    "Out for Delivery": '<button class="action primary" onclick="setOrderStatus(\''+id+'\',\'Delivered\')">MARK DELIVERED</button>'
+  };
+  return map[order.status] || '<button class="action" disabled>COMPLETED</button>';
+}
 
-window.advanceOrder = function(id){
-  const order = orders.find(o=>o.id===id);
-  if(!order) return;
-  const flow=["Confirmed","Packaging","Ready to Ship","Shipped","Out for Delivery","Delivered"];
-  const i=flow.indexOf(order.status);
-  if(i<0 || i===flow.length-1){
-    showToast("Order is already completed.");
-    return;
-  }
-  setOrderStatus(id,flow[i+1]);
-};
+function progressSteps(status){
+  const all = ["Confirmed","Packaging","Ready to Ship","Shipped","Out for Delivery","Delivered"];
+  const index = all.indexOf(status);
+  return all.map((s,i) => '<span class="step '+(i<=index?"done":"")+'">'+(i+1)+'. '+escapeHTML(s)+'</span>').join("");
+}
 
 window.renderOrders = function(){
-  const grid=document.getElementById("orderGrid");
-  const empty=document.getElementById("orderEmpty");
-  const search=document.getElementById("orderSearch").value.toLowerCase().trim();
-  const filter=document.getElementById("orderStatusFilter").value;
+  const grid = document.getElementById("orderGrid");
+  const empty = document.getElementById("orderEmpty");
+  const search = (document.getElementById("orderSearch").value || "").toLowerCase().trim();
+  const filter = document.getElementById("orderStatusFilter").value;
 
-  const filtered=orders.filter(o=>{
-    if(o.state!==TEAM_STATE) return false;
-    const text=(String(o.orderNumber||o.id||"")+" "+String(o.customer?.name||"")).toLowerCase();
-    return text.includes(search) && (filter==="all" || o.status===filter);
+  const filtered = orders.filter(o => {
+    if(o.state !== TEAM_STATE) return false;
+    const text = (String(o.orderNumber||o.id||"") + " " + String(o.customer?.name||"")).toLowerCase();
+    return text.includes(search) && (filter === "all" || o.status === filter);
   });
 
-  grid.innerHTML=filtered.map(order=>{
-    const itemsList = (order.items||[]).map(i => `${escapeHTML(i.name)} x${Number(i.quantity)||1}`).join(", ") || "—";
-    return `
-    <article class="order-card">
-      <div class="order-top">
-        <div class="order-id">${escapeHTML(order.orderNumber || order.id)}</div>
-        <div class="status">${escapeHTML(order.status)}</div>
-      </div>
-      <div class="order-info">
-        Customer: <strong>${escapeHTML(order.customer?.name || "—")}</strong><br>
-        Mobile: <strong>${escapeHTML(order.customer?.mobile || "—")}</strong><br>
-        Products: <strong>${itemsList}</strong><br>
-        Amount: <strong>₹${Number(order.total||0).toLocaleString("en-IN")}</strong><br>
-        State: <strong>${escapeHTML(order.state)}</strong>
-      </div>
-      <div class="order-actions">
-        ${nextAction(order)}
-        <button class="action" onclick="advanceOrder('${escapeHTML(order.id)}')">NEXT STATUS</button>
-      </div>
-      <div class="order-actions">
-        <button class="action" onclick="downloadLabel('${escapeHTML(order.id)}','pdf')">📄 PDF LABEL</button>
-        <button class="action" onclick="downloadLabel('${escapeHTML(order.id)}','jpg')">🖼️ JPG LABEL</button>
-      </div>
-      <div class="packaging">
-        <div class="packaging-title">ORDER PROGRESS</div>
-        <div class="packaging-steps">${progressSteps(order.status)}</div>
-      </div>
-    </article>`;
+  grid.innerHTML = filtered.map(order => {
+    const itemsList = (order.items||[]).map(i => escapeHTML(i.name) + " x" + (Number(i.quantity)||1)).join(", ") || "—";
+    return '<article class="order-card">' +
+      '<div class="order-top"><div class="order-id">' + escapeHTML(order.orderNumber || order.id) +
+      '</div><div class="status">' + escapeHTML(order.status || "") + '</div></div>' +
+      '<div class="order-info">Customer: <strong>' + escapeHTML(order.customer?.name || "—") +
+      '</strong><br>Mobile: <strong>' + escapeHTML(order.customer?.mobile || "—") +
+      '</strong><br>Products: <strong>' + itemsList +
+      '</strong><br>Amount: <strong>₹' + Number(order.total||0).toLocaleString("en-IN") +
+      '</strong><br>State: <strong>' + escapeHTML(order.state || "") + '</strong></div>' +
+      '<div class="order-actions">' + nextAction(order) +
+      '<button class="action" onclick="advanceOrder(\'' + escapeHTML(order.id) + '\')">NEXT STATUS</button></div>' +
+      '<div class="order-actions">' +
+      '<button class="action" onclick="downloadLabel(\'' + escapeHTML(order.id) + '\',\'pdf\')">📄 PDF LABEL</button>' +
+      '<button class="action" onclick="downloadLabel(\'' + escapeHTML(order.id) + '\',\'jpg\')">🖼️ JPG LABEL</button></div>' +
+      '<div class="packaging"><div class="packaging-title">ORDER PROGRESS</div>' +
+      '<div class="packaging-steps">' + progressSteps(order.status) + '</div></div></article>';
   }).join("");
 
-  empty.style.display=filtered.length?"none":"block";
+  empty.style.display = filtered.length ? "none" : "block";
   updateStats();
 };
 
-/*
-=====================================================================
-SHIPPING LABEL — downloadable as PDF or JPG, built from the same
-order data (address, product list, total) that checkout/order-success
-already saves to Firestore. No backend needed: html2canvas renders a
-hidden styled label to an image, then either downloads it directly
-(JPG) or wraps it into a PDF (jsPDF).
-=====================================================================
-*/
+/* ===== LABEL with FZ logo + full name on top ===== */
 function buildLabelHTML(order){
-  const items = (order.items||[]).map(i => `
-    <tr>
-      <td style="padding:6px 0">${escapeHTML(i.name)}</td>
-      <td style="padding:6px 0;text-align:center">${Number(i.quantity)||1}</td>
-      <td style="padding:6px 0;text-align:right">₹${Number(i.price||0).toLocaleString("en-IN")}</td>
-    </tr>`).join("");
+  const items = (order.items||[]).map(i =>
+    '<tr><td style="padding:6px 0">' + escapeHTML(i.name) +
+    '</td><td style="padding:6px 0;text-align:center">' + (Number(i.quantity)||1) +
+    '</td><td style="padding:6px 0;text-align:right">₹' + Number(i.price||0).toLocaleString("en-IN") + '</td></tr>'
+  ).join("");
 
-  return `
-    <div style="width:420px;padding:28px;background:#ffffff;color:#111;font-family:Arial,Helvetica,sans-serif;border:2px solid #111;">
-      <div style="text-align:center;border-bottom:2px solid #111;padding-bottom:12px;margin-bottom:16px">
-        <div style="font-size:20px;font-weight:900;letter-spacing:1px">FHAMAR.ZAMOST</div>
-        <div style="font-size:11px;letter-spacing:2px;color:#555">SHIPPING LABEL</div>
-      </div>
-
-      <div style="font-size:12px;color:#555">ORDER ID</div>
-      <div style="font-size:16px;font-weight:bold;margin-bottom:14px">${escapeHTML(order.orderNumber || order.id)}</div>
-
-      <div style="font-size:12px;color:#555">DELIVER TO</div>
-      <div style="font-size:15px;font-weight:bold;margin-top:2px">${escapeHTML(order.customer?.name || "Customer")}</div>
-      <div style="font-size:13px;margin-top:4px;line-height:1.6">
-        ${escapeHTML(order.address || "")}<br>
-        ${escapeHTML(order.city || "")}, ${escapeHTML(order.state || "")} - ${escapeHTML(order.pincode || "")}
-      </div>
-      <div style="font-size:13px;margin-top:6px">📞 ${escapeHTML(order.customer?.mobile || "—")}</div>
-
-      <table style="width:100%;margin-top:18px;border-top:1px solid #ccc;padding-top:10px;font-size:12px;border-collapse:collapse">
-        <thead>
-          <tr style="border-bottom:1px solid #ccc">
-            <th style="text-align:left;padding-bottom:6px">Item</th>
-            <th style="padding-bottom:6px">Qty</th>
-            <th style="text-align:right;padding-bottom:6px">Price</th>
-          </tr>
-        </thead>
-        <tbody>${items || "<tr><td colspan=3>No items</td></tr>"}</tbody>
-      </table>
-
-      <div style="text-align:right;font-size:15px;font-weight:900;margin-top:12px;border-top:2px solid #111;padding-top:10px">
-        TOTAL: ₹${Number(order.total||0).toLocaleString("en-IN")}
-      </div>
-      <div style="font-size:11px;color:#777;margin-top:14px;text-align:center">Payment: ${escapeHTML(String(order.paymentMethod||"pending").toUpperCase())}</div>
-    </div>
-  `;
+  return '<div style="width:420px;padding:24px;background:#fff;color:#111;font-family:Arial,sans-serif;border:2px solid #111">' +
+    '<div style="text-align:center;border-bottom:2px solid #111;padding-bottom:14px;margin-bottom:16px">' +
+      '<div style="display:inline-flex;align-items:center;justify-content:center;gap:10px;margin-bottom:6px">' +
+        '<div style="width:42px;height:42px;border-radius:10px;border:2px solid #173b5b;background:linear-gradient(145deg,#173b5b,#050b12);color:#fff;font-size:16px;font-weight:900;display:flex;align-items:center;justify-content:center">FZ</div>' +
+        '<div style="text-align:left">' +
+          '<div style="font-size:18px;font-weight:900;letter-spacing:1px;color:#111"><span style="color:#2563eb">FHAMAR</span><span style="color:#555">.ZAMOST</span></div>' +
+          '<div style="font-size:10px;letter-spacing:2px;color:#666">PREMIUM SMART PORTAL</div>' +
+        '</div>' +
+      '</div>' +
+      '<div style="font-size:11px;letter-spacing:2px;color:#555;margin-top:4px">SHIPPING LABEL</div>' +
+    '</div>' +
+    '<div style="font-size:11px;color:#555">ORDER ID</div>' +
+    '<div style="font-size:15px;font-weight:bold;margin-bottom:12px">' + escapeHTML(order.orderNumber || order.id) + '</div>' +
+    '<div style="font-size:11px;color:#555">DELIVER TO</div>' +
+    '<div style="font-size:14px;font-weight:bold;margin-top:2px">' + escapeHTML(order.customer?.name || "Customer") + '</div>' +
+    '<div style="font-size:12px;margin-top:4px;line-height:1.5">' +
+      escapeHTML(order.address || "") + '<br>' +
+      escapeHTML(order.city || "") + ', ' + escapeHTML(order.state || "") + ' - ' + escapeHTML(order.pincode || "") +
+    '</div>' +
+    '<div style="font-size:12px;margin-top:6px">📞 ' + escapeHTML(order.customer?.mobile || "—") + '</div>' +
+    '<table style="width:100%;margin-top:16px;border-top:1px solid #ccc;padding-top:8px;font-size:12px;border-collapse:collapse">' +
+      '<thead><tr style="border-bottom:1px solid #ccc">' +
+        '<th style="text-align:left;padding-bottom:6px">Item</th>' +
+        '<th style="padding-bottom:6px">Qty</th>' +
+        '<th style="text-align:right;padding-bottom:6px">Price</th>' +
+      '</tr></thead><tbody>' + (items || '<tr><td colspan="3">No items</td></tr>') + '</tbody>' +
+    '</table>' +
+    '<div style="text-align:right;font-size:15px;font-weight:900;margin-top:12px;border-top:2px solid #111;padding-top:10px">' +
+      'TOTAL: ₹' + Number(order.total||0).toLocaleString("en-IN") +
+    '</div>' +
+    '<div style="font-size:11px;color:#777;margin-top:12px;text-align:center">Payment: ' +
+      escapeHTML(String(order.paymentMethod||"pending").toUpperCase()) +
+    '</div></div>';
 }
 
 window.downloadLabel = async function(orderId, format){
   const order = orders.find(o => o.id === orderId);
-  if(!order){
-    showToast("Order not found.");
-    return;
-  }
+  if(!order){ showToast("Order not found."); return; }
 
   const wrapper = document.createElement("div");
   wrapper.style.position = "fixed";
@@ -550,7 +617,7 @@ window.downloadLabel = async function(orderId, format){
 
   try{
     const canvas = await html2canvas(wrapper.firstElementChild, { scale: 2, backgroundColor: "#ffffff" });
-    const fileName = `Label-${order.orderNumber || order.id}`;
+    const fileName = "Label-" + (order.orderNumber || order.id);
 
     if(format === "jpg"){
       const link = document.createElement("a");
@@ -559,71 +626,83 @@ window.downloadLabel = async function(orderId, format){
       document.body.appendChild(link);
       link.click();
       link.remove();
-    }else{
+    } else {
       const { jsPDF } = window.jspdf;
       const imgData = canvas.toDataURL("image/jpeg", 0.95);
       const pdf = new jsPDF({ orientation: "portrait", unit: "px", format: [canvas.width, canvas.height] });
       pdf.addImage(imgData, "JPEG", 0, 0, canvas.width, canvas.height);
       pdf.save(fileName + ".pdf");
     }
-
     showToast("Label downloaded.");
-  }catch(error){
-    console.error("Label generation failed:", error);
-    showToast("Could not generate label. Please try again.");
+  }catch(e){
+    console.error(e);
+    showToast("Label generate nahi hua.");
   }finally{
     document.body.removeChild(wrapper);
   }
 };
 
-function nextAction(order){
-  const id=escapeHTML(order.id);
-  const map={
-    "Confirmed":`<button class="action primary" onclick="setOrderStatus('${id}','Packaging')">START PACKAGING</button>`,
-    "Packaging":`<button class="action primary" onclick="setOrderStatus('${id}','Ready to Ship')">READY TO SHIP</button>`,
-    "Ready to Ship":`<button class="action primary" onclick="setOrderStatus('${id}','Shipped')">DISPATCH ORDER</button>`,
-    "Shipped":`<button class="action primary" onclick="setOrderStatus('${id}','Out for Delivery')">OUT FOR DELIVERY</button>`,
-    "Out for Delivery":`<button class="action primary" onclick="setOrderStatus('${id}','Delivered')">MARK DELIVERED</button>`
+window.assignDelivery = function(){
+  const partner = document.getElementById("deliveryPartner").value;
+  if(!partner){ showToast("Partner select karein."); return; }
+  const data = {
+    partner,
+    memberId: TEAM_MEMBER_ID,
+    state: TEAM_STATE,
+    assignedAt: new Date().toISOString()
   };
-  return map[order.status] || `<button class="action" disabled>COMPLETED</button>`;
-}
-
-function progressSteps(status){
-  const all=["Confirmed","Packaging","Ready to Ship","Shipped","Out for Delivery","Delivered"];
-  const index=all.indexOf(status);
-  return all.map((s,i)=>`<span class="step ${i<=index?"done":""}">${i+1}. ${escapeHTML(s)}</span>`).join("");
-}
-
-window.assignDelivery=function(){
-  const partner=document.getElementById("deliveryPartner").value;
-  if(!partner){
-    showToast("Please select a delivery partner.");
-    return;
-  }
-  const data={partner,memberId:TEAM_MEMBER_ID,state:TEAM_STATE,assignedAt:new Date().toISOString()};
-  localStorage.setItem("fz_delivery_assignment",JSON.stringify(data));
-  document.getElementById("deliveryResult").innerHTML=
-    `<b>ASSIGNED:</b> ${escapeHTML(partner)}<br>State: ${escapeHTML(TEAM_STATE)}<br>Member: ${escapeHTML(TEAM_MEMBER_ID)}`;
+  localStorage.setItem("fz_delivery_assignment", JSON.stringify(data));
+  document.getElementById("deliveryResult").innerHTML =
+    "<b>ASSIGNED:</b> " + escapeHTML(partner) + "<br>State: " + escapeHTML(TEAM_STATE) +
+    "<br>Member: " + escapeHTML(currentUserName);
   showToast("Delivery partner assigned.");
 };
 
-window.updateStats=function(){
-  const mine=orders.filter(o=>o.state===TEAM_STATE);
-  const count=s=>mine.filter(o=>o.status===s).length;
-  document.getElementById("todayOrders").textContent=mine.length;
-  document.getElementById("pendingOrders").textContent=count("Confirmed");
-  document.getElementById("packagingOrders").textContent=count("Packaging");
-  document.getElementById("shippedOrders").textContent=count("Shipped")+count("Ready to Ship")+count("Out for Delivery");
-  document.getElementById("deliveredOrders").textContent=count("Delivered");
+window.addCustomPartner = function(){
+  const name = document.getElementById("customPartner").value.trim();
+  if(!name){ showToast("Partner name likhein."); return; }
+  const sel = document.getElementById("deliveryPartner");
+  const opt = document.createElement("option");
+  opt.value = name;
+  opt.textContent = name;
+  sel.appendChild(opt);
+  sel.value = name;
+  document.getElementById("customPartner").value = "";
+  showToast("Partner list mein add ho gaya. Ab ASSIGN dabayein.");
 };
 
-window.showSection=function(id,button){
-  document.querySelectorAll(".section").forEach(s=>s.style.display="none");
-  document.querySelectorAll(".drawer-item").forEach(b=>b.classList.remove("active"));
-  const section=document.getElementById(id);
-  if(section) section.style.display="block";
+function loadSavedDelivery(){
+  try{
+    const raw = localStorage.getItem("fz_delivery_assignment");
+    if(!raw) return;
+    const data = JSON.parse(raw);
+    if(data.state === TEAM_STATE){
+      document.getElementById("deliveryResult").innerHTML =
+        "<b>ASSIGNED:</b> " + escapeHTML(data.partner || "") +
+        "<br>State: " + escapeHTML(data.state || "") +
+        "<br>Saved earlier";
+    }
+  }catch(e){}
+}
+
+window.updateStats = function(){
+  const mine = orders.filter(o => o.state === TEAM_STATE);
+  const count = s => mine.filter(o => o.status === s).length;
+  document.getElementById("todayOrders").textContent = mine.length;
+  document.getElementById("pendingOrders").textContent = count("Confirmed");
+  document.getElementById("packagingOrders").textContent = count("Packaging");
+  document.getElementById("shippedOrders").textContent =
+    count("Shipped") + count("Ready to Ship") + count("Out for Delivery");
+  document.getElementById("deliveredOrders").textContent = count("Delivered");
+};
+
+window.showSection = function(id, button){
+  document.querySelectorAll(".section").forEach(s => s.style.display = "none");
+  document.querySelectorAll(".drawer-item").forEach(b => b.classList.remove("active"));
+  const section = document.getElementById(id);
+  if(section) section.style.display = "block";
   if(button) button.classList.add("active");
-  if(id==="orders") renderOrders();
+  if(id === "orders") renderOrders();
   closeDrawer();
 };
 
@@ -631,7 +710,6 @@ function openDrawer(){
   document.getElementById("drawer").classList.add("show");
   document.getElementById("drawerOverlay").classList.add("show");
 }
-
 function closeDrawer(){
   document.getElementById("drawer").classList.remove("show");
   document.getElementById("drawerOverlay").classList.remove("show");
@@ -642,18 +720,18 @@ document.getElementById("drawerClose").addEventListener("click", closeDrawer);
 document.getElementById("drawerOverlay").addEventListener("click", closeDrawer);
 
 function escapeHTML(value){
-  return String(value??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
+  return String(value ?? "").replace(/[&<>"']/g, c =>
+    ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c])
+  );
 }
 
-window.showToast=function(text){
-  const t=document.getElementById("toast");
-  t.textContent=text;
+window.showToast = function(text){
+  const t = document.getElementById("toast");
+  t.textContent = text;
   t.classList.add("show");
   clearTimeout(window.toastTimer);
-  window.toastTimer=setTimeout(()=>t.classList.remove("show"),2200);
-}
+  window.toastTimer = setTimeout(() => t.classList.remove("show"), 2200);
+};
 </script>
 </body>
 </html>
-
-  
