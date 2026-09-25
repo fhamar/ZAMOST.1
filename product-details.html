@@ -6,92 +6,203 @@
 <title>Product Details | FHAMAR ZAMOST</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
-body{background:#050b12;color:#fff}
+html,body{min-height:100%;background:#050b12;color:#fff}
 a{text-decoration:none;color:inherit}
-button{font-family:inherit}
-header{height:75px;padding:0 6%;display:flex;align-items:center;justify-content:space-between;background:#07111d;border-bottom:1px solid #30465d;position:sticky;top:0;z-index:1000}
-.brand-area{display:flex;align-items:center;gap:10px}.fz-logo{width:45px;height:45px;display:flex;align-items:center;justify-content:center;border-radius:12px;border:1px solid #8298ad;background:linear-gradient(145deg,#173b5b,#050b12);color:#fff;font-size:17px;font-weight:900}.brand{font-size:18px;font-weight:900;letter-spacing:2px}.blue{color:#4da3ff}.silver{color:#aeb9c5}
-nav{display:flex;gap:22px}nav a{color:#91a2b5;font-size:12px}nav a:hover,nav a.active{color:#4da3ff}
-.cart-btn{padding:9px 13px;border:1px solid #60768c;border-radius:8px;color:#dce5ee;font-size:11px;background:transparent}
-.page{max-width:1200px;margin:auto;padding:55px 6% 80px}.back{color:#91a3b5;font-size:12px}.back:hover{color:#4da3ff}
-.product-area{margin-top:30px;display:grid;grid-template-columns:1fr 1fr;gap:45px;align-items:center}
-.product-image{min-height:480px;border-radius:25px;border:1px solid #344d64;background:radial-gradient(circle,#1b3d5e,#07111d 68%);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45)}
-.product-image img{width:100%;height:100%;object-fit:cover;border-radius:25px}
-.product-icon{width:250px;height:250px;border-radius:40px;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#294d6e,#0a1420);border:1px solid #8196aa;font-size:100px;box-shadow:0 0 70px rgba(77,163,255,.12)}
-.product-category{display:inline-block;padding:6px 10px;border:1px solid #3c536a;border-radius:20px;color:#7f96ab;font-size:9px;letter-spacing:1px}
-.product-info h1{margin-top:15px;font-size:42px;line-height:1.1}.description{margin-top:18px;color:#8fa1b4;line-height:1.8;font-size:14px}
-.price{margin-top:25px;font-size:32px;font-weight:900;color:#dce5ee}.price-note{margin-top:5px;color:#667b90;font-size:10px}
-.quantity-title{margin-top:28px;margin-bottom:9px;color:#aebdca;font-size:11px;font-weight:bold}.quantity{display:flex;align-items:center;width:135px;height:45px;border:1px solid #354c63;border-radius:9px;overflow:hidden;background:#08131f}.quantity button{width:42px;height:100%;border:0;background:#0d1c2b;color:white;cursor:pointer;font-size:18px}.quantity button:hover{background:#18344e}.quantity span{flex:1;text-align:center;font-weight:bold}
-.actions{display:flex;gap:12px;margin-top:28px}.btn{padding:14px 20px;border-radius:10px;font-size:11px;font-weight:900;letter-spacing:1px;cursor:pointer}.add-cart{background:transparent;color:#dce5ee;border:1px solid #667c91}.add-cart:hover{border-color:#4da3ff;color:#4da3ff}.buy-now{background:#4da3ff;color:#04101c;border:1px solid #4da3ff}.buy-now:hover{background:#72b7ff}.btn:disabled{opacity:.5;cursor:not-allowed}
-.message{margin-top:18px;padding:13px;border:1px solid #30475d;border-radius:9px;background:#091622;color:#91a5b9;font-size:11px;display:none;line-height:1.6}
-.features{margin-top:65px;display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.feature{padding:22px;background:#091622;border:1px solid #293f55;border-radius:14px}.feature-icon{font-size:22px}.feature h3{margin-top:15px;font-size:14px}.feature p{margin-top:8px;color:#7f92a6;font-size:11px;line-height:1.6}
-.api-note{margin-top:35px;padding:15px;border:1px dashed #405a72;border-radius:10px;color:#7f95a9;background:#07111c;text-align:center;font-size:10px;line-height:1.7}
-footer{padding:35px 7%;background:#03080e;border-top:1px solid #263b50;color:#7d90a4;font-size:11px}
-@media(max-width:800px){header nav{display:none}.product-area{grid-template-columns:1fr}.product-image{min-height:350px}.product-icon{width:190px;height:190px;font-size:75px}.features{grid-template-columns:1fr}.product-info h1{font-size:34px}}
-@media(max-width:480px){.page{padding-left:5%;padding-right:5%}.actions{flex-direction:column}.btn{width:100%;text-align:center}}
+button{font-family:inherit;cursor:pointer}
+
+header{
+  height:64px;padding:0 4%;display:flex;align-items:center;justify-content:space-between;
+  background:#07111d;border-bottom:1px solid #30465d;position:sticky;top:0;z-index:1000;gap:12px
+}
+.brand-area{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.fz-logo{
+  width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:11px;
+  border:1px solid #8298ad;background:linear-gradient(145deg,#173b5b,#050b12);color:#4da3ff;font-size:15px;font-weight:900
+}
+.brand{font-size:16px;font-weight:900;letter-spacing:1.5px}
+.blue{color:#4da3ff}.silver{color:#aeb9c5}
+
+.header-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.header-btn{
+  padding:9px 14px;border-radius:10px;border:1px solid #30465d;background:#081421;
+  color:#aebdca;font-size:11px;font-weight:700;letter-spacing:.3px;transition:.2s;white-space:nowrap
+}
+.header-btn:hover,.header-btn.active{border-color:#4da3ff;color:#4da3ff;background:#0c1a2c}
+.cart-btn{
+  padding:9px 14px;border-radius:10px;border:1px solid #3d5870;background:#0a1725;
+  color:#dce5ee;font-size:11px;font-weight:700
+}
+.cart-btn:hover{border-color:#4da3ff;color:#4da3ff}
+
+.page{max-width:1200px;margin:auto;padding:40px 5% 60px}
+.back{color:#91a3b5;font-size:12px}
+.back:hover{color:#4da3ff}
+
+.product-area{margin-top:28px;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.product-image{
+  min-height:480px;border-radius:22px;border:1px solid #344d64;
+  background:radial-gradient(circle,#1b3d5e,#07111d 68%);
+  display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;
+  box-shadow:0 24px 60px rgba(0,0,0,.4)
+}
+.product-photo{
+  max-width:82%;max-height:390px;width:auto;height:auto;object-fit:contain;
+  border-radius:24px;display:none;filter:drop-shadow(0 16px 36px rgba(0,0,0,.4))
+}
+.product-image-empty{
+  width:220px;height:220px;border-radius:36px;border:1px solid #344d64;
+  background:linear-gradient(145deg,#10263b,#07111d);
+  display:flex;align-items:center;justify-content:center;color:#5f7890;
+  font-size:10px;letter-spacing:2px;font-weight:700
+}
+
+.thumbs{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;justify-content:center}
+.thumb{
+  width:56px;height:56px;border-radius:10px;border:1px solid #30465d;object-fit:cover;
+  cursor:pointer;background:#081421;opacity:.75
+}
+.thumb.active,.thumb:hover{border-color:#4da3ff;opacity:1}
+
+.product-category{
+  display:inline-block;padding:6px 10px;border:1px solid #3c536a;border-radius:20px;
+  color:#7f96ab;font-size:9px;letter-spacing:1px
+}
+.product-info h1{margin-top:14px;font-size:36px;line-height:1.15}
+.description{margin-top:16px;color:#8fa1b4;line-height:1.75;font-size:14px}
+.price-row{margin-top:22px;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.price{font-size:30px;font-weight:900;color:#dce5ee}
+.mrp{font-size:16px;color:#71869c;text-decoration:line-through}
+.price-note{margin-top:4px;color:#667b90;font-size:10px}
+
+.quantity-title{margin-top:24px;margin-bottom:8px;color:#aebdca;font-size:11px;font-weight:bold}
+.quantity{
+  display:flex;align-items:center;width:130px;height:44px;border:1px solid #354c63;
+  border-radius:9px;overflow:hidden;background:#08131f
+}
+.quantity button{width:42px;height:100%;border:0;background:#0d1c2b;color:#fff;font-size:18px}
+.quantity button:hover{background:#18344e}
+.quantity span{flex:1;text-align:center;font-weight:bold}
+
+.actions{display:flex;gap:12px;margin-top:24px;flex-wrap:wrap}
+.btn{
+  padding:13px 18px;border-radius:10px;font-size:11px;font-weight:900;letter-spacing:.8px
+}
+.add-cart{background:transparent;color:#dce5ee;border:1px solid #667c91}
+.add-cart:hover{border-color:#4da3ff;color:#4da3ff}
+.buy-now{background:#4da3ff;color:#04101c;border:1px solid #4da3ff}
+.buy-now:hover{background:#72b7ff}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+
+.message{
+  margin-top:16px;padding:12px;border:1px solid #30475d;border-radius:9px;
+  background:#091622;color:#91a5b9;font-size:12px;display:none;line-height:1.6
+}
+
+.features{margin-top:50px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.feature{
+  padding:24px;background:#091622;border:1px solid #293f55;border-radius:14px;min-height:140px
+}
+.feature-icon{font-size:24px}
+.feature h3{margin-top:14px;font-size:15px}
+.feature p{margin-top:8px;color:#7f92a6;font-size:12px;line-height:1.65}
+
+footer{
+  margin-top:auto;padding:40px 6%;background:#03080e;border-top:1px solid #263b50;
+  color:#7d90a4;font-size:13px
+}
+footer .brand{font-size:20px;letter-spacing:2px}
+footer p{margin-top:8px;font-size:13px;line-height:1.6}
+
+@media(max-width:800px){
+  header{height:auto;padding:10px 3%;flex-wrap:wrap}
+  .header-actions{width:100%;justify-content:stretch}
+  .header-btn,.cart-btn{flex:1;text-align:center;padding:10px 6px;font-size:10px}
+  .product-area{grid-template-columns:1fr;gap:24px}
+  .product-image{min-height:300px}
+  .product-info h1{font-size:28px}
+  .features{grid-template-columns:1fr}
+  .actions{flex-direction:column}
+  .btn{width:100%;text-align:center}
+  footer{padding:28px 5%}
+  footer .brand{font-size:18px}
+  footer p{font-size:12px}
+}
 </style>
 </head>
 <body>
 
 <header>
-<div class="brand-area">
-<div class="fz-logo">FZ</div>
-<div class="brand"><span class="blue">FHAMAR</span><span class="silver">.ZAMOST</span></div>
-</div>
-<nav>
-<a href="home.html">Home</a>
-<a href="catalog.html" class="active">Catalog</a>
-<a href="Profile.html">My Portal</a>
-</nav>
-<a href="cart.html" class="cart-btn">🛒 CART <span id="headerCartCount">0</span></a>
+  <div class="brand-area">
+    <div class="fz-logo">FZ</div>
+    <div class="brand"><span class="blue">FHAMAR</span><span class="silver">.ZAMOST</span></div>
+  </div>
+  <div class="header-actions">
+    <a href="home.html" class="header-btn">HOME</a>
+    <a href="catalog.html" class="header-btn active">CATALOG</a>
+    <a href="Profile.html" class="header-btn">MY PORTAL</a>
+    <a href="cart.html" class="cart-btn">🛒 CART <span id="headerCartCount">0</span></a>
+  </div>
 </header>
 
 <main class="page">
-<a href="catalog.html" class="back">← Back to Catalog</a>
+  <a href="catalog.html" class="back">← Back to Catalog</a>
 
-<section class="product-area">
-<div class="product-image">
-<div class="product-icon" id="productIcon">🎒</div>
-</div>
+  <section class="product-area">
+    <div>
+      <div class="product-image">
+        <img class="product-photo" id="productPhoto" alt="Product image">
+        <div class="product-image-empty" id="productImageEmpty"><span>PRODUCT IMAGE</span></div>
+      </div>
+      <div class="thumbs" id="thumbs"></div>
+    </div>
 
-<div class="product-info">
-<span class="product-category" id="productCategory">FASHION</span>
-<h1 id="productName">Classic Backpack</h1>
-<p class="description" id="productDescription">Stylish and practical everyday backpack designed for comfortable daily use.</p>
-<div class="price" id="productPrice">₹799</div>
-<div class="price-note">Maximum product price: ₹1,500</div>
+    <div class="product-info">
+      <span class="product-category" id="productCategory">PRODUCT</span>
+      <h1 id="productName">Product</h1>
+      <p class="description" id="productDescription">Loading product details...</p>
+      <div class="price-row">
+        <div class="price" id="productPrice">₹0</div>
+        <div class="mrp" id="productMrp" style="display:none"></div>
+      </div>
+      <div class="price-note" id="priceNote"></div>
 
-<div class="quantity-title">QUANTITY</div>
-<div class="quantity">
-<button type="button" id="minusButton">−</button>
-<span id="quantity">1</span>
-<button type="button" id="plusButton">+</button>
-</div>
+      <div class="quantity-title">QUANTITY</div>
+      <div class="quantity">
+        <button type="button" id="minusButton">−</button>
+        <span id="quantity">1</span>
+        <button type="button" id="plusButton">+</button>
+      </div>
 
-<div class="actions">
-<button type="button" class="btn add-cart" id="addCartButton">ADD TO CART</button>
-<button type="button" class="btn buy-now" id="buyNowButton">BUY NOW</button>
-</div>
-<div class="message" id="message"></div>
-</div>
-</section>
+      <div class="actions">
+        <button type="button" class="btn add-cart" id="addCartButton">ADD TO CART</button>
+        <button type="button" class="btn buy-now" id="buyNowButton">BUY NOW</button>
+      </div>
+      <div class="message" id="message"></div>
+    </div>
+  </section>
 
-<section class="features">
-<div class="feature"><div class="feature-icon">🚚</div><h3>Delivery</h3><p>Delivery and order tracking are connected through the order flow. Tracking status can later be updated from the team/admin system.</p></div>
-<div class="feature"><div class="feature-icon">🔒</div><h3>Secure Order</h3><p>Account and order access can be protected through Firebase Authentication and Firestore Security Rules.</p></div>
-<div class="feature"><div class="feature-icon">💳</div><h3>Easy Payment</h3><p>Payment is handled on the Checkout page. The product page does not store card or payment information.</p></div>
-</section>
-
-<div class="api-note">
-<b>PRODUCT DATABASE CONNECTION</b><br><br>
-Connected directly via <b>firebase-config.js</b>.<br><br>
-If Firestore contains a matching <b>products/{productId}</b> document (added from Team Dashboard → Product Upload), its name, category, price, image, description and stock will be shown here automatically.
-</div>
+  <section class="features">
+    <div class="feature">
+      <div class="feature-icon">🚚</div>
+      <h3>Delivery</h3>
+      <p>Order tracking team/admin system se update hota hai.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">🔒</div>
+      <h3>Secure Order</h3>
+      <p>Firebase Authentication + Firestore Security Rules.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">💳</div>
+      <h3>Easy Payment</h3>
+      <p>Payment Checkout page pe hota hai. Yahan card details nahi maangi jati.</p>
+    </div>
+  </section>
 </main>
 
 <footer>
-<div class="brand"><span class="blue">FHAMAR</span><span class="silver">.ZAMOST</span></div>
-<p>Premium Digital Collection</p>
+  <div class="brand"><span class="blue">FHAMAR</span><span class="silver">.ZAMOST</span></div>
+  <p>Premium Digital Collection</p>
 </footer>
 
 <script type="module">
@@ -99,186 +210,206 @@ import { app } from "./firebase-config.js";
 import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 const db = getFirestore(app);
+const MAX_PRICE = 1500;
 
-/*
-=====================================================================
-DEMO PRODUCTS — this list must stay IDENTICAL to the one in
-catalog.html (same ids, same data). This was previously a separate,
-mismatched list here, which caused product pages to show the wrong
-item. Keep both files in sync if you edit this list.
-=====================================================================
-*/
-const demoProducts={
-backpack:{name:"Classic Backpack",category:"FASHION",icon:"🎒",description:"Stylish everyday backpack.",price:799},
-watch:{name:"Smart Watch",category:"ELECTRONICS",icon:"⌚",description:"Modern smart watch design.",price:1299},
-sunglasses:{name:"Premium Sunglasses",category:"ACCESSORIES",icon:"🕶️",description:"Clean and stylish sunglasses.",price:699},
-shoes:{name:"Running Shoes",category:"FASHION",icon:"👟",description:"Comfortable everyday shoes.",price:1499},
-earphones:{name:"Wireless Earphones",category:"ELECTRONICS",icon:"🎧",description:"Compact wireless audio.",price:999},
-charger:{name:"Fast Charger",category:"ELECTRONICS",icon:"🔌",description:"Compact charging accessory.",price:499},
-perfume:{name:"Signature Perfume",category:"PERSONAL",icon:"🧴",description:"Premium fragrance collection.",price:899},
-tshirt:{name:"Classic T-Shirt",category:"FASHION",icon:"👕",description:"Simple everyday casual wear.",price:599},
-cap:{name:"Premium Cap",category:"FASHION",icon:"🧢",description:"Comfortable everyday cap.",price:399},
-slippers:{name:"Comfort Slippers",category:"FASHION",icon:"🩴",description:"Lightweight daily slippers.",price:449},
-hoodie:{name:"Classic Hoodie",category:"FASHION",icon:"🧥",description:"Warm casual hoodie design.",price:1199},
-wallet:{name:"Classic Wallet",category:"ACCESSORIES",icon:"👛",description:"Compact everyday wallet.",price:599},
-belt:{name:"Classic Belt",category:"ACCESSORIES",icon:"🧷",description:"Simple durable belt.",price:499},
-watchstrap:{name:"Watch Strap",category:"ACCESSORIES",icon:"⌚",description:"Replacement smart watch strap.",price:299},
-powerbank:{name:"Power Bank",category:"ELECTRONICS",icon:"🔋",description:"Portable charging power bank.",price:1299},
-speaker:{name:"Mini Bluetooth Speaker",category:"ELECTRONICS",icon:"🔊",description:"Compact wireless speaker.",price:1099},
-keyboard:{name:"Wireless Keyboard",category:"ELECTRONICS",icon:"⌨️",description:"Clean compact keyboard.",price:999},
-mouse:{name:"Wireless Mouse",category:"ELECTRONICS",icon:"🖱️",description:"Comfortable wireless mouse.",price:599},
-usb:{name:"USB Drive",category:"ELECTRONICS",icon:"💾",description:"Compact storage accessory.",price:499},
-haircare:{name:"Hair Care Kit",category:"PERSONAL",icon:"💇",description:"Everyday personal care kit.",price:799},
-comb:{name:"Premium Comb",category:"PERSONAL",icon:"🪮",description:"Simple personal care accessory.",price:249},
-facewash:{name:"Daily Face Wash",category:"PERSONAL",icon:"🧼",description:"Gentle everyday cleansing product.",price:399},
-grooming:{name:"Grooming Kit",category:"PERSONAL",icon:"🧴",description:"Useful everyday grooming kit.",price:999},
-sunglasscase:{name:"Sunglasses Case",category:"ACCESSORIES",icon:"🕶️",description:"Protective compact case.",price:299},
-phonecase:{name:"Premium Phone Case",category:"ACCESSORIES",icon:"📱",description:"Stylish protective phone case.",price:499}
+const params = new URLSearchParams(location.search);
+const productId = params.get("id") || "";
+
+let product = {
+  name: "Product",
+  category: "PRODUCT",
+  price: 0,
+  mrp: 0,
+  image: "",
+  images: [],
+  description: "Product details are loading."
 };
+let stock = 99;
+let quantity = 1;
 
-const params=new URLSearchParams(location.search);
-const productId=params.get("id")||"backpack";
-let product=demoProducts[productId] || null;
-let usingImage=false;
-let stock=99;
-let quantity=1;
+const $ = (id) => document.getElementById(id);
 
-const $=id=>document.getElementById(id);
-
-function safeFirestoreProduct(data){
-  const price=Number(data.price);
-  if(!Number.isFinite(price)||price<0||price>1500) return null;
-  return {
-    name:String(data.name||"Product"),
-    category:String(data.category||"General").toUpperCase(),
-    icon:"🛍️",
-    image:String(data.image||""),
-    description:String(data.description||""),
-    price
-  };
-}
-
-async function loadProduct(){
-  try{
-    const snap=await getDoc(doc(db,"products",productId));
-    if(snap.exists()){
-      const data=snap.data();
-      const loaded=safeFirestoreProduct(data);
-      if(loaded){
-        product=loaded;
-        usingImage=!!loaded.image;
-        stock=Number(data.stock);
-        if(!Number.isFinite(stock)||stock<0) stock=99;
-      }
-    }
-  }catch(error){
-    console.warn("Product Firestore read skipped:",error);
-  }
-
-  if(!product){
-    // Neither a known demo id nor a Firestore product with this id.
-    product=demoProducts.backpack;
-    $("message").innerHTML="This product could not be found. Showing a sample product instead.";
-    $("message").style.display="block";
-  }
-
-  renderProduct();
-}
-
-function renderProduct(){
-  $("productName").textContent=product.name;
-  $("productCategory").textContent=product.category;
-  $("productPrice").textContent="₹"+product.price.toLocaleString("en-IN");
-  $("productDescription").textContent=product.description;
-  $("quantity").textContent=quantity;
-
-  const imageBox=document.querySelector(".product-image");
-  if(usingImage && product.image){
-    imageBox.innerHTML=`<img src="${product.image}" alt="${product.name}">`;
-  }else{
-    imageBox.innerHTML=`<div class="product-icon" id="productIcon">${product.icon||"🛍️"}</div>`;
-  }
-
-  const disabled=stock<=0;
-  $("addCartButton").disabled=disabled;
-  $("buyNowButton").disabled=disabled;
-  if(disabled) showMessage("This product is currently out of stock.");
-}
-
-function changeQuantity(value){
-  quantity+=value;
-  const max=Math.min(10,Math.max(1,Number.isFinite(stock)?stock:10));
-  if(quantity<1) quantity=1;
-  if(quantity>max) quantity=max;
-  $("quantity").textContent=quantity;
+function showMessage(text){
+  const box = $("message");
+  box.innerHTML = text;
+  box.style.display = "block";
 }
 
 function getCart(){
   try{
-    const cart=JSON.parse(localStorage.getItem("fz_cart")||"[]");
-    return Array.isArray(cart)?cart:[];
-  }catch{return []}
+    const cart = JSON.parse(localStorage.getItem("fz_cart") || "[]");
+    return Array.isArray(cart) ? cart : [];
+  }catch(e){ return []; }
 }
 
 function saveCart(cart){
-  localStorage.setItem("fz_cart",JSON.stringify(cart));
+  localStorage.setItem("fz_cart", JSON.stringify(cart));
   updateHeaderCart();
 }
 
+function updateHeaderCart(){
+  const count = getCart().reduce((sum, item) => sum + (Number(item.quantity) || 1), 0);
+  $("headerCartCount").textContent = count;
+}
+
+function setMainImage(url){
+  const photo = $("productPhoto");
+  const empty = $("productImageEmpty");
+  if(url){
+    photo.src = url;
+    photo.style.display = "block";
+    empty.style.display = "none";
+    photo.onerror = function(){
+      photo.removeAttribute("src");
+      photo.style.display = "none";
+      empty.style.display = "flex";
+    };
+  } else {
+    photo.removeAttribute("src");
+    photo.style.display = "none";
+    empty.style.display = "flex";
+  }
+}
+
+function renderThumbs(images){
+  const box = $("thumbs");
+  if(!images || images.length < 2){
+    box.innerHTML = "";
+    return;
+  }
+  box.innerHTML = images.map(function(url, i){
+    return '<img class="thumb' + (i === 0 ? " active" : "") + '" src="' + url.replace(/"/g, "") + '" data-i="' + i + '" alt="">';
+  }).join("");
+
+  box.querySelectorAll(".thumb").forEach(function(img){
+    img.onclick = function(){
+      box.querySelectorAll(".thumb").forEach(t => t.classList.remove("active"));
+      img.classList.add("active");
+      setMainImage(images[Number(img.getAttribute("data-i"))]);
+    };
+  });
+}
+  function renderProduct(){
+  $("productName").textContent = product.name;
+  $("productCategory").textContent = product.category;
+  $("productPrice").textContent = "₹" + Number(product.price || 0).toLocaleString("en-IN");
+  $("productDescription").textContent = product.description;
+
+  if(product.mrp && Number(product.mrp) > Number(product.price)){
+    $("productMrp").style.display = "inline";
+    $("productMrp").textContent = "₹" + Number(product.mrp).toLocaleString("en-IN");
+  } else {
+    $("productMrp").style.display = "none";
+  }
+
+  const imgs = (product.images && product.images.length)
+    ? product.images
+    : (product.image ? [product.image] : []);
+  setMainImage(imgs[0] || "");
+  renderThumbs(imgs);
+
+  $("quantity").textContent = quantity;
+
+  const disabled = stock <= 0 || !product.price;
+  $("addCartButton").disabled = disabled;
+  $("buyNowButton").disabled = disabled;
+  if(stock <= 0) showMessage("This product is currently out of stock.");
+}
+
+function changeQuantity(value){
+  quantity += value;
+  const max = Math.min(10, Math.max(1, Number.isFinite(stock) ? stock : 10));
+  if(quantity < 1) quantity = 1;
+  if(quantity > max) quantity = max;
+  $("quantity").textContent = quantity;
+}
+
 function addProductToCart(){
-  if(product.price>1500){
+  const price = Number(product.price);
+  if(!Number.isFinite(price) || price <= 0){
+    showMessage("Product price invalid.");
+    return;
+  }
+  if(price > MAX_PRICE){
     showMessage("This product cannot be added because its price is above ₹1,500.");
     return;
   }
-  if(stock<=0){
+  if(stock <= 0){
     showMessage("This product is currently out of stock.");
     return;
   }
 
-  const cart=getCart();
-  const existing=cart.find(item=>item.id===productId);
+  const cart = getCart();
+  const existing = cart.find(item => item.id === productId);
 
   if(existing){
-    existing.quantity=Math.min(10,(Number(existing.quantity)||1)+quantity);
-  }else{
+    existing.quantity = Math.min(10, (Number(existing.quantity) || 1) + quantity);
+    existing.price = price;
+    existing.name = product.name;
+    existing.image = product.image || (product.images && product.images[0]) || existing.image || "";
+  } else {
     cart.push({
-      id:productId,
-      name:product.name,
-      price:product.price,
-      icon:product.icon||"🛍️",
-      image:usingImage?product.image:"",
-      quantity:quantity
+      id: productId,
+      name: product.name,
+      price: price,
+      image: product.image || (product.images && product.images[0]) || "",
+      quantity: quantity
     });
   }
   saveCart(cart);
-  showMessage("✓ "+product.name+" added to your cart. Go to <a href='cart.html' style='color:#4da3ff;text-decoration:underline;'>Cart →</a>");
+  showMessage("✓ " + product.name + " added to cart. <a href='cart.html' style='color:#4da3ff'>Go to Cart →</a>");
 }
 
 function buyNow(){
   addProductToCart();
-  setTimeout(()=>{
-    location.href="checkout.html";
-  },250);
+  setTimeout(function(){ location.href = "checkout.html"; }, 250);
 }
 
-function showMessage(text){
-  const box=$("message");
-  box.innerHTML=text;
-  box.style.display="block";
+async function loadFirestoreProduct(){
+  if(!productId){
+    showMessage("Product id missing. Catalog se product open karein.");
+    return;
+  }
+  try{
+    const snap = await getDoc(doc(db, "products", productId));
+    if(snap.exists()){
+      const data = snap.data();
+      const images = [];
+      if(Array.isArray(data.images)){
+        data.images.forEach(function(u){ if(u) images.push(String(u)); });
+      }
+      ["image","imageUrl","photo","image1","image2","image3","image4"].forEach(function(k){
+        if(data[k] && images.indexOf(String(data[k])) === -1) images.push(String(data[k]));
+      });
+
+      product = {
+        name: String(data.name || product.name),
+        category: String(data.category || product.category).toUpperCase(),
+        price: Number(data.price || data.salePrice || 0),
+        mrp: Number(data.mrp || data.originalPrice || 0),
+        image: images[0] || "",
+        images: images,
+        description: String(data.description || product.description)
+      };
+      stock = Number(data.stock);
+      if(!Number.isFinite(stock) || stock < 0) stock = 99;
+    } else {
+      showMessage("Firestore mein yeh product nahi mila.");
+    }
+  }catch(error){
+    console.warn("Product load:", error);
+    showMessage("Product load nahi ho paya. Connection check karein.");
+  }
+  renderProduct();
 }
 
-function updateHeaderCart(){
-  const count=getCart().reduce((sum,item)=>sum+(Number(item.quantity)||1),0);
-  $("headerCartCount").textContent=count;
-}
-
-$("minusButton").addEventListener("click",()=>changeQuantity(-1));
-$("plusButton").addEventListener("click",()=>changeQuantity(1));
-$("addCartButton").addEventListener("click",addProductToCart);
-$("buyNowButton").addEventListener("click",buyNow);
+$("minusButton").addEventListener("click", function(){ changeQuantity(-1); });
+$("plusButton").addEventListener("click", function(){ changeQuantity(1); });
+$("addCartButton").addEventListener("click", addProductToCart);
+$("buyNowButton").addEventListener("click", buyNow);
 
 updateHeaderCart();
-loadProduct();
+loadFirestoreProduct();
 </script>
 </body>
 </html>
