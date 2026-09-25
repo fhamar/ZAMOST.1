@@ -66,7 +66,8 @@ td strong{color:#dce5ed}
 
 .action{padding:7px 9px;border-radius:6px;font-size:9px;margin-right:4px;border:1px solid #40586f;background:#0a1725;color:#b9c7d4}
 .action:hover{border-color:#4da3ff;color:#4da3ff}
-.action.delete:hover{border-color:#a85c5c;color:#ff9999}
+.action.delete{border-color:#6d4d4d;color:#ffb1b1;background:#1b1111}
+.action.delete:hover{border-color:#a85c5c;color:#ff9999;background:#2a1616}
 .action.admin-on{border-color:#4da3ff;color:#4da3ff}
 
 .pending-card{padding:14px;border:1px solid #655c2d;border-radius:12px;background:#151009;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
@@ -143,7 +144,7 @@ footer{padding:24px 5%;background:#03080e;border-top:1px solid #263b50;color:#7d
 </style>
 </head>
 <body>
-  
+
 <header>
   <div class="brand-area">
     <div class="fz-logo">FZ</div>
@@ -181,7 +182,7 @@ footer{padding:24px 5%;background:#03080e;border-top:1px solid #263b50;color:#7d
   <main class="content">
     <div class="eyebrow">FHAMAR.ZAMOST ADMINISTRATIVE DESK</div>
     <h1 class="page-title">Admin <span>Dashboard</span></h1>
-    <p class="subtitle">Team, orders (no-team states), labels, delivery, voting & payments.</p>
+    <p class="subtitle">Team, orders, labels, delete, delivery, voting & payments.</p>
 
     <div class="stats">
       <div class="stat blue-stat"><small>TEAM MEMBERS</small><strong id="teamCount">0</strong></div>
@@ -194,7 +195,8 @@ footer{padding:24px 5%;background:#03080e;border-top:1px solid #263b50;color:#7d
       <div class="section-header"><h2>Dashboard Overview</h2></div>
       <div class="panel">
         <p style="color:#899caf;font-size:13px;line-height:1.75">
-          Admin Desk se team approve/suspend, saari states ke orders (bina team wali states highlighted), PDF/JPG labels, delivery partners, voting results aur payment settings manage karo.
+          Admin Desk se team, orders (no-team states highlighted), PDF/JPG labels, <b>order delete</b>, delivery partners, voting aur payment settings manage karo.<br><br>
+          Order delete Admin se hote hi team.html se bhi real-time hat jata hai.
         </p>
       </div>
     </section>
@@ -230,8 +232,7 @@ footer{padding:24px 5%;background:#03080e;border-top:1px solid #263b50;color:#7d
       <div id="orderGrid" class="order-grid"></div>
       <div id="orderEmpty" class="empty" style="display:none">No orders found.</div>
     </section>
-
-    <section id="delivery" class="section">
+        <section id="delivery" class="section">
       <div class="section-header">
         <h2>Delivery Partners</h2>
         <button type="button" class="primary-btn" onclick="addDeliveryPartner()">+ ADD PARTNER</button>
@@ -349,24 +350,16 @@ function toast(msg){
 }
 
 function showMain(){
-  var load = $("loadingBox");
-  var main = $("mainLayout");
-  var blocked = $("accessBlocked");
-  if(load) load.style.display = "none";
-  if(blocked) blocked.style.display = "none";
-  if(main) main.style.display = "grid";
+  if($("loadingBox")) $("loadingBox").style.display = "none";
+  if($("accessBlocked")) $("accessBlocked").style.display = "none";
+  if($("mainLayout")) $("mainLayout").style.display = "grid";
 }
-
 function showBlocked(){
-  var load = $("loadingBox");
-  var main = $("mainLayout");
-  var blocked = $("accessBlocked");
-  if(load) load.style.display = "none";
-  if(main) main.style.display = "none";
-  if(blocked) blocked.style.display = "block";
+  if($("loadingBox")) $("loadingBox").style.display = "none";
+  if($("mainLayout")) $("mainLayout").style.display = "none";
+  if($("accessBlocked")) $("accessBlocked").style.display = "block";
 }
 
-// Menu clicks
 document.querySelectorAll(".menu-btn[data-section]").forEach(function(btn){
   btn.addEventListener("click", function(){
     var id = btn.getAttribute("data-section");
@@ -377,26 +370,19 @@ document.querySelectorAll(".menu-btn[data-section]").forEach(function(btn){
     btn.classList.add("active");
   });
 });
-  onAuthStateChanged(auth, async function(user){
+
+onAuthStateChanged(auth, async function(user){
   try{
-    if(!user){
-      window.location.replace("index.html");
-      return;
-    }
+    if(!user){ window.location.replace("index.html"); return; }
 
     var data = {};
     try{
       var snap = await getDoc(doc(db, "users", user.uid));
       if(snap.exists()) data = snap.data();
-    }catch(e){
-      console.warn("Profile read:", e);
-    }
+    }catch(e){ console.warn(e); }
 
     var isAdmin = (data.role === "admin") || (data.adminAccess === true);
-    if(!isAdmin){
-      showBlocked();
-      return;
-    }
+    if(!isAdmin){ showBlocked(); return; }
 
     $("roleBadge").textContent = data.role === "admin" ? "ADMINISTRATOR" : "ADMIN ACCESS";
     showMain();
@@ -409,11 +395,9 @@ document.querySelectorAll(".menu-btn[data-section]").forEach(function(btn){
     listenVotes();
     loadPaymentSettings();
   }catch(err){
-    console.error("Admin init error:", err);
+    console.error(err);
     $("roleBadge").textContent = "ERROR";
-    if($("loadingBox")){
-      $("loadingBox").textContent = "Error loading admin. Console check karein. " + (err.message || "");
-    }
+    if($("loadingBox")) $("loadingBox").textContent = "Error: " + (err.message || "load failed");
   }
 });
 
@@ -450,12 +434,12 @@ function rebuildStatesWithTeam(){
     }
   });
 }
-
 function hasTeamInState(state){
   if(!state) return false;
   return !!statesWithTeam[String(state).trim().toLowerCase()];
 }
 
+/* ===== PENDING ===== */
 function listenPendingApplications(){
   try{
     var q = query(collection(db, "teamApplications"), where("status", "==", "pending"));
@@ -468,8 +452,7 @@ function listenPendingApplications(){
 }
 
 function renderPending(){
-  var list = $("pendingList");
-  var empty = $("pendingEmpty");
+  var list = $("pendingList"), empty = $("pendingEmpty");
   if(!list) return;
   if(!pendingApplications.length){
     list.innerHTML = "";
@@ -484,7 +467,6 @@ function renderPending(){
       '">APPROVE</button> <button type="button" class="action delete" data-reject="' + esc(app.id) +
       '">REJECT</button></div></div>';
   }).join("");
-
   list.querySelectorAll("[data-approve]").forEach(function(btn){
     btn.onclick = function(){ approveApplication(btn.getAttribute("data-approve")); };
   });
@@ -492,8 +474,7 @@ function renderPending(){
     btn.onclick = function(){ rejectApplication(btn.getAttribute("data-reject")); };
   });
 }
-
-window.approveApplication = async function(uid){
+  window.approveApplication = async function(uid){
   var app = pendingApplications.find(function(a){ return a.id === uid; });
   if(!app) return;
   try{
@@ -517,6 +498,7 @@ window.rejectApplication = async function(uid){
   }catch(e){ console.error(e); toast("Reject failed."); }
 };
 
+/* ===== TEAM MEMBERS ===== */
 function listenTeamMembers(){
   try{
     var q = query(collection(db, "users"), where("role", "in", ["team_member", "admin"]));
@@ -590,6 +572,7 @@ window.removeMember = async function(uid){
   }catch(e){ console.error(e); toast("Failed."); }
 };
 
+/* ===== ORDERS + DELETE ===== */
 function listenOrders(){
   try{
     onSnapshot(collection(db, "orders"), function(snapshot){
@@ -616,7 +599,7 @@ window.renderOrders = function(){
       noTeamOrders.forEach(function(o){ if(o.state && states.indexOf(o.state) === -1) states.push(o.state); });
       banner.style.display = "block";
       banner.innerHTML = "<b>⚠ No Team States:</b> " + esc(states.join(", ")) +
-        " — " + noTeamOrders.length + " order(s). Admin label/status handle kare.";
+        " — " + noTeamOrders.length + " order(s). Admin handle / delete kar sakta hai.";
     } else {
       banner.style.display = "none";
     }
@@ -639,21 +622,24 @@ window.renderOrders = function(){
     var statusOpts = flow.map(function(s){
       return '<option value="' + esc(s) + '"' + (s === o.status ? " selected" : "") + ">" + esc(s) + "</option>";
     }).join("");
+    var oid = esc(o.id);
 
     return '<div class="order-card' + (noTeam ? " no-team" : "") + '">' +
       '<div class="order-top"><div class="order-id">' + esc(o.orderNumber || o.id) + '</div>' +
-      (noTeam ? '<span class="status noteam">NO TEAM</span>' :
-        '<span class="status ' + statusClass(o.status) + '">' + esc(String(o.status||"").toUpperCase()) + '</span>') +
+      (noTeam
+        ? '<span class="status noteam">NO TEAM</span>'
+        : '<span class="status ' + statusClass(o.status) + '">' + esc(String(o.status||"").toUpperCase()) + '</span>') +
       '</div>' +
       '<div class="order-info">Customer: <strong>' + esc((o.customer && o.customer.name) || "—") +
       '</strong><br>Mobile: <strong>' + esc((o.customer && o.customer.mobile) || "—") +
       '</strong><br>Products: <strong>' + itemsList +
       '</strong><br>State: <strong>' + esc(o.state || "—") +
       '</strong><br>Total: <strong>₹' + Number(o.total||0).toLocaleString("en-IN") + '</strong></div>' +
-      '<div class="order-actions"><select data-oid="' + esc(o.id) + '">' + statusOpts + '</select></div>' +
+      '<div class="order-actions"><select data-oid="' + oid + '">' + statusOpts + '</select></div>' +
       '<div class="order-actions">' +
-      '<button type="button" class="action" data-pdf="' + esc(o.id) + '">📄 PDF</button>' +
-      '<button type="button" class="action" data-jpg="' + esc(o.id) + '">🖼️ JPG</button>' +
+        '<button type="button" class="action" data-pdf="' + oid + '">📄 PDF</button>' +
+        '<button type="button" class="action" data-jpg="' + oid + '">🖼️ JPG</button>' +
+        '<button type="button" class="action delete" data-del-order="' + oid + '">🗑️ DELETE</button>' +
       '</div></div>';
   }).join("");
 
@@ -666,6 +652,9 @@ window.renderOrders = function(){
   grid.querySelectorAll("[data-jpg]").forEach(function(b){
     b.onclick = function(){ downloadLabel(b.getAttribute("data-jpg"), "jpg"); };
   });
+  grid.querySelectorAll("[data-del-order]").forEach(function(b){
+    b.onclick = function(){ deleteOrder(b.getAttribute("data-del-order")); };
+  });
 };
 
 window.updateOrderStatus = async function(id, status){
@@ -675,12 +664,30 @@ window.updateOrderStatus = async function(id, status){
   }catch(e){ console.error(e); toast("Update failed."); }
 };
 
+/* DELETE ORDER — Admin only; team.html pe bhi real-time hat jayega */
+window.deleteOrder = async function(id){
+  var order = orders.find(function(o){ return o.id === id; });
+  if(!order) return;
+  var label = order.orderNumber || order.id;
+  if(!confirm("Order " + label + " permanently delete?\n\nYe team dashboard se bhi hat jayega. Wapas nahi aayega.")) return;
+  try{
+    await deleteDoc(doc(db, "orders", id));
+    toast("Order deleted.");
+  }catch(e){
+    console.error(e);
+    toast("Delete failed. Rules check karein.");
+  }
+};
+
+/* ===== LABEL ===== */
 function getOrderAddress(order){
+  var c = order.customer || {};
   return {
-    addr: order.address || order.shippingAddress || (order.customer && order.customer.address) || "",
-    city: order.city || (order.customer && order.customer.city) || "",
-    state: order.state || (order.customer && order.customer.state) || "",
-    pin: order.pincode || order.pin || order.zip || (order.customer && order.customer.pincode) || ""
+    addr: order.address || order.shippingAddress || c.address || "",
+    city: order.city || c.city || "",
+    state: order.state || c.state || "",
+    pin: order.pincode || order.pin || c.pincode || c.pin || "",
+    email: order.email || c.email || ""
   };
 }
 
@@ -693,7 +700,9 @@ function buildLabelHTML(order){
   var loc = getOrderAddress(order);
   var cityLine = [loc.city, loc.state].filter(Boolean).join(", ");
   var pinPart = loc.pin ? (" - " + loc.pin) : "";
-  var dateStr = new Date().toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" });
+  var dateStr = new Date().toLocaleDateString("en-IN", { day:"2-digit", month:"short", year:"numeric" });
+  var phone = (order.customer && order.customer.mobile) || order.mobile || "—";
+  var name = (order.customer && order.customer.name) || "Customer";
 
   return '<div style="width:420px;padding:24px;background:#fff;color:#111;font-family:Arial,sans-serif;border:2px solid #111">' +
     '<div style="text-align:center;border-bottom:2px solid #111;padding-bottom:14px;margin-bottom:14px">' +
@@ -708,12 +717,13 @@ function buildLabelHTML(order){
     '<div style="font-size:11px;color:#555">ORDER ID</div>' +
     '<div style="font-size:15px;font-weight:bold;margin-bottom:12px">' + esc(order.orderNumber || order.id) + '</div>' +
     '<div style="font-size:11px;color:#555">DELIVER TO</div>' +
-    '<div style="font-size:14px;font-weight:bold">' + esc((order.customer && order.customer.name) || "Customer") + '</div>' +
+    '<div style="font-size:14px;font-weight:bold">' + esc(name) + '</div>' +
     '<div style="font-size:12px;margin-top:4px;line-height:1.5">' + esc(loc.addr) + (loc.addr ? "<br>" : "") +
     esc(cityLine) + esc(pinPart) + '</div>' +
-    '<div style="font-size:12px;margin-top:6px">📞 ' + esc((order.customer && order.customer.mobile) || "—") + '</div>' +
+    '<div style="font-size:12px;margin-top:6px">📞 ' + esc(phone) + '</div>' +
+    (loc.email ? '<div style="font-size:12px;margin-top:3px">✉ ' + esc(loc.email) + '</div>' : '') +
     '<table style="width:100%;margin-top:16px;border-top:1px solid #ccc;padding-top:8px;font-size:12px;border-collapse:collapse">' +
-    '<thead><tr style="border-bottom:1px solid #ccc"><th style="text-align:left;padding-bottom:6px">Item</th><th style="padding-bottom:6px">Qty</th><th style="text-align:right;padding-bottom:6px">Price</th></tr></thead>' +
+    '<thead><tr style="border-bottom:1px solid #ccc"><th style="text-align:left;padding-bottom:6px">Item</th><th style="padding-bottom:6px;text-align:center">Qty</th><th style="text-align:right;padding-bottom:6px">Price</th></tr></thead>' +
     '<tbody>' + (items || '<tr><td colspan="3">No items</td></tr>') + '</tbody></table>' +
     '<div style="text-align:right;font-size:15px;font-weight:900;margin-top:12px;border-top:2px solid #111;padding-top:10px">TOTAL: ₹' +
     Number(order.total||0).toLocaleString("en-IN") + '</div>' +
@@ -735,9 +745,7 @@ window.downloadLabel = async function(orderId, format){
       var link = document.createElement("a");
       link.download = fileName + ".jpg";
       link.href = canvas.toDataURL("image/jpeg", 0.95);
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
+      document.body.appendChild(link); link.click(); link.remove();
     } else {
       var jsPDF = window.jspdf.jsPDF;
       var imgData = canvas.toDataURL("image/jpeg", 0.95);
@@ -746,14 +754,11 @@ window.downloadLabel = async function(orderId, format){
       pdf.save(fileName + ".pdf");
     }
     toast("Label downloaded.");
-  }catch(e){
-    console.error(e);
-    toast("Label failed.");
-  }finally{
-    document.body.removeChild(wrapper);
-  }
+  }catch(e){ console.error(e); toast("Label failed."); }
+  finally{ document.body.removeChild(wrapper); }
 };
-
+  
+/* ===== DELIVERY ===== */
 function listenDeliveryPartners(){
   try{
     onSnapshot(collection(db, "deliveryPartners"), function(snapshot){
@@ -856,7 +861,9 @@ window.assignPartner = function(){
   if(!state || !p){ toast("Select state & partner."); return; }
   toast(p.name + " → " + state);
 };
-  function listenVotes(){
+
+/* ===== VOTES ===== */
+function listenVotes(){
   try{
     onSnapshot(collection(db, "votes"), function(snapshot){
       votes = snapshot.docs.map(function(d){ return d.data(); });
@@ -883,10 +890,7 @@ function renderVotes(){
   var box = $("voteResults");
   if(!box) return;
   var keys = Object.keys(counts);
-  if(!keys.length){
-    box.innerHTML = '<div class="empty">No votes yet.</div>';
-    return;
-  }
+  if(!keys.length){ box.innerHTML = '<div class="empty">No votes yet.</div>'; return; }
   box.innerHTML = keys.map(function(key){
     var count = counts[key];
     var pct = Math.round((count / total) * 100);
@@ -897,6 +901,7 @@ function renderVotes(){
   }).join("");
 }
 
+/* ===== PAYMENT ===== */
 async function loadPaymentSettings(){
   var data = {};
   try{
