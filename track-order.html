@@ -11,12 +11,23 @@
   --green:#2fbf71;
 }
 *{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif}
-body{background:radial-gradient(circle at 50% -10%,#13223a 0,var(--bg) 42%);color:var(--white);line-height:1.6;min-height:100%}
+
+html,body{height:100%;min-height:100%}
+body{
+  min-height:100vh;
+  min-height:100dvh;
+  display:flex;
+  flex-direction:column;
+  background:radial-gradient(circle at 50% -10%,#13223a 0,var(--bg) 42%);
+  color:var(--white);
+  line-height:1.6;
+}
 a{text-decoration:none;color:inherit}
 
 header{
+  flex-shrink:0;
   display:flex;justify-content:space-between;align-items:center;padding:12px 4%;
-  background:rgba(7,11,19,.95);border-bottom:1px solid var(--border);
+  background:rgba(7,11,19,.96);border-bottom:1px solid var(--border);
   position:sticky;top:0;z-index:100;backdrop-filter:blur(14px);gap:12px
 }
 .logo-container{display:flex;align-items:center;gap:10px;flex-shrink:0}
@@ -30,7 +41,6 @@ header{
 .brand-name .brand-silver{color:var(--silver)}
 .brand-name small{display:block;color:#748196;font-size:8px;letter-spacing:2px;margin-top:-2px}
 
-/* Stylish header buttons (replaces old text nav) */
 .header-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}
 .header-btn{
   padding:10px 16px;text-align:center;border-radius:10px;border:1px solid var(--border);
@@ -39,13 +49,21 @@ header{
 }
 .header-btn:hover,.header-btn.active{border-color:var(--blue2);color:var(--blue2);background:#0c1a2c}
 
-.container{max-width:820px;margin:auto;padding:28px 1rem 80px}
+.container{
+  flex:1 0 auto;
+  width:100%;
+  max-width:820px;
+  margin:0 auto;
+  padding:28px 1rem 40px;
+  display:flex;
+  flex-direction:column;
+}
 .eyebrow{color:#7e9cc3;font-size:.72rem;letter-spacing:2.4px;font-weight:700}
 .title{margin-top:6px;font-size:2rem}
 .title span{color:var(--blue2)}
 .subtitle{margin-top:6px;color:var(--muted);font-size:.88rem}
 
-/* ===== 1. ORDER DETAIL ===== */
+/* 1. ORDER DETAIL */
 .result{display:none;margin-top:22px;padding:20px;border-radius:16px;border:1px solid var(--border);background:#0b1420}
 .result.show{display:block}
 .result-header{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap}
@@ -81,7 +99,7 @@ header{
 .product-row strong{color:#dce5ed;white-space:nowrap}
 .order-total{text-align:right;margin-top:12px;font-size:1rem;font-weight:800;color:var(--blue2)}
 
-/* ===== 2. MANUAL SEARCH ===== */
+/* 2. TRACK FORM */
 .track-card{
   margin-top:24px;padding:22px;border-radius:18px;border:1px solid var(--border);
   background:linear-gradient(145deg,#101b2a,#0b131f);box-shadow:0 12px 30px rgba(0,0,0,.14)
@@ -102,7 +120,7 @@ header{
 #trackMessage.error{display:block;background:#301516;border:1px solid #704040;color:#ffb0b0}
 #trackMessage.info{display:block;background:rgba(49,130,246,.08);border:1px solid #1f3448;color:var(--muted)}
 
-/* ===== 3. MY ORDERS ===== */
+/* 3. MY ORDERS */
 .orders-section{margin-top:26px}
 .orders-section h2{font-size:1.1rem;margin-bottom:12px}
 #ordersLoading,#ordersEmpty{color:var(--muted);font-size:.85rem;padding:14px 0}
@@ -129,7 +147,17 @@ header{
 .signin-note{margin-top:20px;padding:16px;border-radius:12px;border:1px dashed #405a72;background:#06101a;color:#8fa4b8;font-size:.82rem;text-align:center}
 .signin-note a{color:var(--blue2);font-weight:700}
 
-footer{padding:28px 6%;background:#050911;border-top:1px solid var(--border);color:#78879a;font-size:.75rem;text-align:center}
+footer{
+  flex-shrink:0;
+  margin-top:auto;
+  padding:28px 6%;
+  background:#050911;
+  border-top:1px solid var(--border);
+  color:#78879a;
+  font-size:.75rem;
+  text-align:center;
+  width:100%;
+}
 
 @media(max-width:600px){
   header{padding:10px 12px;flex-wrap:wrap}
@@ -139,6 +167,7 @@ footer{padding:28px 6%;background:#050911;border-top:1px solid var(--border);col
   .order-meta{grid-template-columns:1fr}
   .order-card-title{max-width:160px}
   .title{font-size:1.7rem}
+  .container{padding:22px 12px 32px}
 }
 @media(min-width:601px){
   .header-btn{padding:11px 18px;font-size:.78rem}
@@ -155,7 +184,6 @@ footer{padding:28px 6%;background:#050911;border-top:1px solid var(--border);col
       <small>PREMIUM SMART PORTAL</small>
     </div>
   </div>
-  <!-- Stylish buttons (old text nav removed) -->
   <div class="header-actions">
     <a href="home.html" class="header-btn">HOME</a>
     <a href="catalog.html" class="header-btn">CATALOG</a>
@@ -169,7 +197,7 @@ footer{padding:28px 6%;background:#050911;border-top:1px solid var(--border);col
   <h1 class="title">Track Your <span>Orders</span></h1>
   <p class="subtitle">Sign in to see all your orders automatically, or search any order using its order number.</p>
 
-  <!-- ===== 1. ORDER DETAIL (top) ===== -->
+  <!-- 1. ORDER DETAIL (top) -->
   <section id="result" class="result">
     <div class="result-header">
       <div>
@@ -202,8 +230,8 @@ footer{padding:28px 6%;background:#050911;border-top:1px solid var(--border);col
       <div class="order-total" id="orderTotalLine"></div>
     </div>
   </section>
-  
-  <!-- ===== 2. TRACK BY ORDER NUMBER ===== -->
+
+  <!-- 2. TRACK BY NUMBER -->
   <section class="track-card">
     <h2>Track using Order Number</h2>
     <div class="track-form">
@@ -213,7 +241,7 @@ footer{padding:28px 6%;background:#050911;border-top:1px solid var(--border);col
     <div id="trackMessage"></div>
   </section>
 
-  <!-- ===== 3. MY ORDERS LIST ===== -->
+  <!-- 3. MY ORDERS -->
   <section class="orders-section" id="ordersSection" style="display:none">
     <h2>My Orders</h2>
     <div id="ordersLoading">Loading your orders...</div>
@@ -262,7 +290,6 @@ function formatDate(timestamp){
   }
 }
 
-/* Map admin/team statuses → timeline steps */
 function normalizeStatus(status){
   const s = String(status || "").toUpperCase().trim();
   if(["DELIVERED"].includes(s)) return "DELIVERED";
@@ -307,7 +334,6 @@ async function loadMyOrders(uid){
   $("ordersList").innerHTML = "";
 
   try{
-    // support both customerUid and userId from checkout
     let orders = [];
     try{
       const q1 = query(collection(db, "orders"), where("customerUid", "==", uid));
@@ -444,7 +470,7 @@ function renderOrder(orderNumber, data){
         <strong>${formatMoney(price * qty)}</strong>
       </div>`;
     }).join("");
-  }
+ }
 
   $("orderTotalLine").textContent = "Total: " + formatMoney(data.total);
   $("result").classList.add("show");
