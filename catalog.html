@@ -9,72 +9,89 @@
 html,body{height:100%}
 body{background:#050b12;color:#fff;display:flex;flex-direction:column;min-height:100vh}
 a{text-decoration:none;color:inherit}
-header{height:75px;padding:0 6%;display:flex;align-items:center;justify-content:space-between;background:#07111d;border-bottom:1px solid #30465d;position:sticky;top:0;z-index:1000;flex-shrink:0}
+header{height:64px;padding:0 4%;display:flex;align-items:center;justify-content:space-between;background:#07111d;border-bottom:1px solid #30465d;position:sticky;top:0;z-index:1000;flex-shrink:0;gap:10px}
 .brand-area{display:flex;align-items:center;gap:10px}
-.fz-logo{width:45px;height:45px;display:flex;align-items:center;justify-content:center;border-radius:12px;border:1px solid #8298ad;background:linear-gradient(145deg,#173b5b,#050b12);color:#fff;font-size:17px;font-weight:900}
-.brand{font-size:18px;font-weight:900;letter-spacing:2px}
+.fz-logo{width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:11px;border:1px solid #8298ad;background:linear-gradient(145deg,#173b5b,#050b12);color:#fff;font-size:15px;font-weight:900}
+.brand{font-size:16px;font-weight:900;letter-spacing:1.5px}
 .blue{color:#4da3ff}.silver{color:#aeb9c5}
-.header-right{display:flex;align-items:center;gap:10px}
+.header-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .profile-btn{
-  padding:8px 14px;border:1px solid #60768c;border-radius:8px;
-  color:#dce5ee;font-size:11px;font-weight:600;
+  padding:9px 14px;border:1px solid #60768c;border-radius:10px;
+  color:#dce5ee;font-size:11px;font-weight:600;background:#081421
 }
 .profile-btn:hover{border-color:#4da3ff;color:#4da3ff}
-.page{max-width:1250px;margin:auto;padding:55px 6% 80px;flex:1 0 auto;width:100%}
+.page{max-width:1250px;margin:auto;padding:40px 5% 70px;flex:1 0 auto;width:100%}
 .eyebrow{color:#6f879e;font-size:10px;letter-spacing:3px;font-weight:bold}
-.page-title{margin-bottom:30px}
-.page-title h1{margin-top:12px;font-size:46px}
+.page-title{margin-bottom:24px}
+.page-title h1{margin-top:10px;font-size:40px}
 .page-title h1 span{color:#4da3ff}
-.page-title p{margin-top:12px;color:#8295a9;line-height:1.7;font-size:13px}
-.back-btn{display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border:1px solid #30465c;border-radius:9px;background:#08131f;color:#cbd6e0;font-size:11px;font-weight:700;cursor:pointer;margin-bottom:22px}
+.page-title p{margin-top:10px;color:#8295a9;line-height:1.7;font-size:13px}
+.back-btn{display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border:1px solid #30465c;border-radius:9px;background:#08131f;color:#cbd6e0;font-size:11px;font-weight:700;cursor:pointer;margin-bottom:18px}
 .back-btn:hover{border-color:#4da3ff;color:#4da3ff}
 
-/* Search box */
-.search-area{position:relative;margin-bottom:18px}
+.search-area{position:relative;margin-bottom:16px}
 .search-box{
-  width:100%;height:54px;padding:0 16px 0 48px;
+  width:100%;height:52px;padding:0 16px 0 46px;
   background:#08131f;border:1px solid #30465c;border-radius:12px;
-  color:#fff;outline:none;font-size:14px;
+  color:#fff;outline:none;font-size:14px
 }
 .search-box:focus{border-color:#4da3ff}
 .search-icon{
   position:absolute;left:16px;top:50%;transform:translateY(-50%);
-  font-size:16px;color:#7f96ab;pointer-events:none;
+  font-size:15px;color:#7f96ab;pointer-events:none
 }
 
-.categories{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:30px}
+.categories{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:24px}
 .category-btn{padding:9px 14px;background:#091622;color:#9aaabd;border:1px solid #30465c;border-radius:25px;cursor:pointer;font-size:11px}
 .category-btn.active{background:#4da3ff;color:#04101c;border-color:#4da3ff;font-weight:bold}
-.product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:17px}
+
+.product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
 .product{background:#0a1725;border:1px solid #293e53;border-radius:16px;overflow:hidden;transition:.25s}
-.product:hover{transform:translateY(-5px);border-color:#52728f}
-.product-image{height:175px;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#17324d,#0a1420);font-size:55px;overflow:hidden}
-.product-image img{width:100%;height:100%;object-fit:cover}
-.product-info{padding:17px}
+.product:hover{transform:translateY(-4px);border-color:#52728f}
+
+/* No demo image — empty dark box if no photo */
+.product-image{
+  height:175px;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(145deg,#122536,#0a1420);overflow:hidden
+}
+.product-image img{width:100%;height:100%;object-fit:cover;display:block}
+
+.product-info{padding:15px}
 .product-category{display:inline-block;padding:5px 8px;border:1px solid #3a5269;border-radius:20px;color:#7f96ab;font-size:9px}
-.product-info h3{margin-top:12px;font-size:15px}
-.product-description{margin-top:7px;color:#788b9f;font-size:11px;line-height:1.5;min-height:34px}
-.product-bottom{margin-top:15px;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
-.price{font-size:18px;font-weight:900;color:#dbe4ed}
+.product-info h3{margin-top:10px;font-size:15px}
+.product-description{margin-top:6px;color:#788b9f;font-size:11px;line-height:1.5;min-height:32px}
+.product-bottom{margin-top:14px;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.price{font-size:17px;font-weight:900;color:#dbe4ed}
 .btn-row{display:flex;gap:6px}
 .add-btn,.buy-btn{
-  padding:7px 10px;border-radius:7px;font-size:10px;font-weight:700;cursor:pointer;border:1px solid transparent;
+  padding:7px 10px;border-radius:7px;font-size:10px;font-weight:700;cursor:pointer;border:1px solid transparent
 }
 .add-btn{background:#0d1c2b;border-color:#3d5870;color:#c5d2de}
 .add-btn:hover{border-color:#4da3ff;color:#4da3ff}
 .buy-btn{background:#4da3ff;color:#04101c;border-color:#4da3ff}
 .buy-btn:hover{background:#72b7ff}
-.no-results{display:none;padding:45px;text-align:center;border:1px dashed #405a72;border-radius:15px;color:#8194a8;background:#081421}
-.cart-bar{position:fixed;right:20px;bottom:20px;z-index:500}
-.cart-button{display:flex;align-items:center;gap:8px;padding:13px 17px;border-radius:12px;background:#4da3ff;color:#04101c;font-size:11px;font-weight:900;box-shadow:0 10px 30px rgba(0,0,0,.5)}
+
+.no-results{display:none;padding:40px;text-align:center;border:1px dashed #405a72;border-radius:15px;color:#8194a8;background:#081421}
+.cart-bar{position:fixed;right:18px;bottom:18px;z-index:500}
+.cart-button{display:flex;align-items:center;gap:8px;padding:12px 16px;border-radius:12px;background:#4da3ff;color:#04101c;font-size:11px;font-weight:900;box-shadow:0 10px 30px rgba(0,0,0,.45)}
 #cartCount{width:20px;height:20px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:#07111d;color:#fff;font-size:10px}
-.info-box{margin-top:60px;padding:30px;border:1px solid #293e53;border-radius:18px;background:#081421}
-.info-box h2{font-size:25px}.info-box h2 span{color:#4da3ff}
-.info-box p{margin-top:10px;color:#8194a8;font-size:13px;line-height:1.7}
-footer{padding:35px 7%;background:#03080e;border-top:1px solid #263b50;color:#7d90a4;font-size:11px;flex-shrink:0}
+.info-box{margin-top:48px;padding:24px;border:1px solid #293e53;border-radius:16px;background:#081421}
+.info-box h2{font-size:22px}.info-box h2 span{color:#4da3ff}
+.info-box p{margin-top:8px;color:#8194a8;font-size:13px;line-height:1.7}
+footer{padding:32px 6%;background:#03080e;border-top:1px solid #263b50;color:#7d90a4;font-size:12px;flex-shrink:0}
+footer .brand{font-size:18px;letter-spacing:2px}
+
 @media(max-width:950px){.product-grid{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:750px){.product-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:480px){.product-grid{grid-template-columns:1fr}.page-title h1{font-size:38px}.btn-row{width:100%;justify-content:stretch}.add-btn,.buy-btn{flex:1;text-align:center}}
+@media(max-width:480px){
+  .product-grid{grid-template-columns:1fr}
+  .page-title h1{font-size:32px}
+  .btn-row{width:100%}
+  .add-btn,.buy-btn{flex:1;text-align:center}
+  header{height:auto;padding:10px 3%;flex-wrap:wrap}
+  .header-right{width:100%}
+  .profile-btn{flex:1;text-align:center}
+}
 </style>
 </head>
 <body>
@@ -104,11 +121,11 @@ footer{padding:35px 7%;background:#03080e;border-top:1px solid #263b50;color:#7d
   </div>
 
   <div class="categories">
-    <button class="category-btn active" data-category="all">All</button>
-    <button class="category-btn" data-category="fashion">Fashion</button>
-    <button class="category-btn" data-category="electronics">Electronics</button>
-    <button class="category-btn" data-category="accessories">Accessories</button>
-    <button class="category-btn" data-category="personal">Personal Care</button>
+    <button type="button" class="category-btn active" data-category="all">All</button>
+    <button type="button" class="category-btn" data-category="fashion">Fashion</button>
+    <button type="button" class="category-btn" data-category="electronics">Electronics</button>
+    <button type="button" class="category-btn" data-category="accessories">Accessories</button>
+    <button type="button" class="category-btn" data-category="personal">Personal Care</button>
   </div>
 
   <div id="productGrid" class="product-grid"></div>
@@ -155,6 +172,15 @@ function normalizeCategory(cat){
   return CATEGORY_MAP[key] || "accessories";
 }
 
+function firstImage(p){
+  if(p.image) return String(p.image);
+  if(Array.isArray(p.images) && p.images[0]) return String(p.images[0]);
+  if(p.imageUrl) return String(p.imageUrl);
+  if(p.photo) return String(p.photo);
+  if(p.image1) return String(p.image1);
+  return "";
+}
+
 function loadProducts(liveProducts){
   products = liveProducts
     .filter(p => p.status === "Active" || !p.status)
@@ -164,7 +190,7 @@ function loadProducts(liveProducts){
       name: p.name || "Product",
       description: p.description || "",
       price: Number(p.price) || 0,
-      image: p.image || (Array.isArray(p.images) ? p.images[0] : "") || ""
+      image: firstImage(p)
     }));
   renderProducts();
 }
@@ -209,37 +235,55 @@ function renderProducts(){
   }
 
   noResults.style.display = "none";
-  grid.innerHTML = filtered.map(p => `
+
+  grid.innerHTML = filtered.map(p => {
+    const imgHtml = p.image
+      ? `<img src="\( {escapeHtml(p.image)}" alt=" \){escapeHtml(p.name)}" onerror="this.remove()">`
+      : ""; /* no demo emoji / no fake photo */
+
+    return `
     <article class="product">
-      <div class="product-image">
-        ${p.image
-          ? `<img src="\( {escapeHtml(p.image)}" alt=" \){escapeHtml(p.name)}">`
-          : "📦"}
-      </div>
+      <div class="product-image">${imgHtml}</div>
       <div class="product-info">
-        <span class="product-category">${p.category.toUpperCase()}</span>
+        <span class="product-category">${escapeHtml(p.category.toUpperCase())}</span>
         <h3>${escapeHtml(p.name)}</h3>
         <p class="product-description">${escapeHtml(p.description)}</p>
         <div class="product-bottom">
-          <div class="price">₹${p.price.toLocaleString("en-IN")}</div>
+          <div class="price">₹${Number(p.price).toLocaleString("en-IN")}</div>
           <div class="btn-row">
-            <button class="add-btn" onclick="addToCart('\( {escapeHtml(p.id)}',' \){escapeHtml(p.name)}',\( {p.price},' \){escapeHtml(p.image)}')">Add to Cart</button>
+            <button type="button" class="add-btn"
+              data-id="${escapeHtml(p.id)}"
+              data-name="${escapeHtml(p.name)}"
+              data-price="${p.price}"
+              data-image="${escapeHtml(p.image)}">Add to Cart</button>
             <a href="product-details.html?id=${encodeURIComponent(p.id)}" class="buy-btn">Buy Now</a>
           </div>
         </div>
       </div>
-    </article>
-  `).join("");
+    </article>`;
+  }).join("");
+
+  grid.querySelectorAll(".add-btn").forEach(btn => {
+    btn.onclick = function(){
+      addToCart(
+        btn.getAttribute("data-id"),
+        btn.getAttribute("data-name"),
+        Number(btn.getAttribute("data-price")),
+        btn.getAttribute("data-image") || ""
+      );
+    };
+  });
 }
 
-window.addToCart = function(id, name, price, image){
+function addToCart(id, name, price, image){
   try{
     let cart = JSON.parse(localStorage.getItem("fz_cart") || "[]");
+    if(!Array.isArray(cart)) cart = [];
     const existing = cart.find(item => item.id === id);
     if(existing){
-      existing.quantity = (existing.quantity || 1) + 1;
-    }else{
-      cart.push({ id, name, price, image, quantity: 1 });
+      existing.quantity = (Number(existing.quantity) || 1) + 1;
+    } else {
+      cart.push({ id: id, name: name, price: Number(price) || 0, image: image || "", quantity: 1 });
     }
     localStorage.setItem("fz_cart", JSON.stringify(cart));
     updateCartCount();
@@ -248,7 +292,7 @@ window.addToCart = function(id, name, price, image){
     console.error(e);
     alert("Could not add to cart");
   }
-};
+}
 
 function updateCartCount(){
   try{
@@ -272,7 +316,7 @@ document.querySelectorAll(".category-btn").forEach(btn => {
 document.getElementById("backButton").addEventListener("click", () => {
   if(document.referrer && document.referrer.includes(location.host)){
     history.back();
-  }else{
+  } else {
     location.href = "home.html";
   }
 });
