@@ -281,7 +281,7 @@ function render(){
   empty.style.display = "none";
   box.style.display = "flex";
   
-  box.innerHTML = list.map(n => 
+  box.innerHTML = list.map(n => {
   const readLabel = n.read ? "MARK UNREAD" : "MARK AS READ";
   const unreadClass = n.read ? "" : "unread";
   return `
