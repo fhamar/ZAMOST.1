@@ -282,7 +282,7 @@ function render(){
   box.style.display = "flex";
   
   box.innerHTML = list.map(n => 
-    <button type="button" class="mini" data-read="${n.id}">MARK AS READ</button>
+  const readLabel = n.read ? "MARK UNREAD" : "MARK AS READ";
   const unreadClass = n.read ? "" : "unread";
   return `
     <article class="card \( {unreadClass}" data-id=" \){n.id}">
