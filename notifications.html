@@ -3,457 +3,380 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Notifications | FHAMAR ZAMOST</title>
+<title>Notification Center | FHAMAR ZAMOST</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
-body{background:#050b12;color:#fff}button,input,select{font-family:inherit}button{cursor:pointer}a{text-decoration:none;color:inherit}
-header{height:75px;padding:0 5%;display:flex;align-items:center;justify-content:space-between;background:#07111d;border-bottom:1px solid #30465d;position:sticky;top:0;z-index:1000}
-.brand-area{display:flex;align-items:center;gap:10px}.fz-logo{width:45px;height:45px;display:flex;align-items:center;justify-content:center;border-radius:12px;border:1px solid #8298ad;background:linear-gradient(145deg,#173b5b,#050b12);color:#4da3ff;font-size:17px;font-weight:900}.brand{font-size:18px;font-weight:900;letter-spacing:2px}.blue{color:#4da3ff}.silver{color:#aeb9c5}
-.header-right{display:flex;align-items:center;gap:10px}.portal-btn{padding:9px 13px;border:1px solid #526b82;border-radius:8px;color:#dce5ed;font-size:10px}.role-badge{padding:8px 11px;border:1px solid #3c5870;border-radius:20px;color:#4da3ff;font-size:9px;font-weight:bold}
-.page{max-width:1000px;margin:auto;padding:45px 5% 80px}.eyebrow{color:#71869c;font-size:9px;letter-spacing:3px;font-weight:bold}.title{margin-top:10px;font-size:38px}.title span{color:#4da3ff}.subtitle{margin-top:9px;color:#8295a8;font-size:12px;line-height:1.7}
-.summary{margin-top:25px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.summary-card{padding:18px;border:1px solid #293f55;border-radius:13px;background:#081421}.summary-card small{color:#71869c;font-size:8px}.summary-card strong{display:block;margin-top:8px;font-size:23px}.blue-number{color:#4da3ff}
-.toolbar{margin-top:25px;padding:17px;border:1px solid #293f55;border-radius:13px;background:#081421;display:flex;align-items:center;gap:10px;flex-wrap:wrap}.search{flex:1;min-width:200px;height:43px;padding:0 12px;border-radius:8px;border:1px solid #30465c;background:#050c14;color:white;outline:none;font-size:11px}.filter{height:43px;padding:0 12px;border-radius:8px;border:1px solid #30465c;background:#050c14;color:#dce5ed;outline:none;font-size:10px}.toolbar-btn{height:43px;padding:0 13px;border-radius:8px;border:1px solid #40586f;background:#0a1725;color:#b9c7d4;font-size:9px;font-weight:bold}.toolbar-btn:hover,.small-btn:hover{border-color:#4da3ff;color:#4da3ff}
-.notification-list{margin-top:18px;display:grid;gap:10px}.notification{position:relative;padding:18px;border:1px solid #293f55;border-radius:13px;background:#081421;display:flex;gap:15px;align-items:flex-start;transition:.2s}.notification:hover{border-color:#405b73}.notification.unread{border-left:3px solid #4da3ff;background:#091826}.notification-icon{width:43px;height:43px;min-width:43px;border-radius:11px;display:flex;align-items:center;justify-content:center;background:#102b42;border:1px solid #355774;font-size:18px}.notification-body{flex:1}.notification-top{display:flex;align-items:center;justify-content:space-between;gap:10px}.notification-title{color:#dce5ed;font-size:13px;font-weight:bold}.notification-time{color:#62778b;font-size:8px;white-space:nowrap}.notification-text{margin-top:6px;color:#8295a8;font-size:10px;line-height:1.7}.notification-type{display:inline-block;margin-top:8px;padding:5px 8px;border-radius:12px;background:#0b2032;border:1px solid #304e68;color:#4da3ff;font-size:7px;font-weight:bold}.notification-actions{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}.small-btn{padding:7px 9px;border-radius:6px;border:1px solid #354d64;background:#07111d;color:#9aabba;font-size:8px}.small-btn.delete:hover{border-color:#a85c5c;color:#ff9999}
-.empty{display:none;margin-top:18px;padding:45px 20px;text-align:center;border:1px dashed #354d64;border-radius:13px;background:#081421;color:#71869c}.empty-icon{font-size:35px;margin-bottom:12px}.empty h3{color:#aebdca;font-size:15px}.empty p{margin-top:7px;font-size:10px}
-.api-note{margin-top:25px;padding:17px;border:1px dashed #405a72;border-radius:10px;background:#06101a;color:#74899d;font-size:9px;line-height:1.8;text-align:center}
-footer{padding:35px 7%;background:#03080e;border-top:1px solid #263b50;color:#7d90a4;font-size:11px}
-.toast{position:fixed;left:50%;bottom:25px;transform:translateX(-50%) translateY(20px);background:#0d2234;border:1px solid #4da3ff;color:#dce5ed;padding:12px 16px;border-radius:9px;font-size:10px;opacity:0;pointer-events:none;transition:.25s;z-index:3000}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-@media(max-width:700px){header{padding:0 4%}.role-badge{display:none}.page{padding:30px 5% 65px}.title{font-size:31px}.summary{grid-template-columns:1fr 1fr}.summary-card:last-child{grid-column:1/-1}.notification{padding:14px}.notification-top{flex-direction:column;align-items:flex-start}.notification-time{margin-top:3px}}
-@media(max-width:450px){.summary{grid-template-columns:1fr}.summary-card:last-child{grid-column:auto}.notification-icon{width:38px;height:38px;min-width:38px;font-size:16px}.notification{gap:10px}}
+html,body{height:100%;min-height:100%}
+body{
+  min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;
+  background:#050b12;color:#fff
+}
+a{text-decoration:none;color:inherit}
+button{font-family:inherit;cursor:pointer}
+
+header{
+  flex-shrink:0;height:64px;padding:0 4%;display:flex;align-items:center;justify-content:space-between;
+  background:#07111d;border-bottom:1px solid #30465d;position:sticky;top:0;z-index:100;gap:10px
+}
+.brand-area{display:flex;align-items:center;gap:10px}
+.fz-logo{
+  width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:11px;
+  border:1px solid #8298ad;background:linear-gradient(145deg,#173b5b,#050b12);color:#fff;font-size:15px;font-weight:900
+}
+.brand{font-size:16px;font-weight:900;letter-spacing:1.5px}
+.blue{color:#4da3ff}.silver{color:#aeb9c5}
+.header-right{display:flex;gap:8px;flex-wrap:wrap}
+.header-btn{
+  padding:9px 14px;border:1px solid #526b82;border-radius:10px;background:#081421;
+  color:#dce5ed;font-size:11px;font-weight:600
+}
+.header-btn:hover,.header-btn.active{border-color:#4da3ff;color:#4da3ff}
+
+.page{flex:1 0 auto;width:100%;max-width:900px;margin:0 auto;padding:32px 4% 40px}
+.eyebrow{color:#6f879e;font-size:10px;letter-spacing:2.5px;font-weight:bold}
+.title{margin-top:8px;font-size:32px}
+.title span{color:#4da3ff}
+.subtitle{margin-top:8px;color:#8295a9;font-size:13px;line-height:1.6}
+
+.role-pill{
+  display:inline-block;margin-top:12px;padding:6px 12px;border-radius:16px;
+  border:1px solid #3d5870;color:#4da3ff;font-size:10px;font-weight:700
+}
+
+.stats{margin-top:20px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.stat{padding:14px;border:1px solid #293f55;border-radius:12px;background:#081421}
+.stat small{display:block;color:#71869c;font-size:9px;letter-spacing:1px}
+.stat strong{display:block;margin-top:6px;font-size:22px}
+
+.toolbar{margin-top:16px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.search{
+  flex:1;min-width:160px;height:42px;padding:0 12px;border-radius:10px;
+  border:1px solid #30465c;background:#08131f;color:#fff;outline:none;font-size:13px
+}
+.filter,.action-btn{
+  height:42px;padding:0 12px;border-radius:10px;border:1px solid #30465c;
+  background:#0a1725;color:#c5d2de;font-size:11px;font-weight:700
+}
+.action-btn:hover{border-color:#4da3ff;color:#4da3ff}
+
+.list{margin-top:18px;display:flex;flex-direction:column;gap:10px}
+.card{
+  padding:16px;border-radius:14px;border:1px solid #293f55;background:#0a1622;
+  transition:.2s
+}
+.card.unread{border-color:#3a5f7d;background:#0c1a2a}
+.card-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.card-title{font-size:14px;font-weight:700;display:flex;align-items:center;gap:8px}
+.card-time{color:#6f879e;font-size:11px;white-space:nowrap}
+.card-body{margin-top:8px;color:#8fa1b4;font-size:12px;line-height:1.55}
+.tag{
+  display:inline-block;margin-top:10px;padding:4px 8px;border-radius:12px;
+  border:1px solid #3a5269;color:#7f96ab;font-size:9px;font-weight:700;letter-spacing:.5px
+}
+.card-actions{margin-top:12px;display:flex;gap:6px;flex-wrap:wrap}
+.mini{
+  padding:7px 10px;border-radius:8px;border:1px solid #3d5870;background:#0d1c2b;
+  color:#c5d2de;font-size:10px;font-weight:700
+}
+.mini:hover{border-color:#4da3ff;color:#4da3ff}
+.mini.danger{border-color:#6d4d4d;color:#ffb1b1}
+
+.empty{
+  padding:36px;text-align:center;border:1px dashed #405a72;border-radius:14px;
+  color:#8194a8;background:#081421;font-size:13px
+}
+.loading{padding:30px;text-align:center;color:#8194a8;font-size:13px}
+
+.note{
+  margin-top:22px;padding:16px;border-radius:12px;border:1px solid #293f55;
+  background:#081421;color:#7f92a6;font-size:12px;line-height:1.6;text-align:center
+}
+
+footer{
+  flex-shrink:0;margin-top:auto;width:100%;padding:32px 6%;
+  background:#03080e;border-top:1px solid #263b50;color:#7d90a4;font-size:12px
+}
+footer .brand{font-size:18px;letter-spacing:2px}
+footer p{margin-top:6px}
+
+@media(max-width:600px){
+  header{height:auto;padding:10px 3%;flex-wrap:wrap}
+  .header-right{width:100%}
+  .header-btn{flex:1;text-align:center;font-size:10px}
+  .stats{grid-template-columns:1fr}
+  .title{font-size:26px}
+  .toolbar{flex-direction:column;align-items:stretch}
+  .filter,.action-btn{width:100%}
+}
 </style>
 </head>
 <body>
 
 <header>
-<div class="brand-area"><div class="fz-logo">FZ</div><div class="brand"><span class="blue">FHAMAR</span><span class="silver">.ZAMOST</span></div></div>
-<div class="header-right"><div class="role-badge">NOTIFICATION CENTER</div><a href="Profile.html" class="portal-btn">MY PORTAL</a></div>
+  <div class="brand-area">
+    <div class="fz-logo">FZ</div>
+    <div class="brand"><span class="blue">FHAMAR</span><span class="silver">.ZAMOST</span></div>
+  </div>
+  <div class="header-right">
+    <a href="notifications.html" class="header-btn active">NOTIFICATION CENTER</a>
+    <a href="Profile.html" class="header-btn">MY PORTAL</a>
+    <a href="home.html" class="header-btn">HOME</a>
+  </div>
 </header>
 
 <main class="page">
-<div class="eyebrow">FHAMAR.ZAMOST NOTIFICATION SYSTEM</div>
-<h1 class="title">Notification <span>Center</span></h1>
-<p class="subtitle">Stay updated with your orders, payments, team registration, voting and important system activity.</p>
+  <div class="eyebrow">FHAMAR.ZAMOST NOTIFICATION SYSTEM</div>
+  <h1 class="title">Notification <span>Center</span></h1>
+  <p class="subtitle" id="subtitleText">Stay updated with your activity.</p>
+  <div class="role-pill" id="rolePill">Checking account...</div>
 
-<div class="summary">
-<div class="summary-card"><small>TOTAL NOTIFICATIONS</small><strong id="totalCount" class="blue-number">0</strong></div>
-<div class="summary-card"><small>UNREAD</small><strong id="unreadCount">0</strong></div>
-<div class="summary-card"><small>TODAY</small><strong id="todayCount">0</strong></div>
-</div>
+  <div class="stats">
+    <div class="stat"><small>TOTAL</small><strong id="statTotal">0</strong></div>
+    <div class="stat"><small>UNREAD</small><strong id="statUnread">0</strong></div>
+    <div class="stat"><small>TODAY</small><strong id="statToday">0</strong></div>
+  </div>
 
-<div class="toolbar">
-<input id="searchInput" class="search" placeholder="Search notifications..." oninput="renderNotifications()">
-<select id="filterType" class="filter" onchange="renderNotifications()">
-<option value="all">All Notifications</option><option value="order">Orders</option><option value="payment">Payments</option><option value="team">Team</option><option value="voting">Voting</option><option value="stock">Stock</option><option value="system">System</option>
-</select>
-<button class="toolbar-btn" onclick="markAllRead()">MARK ALL READ</button>
-<button class="toolbar-btn" onclick="clearAll()">CLEAR ALL</button>
-</div>
+  <div class="toolbar">
+    <input id="searchBox" class="search" type="text" placeholder="Search notifications...">
+    <select id="filterBox" class="filter">
+      <option value="all">All</option>
+      <option value="unread">Unread</option>
+      <option value="order">Orders</option>
+      <option value="payment">Payment</option>
+      <option value="team">Team</option>
+      <option value="voting">Voting</option>
+      <option value="system">System</option>
+    </select>
+    <button type="button" class="action-btn" id="btnMarkAll">MARK ALL READ</button>
+    <button type="button" class="action-btn" id="btnClearAll">CLEAR ALL</button>
+  </div>
 
-<div id="notificationList" class="notification-list"></div>
-<div id="emptyState" class="empty"><div class="empty-icon">🔔</div><h3>No Notifications</h3><p>You are all caught up.</p></div>
+  <div id="loading" class="loading">Loading notifications...</div>
+  <div id="list" class="list" style="display:none"></div>
+  <div id="empty" class="empty" style="display:none">No notifications right now.</div>
 
-<div class="api-note">
-<b>FHAMAR.ZAMOST NOTIFICATION SERVICE</b><br><br>
-Your notifications are organized by account and activity.<br>
-Order, payment, voting, team and important account updates can appear here.
-</div>
+  <div class="note" id="footerNote">
+    Notifications your role ke hisaab se filter hoti hain — Customer aur Team alag list dekhte hain.
+  </div>
 </main>
 
-<footer><div class="brand"><span class="blue">FHAMAR</span><span class="silver">.ZAMOST</span></div><p>Notifications • Orders • Team • Account</p></footer>
-<div id="toast" class="toast"></div>
+<footer>
+  <div class="brand"><span class="blue">FHAMAR</span><span class="silver">.ZAMOST</span></div>
+  <p>Notifications • Orders • Team • Account</p>
+</footer>
 
 <script type="module">
 import { app } from "./firebase-config.js";
-import {
-    getAuth,
-    onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
-import {
-    getFirestore,
-    collection,
-    query,
-    where,
-    orderBy,
-    onSnapshot,
-    doc,
-    updateDoc,
-    deleteDoc,
-    writeBatch
-} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 const auth = getAuth(app);
 const db = getFirestore(app);
+const $ = (id) => document.getElementById(id);
 
-const STORAGE_KEY = "fz_notifications";
-let notifications = [];
-let currentUser = null;
-let unsubscribeNotifications = null;
+const STORAGE_KEY = "fz_notifications_v2";
 
-const fallbackNotifications = [
-    {
-        id:"demo-order-1",
-        type:"order",
-        icon:"📦",
-        title:"Order Update",
-        text:"Your order has been confirmed and is being prepared.",
-        time:"Just now",
-        createdAt:new Date().toISOString(),
-        unread:true,
-        link:"track-order.html"
-    },
-    {
-        id:"demo-payment-1",
-        type:"payment",
-        icon:"💳",
-        title:"Payment Update",
-        text:"Your payment information has been updated.",
-        time:"Today",
-        createdAt:new Date().toISOString(),
-        unread:true,
-        link:"track-order.html"
-    },
-    {
-        id:"demo-team-1",
-        type:"team",
-        icon:"👥",
-        title:"Team Registration Update",
-        text:"Your Team Member registration status has an update.",
-        time:"Today",
-        createdAt:new Date().toISOString(),
-        unread:false,
-        link:"Profile.html"
-    },
-    {
-        id:"demo-voting-1",
-        type:"voting",
-        icon:"🗳️",
-        title:"New Voting",
-        text:"A new member voting proposal is available.",
-        time:"Today",
-        createdAt:new Date().toISOString(),
-        unread:false,
-        link:"voting.html"
-    },
-    {
-        id:"demo-system-1",
-        type:"system",
-        icon:"⚙️",
-        title:"Account Update",
-        text:"Your FHAMAR.ZAMOST account is ready to manage.",
-        time:"Today",
-        createdAt:new Date().toISOString(),
-        unread:false,
-        link:"Profile.html"
-    }
-];
-
-function $(id){ return document.getElementById(id); }
-
-function escapeHTML(value){
-    return String(value ?? "").replace(/[&<>"']/g, m => ({
-        "&":"&amp;",
-        "<":"&lt;",
-        ">":"&gt;",
-        '"':"&quot;",
-        "'":"&#039;"
-    }[m]));
+/* ===== Role-based default notifications ===== */
+function customerDefaults(){
+  return [
+    { id:"c1", type:"order", title:"Order Update", body:"Your order has been confirmed and is being prepared.", time: Date.now()-1000*60*5, read:false, icon:"📦", tag:"ORDER", link:"track-order.html" },
+    { id:"c2", type:"payment", title:"Payment Update", body:"Your payment information has been updated.", time: Date.now()-1000*60*60*2, read:true, icon:"💳", tag:"PAYMENT", link:"Profile.html" },
+    { id:"c3", type:"system", title:"Account Update", body:"Your FHAMAR.ZAMOST account is ready to manage.", time: Date.now()-1000*60*60*5, read:true, icon:"⚙️", tag:"SYSTEM", link:"Profile.html" },
+    { id:"c4", type:"order", title:"Track Your Order", body:"You can track status anytime from Track Order page.", time: Date.now()-1000*60*60*8, read:true, icon:"📍", tag:"ORDER", link:"track-order.html" }
+  ];
 }
 
-function typeName(type){
-    return ({
-        order:"ORDER",
-        payment:"PAYMENT",
-        team:"TEAM",
-        voting:"VOTING",
-        stock:"STOCK",
-        system:"SYSTEM"
-    })[type] || "SYSTEM";
+function teamDefaults(){
+  return [
+    { id:"t1", type:"team", title:"Team Registration Update", body:"Your Team Member registration status has an update.", time: Date.now()-1000*60*10, read:false, icon:"👥", tag:"TEAM", link:"team.html" },
+    { id:"t2", type:"order", title:"New State Order", body:"A new order may be available for your assigned state. Open Team Dashboard.", time: Date.now()-1000*60*40, read:false, icon:"📦", tag:"ORDER", link:"team.html" },
+    { id:"t3", type:"voting", title:"New Voting", body:"A new member voting proposal is available.", time: Date.now()-1000*60*60*3, read:true, icon:"🗳️", tag:"VOTING", link:"voting.html" },
+    { id:"t4", type:"system", title:"Team Tools Ready", body:"Product upload, labels and delivery tools are available in Team Dashboard.", time: Date.now()-1000*60*60*6, read:true, icon:"🛠️", tag:"SYSTEM", link:"team.html" }
+  ];
 }
 
-function loadLocal(){
-    try{
-        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
-        return Array.isArray(saved) ? saved : [];
-    }catch(e){
-        return [];
-    }
+function adminDefaults(){
+  return [
+    { id:"a1", type:"team", title:"Pending Team Applications", body:"Check Admin Desk for pending team member applications.", time: Date.now()-1000*60*8, read:false, icon:"👥", tag:"TEAM", link:"admin.html" },
+    { id:"a2", type:"order", title:"Orders Overview", body:"Review state-wise orders and no-team states from Admin Desk.", time: Date.now()-1000*60*30, read:false, icon:"📦", tag:"ORDER", link:"admin.html" },
+    { id:"a3", type:"voting", title:"Voting Results", body:"Latest voting results are available in Admin Desk.", time: Date.now()-1000*60*60*2, read:true, icon:"🗳️", tag:"VOTING", link:"admin.html" },
+    { id:"a4", type:"payment", title:"Payment Settings", body:"Razorpay public settings can be managed from Admin Desk.", time: Date.now()-1000*60*60*4, read:true, icon:"💳", tag:"PAYMENT", link:"admin.html" },
+    { id:"a5", type:"system", title:"System Ready", body:"Administrative Desk is active for full control.", time: Date.now()-1000*60*60*7, read:true, icon:"⚙️", tag:"SYSTEM", link:"admin.html" }
+  ];
 }
 
-function saveLocal(){
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(notifications));
+let role = "customer"; // customer | team | admin
+let items = [];
+
+function loadStore(roleKey){
+  try{
+    const all = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+    if(Array.isArray(all[roleKey]) && all[roleKey].length) return all[roleKey];
+  }catch(e){}
+  return null;
 }
 
-function formatTime(createdAt, fallback){
-    if(!createdAt) return fallback || "";
-    let date;
-    try{
-        date = typeof createdAt?.toDate === "function"
-            ? createdAt.toDate()
-            : new Date(createdAt);
-        if(Number.isNaN(date.getTime())) return fallback || "";
-    }catch(e){
-        return fallback || "";
-    }
-
-    const diff = Date.now() - date.getTime();
-    if(diff < 60000) return "Just now";
-    if(diff < 3600000) return Math.floor(diff/60000) + " min ago";
-    if(diff < 86400000) return Math.floor(diff/3600000) + " hour" + (Math.floor(diff/3600000) === 1 ? "" : "s") + " ago";
-    if(diff < 172800000) return "Yesterday";
-    return date.toLocaleDateString();
+function saveStore(){
+  try{
+    const all = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+    all[role] = items;
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(all));
+  }catch(e){}
 }
 
-function normalizeNotification(data, id){
-    return {
-        id: id || data.id || crypto.randomUUID(),
-        type: data.type || "system",
-        icon: data.icon || "🔔",
-        title: data.title || "Notification",
-        text: data.text || data.message || "",
-        time: formatTime(data.createdAt, data.time || ""),
-        createdAt: data.createdAt || new Date().toISOString(),
-        unread: data.unread !== false && data.read !== true,
-        link: data.link || data.actionUrl || ""
+function seedForRole(){
+  const saved = loadStore(role);
+  if(saved){ items = saved; return; }
+  if(role === "admin") items = adminDefaults();
+  else if(role === "team") items = teamDefaults();
+  else items = customerDefaults();
+  saveStore();
+}
+
+function isToday(ts){
+  const d = new Date(ts), n = new Date();
+  return d.getDate()===n.getDate() && d.getMonth()===n.getMonth() && d.getFullYear()===n.getFullYear();
+}
+
+function timeLabel(ts){
+  const diff = Date.now() - ts;
+  if(diff < 60*1000) return "Just now";
+  if(diff < 60*60*1000) return Math.floor(diff/60000) + " min ago";
+  if(isToday(ts)) return "Today";
+  return new Date(ts).toLocaleDateString("en-IN", { day:"2-digit", month:"short" });
+}
+
+function updateStats(list){
+  $("statTotal").textContent = list.length;
+  $("statUnread").textContent = list.filter(x => !x.read).length;
+  $("statToday").textContent = list.filter(x => isToday(x.time)).length;
+}
+
+function filtered(){
+  const q = ($("searchBox").value || "").toLowerCase().trim();
+  const f = $("filterBox").value;
+  return items.filter(n => {
+    const text = (n.title + " " + n.body + " " + n.tag).toLowerCase();
+    const matchQ = !q || text.includes(q);
+    let matchF = true;
+    if(f === "unread") matchF = !n.read;
+    else if(f !== "all") matchF = n.type === f;
+    return matchQ && matchF;
+  });
+}
+
+function render(){
+  $("loading").style.display = "none";
+  const list = filtered();
+  updateStats(items);
+
+  const box = $("list");
+  const empty = $("empty");
+  if(!list.length){
+    box.style.display = "none";
+    empty.style.display = "block";
+    empty.textContent = items.length ? "No matching notifications." : "No notifications right now.";
+    return;
+  }
+  empty.style.display = "none";
+  box.style.display = "flex";
+
+  box.innerHTML = list.map(n => `
+    <article class="card \( {n.read ? "" : "unread"}" data-id=" \){n.id}">
+      <div class="card-top">
+        <div class="card-title">${n.icon || "🔔"} ${escapeHtml(n.title)}</div>
+        <div class="card-time">${timeLabel(n.time)}</div>
+      </div>
+      <div class="card-body">${escapeHtml(n.body)}</div>
+      <span class="tag">${escapeHtml(n.tag || n.type.toUpperCase())}</span>
+      <div class="card-actions">
+        <button type="button" class="mini" data-open="${n.id}">OPEN</button>
+        <button type="button" class="mini" data-read="\( {n.id}"> \){n.read ? "MARK UNREAD" : "MARK AS READ"}</button>
+        <button type="button" class="mini danger" data-del="${n.id}">DELETE</button>
+      </div>
+    </article>
+  `).join("");
+
+  box.querySelectorAll("[data-open]").forEach(btn => {
+    btn.onclick = () => {
+      const id = btn.getAttribute("data-open");
+      const n = items.find(x => x.id === id);
+      if(!n) return;
+      n.read = true;
+      saveStore();
+      render();
+      if(n.link) location.href = n.link;
     };
+  });
+  box.querySelectorAll("[data-read]").forEach(btn => {
+    btn.onclick = () => {
+      const id = btn.getAttribute("data-read");
+      const n = items.find(x => x.id === id);
+      if(!n) return;
+      n.read = !n.read;
+      saveStore();
+      render();
+    };
+  });
+  box.querySelectorAll("[data-del]").forEach(btn => {
+    btn.onclick = () => {
+      const id = btn.getAttribute("data-del");
+      items = items.filter(x => x.id !== id);
+      saveStore();
+      render();
+    };
+  });
 }
 
-function renderNotifications(){
-    const list = $("notificationList");
-    const search = $("searchInput").value.toLowerCase().trim();
-    const filter = $("filterType").value;
-
-    const filtered = notifications.filter(item => {
-        const text = (item.title + " " + item.text + " " + typeName(item.type)).toLowerCase();
-        return text.includes(search) && (filter === "all" || item.type === filter);
-    });
-
-    list.innerHTML = filtered.map(item => `
-        <div class="notification ${item.unread ? "unread" : ""}">
-            <div class="notification-icon">${escapeHTML(item.icon)}</div>
-            <div class="notification-body">
-                <div class="notification-top">
-                    <div class="notification-title">${escapeHTML(item.title)}</div>
-                    <div class="notification-time">${escapeHTML(item.time)}</div>
-                </div>
-                <div class="notification-text">${escapeHTML(item.text)}</div>
-                <div class="notification-type">${typeName(item.type)}</div>
-                <div class="notification-actions">
-                    ${item.link ? `<button class="small-btn" onclick="openNotification('${escapeHTML(item.id)}')">OPEN</button>` : ""}
-                    ${item.unread
-                        ? `<button class="small-btn" onclick="markRead('${escapeHTML(item.id)}')">MARK AS READ</button>`
-                        : `<button class="small-btn" onclick="markUnread('${escapeHTML(item.id)}')">MARK UNREAD</button>`}
-                    <button class="small-btn delete" onclick="deleteNotification('${escapeHTML(item.id)}')">DELETE</button>
-                </div>
-            </div>
-        </div>
-    `).join("");
-
-    updateCounts();
-    $("emptyState").style.display = filtered.length ? "none" : "block";
+function escapeHtml(v){
+  return String(v ?? "").replace(/[&<>"']/g, c => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+  }[c]));
 }
 
-function updateCounts(){
-    const todayKey = new Date().toDateString();
-
-    const today = notifications.filter(item => {
-        const d = item.createdAt?.toDate ? item.createdAt.toDate() : new Date(item.createdAt || Date.now());
-        return d.toDateString() === todayKey;
-    }).length;
-
-    $("totalCount").textContent = notifications.length;
-    $("unreadCount").textContent = notifications.filter(item => item.unread).length;
-    $("todayCount").textContent = today;
+function applyRoleUI(){
+  if(role === "admin"){
+    $("rolePill").textContent = "ADMIN VIEW";
+    $("subtitleText").textContent = "Admin Desk, team apps, orders, voting & payment alerts.";
+    $("footerNote").textContent = "Admin notifications — full system overview.";
+  } else if(role === "team"){
+    $("rolePill").textContent = "TEAM MEMBER VIEW";
+    $("subtitleText").textContent = "State orders, team status, voting and team tools.";
+    $("footerNote").textContent = "Team notifications — customer order alerts alag rehte hain.";
+  } else {
+    $("rolePill").textContent = "CUSTOMER VIEW";
+    $("subtitleText").textContent = "Orders, payments and account updates for your shopping.";
+    $("footerNote").textContent = "Customer notifications — team tools yahan nahi dikhte.";
+  }
 }
 
-function showToast(text){
-    const toast = $("toast");
-    toast.textContent = text;
-    toast.classList.add("show");
-    clearTimeout(window.toastTimer);
-    window.toastTimer = setTimeout(() => toast.classList.remove("show"), 2200);
-}
+$("searchBox").addEventListener("input", render);
+$("filterBox").addEventListener("change", render);
+$("btnMarkAll").onclick = () => { items.forEach(n => n.read = true); saveStore(); render(); };
+$("btnClearAll").onclick = () => {
+  if(!confirm("Clear all notifications for this account type?")) return;
+  items = [];
+  saveStore();
+  render();
+};
 
-function findNotification(id){
-    return notifications.find(n => String(n.id) === String(id));
-}
-
-async function markRead(id){
-    const item = findNotification(id);
-    if(!item) return;
-
-    item.unread = false;
-    saveLocal();
-    renderNotifications();
-
-    if(currentUser && !String(id).startsWith("demo-")){
-        try{
-            await updateDoc(doc(db, "notifications", String(id)), {
-                unread:false,
-                read:true
-            });
-        }catch(e){
-            console.warn("Could not sync read state:", e);
-        }
-    }
-    showToast("Notification marked as read.");
-}
-
-async function markUnread(id){
-    const item = findNotification(id);
-    if(!item) return;
-
-    item.unread = true;
-    saveLocal();
-    renderNotifications();
-
-    if(currentUser && !String(id).startsWith("demo-")){
-        try{
-            await updateDoc(doc(db, "notifications", String(id)), {
-                unread:true,
-                read:false
-            });
-        }catch(e){
-            console.warn("Could not sync unread state:", e);
-        }
-    }
-    showToast("Notification marked as unread.");
-}
-
-async function markAllRead(){
-    const realItems = notifications.filter(n => !String(n.id).startsWith("demo-"));
-    notifications.forEach(item => item.unread = false);
-    saveLocal();
-    renderNotifications();
-
-    if(currentUser && realItems.length){
-        try{
-            const batch = writeBatch(db);
-            realItems.forEach(item => {
-                batch.update(doc(db, "notifications", String(item.id)), {
-                    unread:false,
-                    read:true
-                });
-            });
-            await batch.commit();
-        }catch(e){
-            console.warn("Could not sync all-read state:", e);
-        }
-    }
-    showToast("All notifications marked as read.");
-}
-
-async function deleteNotification(id){
-    const item = findNotification(id);
-    if(!item) return;
-    if(!confirm("Delete this notification?")) return;
-
-    notifications = notifications.filter(n => String(n.id) !== String(id));
-    saveLocal();
-    renderNotifications();
-
-    if(currentUser && !String(id).startsWith("demo-")){
-        try{
-            await deleteDoc(doc(db, "notifications", String(id)));
-        }catch(e){
-            console.warn("Could not delete cloud notification:", e);
-        }
-    }
-    showToast("Notification deleted.");
-}
-
-async function clearAll(){
-    if(!notifications.length){
-        showToast("There are no notifications to clear.");
-        return;
-    }
-
-    if(!confirm("Clear all notifications?")) return;
-
-    const realItems = notifications.filter(n => !String(n.id).startsWith("demo-"));
-    notifications = [];
-    saveLocal();
-    renderNotifications();
-
-    if(currentUser && realItems.length){
-        try{
-            const batch = writeBatch(db);
-            realItems.forEach(item => {
-                batch.delete(doc(db, "notifications", String(item.id)));
-            });
-            await batch.commit();
-        }catch(e){
-            console.warn("Could not clear cloud notifications:", e);
-        }
-    }
-    showToast("All notifications cleared.");
-}
-
-function openNotification(id){
-    const item = findNotification(id);
-    if(!item) return;
-
-    if(item.unread) markRead(id);
-
-    if(item.link){
-        window.location.href = item.link;
-    }else{
-        showToast("No linked page is available for this notification.");
-    }
-}
-
-window.renderNotifications = renderNotifications;
-window.markRead = markRead;
-window.markUnread = markUnread;
-window.markAllRead = markAllRead;
-window.deleteNotification = deleteNotification;
-window.clearAll = clearAll;
-window.openNotification = openNotification;
-
-function startNotificationListener(user){
-    if(unsubscribeNotifications) unsubscribeNotifications();
-
-    // Load a local cache immediately while Firebase connects.
-    const local = loadLocal();
-    notifications = local.length ? local : fallbackNotifications;
-    renderNotifications();
-
-    const notificationsRef = collection(db, "notifications");
-
-    // Account-specific query. Recommended Firestore document fields:
-    // uid, type, title, text/message, icon, unread/read, createdAt, link/actionUrl.
-    const q = query(
-        notificationsRef,
-        where("uid", "==", user.uid),
-        orderBy("createdAt", "desc")
-    );
-
-    unsubscribeNotifications = onSnapshot(q, snapshot => {
-        notifications = snapshot.docs.map(d => normalizeNotification(d.data(), d.id));
-        saveLocal();
-        renderNotifications();
-    }, error => {
-        console.warn("Notification realtime connection error:", error);
-
-        // Keep cached notifications visible if Firestore rules/index are not ready.
-        const local = loadLocal();
-        notifications = local.length ? local : fallbackNotifications;
-        renderNotifications();
-        showToast("Showing saved notifications.");
-    });
-}
-
-onAuthStateChanged(auth, user => {
-    currentUser = user;
-
-    if(!user){
-        notifications = [];
-        renderNotifications();
-        showToast("Please sign in to view your notifications.");
-        setTimeout(() => window.location.replace("index.html"), 700);
-        return;
-    }
-
-    startNotificationListener(user);
+onAuthStateChanged(auth, async (user) => {
+  role = "customer";
+  if(user){
+    try{
+      const snap = await getDoc(doc(db, "users", user.uid));
+      const data = snap.exists() ? snap.data() : {};
+      const r = String(data.role || data.userRole || "").toLowerCase().replace(/[\s-]/g, "_");
+      if(data.role === "admin" || data.adminAccess === true || r === "admin") role = "admin";
+      else if(["team_member","teammember","team"].includes(r) &&
+              ["approved","active",""].includes(String(data.status || "approved").toLowerCase())){
+        role = "team";
+      }
+    }catch(e){ console.warn(e); }
+  }
+  applyRoleUI();
+  seedForRole();
+  render();
 });
 </script>
 </body>
