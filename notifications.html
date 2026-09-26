@@ -281,25 +281,26 @@ function render(){
   empty.style.display = "none";
   box.style.display = "flex";
   
-  box.innerHTML = list.map(n => {
-  const readLabel = n.read ? "MARK UNREAD" : "MARK AS READ";
-  const unreadClass = n.read ? "" : "unread";
-  return `
-    <article class="card \( {unreadClass}" data-id=" \){n.id}">
-      <div class="card-top">
-        <div class="card-title">${n.icon || "🔔"} ${escapeHtml(n.title)}</div>
-        <div class="card-time">${timeLabel(n.time)}</div>
-      </div>
-      <div class="card-body">${escapeHtml(n.body)}</div>
-      <span class="tag">${escapeHtml(n.tag || String(n.type || "").toUpperCase())}</span>
-      <div class="card-actions">
-        <button type="button" class="mini" data-open="${n.id}">OPEN</button>
-        <button type="button" class="mini" data-read="\( {n.id}"> \){readLabel}</button>
-        <button type="button" class="mini danger" data-del="${n.id}">DELETE</button>
-      </div>
-    </article>
-  `;
-}).join("");
+let html = "";
+  for (let i = 0; i < list.length; i++) {
+    const n = list[i];
+    const readLabel = n.read ? "MARK UNREAD" : "MARK AS READ";
+    const unreadClass = n.read ? "" : "unread";
+
+    html += '<article class="card ' + unreadClass + '" data-id="' + n.id + '">';
+    html += '<div class="card-top">';
+    html += '<div class="card-title">' + (n.icon || "🔔") + " " + escapeHtml(n.title) + "</div>";
+    html += '<div class="card-time">' + timeLabel(n.time) + "</div>";
+    html += "</div>";
+    html += '<div class="card-body">' + escapeHtml(n.body) + "</div>";
+    html += '<span class="tag">' + escapeHtml(n.tag || String(n.type || "").toUpperCase()) + "</span>";
+    html += '<div class="card-actions">';
+    html += '<button type="button" class="mini" data-open="' + n.id + '">OPEN</button> ';
+    html += '<button type="button" class="mini" data-read="' + n.id + '">' + readLabel + "</button> ";
+    html += '<button type="button" class="mini danger" data-del="' + n.id + '">DELETE</button>';
+    html += "</div></article>";
+  }
+  box.innerHTML = html;
 
   box.querySelectorAll("[data-open]").forEach(btn => {
     btn.onclick = () => {
