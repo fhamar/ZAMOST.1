@@ -221,6 +221,7 @@ footer{padding:28px 5%;background:#03080e;border-top:1px solid #263b50;color:#7d
   <button class="drawer-item" onclick="showSection('members',this)">👥 Team Members</button>
   <button class="drawer-item" onclick="showSection('delivery',this)">🚚 Delivery</button>
   <button class="drawer-item" onclick="showSection('ads',this)">🖼️ Manage Ads</button>
+  <a href="notifications.html" class="drawer-item">💬 Message</a>
   <div class="drawer-divider">PRODUCTS</div>
   <a href="Product-upload.html" class="drawer-item">🆕 Upload Product</a>
   <a href="catalog.html" class="drawer-item">📄 Catalog</a>
@@ -506,10 +507,18 @@ function renderAdsList(ads){
   var html = "";
   for(var i = 0; i < ads.length; i++){
     var ad = ads[i];
+    var typeLabel = String(ad.type || "text").toUpperCase();
+    var content = ad.content || "";
+    var isUrl = content.indexOf("http") === 0;
+
     html += '<div class="ad-item">' +
       '<div class="ad-item-body">' +
-        '<span class="ad-item-type">' + escapeHTML(String(ad.type || "text").toUpperCase()) + '</span>' +
-        '<div class="ad-item-text">' + escapeHTML(ad.content || "") + '</div>' +
+        '<span class="ad-item-type">' + escapeHTML(typeLabel) + '</span>' +
+        '<div class="ad-item-text" style="word-break:break-all;overflow-wrap:anywhere">' +
+          (isUrl
+            ? '<a href="' + escapeHTML(content) + '" target="_blank" rel="noopener" style="color:#4da3ff">' + escapeHTML(content) + '</a>'
+            : escapeHTML(content)) +
+        '</div>' +
         '<div class="ad-item-meta">Added by ' + escapeHTML(ad.createdByName || "Team Member") + '</div>' +
       '</div>' +
       '<button type="button" class="ad-delete" data-ad-id="' + escapeHTML(ad.id) + '">DELETE</button>' +
@@ -530,13 +539,38 @@ window.addAd = async function(){
   var typeEl = document.getElementById("adType");
   var contentEl = document.getElementById("adContent");
   var btn = document.getElementById("addAdBtn");
-  var type = typeEl.value || "text";
+  var type = (typeEl && typeEl.value) ? typeEl.value : "text";
   var content = (contentEl.value || "").trim();
 
-  if(!content){ showToast("Ad text ya URL enter karein."); contentEl.focus(); return; }
-  if((type === "image" || type === "video") && content.indexOf("http") !== 0){
-    showToast("Image/Video ke liye full URL lagao (https://...)");
+  if(!content){
+    showToast("Text ya URL enter karein.");
+    contentEl.focus();
     return;
+  }
+
+  // Image / Video / Link — koi bhi http(s) URL chalega (YouTube, Instagram, Facebook, site, mp4, jpg...)
+  if(type === "image" || type === "video" || type === "link"){
+    if(content.indexOf("http://") !== 0 && content.indexOf("https://") !== 0){
+      showToast("Full URL lagao — https:// se start (YouTube / Instagram / Facebook / image / video)");
+      contentEl.focus();
+      return;
+    }
+  }
+
+  // Auto-detect: agar user ne text type mein YouTube/IG/FB link daal diya
+  if(type === "text" && (content.indexOf("http://") === 0 || content.indexOf("https://") === 0)){
+    var lower = content.toLowerCase();
+    if(lower.indexOf("youtube.com") !== -1 || lower.indexOf("youtu.be") !== -1){
+      type = "video";
+    } else if(lower.indexOf("instagram.com") !== -1 || lower.indexOf("facebook.com") !== -1 || lower.indexOf("fb.com") !== -1){
+      type = "link";
+    } else if(/\.(mp4|webm|mov)(\?|$)/i.test(content)){
+      type = "video";
+    } else if(/\.(jpg|jpeg|png|gif|webp)(\?|$)/i.test(content)){
+      type = "image";
+    } else {
+      type = "link";
+    }
   }
 
   btn.disabled = true;
@@ -550,7 +584,7 @@ window.addAd = async function(){
       createdAt: serverTimestamp()
     });
     contentEl.value = "";
-    showToast("Ad Home page pe add ho gaya.");
+    showToast("Ad add ho gaya (Home pe dikhega).");
   }catch(e){
     console.error(e);
     showToast("Ad add nahi hua.");
