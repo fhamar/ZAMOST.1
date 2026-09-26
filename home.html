@@ -56,49 +56,17 @@ header{
 .hero-btns{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
 .btn-primary,.btn-secondary{padding:10px 19px;border-radius:9px;text-decoration:none;font-size:.85rem;font-weight:700}
 .btn-primary{background:var(--blue);color:white}.btn-secondary{background:#101a28;border:1px solid #2a3a50;color:white}
-.section-heading{margin-bottom:15px}
-.section-heading span{color:var(--blue2);font-size:.73rem;letter-spacing:1.7px;text-transform:uppercase;font-weight:800}
-.section-heading h2{font-size:1.55rem;margin-top:3px}
 
-/* ===== AD SECTION (bada screen) ===== */
+/* ===== AD SECTION ===== */
 .ad-banner-section{
   background:linear-gradient(145deg,#101b2a,#0b131f);
-  border:1px solid #294261;
-  border-radius:16px;
-  padding:12px 12px 10px;
-  margin-bottom:2.5rem;
-  box-shadow:0 12px 30px rgba(0,0,0,.14);
+  border:1px solid #294261;border-radius:16px;padding:12px 12px 10px;
+  margin-bottom:2.5rem;box-shadow:0 12px 30px rgba(0,0,0,.14)
 }
-.ad-header{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
-  margin-bottom:10px;
-  padding:0 2px;
-}
-.ad-header h2{
-  font-size:1.15rem;
-  margin:0;
-  color:#fff;
-  font-weight:800;
-}
-.ad-header .promo-tag{
-  color:#60a5fa;
-  font-size:.8rem;
-  letter-spacing:1.6px;
-  text-transform:uppercase;
-  font-weight:800;
-  white-space:nowrap;
-}
+.ad-header{display:none}
 .ad-carousel{
-  position:relative;
-  width:100%;
-  height:380px;
-  min-height:380px;
-  border-radius:12px;
-  overflow:hidden;
-  background:#080f19;
+  position:relative;width:100%;height:380px;min-height:380px;border-radius:12px;
+  overflow:hidden;background:#080f19
 }
 .ad-slide{
   position:absolute;inset:0;display:none;margin:0;padding:0;
@@ -108,20 +76,29 @@ header{
 .ad-slide img,.ad-slide video{
   width:100%!important;height:100%!important;object-fit:cover!important;display:block;border:0
 }
-.ad-slide .ad-text{padding:20px;line-height:1.5}
+.ad-slide iframe{width:100%;height:100%;border:0;display:block;background:#000}
+.ad-text{padding:20px;line-height:1.5}
 .ad-nav-btn{
   position:absolute;top:50%;transform:translateY(-50%);width:38px;height:38px;border-radius:50%;
   border:1px solid rgba(255,255,255,.25);background:rgba(0,0,0,.5);color:#fff;font-size:20px;
   cursor:pointer;z-index:5;display:flex;align-items:center;justify-content:center
 }
 .ad-nav-btn:hover{background:rgba(49,130,246,.75)}
-.ad-nav-prev{left:12px}
-.ad-nav-next{right:12px}
+.ad-nav-prev{left:12px}.ad-nav-next{right:12px}
 .ad-dots{display:flex;justify-content:center;gap:7px;padding:10px 0 0}
 .ad-dot{width:8px;height:8px;border-radius:50%;background:#2a3a50;cursor:pointer;border:none;padding:0}
 .ad-dot.active{background:#4da3ff}
 
 .products-section{margin-bottom:3rem}
+.section-heading{
+  margin-bottom:15px;display:flex;align-items:end;justify-content:space-between;gap:15px
+}
+.section-heading span{color:var(--blue2);font-size:.73rem;letter-spacing:1.7px;text-transform:uppercase;font-weight:800}
+.section-heading h2{font-size:1.55rem;margin-top:3px}
+.section-heading .section-ad-label{
+  color:#60a5fa;font-size:.72rem;letter-spacing:1.4px;text-transform:uppercase;font-weight:800;
+  background:#0d1a2a;border:1px solid #29486b;border-radius:20px;padding:6px 10px;white-space:nowrap
+}
 .product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
 .product-card{
  background:linear-gradient(145deg,#111c2b,#0b131f);border:1px solid var(--border);border-radius:15px;
@@ -136,7 +113,15 @@ header{
 .product-card h3{font-size:1rem;margin-bottom:5px}
 .product-card p{color:var(--muted);font-size:.78rem;margin-bottom:11px;min-height:38px}
 .price{color:#74b4ff;font-size:1.05rem;font-weight:800;margin-bottom:9px}
-.btn-view{display:block;text-align:center;padding:8px;background:#152337;color:white;border-radius:8px;font-size:.78rem;border:1px solid #283b53}
+.product-actions{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.btn-view{
+ display:block;text-align:center;padding:8px;background:#152337;color:white;border-radius:8px;
+ font-size:.78rem;border:1px solid #283b53
+}
+.btn-cart{
+ display:block;text-align:center;padding:8px;background:#2563eb;color:white;border-radius:8px;
+ font-size:.78rem;border:1px solid #4d91ff;font-weight:700
+}
 .team-box{
  background:linear-gradient(145deg,#101a29,#0b131f);border:1px solid var(--border);border-radius:16px;
  padding:22px;margin-bottom:2rem;display:flex;justify-content:space-between;align-items:center;gap:18px
@@ -184,7 +169,6 @@ footer{border-top:1px solid var(--border);background:#050911;margin-top:0}
 .logout-btn{width:100%;padding:9px;border:1px solid #2b3b50;border-radius:9px;background:#111d2c;color:#fff;font-weight:700;cursor:pointer}
 .toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:#101d2c;border:1px solid #355676;color:#fff;padding:9px 13px;border-radius:9px;font-size:.75rem;display:none;z-index:300}
 .toast.show{display:block}
-
 @media(max-width:900px){
   .product-grid{grid-template-columns:repeat(2,1fr)}
   .trust-strip{grid-template-columns:repeat(4,1fr)}
@@ -198,14 +182,15 @@ footer{border-top:1px solid var(--border);background:#050911;margin-top:0}
   .trust-strip{grid-template-columns:repeat(2,1fr)}.footer-grid{grid-template-columns:1fr}
   .footer-bottom{text-align:left;font-size:.62rem}
   .ad-carousel{height:260px;min-height:260px}
-  .ad-header h2{font-size:1.05rem}
-  .ad-header .promo-tag{font-size:.72rem;letter-spacing:1.2px}
   .ad-nav-btn{width:34px;height:34px;font-size:17px}
+  .section-heading{align-items:center}
+  .section-heading h2{font-size:1.25rem}
+  .section-heading .section-ad-label{font-size:.62rem;padding:5px 7px}
 }
 </style>
 </head>
 <body>
-
+  
 <header>
   <div class="logo-container">
     <div class="logo-badge">FZ</div>
@@ -250,12 +235,7 @@ footer{border-top:1px solid var(--border);background:#050911;margin-top:0}
   </div>
 </section>
 
-<!-- AD SECTION -->
 <section class="ad-banner-section">
-  <div class="ad-header">
-    <h2>Featured Advertisement</h2>
-    <span class="promo-tag">PROMO • MEDIA</span>
-  </div>
   <div class="ad-carousel" id="adCarousel">
     <div class="ad-slide active">📢 Loading ads...</div>
     <button class="ad-nav-btn ad-nav-prev" id="adPrev" type="button">‹</button>
@@ -266,8 +246,11 @@ footer{border-top:1px solid var(--border);background:#050911;margin-top:0}
 
 <section class="products-section" id="featured-products">
   <div class="section-heading">
-    <span>SHOP • SELECT • DISCOVER</span>
-    <h2>Featured Products</h2>
+    <div>
+      <span>SHOP • SELECT • DISCOVER</span>
+      <h2>Featured Products</h2>
+    </div>
+    <span class="section-ad-label">FEATURED • ADS</span>
   </div>
   <div class="product-grid" id="featuredProductGrid"></div>
 </section>
@@ -346,8 +329,8 @@ footer{border-top:1px solid var(--border);background:#050911;margin-top:0}
   </div>
   <div class="footer-bottom">© 2026 FHAMAR.ZAMOST Retail Services Ltd. All rights reserved. &nbsp; Privacy Policy &nbsp; Terms of Service &nbsp; 100% Secure Checkout</div>
 </div>
-  </footer>
-  <div class="toast" id="toast"></div>
+</footer>
+<div class="toast" id="toast"></div>
 
 <script type="module">
 import { app } from "./firebase-config.js";
@@ -366,6 +349,76 @@ function escapeHTML(value){
 var adRotateTimer = null;
 var adCurrent = 0;
 var adSlidesCount = 0;
+
+function getYouTubeEmbed(url){
+  try{
+    var u = new URL(url);
+    var id = "";
+    if(u.hostname.indexOf("youtu.be") !== -1) id = u.pathname.replace("/","").split("/")[0];
+    if(u.hostname.indexOf("youtube.com") !== -1){
+      id = u.searchParams.get("v") || "";
+      if(!id && u.pathname.indexOf("/shorts/") === 0) id = u.pathname.split("/shorts/")[1].split("/")[0];
+      if(!id && u.pathname.indexOf("/embed/") === 0) id = u.pathname.split("/embed/")[1].split("/")[0];
+    }
+    return id ? "https://www.youtube.com/embed/" + encodeURIComponent(id) + "?autoplay=1&mute=1&playsinline=1&rel=0" : "";
+  }catch(e){ return ""; }
+}
+
+function getInstagramEmbed(url){
+  try{
+    var u = new URL(url);
+    if(u.hostname.indexOf("instagram.com") === -1) return "";
+    return "https://www.instagram.com" + u.pathname.replace(/\/?$/,"/embed/") + "?autoplay=1";
+  }catch(e){ return ""; }
+}
+
+function getFacebookEmbed(url){
+  try{
+    var u = new URL(url);
+    if(u.hostname.indexOf("facebook.com") === -1 && u.hostname.indexOf("fb.watch") === -1) return "";
+    return "https://www.facebook.com/plugins/video.php?href=" + encodeURIComponent(url) + "&show_text=false&autoplay=true&mute=true";
+  }catch(e){ return ""; }
+}
+
+function isDirectVideo(url){
+  return /\.(mp4|webm|ogg|mov)(\?.*)?$/i.test(String(url || ""));
+}
+
+function renderAdContent(slide, ad){
+  var url = String(ad.content || ad.url || "").trim();
+  var type = String(ad.type || "").toLowerCase();
+
+  if(type === "image" || (!type && /\.(jpg|jpeg|png|gif|webp|avif)(\?.*)?$/i.test(url))){
+    slide.innerHTML = '<img src="' + escapeHTML(url) + '" alt="Ad">';
+    return "image";
+  }
+
+  if(type === "video" || isDirectVideo(url)){
+    slide.innerHTML = '<video muted playsinline preload="metadata" src="' + escapeHTML(url) + '"></video>';
+    return "video";
+  }
+
+  var yt = getYouTubeEmbed(url);
+  if(yt){
+    slide.innerHTML = '<iframe src="' + escapeHTML(yt) + '" title="YouTube advertisement" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';
+    return "embed";
+  }
+
+  var ig = getInstagramEmbed(url);
+  if(ig){
+    slide.innerHTML = '<iframe src="' + escapeHTML(ig) + '" title="Instagram advertisement" allow="autoplay; encrypted-media" scrolling="no"></iframe>';
+    return "embed";
+  }
+
+  var fb = getFacebookEmbed(url);
+  if(fb){
+    slide.innerHTML = '<iframe src="' + escapeHTML(fb) + '" title="Facebook advertisement" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';
+    return "embed";
+  }
+
+  slide.innerHTML = '<div class="ad-text">📢 ' + escapeHTML(url || ad.text || "Advertisement") + '</div>';
+  return "text";
+}
 
 function renderAdSlides(ads){
   var carousel = document.getElementById("adCarousel");
@@ -390,15 +443,8 @@ function renderAdSlides(ads){
     var ad = ads[i];
     var slide = document.createElement("div");
     slide.className = "ad-slide" + (i === 0 ? " active" : "");
-
-    if(ad.type === "image"){
-      slide.innerHTML = '<img src="' + escapeHTML(ad.content) + '" alt="Ad">';
-    } else if(ad.type === "video"){
-      slide.innerHTML = '<video autoplay muted loop playsinline src="' + escapeHTML(ad.content || "") + '"></video>';
-    } else {
-      slide.innerHTML = '<div class="ad-text">📢 ' + escapeHTML(ad.content || "") + '</div>';
-    }
-
+    var mediaKind = renderAdContent(slide, ad);
+    slide.dataset.mediaKind = mediaKind;
     carousel.insertBefore(slide, prevBtn);
     dotsHtml += '<button class="ad-dot' + (i === 0 ? " active" : "") + '" data-slide="' + i + '" type="button"></button>';
   }
@@ -417,7 +463,11 @@ function showAdSlide(index){
   if(index < 0) index = slides.length - 1;
   if(index >= slides.length) index = 0;
 
-  for(var i = 0; i < slides.length; i++) slides[i].classList.remove("active");
+  for(var i = 0; i < slides.length; i++){
+    slides[i].classList.remove("active");
+    var oldVideo = slides[i].querySelector("video");
+    if(oldVideo){ try{ oldVideo.pause(); oldVideo.currentTime = 0; }catch(e){} }
+  }
   for(var j = 0; j < dots.length; j++) dots[j].classList.remove("active");
 
   slides[index].classList.add("active");
@@ -425,39 +475,41 @@ function showAdSlide(index){
   adCurrent = index;
 
   var vid = slides[index].querySelector("video");
-  if(vid){ try{ vid.currentTime = 0; vid.play(); }catch(e){} }
-}
-
-function resetAdTimer(){
-  if(adRotateTimer) clearInterval(adRotateTimer);
-  if(adSlidesCount > 1){
-    adRotateTimer = setInterval(function(){ showAdSlide(adCurrent + 1); }, 4500);
+  if(vid){
+    vid.onended = function(){ showAdSlide(adCurrent + 1); };
+    try{ vid.currentTime = 0; vid.play().catch(function(){}); }catch(e){}
+    if(adRotateTimer) clearTimeout(adRotateTimer);
+  }else{
+    if(adRotateTimer) clearTimeout(adRotateTimer);
+    adRotateTimer = setTimeout(function(){
+      showAdSlide(adCurrent + 1);
+    }, slides[index].dataset.mediaKind === "image" ? 3000 : 6000);
   }
 }
 
+function resetAdTimer(){
+  if(adRotateTimer) clearTimeout(adRotateTimer);
+  showAdSlide(adCurrent);
+}
+
 function startAdCarousel(){
-  if(adRotateTimer) clearInterval(adRotateTimer);
+  if(adRotateTimer) clearTimeout(adRotateTimer);
 
   var dots = document.querySelectorAll("#adDots .ad-dot");
   for(var i = 0; i < dots.length; i++){
     dots[i].onclick = function(){
       showAdSlide(Number(this.getAttribute("data-slide")));
-      resetAdTimer();
     };
   }
 
   document.getElementById("adPrev").onclick = function(){
     showAdSlide(adCurrent - 1);
-    resetAdTimer();
   };
   document.getElementById("adNext").onclick = function(){
     showAdSlide(adCurrent + 1);
-    resetAdTimer();
   };
 
-  if(adSlidesCount > 1){
-    adRotateTimer = setInterval(function(){ showAdSlide(adCurrent + 1); }, 4500);
-  }
+  showAdSlide(0);
 }
 
 onSnapshot(collection(db, "ads"), function(snapshot){
@@ -511,10 +563,30 @@ function renderFeaturedProducts(liveProducts){
       '<h3>' + escapeHTML(prod.name) + '</h3>' +
       '<p>' + escapeHTML(prod.description) + '</p>' +
       '<div class="price">₹' + Number(prod.price).toLocaleString("en-IN") + '</div>' +
-      '<a href="product-details.html?id=' + encodeURIComponent(prod.id) + '" class="btn-view">VIEW PRODUCT</a>' +
+      '<div class="product-actions">' +
+        '<a href="product-details.html?id=' + encodeURIComponent(prod.id) + '" class="btn-view">BUY NOW</a>' +
+        '<button class="btn-cart" type="button" data-product-id="' + escapeHTML(prod.id) + '" data-product-name="' + escapeHTML(prod.name) + '">ADD CART</button>' +
+      '</div>' +
     '</div>';
   }
   grid.innerHTML = html;
+
+  var cartButtons = grid.querySelectorAll(".btn-cart");
+  for(var k = 0; k < cartButtons.length; k++){
+    cartButtons[k].addEventListener("click", function(){
+      var id = this.getAttribute("data-product-id");
+      var name = this.getAttribute("data-product-name") || "Product";
+      var cart = [];
+      try{ cart = JSON.parse(localStorage.getItem("fz_cart") || "[]"); }catch(e){ cart = []; }
+      var found = false;
+      for(var x = 0; x < cart.length; x++){
+        if(String(cart[x].id) === String(id)){ cart[x].qty = Number(cart[x].qty || 1) + 1; found = true; break; }
+      }
+      if(!found) cart.push({id:id,name:name,qty:1});
+      localStorage.setItem("fz_cart", JSON.stringify(cart));
+      showToast("Added to cart");
+    });
+  }
 }
 
 onSnapshot(collection(db, "products"), function(snapshot){
